@@ -555,6 +555,28 @@
             <div><b>1 harness</b><small>runtime source</small></div>
           </div>
         </article>
+        <article class="proof proven">
+          <div class="status">Proven route</div>
+          <h3>Recursive control holds the cavity hum.</h3>
+          <p>Six long-horizon generations (~1M steps) with an online pump controller plus a between-generation meta-adjuster. Steady-state violations: zero. The hum band was calibrated to the machine's own steady state, not imposed.</p>
+          <div class="metric"><strong>0</strong><span>steady-state violations<br>6 generations</span></div>
+          <div class="mini-data">
+            <div><b>~6.54</b><small>E_end in [4.11, 6.85]</small></div>
+            <div><b>2.0→6.10</b><small>aperture, as designed</small></div>
+            <div><b>ℓ=-3</b><small>selected mode</small></div>
+          </div>
+        </article>
+        <article class="proof failed">
+          <div class="status">Failed assumption</div>
+          <h3>The 99% twist was transient.</h3>
+          <p>Single-twist condensation at 99.2% share held only at 300 steps. Long horizons settle near 47% — and aperture strengthening selected ℓ=-3, not the ℓ=-1 of the short runs. No persistent condensation demonstrated.</p>
+          <div class="metric"><strong>99.2%→47%</strong><span>share, 300 vs<br>12,000 steps</span></div>
+          <div class="mini-data">
+            <div><b>0.209→0.384</b><small>share, gens 1–6</small></div>
+            <div><b>&lt;0.7</b><small>threshold unmet</small></div>
+            <div><b>48 runs</b><small>0 resets fired</small></div>
+          </div>
+        </article>
         <article class="proof open">
           <div class="status">Open gate</div>
           <h3>The data manifold may be smaller than the weight matrix.</h3>
@@ -584,6 +606,31 @@
         <button class="filter-btn" type="button" data-filter="open" aria-pressed="false">Open</button>
       </div>
       <div class="log" id="researchLog">
+        <article class="log-item" data-kind="proven">
+          <div class="log-tag">Proven</div>
+          <div><h3>Generational hum control: zero steady-state violations</h3><p>Six generations (~28 min each, ~168k steps) on the 5900XT. An online controller adjusted pump gain every ~20 s to hold E in [4.11, 6.85]; a meta-adjuster damped the rate 0.05→0.065 and grew the aperture 2.0→6.10. Every violation came from the intentional startup shock — steady-state violations were zero.</p></div>
+          <div class="log-note">2026-10-15<br>E_end ≈ 6.54<br>code: cavity4d/</div>
+        </article>
+        <article class="log-item" data-kind="failed">
+          <div class="log-tag">Failed</div>
+          <div><h3>The 99% twist was transient — corrected</h3><p>Earlier 99.2% single-twist condensation was a 300-step transient. Long-horizon runs settle near 47% share, and the six generations (0.209→0.384) never crossed 0.7. Aperture strengthening selected ℓ=-3 — a different mode than the short runs' ℓ=-1.</p></div>
+          <div class="log-note">Lesson: short-horizon emergence ≠ condensation.</div>
+        </article>
+        <article class="log-item" data-kind="failed">
+          <div class="log-tag">Failed</div>
+          <div><h3>Reset-as-defined does not exist — boundary closed</h3><p>48 long-horizon decay runs (γ 0.03→0.8, 2000 ticks): zero resets fired. Bath noise equilibrium sits ~4 orders of magnitude above the floor, so cores die by BER saturation (~0.5), not dissolution. The reset needs redefining, not more trials.</p></div>
+          <div class="log-note">Open question #1 closed 2026-10-15.</div>
+        </article>
+        <article class="log-item" data-kind="proven">
+          <div class="log-tag">Proven</div>
+          <div><h3>Cavity energetics measured: commit, decay, headroom</h3><p>Commit energy ≈3.16 (≈6.6% of trapped energy, quadratic in carrier scale); decay is apportionment of a fixed energy budget — black-hole gain keeps BER_core=0 but starves the background to BER 0.396; loop dynamic range 57.9 dB; photonic crossover ≈10⁴ commits/s.</p></div>
+          <div class="log-note">docs/decay-principle.md<br>docs/loop-headroom-and-cost.md</div>
+        </article>
+        <article class="log-item" data-kind="open">
+          <div class="log-tag">Open</div>
+          <div><h3>Aperture lever: helping, not yet confirmed</h3><p>Twist share rose monotonically 0.209→0.384 as aperture went 2.0→6.10, entropy 1.75→1.27 — still under 0.7. Pre-committed falsifier: if the aperture pins at its 8.0 cap and |d(share)| &lt; 0.01 for three consecutive generations, the lever is exhausted.</p></div>
+          <div class="log-note">resume_generations.py carries the falsifier.</div>
+        </article>
         <article class="log-item" data-kind="proven">
           <div class="log-tag">Proven</div>
           <div><h3>ROCm execution route established</h3><p>The RX 6600 XT runs the benchmark path. Dense and spectral timing can now be compared on the actual target hardware.</p></div>
@@ -664,7 +711,7 @@
     </section>
 
     <footer>
-      <div><strong>Status:</strong> representation precedent complete; behavioral compression unproven.</div>
+      <div><strong>Status:</strong> representation precedent complete; behavioral compression unproven. Checkpoint 2026-10-15: generational hum control, decay principle, commit energy, loop headroom measured — see build log.</div>
       <div>Built in public spirit: measurements before metaphors.</div>
     </footer>
   </main>
