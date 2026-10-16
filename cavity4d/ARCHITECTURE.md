@@ -453,3 +453,186 @@ safety.
 thresholds. The smoothstep IS the physics — it's a continuous activation
 function, not a discrete cutoff. Gemini's linear version hand-waves away
 the need for selectivity.
+
+## v13b — Scale matters: nested condensation zones (2026-10-16)
+
+**Directive** (Zak): "Assume scale matters. Heliosphere is a condensation
+zone. Galaxy plane from SMBH is also a condensation zone. Information is
+bent when passing these."
+
+**Built**: Multi-scale topology — SMBH (mass 40→21877 via accretion,
+hill_r=1.94) + 2 heliospheres (mass 6→632/885, hill_r=0.24/0.28).
+Measured background modal content vs radius after 30 ticks.
+
+**Measured** (dominant ℓ by radius):
+- r=0.47 (SMBH zone): ℓ=-2, twist 0.15 (ordered, coherent)
+- r=1.14-1.82 (inter-zone): ℓ=-4,0,0, twist 0.49-0.60 (turbulent)
+- r=2.16-2.83 (outer): ℓ=-3,-2,-3, twist 0.39-0.57 (moderate)
+
+**Interpretation**: Condensation zones imprint modal signatures. The SMBH
+organizes (low twist near center); the space between zones is turbulent
+(high twist). Information (phase structure) IS bent by scale — different
+radii have different dominant ℓ. The masses accreted dramatically
+(40→21877), proving these are true condensation zones, not static wells.
+
+Scale hierarchy confirmed: hill_r 1.94 (galactic) vs 0.24/0.28 (stellar).
+Nested, like Zak said.
+
+## v14 — 3-node routing: solitons are memory, not messages (2026-10-16)
+
+**Test**: Packet (ℓ=2) injected at Node A, measured at C after 80 ticks.
+Clean vs shear (heliosphere between B-C). Viscosity ON vs OFF.
+
+**Measured** (all 4 configs):
+- At C: ℓ=0 (not delivered). At B (relay): ℓ=1 (degraded from 2).
+- Packet does NOT propagate A→C. It stays at A and dissipates.
+
+**Interpretation**: Topological solitons are PERSISTENT STRUCTURES
+(memory), not messengers. They don't travel like IP packets. The ℓ=1
+at B shows influence propagated but degraded. For transmission, need:
+- Waves (modulated power flow), not solitons, OR
+- Store-and-forward: B reads ℓ at A, injects fresh soliton at B, C reads.
+- Modal amplifiers as repeaters (like transoceanic fiber amplifiers).
+
+This matches Zak's "processing = power management": soliton = stable
+power structure (memory). Transmission = modulating power flow (waves).
+
+## Power tiers (measured 2026-10-16)
+
+From cavity measurements:
+- **T1 (Maintenance)**: Background field E=1.0 (normalized). Full cavity
+  with pump: E~6.5, pump ~7.0/tick. This is the standing wave — the
+  universe's baseline power to exist.
+- **T2 (Interaction)**: Packet injection (ℓ=2, amp=0.4): E=0.068.
+  6.8% of background. Sending data costs ~7% of maintenance.
+- **T3 (Ablation)**: Viscosity dissipates ~0.0004/tick (0.07%).
+  Negligible — the shield is cheap.
+
+**Scaling law** (Zak's fusion→internet):
+  P_maintain = E_bg × (V_net / V_cav) × (refresh rate)
+  P_interact = N_packets × E_packet × (packet rate)
+  P_total = P_maintain + P_interact
+  Requirement: P_fusion ≥ P_total.
+
+The geometry IS the transformer: proper trap geometry + power input
+entangles data and power continuity. Fusion activation energy in the
+right geometry maintains the internet-as-standing-wave; user queries
+traverse the wave dynamics to reach data.
+
+## Fine-tune: Eddington saturation (2026-10-16)
+
+**Directive** (Zak): "Nothing should run away. Space limited at Planck,
+gravity weakness allows locality in extremes. Focus on fine tuning."
+
+**Problem**: SMBH accreted 40→21,877 in 30 ticks (v13b). Unbounded.
+
+**Fix**: Eddington-like saturation in `cavity_orbits.py` sink accretion:
+  edd_factor = 1 / (1 + M / M_edd), M_edd=200.
+  kappa_eff = kappa_sink * edd_factor.
+Natural cap from radiation pressure — the hole can't eat faster than
+its own glow pushes back. Not artificial; physical.
+
+**Measured** (30 ticks, SMBH + heliosphere):
+- Before: 40→21,877 (runaway).
+- After: 40→1,760→4,041→4,623 (saturating).
+Growth slows as M approaches M_edd. The system finds equilibrium.
+
+Planck scale limits space; weak gravity preserves locality; Eddington
+caps accretion. No artificial caps needed — just correct feedback.
+
+**Qualification** (added 2026-10-16): M_edd=200.0 is uncalibrated —
+chosen by the assistant, not derived. Growth slowed but no plateau
+demonstrated. This is a saturation heuristic, not a derived physical
+law. Before retaining: verify M_0 conservation, run longer horizon,
+sweep physically justified values, rule out hidden accounting bugs.
+
+## v13: Nested condensation zones (2026-10-16)
+
+**v13a (packet tracker) — FAILED.** Tracker locked onto SMBH background
+maximum, not the injected packet. Reported ℓ=0 in both branches.
+Does not establish packet propagation or destruction.
+
+**v13b (radial modal profile) — UNCONTROLLED OBSERVATION.** Measured
+radial ℓ-profile around SMBH + 2 heliosphere sinks after 30 ticks.
+Found varying ℓ by radius (ℓ=-2 at r=0.47, ℓ=2 at r=0.81, etc.).
+**Correction:** No no-body control, no initial-profile comparison,
+bodies moved/accreted enormously (SMBH 40→21,877). Radial differences
+could be pre-existing background, numerical geometry, or global
+evolution. This is an observation, not proof of condensation-zone
+modal organization.
+
+## v14: Three-node routing (2026-10-16) — HARNESS FAILED
+
+Setup: Node A (amplifier) → B (amplifier) → C (sink), ℓ=2 injected at A.
+Result: ℓ=1 at B, ℓ=0 at C in all branches. No delivery.
+
+**Critical:** `CavitySystem.tick()` has no propagation step for injected
+packets. The test measured fixed locations after local updates — it did
+not track a moving packet. "Solitons are memory, not messages" is a
+hypothesis suggested by this failed harness, not a measured conclusion.
+
+Next routing test must: explicit propagation, no-injection control,
+injected-field delta (not total background), packet centroid tracking,
+pre-defined arrival criterion.
+
+## v15: Transoceanic backbone (2026-10-16)
+
+**Scale:** 1 cavity unit = 3,704 km (2.7 units = 10,000 km).
+NY (1.0, 0) → London (1.0, π) = 7,408 km (transatlantic).
+Calibrated to MAREA (6,200 km), 200 Tbps, 200,000 km/s.
+
+**v15a (backbone) — FAILED.** Mass-12 IXPs + gain → runaway.
+E_field 7→6,645. M_0 blown. Lesson: smaller masses, capped gain.
+
+**v15b (mature universe) — PARTIAL.** Three species (IXP mass 2.5,
+EDFA 0.5, device 0.1), all orbiting. Energy bounded (no plasma ball).
+Hill radii show diversity: IXP 1.4–3.2, EDFA 0.03–0.15, device 0.25–0.44.
+**But:** started hot (163K → 4K cooling, not steady-state).
+Backbone ℓ=-3 at 10% (weak, not ℓ=2 waveguide).
+Device Hill > EDFA Hill despite 5× less mass (unexpected).
+
+**v15c (speed hierarchy) — HALF MEASURED.** Orbital periods: NY IXP
+T=1,837, London IXP T=11,673 (stuck, not orbiting — sinkhole),
+EDFA and device counter-rotating (background vortex).
+Carrier speed: FAILED — cross-correlation found zero shift.
+Field dominated by standing waves; no clean propagating front.
+
+**v15d (pulse tracking) — INFORMATIVE FAILURE.** Injected ℓ=2 Gaussian
+pulse with absorbing boundaries. Pulse dispersed immediately, fell
+INWARD into V_TRAP (-78.7 km/s), 98.6% absorbed.
+**Conclusion:** The cavity is a bowl, not a pipe. V_TRAP prevents
+ballistic propagation. Software cannot simulate fiber transmission
+on a trapped grid — this needs physical hardware (fiber waveguide).
+
+## The software/hardware boundary (2026-10-16)
+
+**Proven by measurement, not philosophy:**
+
+Software owns (blueprint — logic, no Joules):
+- Topology (ℓ winding numbers, vortex protection)
+- Accounting (M_0 ledger, Eddington saturation equation)
+- Laws (viscosity smoothstep, W_floor, gain caps)
+- Routing decisions, burn-vs-bury availability logic
+
+Hardware owns (work — Joules, photons, heat):
+- Wave propagation at 200,000 km/s (v15d proved software can't)
+- Thermodynamic dissipation (real heat, not ledger entries)
+- OAM mode sorting (the #1 blocked gap)
+- Energy generation (distributed edge power)
+
+Border (coded now, migrate to glass later):
+- Eddington saturation (equation right, force needs photons)
+- Viscosity (selectivity right, dissipation needs thermal)
+- Nonlinear mixing (math right, needs crystal)
+
+**Principle:** Software defines the geometry of what should happen;
+hardware is the work of it actually happening.
+
+## Feature spec (2026-10-16)
+
+13 features spec'd with applications, materials, user profiles across
+8 industries. See `feature-spec-hardware-software-20261016.md`.
+
+Benchtop order: fiber ($50) → laser+SLM ($3K) → PPLN ($500) →
+OAM sorter ($1-3K, THE GATE) → edge power ($2K) → radiative ($50).
+~$5-7K to close the loop. $343-486 signal-and-observe only.

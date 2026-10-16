@@ -516,7 +516,14 @@ class CavitySystem:
                     K = K / K.max()  # peak-1 like Condensate.K
                     m_before = np.abs(self.psi) ** 2
                     E_pre = C.energy(self.psi)
-                    self.psi = self.psi * (1 - kappa_sink * K)
+                    # Eddington-like saturation: accretion efficiency drops
+                    # as mass grows. Natural cap from radiation pressure —
+                    # the hole can't eat faster than its own glow pushes back.
+                    # (Fine-tune: M_edd=200 sets the saturation scale.)
+                    M_edd = 200.0
+                    edd_factor = 1.0 / (1.0 + b.mass / M_edd)
+                    kappa_eff = kappa_sink * edd_factor
+                    self.psi = self.psi * (1 - kappa_eff * K)
                     dE = E_pre - C.energy(self.psi)
                     self.ledger["condensed_mass"] += dE
                     self.ledger["condensed_field"] += m_before - np.abs(self.psi) ** 2
