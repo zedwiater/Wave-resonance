@@ -23,10 +23,11 @@ import os
 import numpy as np
 
 # Paths (IRSA Planck release_3, or local cache)
-IRSA_BASE = "https://irsa.ipac.caltech.edu/data/Planck/release_3/maps"
-SMICA_FILE = "COM_CMB_IQU-smica_2048_R3.00_full.fits"
-MASK_FILE = "COM_Mask_CMB-common-Mask-Int_2048_R3.00.fits"
-COMMANDER_FILE = "COM_CMB_IQU-commander_2048_R3.00_full.fits"
+IRSA_MAPS = "https://irsa.ipac.caltech.edu/data/Planck/release_3/all-sky-maps/maps/component-maps/cmb"
+IRSA_ANCIL = "https://irsa.ipac.caltech.edu/data/Planck/release_3/ancillary-data/masks"
+SMICA_FILE = ("COM_CMB_IQU-smica_2048_R3.00_full.fits", IRSA_MAPS)
+MASK_FILE = ("COM_Mask_CMB-common-Mask-Int_2048_R3.00.fits", IRSA_ANCIL)
+COMMANDER_FILE = ("COM_CMB_IQU-commander_2048_R3.00_full.fits", IRSA_MAPS)
 CACHE_DIR = os.path.expanduser("~/wave-sunday/data/cmb")
 
 
@@ -35,13 +36,15 @@ def ensure_data():
     os.makedirs(CACHE_DIR, exist_ok=True)
     import urllib.request
     paths = {}
-    for fname in [SMICA_FILE, MASK_FILE, COMMANDER_FILE]:
+    for fname, base in [SMICA_FILE, MASK_FILE, COMMANDER_FILE]:
         local = os.path.join(CACHE_DIR, fname)
         if not os.path.exists(local):
-            url = f"{IRSA_BASE}/{fname}"
+            url = f"{base}/{fname}"
             print(f"Downloading {fname}...", flush=True)
             urllib.request.urlretrieve(url, local)
-        paths[fname] = local
+        # Key by short name for downstream use
+        short = "smica" if "smica" in fname else ("mask" if "Mask" in fname else "commander")
+        paths[short] = local
     return paths
 
 
@@ -217,10 +220,10 @@ def main():
         return
 
     print("Step 2: Extracting SMICA patches...", flush=True)
-    patches_smica, nside = extract_patches(paths[SMICA_FILE], paths[MASK_FILE])
+    patches_smica, nside = extract_patches(paths["smica"], paths["mask"])
 
     print("Step 3: Extracting Commander patches...", flush=True)
-    patches_cmd, _ = extract_patches(paths[COMMANDER_FILE], paths[MASK_FILE])
+    patches_cmd, _ = extract_patches(paths["commander"], paths["mask"])
 
     print(f"Got {len(patches_smica)} SMICA, {len(patches_cmd)} Commander patches",
           flush=True)
