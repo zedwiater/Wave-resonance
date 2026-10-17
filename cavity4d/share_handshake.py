@@ -9,7 +9,21 @@ This implements the SHARE handshake:
 2. Target detects harmonic resonance at integer winding number
 3. Both lock local oscillators to shared l mode
 4. Coherence budget tracked (M_0 per coherence-second)
-5. Re-pair when phase drift exceeds pi/4, else degrade gracefully to SEND
+5. Tension cost tracked (K·sin(Δφ) per tick — the Alcubierre cost)
+6. Re-pair when phase drift exceeds pi/4, else degrade gracefully to SEND
+
+THE ALCUBIERRE REFRAMING:
+  Alcubierre (1994): warp (x,y,z) coordinates to bring distant points together.
+    Cost: exotic matter (negative energy density). Unphysical at scale.
+
+  SHARE: match (ω,ℓ) to make distant points topologically adjacent.
+    Cost: coupling energy (tension). Finite, measurable.
+
+  Instead of bending spacetime, we bypass the distance metric entirely
+  by working in frequency/mode space. The "warp bubble" is a phase-locked
+  mode. The "exotic matter" is the tension holding the lock.
+
+  Topological distance d_topo = f(Δω, Δφ, Δℓ, K) — not kilometers.
 
 Maps to:
   S2 (routing): mode overlap = topological distance
@@ -50,18 +64,24 @@ class ShareAnchor:
 
     Locks to a shared l mode via pilot-tone handshake.
     Tracks coherence budget (M_0 per coherence-second).
+    Tracks tension cost (torque to maintain lock against drift).
     """
 
-    def __init__(self, name, material="NV_diamond", base_nu=1.0):
+    def __init__(self, name, material="NV_diamond", base_nu=1.0,
+                 coupling_K=1.0):
         self.name = name
         self.material = material
         self.base_nu = base_nu  # local oscillator base frequency
+        self.coupling_K = coupling_K  # coupling strength (the "string tension")
         self.locked_ell = None  # shared winding number (None = unlocked)
         self.partner = None     # paired anchor name
         self.phase = 0.0        # local phase
         self.phase_drift = 0.0  # cumulative drift since lock
         self.coherence_budget = 0.0  # M_0 spent on maintenance
+        self.tension_energy = 0.0  # cumulative ∫ K·sin(Δφ) dt — the Alcubierre cost
+        self.tension_peak = 0.0  # max tension seen (for break-even analysis)
         self.lock_time = 0.0
+        self.bits_shared = 0  # for per-bit cost calculation
 
     def emit_pilot(self, ell_target=2, sweep_n=16, amp=0.01):
         """Origin: emit low-amplitude sweeping pilot tone.
@@ -100,8 +120,38 @@ class ShareAnchor:
         self.lock_time = 0.0
         return True
 
+    def tension(self):
+        """Instantaneous tension: T = K·sin(Δφ).
+
+        The restoring torque. Zero at Δφ=0 (locked) and Δφ=π (anti-locked).
+        Maximum at Δφ=π/2. This is the "string tension" holding the
+        topological link — the Alcubierre exotic-matter cost made finite.
+        """
+        if self.locked_ell is None:
+            return 0.0
+        return self.coupling_K * np.sin(self.phase_drift)
+
+    def topological_distance(self, other):
+        """Topological distance to another anchor.
+
+        d_topo = f(Δω, Δφ, Δℓ, K)
+        Not geographic — mode-space distance.
+        Returns inf if ℓ modes differ (different topological sectors).
+        """
+        if self.locked_ell is None or other.locked_ell is None:
+            return float('inf')
+        if self.locked_ell != other.locked_ell:
+            return float('inf')  # different sectors, no coupling possible
+        d_omega = abs(self.base_nu - other.base_nu)
+        d_phi = abs(self.phase_drift - other.phase_drift)
+        K_eff = min(self.coupling_K, other.coupling_K)
+        if K_eff <= 0:
+            return float('inf')
+        # Normalized detuning + phase separation, scaled by coupling
+        return (d_omega + d_phi) / K_eff
+
     def tick(self, dt=1.0, thermal_noise=0.001, maintenance_pump=0.0001):
-        """Advance one time step. Track phase drift and M_0 cost.
+        """Advance one time step. Track phase drift, tension, and M_0 cost.
 
         Returns status: 'locked', 're-pairing', or 'degraded'.
         """
@@ -111,6 +161,13 @@ class ShareAnchor:
         self.lock_time += dt
         # Thermal noise causes phase drift (random walk)
         self.phase_drift += np.random.normal(0, thermal_noise * np.sqrt(dt))
+
+        # TENSION COST: energy to hold lock against drift
+        # E_tension = ∫ K·sin(Δφ) dt — this is the Alcubierre cost
+        T = self.tension()
+        self.tension_energy += abs(T) * dt
+        self.tension_peak = max(self.tension_peak, abs(T))
+
         # Maintenance pump corrects drift (costs M_0)
         correction = -np.sign(self.phase_drift) * min(
             abs(self.phase_drift), maintenance_pump * dt * 10)
@@ -140,11 +197,54 @@ class ShareAnchor:
                 "phase": self.phase, "from": self.name}
 
 
+def share_vs_send_breakeven(distance_km, data_bits, tension_per_tick,
+                          ticks_needed, send_joules_per_km_per_bit=1e-9):
+    """Break-even analysis: when does SHARE cost exceed SEND cost?
+
+    E_share = tension_per_tick × ticks_needed (topological, distance-independent)
+    E_send  = distance_km × data_bits × J/km/bit (propagation, distance-dependent)
+
+    SHARE wins when E_share < E_send.
+    The crossover distance is where they equal.
+
+    This is the Alcubierre reframing: instead of warping (x,y,z) to bring
+    distant points together (requiring exotic matter), we match (ω,ℓ) to make
+    distant points topologically adjacent (requiring coupling energy).
+
+    The "exotic matter" cost becomes a finite, measurable tension cost.
+    """
+    E_share = tension_per_tick * ticks_needed
+    E_send = distance_km * data_bits * send_joules_per_km_per_bit
+
+    if E_share <= 0:
+        return {"winner": "SHARE", "reason": "zero tension cost",
+                "E_share": 0, "E_send": E_send}
+
+    # Crossover: distance where E_send = E_share
+    if data_bits * send_joules_per_km_per_bit > 0:
+        crossover_km = E_share / (data_bits * send_joules_per_km_per_bit)
+    else:
+        crossover_km = float('inf')
+
+    winner = "SHARE" if E_share < E_send else "SEND"
+    return {
+        "winner": winner,
+        "E_share_J": round(E_share, 9),
+        "E_send_J": round(E_send, 9),
+        "crossover_km": round(crossover_km, 1),
+        "ratio": round(E_send / max(E_share, 1e-18), 2),
+        "interpretation": (
+            f"SHARE wins beyond {crossover_km:.1f} km for this data volume. "
+            f"Below that, just send it through fiber."
+        ),
+    }
+
+
 def demo_handshake():
     """Two anchors pair via pilot tone, exchange data, track budget."""
     np.random.seed(7)
-    alice = ShareAnchor("NY", material="erbium")
-    bob = ShareAnchor("London", material="erbium")
+    alice = ShareAnchor("NY", material="erbium", coupling_K=1.0)
+    bob = ShareAnchor("London", material="erbium", coupling_K=1.0)
 
     # Step 1: Alice emits pilot
     pilot = alice.emit_pilot(ell_target=2)
@@ -157,8 +257,10 @@ def demo_handshake():
 
     # Step 3: Exchange via SHARE (no propagation delay)
     msg = alice.share_state({"key": "topological", "value": 42})
+    alice.bits_shared += 1024  # simulated payload
+    bob.bits_shared += 1024
 
-    # Step 4: Run for 100 ticks, track coherence
+    # Step 4: Run for 100 ticks, track coherence AND tension
     statuses = []
     for t in range(100):
         sa = alice.tick(dt=1.0)
@@ -169,6 +271,17 @@ def demo_handshake():
 
     n_ticks = len(statuses)
     total_budget = alice.coherence_budget + bob.coherence_budget
+    total_tension = alice.tension_energy + bob.tension_energy
+    peak_tension = max(alice.tension_peak, bob.tension_peak)
+    topo_dist = alice.topological_distance(bob)
+
+    # Break-even: NY-London is ~5,570 km
+    breakeven = share_vs_send_breakeven(
+        distance_km=5570,
+        data_bits=1024,
+        tension_per_tick=total_tension / max(n_ticks, 1),
+        ticks_needed=n_ticks,
+    )
 
     return {
         "handshake": "pilot_tone",
@@ -178,6 +291,11 @@ def demo_handshake():
         "ticks_before_repair": n_ticks,
         "total_M0_coherence": round(total_budget, 6),
         "M0_per_tick": round(total_budget / max(n_ticks, 1), 6),
+        "total_tension_energy": round(total_tension, 6),
+        "tension_per_tick": round(total_tension / max(n_ticks, 1), 6),
+        "peak_tension": round(peak_tension, 6),
+        "topological_distance": round(topo_dist, 6) if topo_dist != float('inf') else "inf",
+        "breakeven_5570km": breakeven,
         "final_status": statuses[-1] if statuses else None,
     }
 
