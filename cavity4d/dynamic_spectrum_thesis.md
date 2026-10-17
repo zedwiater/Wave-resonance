@@ -56,6 +56,53 @@ duration of the drive.
 
 You're not wedging nuclei together. You're ringing the bell they sit in.
 
+## Z-Pinch vs Toroidal Cascade
+
+**Z-pinch (brute force):** axial current → azimuthal B-field → radial pinch
+("pancaking the drop"), then energy dumped in. Fundamentally limited by
+m=0 (sausage) and m=1 (kink) instabilities — the topology is too simple,
+so injected energy has nowhere to cascade except into destruction modes.
+
+**Toroidal cascade (inverse transduction):** establish the toroidal field
+topology with OAM twist FIRST, then inject energy at low mode number.
+Nonlinear coupling walks energy through the modal structure to smaller
+scales where it heats ions. Engineered turbulence — you design the cascade
+path instead of hoping the pinch holds.
+
+The z-pinch does it backwards: energy first, topology as afterthought.
+We do topology first, energy as cascade.
+
+## D-D Neutron Detection Parameters
+
+**Reaction:** D + D → ³He + n (2.45 MeV), ~50% branch.
+
+**Detector options (bench scale):**
+
+| Detector | Pros | Cons | ~Cost |
+|----------|------|------|-------|
+| He-3 proportional tube + moderator | Gold standard, clean signal | He-3 scarce, expensive | $2K-5K |
+| BC-501A liquid scintillator + PSD | Pulse-shape discrimination rejects gammas | Needs fast digitizer | $800-1.5K |
+| Moderated BF3 tube | Cheaper than He-3 | Lower efficiency | $500-1K |
+| Bubble detector (BD-PND) | Passive, no electronics, visual | No timing info, single-use | $50 each |
+
+**Recommended bench approach:** BC-501A scintillator with polyethylene
+moderator, coupled to PMT + digitizer running pulse-shape discrimination.
+Rejects gamma background, gives timing correlated to RF drive phase.
+
+**Measurement protocol:**
+1. Baseline: RF off, count neutrons for 1 hour → cosmic + background rate.
+2. Untwisted RF: m=0 helicon drive at fixed power, count 1 hour.
+3. Twisted RF: switch to m=2 OAM drive, same power, count 1 hour.
+4. Frequency sweep: step RF through harmonics, 15 min each, look for
+   resonant enhancement in neutron rate vs smooth thermal expectation.
+5. Falsifier: if neutron rate under twisted drive = untwisted within
+   Poisson statistics, geometric drive does nothing. Hypothesis dies.
+
+**Expected signal (if hypothesis holds):** neutron rate enhancement
+correlated to specific RF harmonics, not to total input power. The
+tunnel-opening harmonic shows as a peak in counts/sec vs frequency,
+not a monotonic rise with power.
+
 ## Experimental Program
 
 1. **D-D fusion under RF drive** (bench scale): measure neutron output
