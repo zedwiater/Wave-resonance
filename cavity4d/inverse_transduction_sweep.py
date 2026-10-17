@@ -1,5 +1,10 @@
 """Inverse transduction spectrum sweep: CERN particle masses vs toroidal harmonics.
 
+NOTE (2026-10-17): This script tests the STATIC hypothesis — particle masses
+as toroidal eigenvalues. Result was null (p=0.62). The framework has pivoted
+to DYNAMIC wave spectrum analysis; see dynamic_spectrum_thesis.md.
+This script is retained as an honest null, not deleted.
+
 Hypothesis: if particles are transduced modes of a toroidal host geometry,
 their masses should follow toroidal cavity eigenmode relationships,
 not random values.

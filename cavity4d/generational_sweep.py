@@ -1,5 +1,11 @@
 """Generational frequency sweep: lepton family as toroidal harmonic ladder.
 
+NOTE (2026-10-17): This script tests the STATIC hypothesis — generations as
+toroidal (m,n) modes. Result was null (no fit). The framework has pivoted
+to DYNAMIC wave spectrum analysis; see dynamic_spectrum_thesis.md.
+Koide Q=0.666661 (9 ppm) confirmed as real; mechanism TBD.
+This script is retained as an honest null, not deleted.
+
 Tests whether electron/muon/tau mass ratios fit toroidal cavity mode
 transitions, treating generations as higher-order (m,n) modes in the
 same confinement topology.
