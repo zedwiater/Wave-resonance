@@ -115,11 +115,24 @@ def inspect_sample(download=True):
 
     print("Loading MNE sample dataset...")
     data_path = sample.data_path(download=download)
-    raw_fname = (data_path / "MEG" / "sample" / "sample_audvis_filt-0-40_raw.fif")
-    event_fname = (data_path / "MEG" / "sample" / "sample_audvis_filt-0-40_raw-eve.fif")
+    meg_dir = data_path / "MEG" / "sample"
+    # Prefer UNFILTERED raw for gamma work (filt-0-40 kills 30-80 Hz band)
+    raw_candidates = [
+        meg_dir / "sample_audvis_raw.fif",
+        meg_dir / "sample_audvis_filt-0-40_raw.fif",
+    ]
+    raw_fname = next((f for f in raw_candidates if f.exists()), None)
+    if raw_fname is None:
+        raise FileNotFoundError("No sample raw file found")
+    eve_fname = raw_fname.parent / (raw_fname.stem + "-eve.fif")
+    if not eve_fname.exists():
+        eve_fname = meg_dir / "sample_audvis_filt-0-40_raw-eve.fif"
+    gamma_ok = "filt" not in raw_fname.name
+    if not gamma_ok:
+        print("  WARNING: using 0-40 Hz filtered data — gamma Q-factor attenuated.")
 
     raw = mne.io.read_raw_fif(raw_fname, preload=True, verbose=False)
-    events = mne.read_events(event_fname, verbose=False)
+    events = mne.read_events(eve_fname, verbose=False)
 
     # Pick MEG magnetometers (radial field) + EEG
     picks_mag = mne.pick_types(raw.info, meg="mag", exclude="bads")
@@ -134,28 +147,37 @@ def inspect_sample(download=True):
     results = {}
     for cond in ["auditory/left", "visual/left"]:
         ep = epochs[cond]
-        # PSD per condition (magnetometers)
+        edata = ep.get_data(picks=picks_mag)  # (n_epochs, n_ch, n_times)
+        n_times = edata.shape[-1]
+        # PSD per condition (magnetometers); n_fft must fit inside the epoch
+        n_fft = min(256, n_times)
         psd, freqs = mne.time_frequency.psd_array_welch(
-            ep.get_data(picks=picks_mag), sfreq=raw.info["sfreq"],
-            fmin=1, fmax=100, n_fft=2048, verbose=False)
+            edata, sfreq=raw.info["sfreq"],
+            fmin=1, fmax=100, n_fft=n_fft, n_per_seg=n_fft, verbose=False)
         mean_psd = psd.mean(axis=(0, 1))  # avg over epochs and channels
 
         # Gamma Q-factor: find dominant peak 30-80 Hz, Q = f0 / FWHM
+        # Peak must be INTERIOR to the band — edge maxima are not resonances
         gmask = (freqs >= 30) & (freqs <= 80)
         gf, gp = freqs[gmask], mean_psd[gmask]
         peak_idx = np.argmax(gp)
-        f0 = gf[peak_idx]
-        half = gp[peak_idx] / 2
-        above = np.where(gp >= half)[0]
-        # contiguous region around peak
-        left = peak_idx
-        while left > 0 and left - 1 in above:
-            left -= 1
-        right = peak_idx
-        while right < len(gp) - 1 and right + 1 in above:
-            right += 1
-        fwhm = gf[right] - gf[left] if right > left else np.nan
-        q = f0 / fwhm if fwhm and not np.isnan(fwhm) else np.nan
+        if peak_idx == 0 or peak_idx == len(gp) - 1:
+            f0, q = float(gf[peak_idx]), None
+            q_note = "no interior peak (band-edge max)"
+        else:
+            f0 = gf[peak_idx]
+            half = gp[peak_idx] / 2
+            above = np.where(gp >= half)[0]
+            # contiguous region around peak
+            left = peak_idx
+            while left > 0 and left - 1 in above:
+                left -= 1
+            right = peak_idx
+            while right < len(gp) - 1 and right + 1 in above:
+                right += 1
+            fwhm = gf[right] - gf[left] if right > left else np.nan
+            q = f0 / fwhm if fwhm and not np.isnan(fwhm) else np.nan
+            q_note = None
 
         # Inter-trial phase coherence in gamma (30-80 Hz)
         # via Morlet wavelets on a subset of channels (speed)
@@ -169,10 +191,12 @@ def inspect_sample(download=True):
         results[cond] = {
             "n_epochs": len(ep),
             "gamma_peak_hz": round(float(f0), 1),
-            "gamma_q_factor": round(float(q), 2) if not np.isnan(q) else None,
+            "gamma_q_factor": round(float(q), 2) if q and not np.isnan(q) else None,
+            "q_note": q_note,
             "mean_itc_gamma": round(mean_itc, 4),
         }
-        print(f"  {cond}: peak={f0:.1f}Hz Q={q:.2f} ITPC={mean_itc:.4f}")
+        q_str = f"Q={q:.2f}" if q and not np.isnan(q) else f"Q=n/a ({q_note})"
+        print(f"  {cond}: peak={f0:.1f}Hz {q_str} ITPC={mean_itc:.4f}")
 
     return results
 
@@ -246,14 +270,36 @@ def gap_report(data_check, spectral_results=None):
     print("=" * 60)
 
 
+def inspect_hcp_nback(hcp_dir, subject="auto"):
+    """90° toroidal/poloidal coupling test on HCP MEG n-back data.
+
+    REQUIRES: HCP ConnectomeDB account + downloaded MEG n-back package.
+    See: https://db.humanconnectome.org/app/template/Login.vm
+
+    Pipeline (not yet run — needs the data):
+      1. Load n-back task MEG (0-back vs 2-back conditions)
+      2. Source reconstruction (MNE dSPM, needs FreeSurfer recon)
+      3. Decompose source currents into toroidal/poloidal components
+         via vector spherical harmonics on the cortical surface
+      4. Coupling angle per trial → compare 0-back vs 2-back
+    Prediction: ~90° coupling during high-integration (2-back) trials.
+    """
+    print("HCP n-back mode: needs downloaded HCP MEG data at", hcp_dir)
+    print("This branch is a scaffold — run steps 1-4 above once data is local.")
+    print("Nothing to fabricate here: no data, no result.")
+    return {"status": "scaffold", "needs": "HCP MEG n-back download"}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check-data", action="store_true")
     ap.add_argument("--inspect-sample", action="store_true")
+    ap.add_argument("--hcp", metavar="HCP_DIR",
+                    help="Run n-back analysis on local HCP MEG download")
     ap.add_argument("--full", action="store_true")
     args = ap.parse_args()
 
-    if not (args.check_data or args.inspect_sample or args.full):
+    if not (args.check_data or args.inspect_sample or args.hcp or args.full):
         print(__doc__)
         return
 
@@ -272,6 +318,10 @@ def main():
         except Exception as e:
             print(f"  Inspection failed: {type(e).__name__}: {e}")
             print("  (Dataset download may need network. Try --check-data first.)")
+
+    if args.hcp:
+        print("\n=== HCP N-BACK (credentialed) ===")
+        inspect_hcp_nback(args.hcp)
 
     if args.full and data_check:
         gap_report(data_check, spectral)
