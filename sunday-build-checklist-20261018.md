@@ -43,6 +43,35 @@ Full spec lives in `cavity4d/magnetic_coupler.md`.
 
 Log: baud, config, characters sent, errors. BER = errors / characters.
 
+### Spectral capture (runs in parallel — same hardware, no extra parts)
+
+At every ladder step, ALSO record the raw Rx audio before demodulation:
+
+```bash
+arecord -f S16_LE -r 48000 -c 1 -d 30 rx_baseline_1200.wav
+# then run minimodem as normal
+```
+
+FFT each capture afterward. This turns the loop test into a driven
+toroidal/poloidal spectrometer for free:
+
+- **What to look for:** harmonic structure at 60Hz multiples in the Rx
+  spectrum, and how it CHANGES between baseline → stator → pinch.
+  The 60Hz heater current is the poloidal drive; the Rx coil reads the
+  toroidal response. The harmonic content of that coupling is the
+  toroidal/poloidal flow spectrum, measured directly.
+- **The pinch prediction:** if field geometry imprints on mode structure,
+  the harmonic peaks shift or new ones appear when the pinch is applied.
+  Watching the spectrum change with magnet configuration = watching
+  geometry rewrite the mode content.
+- **The baud ladder is already spectral:** which rungs succeed/fail maps
+  the channel frequency response. The pattern of rungs the pinch unlocks
+  is itself a spectrum measurement.
+
+This is the DRIVEN complement to the passive fuzz test (toroid vs wire
+idle noise). Driven shows the coupling; passive shows the floor. Both
+matter. Neither needs new hardware.
+
 ## Win condition
 
 A text message that traveled through a magnetically-shaped field with **no
