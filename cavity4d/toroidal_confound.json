@@ -1,0 +1,47 @@
+{
+  "luminosity_cuts": {
+    "-18.0": {
+      "n_gs": 307,
+      "n_gn": 160,
+      "diff": 0.3256,
+      "sigma": 5.36,
+      "status": "SURVIVES"
+    },
+    "-18.5": {
+      "n_gs": 227,
+      "n_gn": 143,
+      "diff": 0.1953,
+      "sigma": 3.34,
+      "status": "SURVIVES"
+    },
+    "-19.0": {
+      "n_gs": 140,
+      "n_gn": 102,
+      "diff": 0.1282,
+      "sigma": 2.17,
+      "status": "MARGINAL"
+    },
+    "-19.5": {
+      "n_gs": 53,
+      "n_gn": 60,
+      "diff": -0.0524,
+      "sigma": 0.73,
+      "status": "DEAD"
+    },
+    "-20.0": {
+      "n_gs": 23,
+      "n_gn": 22,
+      "diff": 0.0347,
+      "sigma": 0.33,
+      "status": "DEAD"
+    }
+  },
+  "dust": {
+    "ebv_goods_s": 0.0088,
+    "ebv_goods_n": 0.0123,
+    "differential_ebv": 0.0035,
+    "max_dust_mag": 0.035,
+    "observed_offset_mag": 0.53,
+    "verdict": "DUST_ELIMINATED"
+  }
+}
