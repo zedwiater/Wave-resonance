@@ -56,21 +56,42 @@ separate system, but as the machine's own sensory cortex.
 
 | Legacy Brute-Force | Invariant-Scale Flow |
 |---|---|
-| Fuel: bred tritium + deuterium (50/50) | Fuel: natural cosmic-ratio hydrogen |
+| Fuel: bred tritium + deuterium (50/50) | Fuel: seawater → electrolysis → natural H₂ (155 ppm D) |
 | Operation: batch, forced injection, crush | Operation: continuous-flow toroidal engine |
 | Exhaust: radioactive waste, ash-choked divertors | Exhaust: clean hot hydrogen, trace helium |
 | Metric: confinement time, Q-factor breakeven | Metric: enthalpy delta across the system |
 | Control: thermal brute force | Control: topological geometry, wave resonance |
-| Fuel cycle: tritium breeding (unsolved) | Fuel cycle: water splitting (solved) |
+| Fuel cycle: tritium breeding (unsolved) | Fuel cycle: water splitting (solved) + in-flow D-D self-breeding |
 | Ash: accumulates, poisons, must pump out | Ash: trace, exits with outflow |
-| First net gain: Q>1 after billions spent | First net gain: first fusion event after boot |
+| First net gain: Q>1 after billions spent | Net gain: burn fraction × E_event > P_in (measured, not argued) |
 
 ## Key Insights
 
-**No breakeven threshold.** In a flow system with near-zero marginal
-confinement cost (topology is free once established), a single fusion
-event after boot is net positive. Pumping hydrogen costs microjoules;
-one D-T event releases 17.6 MeV.
+**The ledger, not the event.** An earlier draft claimed a single fusion
+event after boot is net positive — that fails a unit check. One D-T
+event is 2.8e-12 J; pump, field, and electrolysis costs are continuous
+*power*. The correct gate is a rate inequality:
+
+> R × E_event > P_electrolysis + P_pump + P_fields,
+> where R = n_D²⟨σv⟩V (density-squared in the antinodes)
+
+Rate scales with density squared, so concentrating flow into antinodes
+IS the path to net positive. Falsifier: measure R, measure P, close
+the books. (Corrected 2026-10-18; the loose version was a stepping
+stone.)
+
+**The fuel is seawater.** Inlet drinks seawater; local electrolysis
+produces natural-ratio hydrogen (155 ppm deuterium — no isotope plant).
+The effective fuel is trace deuterium burning D-D (~3.65 MeV avg per
+reaction). The D-D proton branch breeds tritium in-flow, which burns
+D-T secondarily — so "no tritium breeding" becomes "the flow breeds
+its own tritium from trace deuterium."
+
+**The burn-fraction gate (order-of-magnitude).** Per liter of seawater:
+max D-D energy at 100% burn ≈ 3.0 GJ; electrolysis costs ≈ 21 MJ.
+Break-even burn fraction ≈ 0.7% — call it ~1% with pump/field
+overhead. The topology must burn on the order of one percent of the
+trace deuterium. That is the number to beat, and it is measurable.
 
 **Systems create power and data; fuel creates ashes.** Fuel doesn't
 contain power we extract. The system creates conditions where power
