@@ -1,0 +1,49 @@
+{
+  "tiers": {
+    "T4 CMB dipole": {
+      "l": 264.0,
+      "b": 48.0
+    },
+    "T3 Fermi N-axis": {
+      "l": 0.0,
+      "b": 90.0
+    },
+    "T3 Sgr A* dir": {
+      "l": 0.0,
+      "b": 0.0
+    },
+    "T2 RM quad axis": {
+      "l": 307.07922784102647,
+      "b": 14.561532935487776
+    },
+    "T1 Local B-field": {
+      "l": 40.0,
+      "b": 50.0
+    },
+    "T1 LIC flow": {
+      "l": 3.0,
+      "b": 16.0
+    },
+    "T0 IBEX ribbon": {
+      "l": 33.0,
+      "b": 55.0
+    }
+  },
+  "rm_quadrupole_axis": {
+    "l": 307.1,
+    "b": 14.6
+  },
+  "rm_quadrupole_eigenvalues": [
+    -39.76,
+    9.6,
+    30.16
+  ],
+  "cascade_steps": [
+    42.0,
+    75.4,
+    80.7,
+    6.6
+  ],
+  "fermi_vs_quadrupole": 75.4,
+  "sgra_vs_quadrupole": 54.3
+}
