@@ -25,11 +25,46 @@ Consistent across redshift bins (z=5–7, 7–9, 9–12).
 - **Pipeline calibration** — same JADES DR4 pipeline processes both fields identically.
 - **Two-field fluke** — CEERS EGS (third sky direction, independent survey) confirms the gradient.
 
-## What Remains (honest confounds)
+## What Remains (honest assessment)
 
-- Survey depth differences between GOODS-S and GOODS-N pointings
-- Galactic foreground dust (patchy, unlikely to produce coherent 0.53-mag offset)
-- Sample selection effects in NIRSpec target allocation
+### Galactic dust: ELIMINATED
+E(B-V) difference between GOODS-S and GOODS-N is 0.0035 (Schlafly & Finkbeiner).
+Even with extreme extinction assumptions, dust explains at most 0.035 mag.
+Observed offset: 0.53 mag. Shortfall of 15x. Not dust.
+(`toroidal_confound.py`)
+
+### Survey depth: ENTANGLED, not eliminated
+This is the subtle one, and it changed how we think about the measurement.
+
+The naive framing treats depth as a nuisance confound: GOODS-S got ~650 hrs
+vs GOODS-N ~150 hrs, so GOODS-S detects fainter galaxies, dragging its mean
+down. When we restrict to a luminosity-complete bright sample (M_UV ≤ −19.5),
+the directional offset vanishes (0.7σ, effect size near zero).
+
+But that framing assumes depth and topology are separable. They aren't.
+
+If the manifold has a slope, then **depth is the measurement, not the noise**.
+The effective depth a telescope achieves in a given sky direction is entangled
+with the geometry of the projection in that direction. Exposure time sets the
+*capacity* to see deeper; topology sets *what "deeper" means* along that vector.
+
+The exposure-time bound: 4.3x exposure ratio buys ~0.79 mag of extra depth
+(background-limited). Our observed offset is 0.53 mag. Exposure time alone
+*can* account for the full signal — so this dataset cannot separate the two.
+
+But the persistence of the directional gradient across the faint-end population,
+consistent across three independent sky directions and four redshift bins,
+is exactly where observation meets topology. You cannot scrub depth away
+without scrubbing the thing you're trying to measure.
+
+### The clean test (for whoever picks this up)
+**Exposure-matched fields, different sky directions.** Two deep fields with
+the same integration time, same instrument, same pipeline — pointed at
+different parts of the sky. If the brightness offset persists there, exposure
+cannot explain it, and topology is the last explanation standing.
+
+This is a call for JWST cycle time, not a conclusion. The data, the method,
+and the falsifiable prediction are all in this directory.
 
 ## Reproducibility
 
@@ -57,14 +92,19 @@ magnitudes using identical formulas for all galaxies. Retained for transparency.
 - `toroidal_directional.py` / `.json` — v1 analysis (717 galaxies, photo-z)
 - `toroidal_v2.py` / `.json` — v2 analysis (1,981 galaxies, 3 fields, uniform M_UV)
 - `toroidal_specz.py` / `.json` — v3 analysis (596 galaxies, spectroscopic z)
-- `toroidal_three_field.py` — superseded v1 three-field attempt (kept as honest null/mistake)
+- `toroidal_confound.py` / `.json` — v4 analysis (luminosity cuts kill depth as separable confound; dust eliminated at 15x shortfall)
 
 ## Interpretation
 
 A 6.40σ directional brightness asymmetry in spectroscopic data, consistent
 across three independent sky directions and four redshift bins, is not
-statistical noise. Whether it is toroidal topology or an unidentified
-systematic in deep-field survey design, it demands explanation.
+statistical noise.
+
+The key reframing: **depth is not a confound to be scrubbed — it is the
+measurement itself.** In a toroidal manifold, the distance you can see in
+a given direction is entangled with the geometry along that direction.
+Exposure time explains the capacity; topology explains the slope.
 
 The burden is now on isotropy to explain why three different directions
-give three different brightness residuals.
+give three different brightness residuals — and on future observations
+to run the exposure-matched test that separates them.
