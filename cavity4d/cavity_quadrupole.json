@@ -1,0 +1,52 @@
+{
+  "experiments": [
+    {
+      "label": "control (no quadrupole)",
+      "quad_strength": 0.0,
+      "quad_angle_set": 0.0,
+      "mode_angle_measured": 20.0,
+      "mode_amplitude": 0.0036,
+      "residual_mean": 0.005605,
+      "residual_std": 0.001071,
+      "E_in": 819.2,
+      "E_out": 9211.48,
+      "balance": -8392.28
+    },
+    {
+      "label": "weak quadrupole at 0\u00b0",
+      "quad_strength": 0.05,
+      "quad_angle_set": 0.0,
+      "mode_angle_measured": 0.3,
+      "mode_amplitude": 0.0624,
+      "residual_mean": 0.005646,
+      "residual_std": 0.001067,
+      "E_in": 819.2,
+      "E_out": 9194.03,
+      "balance": -8374.83
+    },
+    {
+      "label": "strong quadrupole at 0\u00b0",
+      "quad_strength": 0.15,
+      "quad_angle_set": 0.0,
+      "mode_angle_measured": 0.1,
+      "mode_amplitude": 0.1858,
+      "residual_mean": 0.006094,
+      "residual_std": 0.001069,
+      "E_in": 819.2,
+      "E_out": 9152.47,
+      "balance": -8333.27
+    },
+    {
+      "label": "strong quadrupole at 45\u00b0",
+      "quad_strength": 0.15,
+      "quad_angle_set": 45.0,
+      "mode_angle_measured": 134.2,
+      "mode_amplitude": 0.1805,
+      "residual_mean": 0.006217,
+      "residual_std": 0.001045,
+      "E_in": 819.2,
+      "E_out": 9128.13,
+      "balance": -8308.93
+    }
+  ]
+}
