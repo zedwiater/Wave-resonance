@@ -23,10 +23,26 @@ Full spec lives in `cavity4d/magnetic_coupler.md`.
 
 - Extension cord, looped into a circle (toroidal carrier)
 - Space heater, 1500W (~12.5A) as the load — strong 60Hz field
-- 28 AWG magnet wire (~$8) — 20–30 turns at two points = Tx coil and Rx coil (air-core)
+- 28 AWG magnet wire (~$8) — **50–100 turns** at two points = Tx coil and Rx coil (air-core). Wind on a 1–2" plastic form (pill bottle, marker cap). Fewer than ~20 turns buries the signal in the dongle noise floor (~0.5mV at 25 turns vs ~1.6mV at 75 turns for 50µT @ 60Hz); above ~300 turns self-capacitance rolls off the harmonics subspectra.py hunts. 50–100 is the window.
 - 4× neodymium bar magnets (~$12)
 - Washer/dryer motor stator (already have) — laminated iron, passive flux concentrator
 - PC with line-out / line-in, minimodem (free)
+- USB audio dongle (mic-in) for capture; 1–10µF series DC-blocking cap on the Rx lead (dongle puts bias voltage on mic-in). Shorted-input noise check mandatory before measuring.
+
+## Rx coil placement & pinch protocol
+
+**Positioning (heater cord → Rx coil):**
+- Do NOT wrap the coil directly around the live cord — mains hum will clip the dongle input.
+- Start 1–3" from the cord. Try both orientations: coil axis parallel to cord (axial flux) and perpendicular (radial gradient). Log which.
+- Secure everything rigidly. Mechanical vibration against the wire creates microphonics that mimic harmonic structure.
+
+**Pinch (magnets):**
+- Configuration: opposing magnet pair flanking the Rx coil (N-S facing), NOT a single magnet stuffed in the core. Document exact distances.
+- **Physics boundary (read this):** in an air-core coil, a static magnetic field contributes zero to dΦ/dt — classical EM predicts the pinch changes NOTHING about the induced signal. That makes this a clean null test: if harmonic structure shifts with the pinch on air-core, it is either (a) microphonics — rule out with the tap test below — or (b) the framework's actual claim (pinch retunes cavity Q/mode structure). Do not describe it as a "flux gate"; there is no classical flux-gate mechanism in linear media.
+- **Keep magnets away from the stator iron.** A neodymium near laminated iron saturates it locally, collapsing its permeability and REDUCING coupling — the opposite of the intent. If testing stator+pinch combined, place magnets ≥3" from iron and note it.
+- **Tap test (microphonics control):** with heater OFF, tap the bench near the coil and record 10s. Any spectral peaks that appear in both tap and pinch runs are mechanical, not electromagnetic. Discard them.
+
+**Pinch-strength sweep:** at each ladder rung, step magnet distance (e.g. 6" → 3" → 1" → 0.5") and capture spectrum at each. Look for the threshold where harmonic content reorganizes (broadband → locked → suppressed). Log distances, don't eyeball them.
 
 ## Audio chain
 
