@@ -1,0 +1,40 @@
+{
+  "description": "RM quadrupole tensor from 37,543 NVSS sources, |b|>20\u00b0",
+  "tensor_galactic_cartesian": [
+    [
+      -2.0712180125257618,
+      28.263425620344407,
+      -0.6818399121565406
+    ],
+    [
+      28.263425620344407,
+      -12.7822586473627,
+      17.26814521780852
+    ],
+    [
+      -0.6818399121565406,
+      17.26814521780852,
+      14.85347665988846
+    ]
+  ],
+  "eigenvalues": [
+    -39.764,
+    30.165,
+    9.599
+  ],
+  "eigenvectors_lb": [
+    [
+      307.1,
+      14.6
+    ],
+    [
+      229.5,
+      -39.7
+    ],
+    [
+      21.1,
+      -46.7
+    ]
+  ],
+  "usage": "Use principal axis as background B-field orientation in toroidal cavity sim. Test whether l=2 cavity modes align with measured axis."
+}
