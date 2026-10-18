@@ -1,0 +1,42 @@
+{
+  "axes": {
+    "CMB dipole": {
+      "l": 264,
+      "b": 48
+    },
+    "Auger UHECR": {
+      "l": 233,
+      "b": -13
+    },
+    "IBEX ribbon": {
+      "l": 33,
+      "b": 55
+    },
+    "JWST dim (GS)": {
+      "l": 224,
+      "b": -55
+    },
+    "JWST bright (GN)": {
+      "l": 126,
+      "b": 55
+    },
+    "Galactic center": {
+      "l": 0,
+      "b": 0
+    },
+    "Local B-field": {
+      "l": 40,
+      "b": 50
+    }
+  },
+  "mean_pairwise_sep": 93.9,
+  "random_p": 0.5396,
+  "key_separations": {
+    "Auger UHECR_vs_CMB dipole": 66.9,
+    "IBEX ribbon_vs_Local B-field": 6.6,
+    "IBEX ribbon_vs_CMB dipole": 68.5,
+    "Auger UHECR_vs_Galactic center": 125.9,
+    "JWST dim (GS)_vs_JWST bright (GN)": 135.8,
+    "Auger UHECR_vs_JWST dim (GS)": 42.6
+  }
+}
