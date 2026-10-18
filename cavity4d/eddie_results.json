@@ -1,0 +1,794 @@
+{
+  "n_total": 6451,
+  "n_hz": 109,
+  "n_scored": 1414,
+  "top_20": [
+    {
+      "pl_name": "TOI-1294 c",
+      "hostname": "TOI-1294",
+      "S_eff": 0.9902,
+      "a_norm": 1.0049,
+      "in_hz": true,
+      "eddie_score": 0.0034,
+      "st_teff": 5718.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 332.648
+    },
+    {
+      "pl_name": "HD 191939 g",
+      "hostname": "HD 191939",
+      "S_eff": 0.99,
+      "a_norm": null,
+      "in_hz": true,
+      "eddie_score": 0.0239,
+      "st_teff": 5348.0,
+      "pl_rade": null,
+      "pl_eqt": 278.0,
+      "sy_dist": 53.6089
+    },
+    {
+      "pl_name": "HD 47366 b",
+      "hostname": "HD 47366",
+      "S_eff": 0.9724,
+      "a_norm": 1.0141,
+      "in_hz": true,
+      "eddie_score": 0.0277,
+      "st_teff": 4866.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 84.3552
+    },
+    {
+      "pl_name": "HD 208897 b",
+      "hostname": "HD 208897",
+      "S_eff": 0.9646,
+      "a_norm": 1.0182,
+      "in_hz": true,
+      "eddie_score": 0.0288,
+      "st_teff": 4860.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 67.4872
+    },
+    {
+      "pl_name": "gam Psc b",
+      "hostname": "gam Psc",
+      "S_eff": 1.0138,
+      "a_norm": 0.9932,
+      "in_hz": true,
+      "eddie_score": 0.0306,
+      "st_teff": 4742.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 41.3107
+    },
+    {
+      "pl_name": "HD 96992 b",
+      "hostname": "HD 96992",
+      "S_eff": 0.956,
+      "a_norm": 1.0227,
+      "in_hz": true,
+      "eddie_score": 0.0338,
+      "st_teff": 4725.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 396.082
+    },
+    {
+      "pl_name": "HD 31527 c",
+      "hostname": "HD 31527",
+      "S_eff": 1.1165,
+      "a_norm": 0.9464,
+      "in_hz": false,
+      "eddie_score": 0.034,
+      "st_teff": 5898.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 38.4473
+    },
+    {
+      "pl_name": "gam Lib b",
+      "hostname": "gam Lib",
+      "S_eff": 1.0906,
+      "a_norm": 0.9576,
+      "in_hz": true,
+      "eddie_score": 0.0372,
+      "st_teff": 4879.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 47.4017
+    },
+    {
+      "pl_name": "HD 210702 b",
+      "hostname": "HD 210702",
+      "S_eff": 0.8894,
+      "a_norm": 1.0604,
+      "in_hz": true,
+      "eddie_score": 0.0438,
+      "st_teff": 4912.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 54.1963
+    },
+    {
+      "pl_name": "HD 9446 b",
+      "hostname": "HD 9446",
+      "S_eff": 1.1587,
+      "a_norm": 0.929,
+      "in_hz": false,
+      "eddie_score": 0.0452,
+      "st_teff": 5793.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 50.3503
+    },
+    {
+      "pl_name": "HD 4732 b",
+      "hostname": "HD 4732",
+      "S_eff": 0.8773,
+      "a_norm": 1.0676,
+      "in_hz": true,
+      "eddie_score": 0.0475,
+      "st_teff": 4898.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 54.7841
+    },
+    {
+      "pl_name": "HD 60292 b",
+      "hostname": "HD 60292",
+      "S_eff": 1.064,
+      "a_norm": 0.9694,
+      "in_hz": true,
+      "eddie_score": 0.0476,
+      "st_teff": 4348.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 315.211
+    },
+    {
+      "pl_name": "HD 33142 b",
+      "hostname": "HD 33142",
+      "S_eff": 0.8673,
+      "a_norm": 1.0738,
+      "in_hz": true,
+      "eddie_score": 0.0487,
+      "st_teff": 5025.4,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 121.375
+    },
+    {
+      "pl_name": "HD 25723 b",
+      "hostname": "HD 25723",
+      "S_eff": 0.8758,
+      "a_norm": 1.0685,
+      "in_hz": true,
+      "eddie_score": 0.0503,
+      "st_teff": 4766.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 114.816
+    },
+    {
+      "pl_name": "HD 150010 b",
+      "hostname": "HD 150010",
+      "S_eff": 1.0114,
+      "a_norm": 0.9944,
+      "in_hz": true,
+      "eddie_score": 0.0508,
+      "st_teff": 4153.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 144.49
+    },
+    {
+      "pl_name": "HD 113996 b",
+      "hostname": "HD 113996",
+      "S_eff": 0.9625,
+      "a_norm": 1.0193,
+      "in_hz": true,
+      "eddie_score": 0.051,
+      "st_teff": 4181.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 116.334
+    },
+    {
+      "pl_name": "bet Cnc b",
+      "hostname": "bet Cnc",
+      "S_eff": 1.0035,
+      "a_norm": 0.9983,
+      "in_hz": true,
+      "eddie_score": 0.053,
+      "st_teff": 4092.1,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 89.0472
+    },
+    {
+      "pl_name": "17 Sco b",
+      "hostname": "17 Sco",
+      "S_eff": 1.0722,
+      "a_norm": 0.9657,
+      "in_hz": true,
+      "eddie_score": 0.0549,
+      "st_teff": 4157.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 124.953
+    },
+    {
+      "pl_name": "HD 40956 b",
+      "hostname": "HD 40956",
+      "S_eff": 0.8492,
+      "a_norm": 1.0852,
+      "in_hz": true,
+      "eddie_score": 0.0567,
+      "st_teff": 4869.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 116.593
+    },
+    {
+      "pl_name": "HD 208487 b",
+      "hostname": "HD 208487",
+      "S_eff": 0.8295,
+      "a_norm": 1.098,
+      "in_hz": true,
+      "eddie_score": 0.0581,
+      "st_teff": 6134.0,
+      "pl_rade": null,
+      "pl_eqt": null,
+      "sy_dist": 45.147
+    }
+  ],
+  "hz_list": [
+    {
+      "pl_name": "TRAPPIST-1 d",
+      "S_eff": 1.115,
+      "eddie_score": 0.1211
+    },
+    {
+      "pl_name": "TRAPPIST-1 e",
+      "S_eff": 0.646,
+      "eddie_score": 0.151
+    },
+    {
+      "pl_name": "TRAPPIST-1 f",
+      "S_eff": 0.373,
+      "eddie_score": 0.2676
+    },
+    {
+      "pl_name": "GJ 357 d",
+      "S_eff": 0.38,
+      "eddie_score": 0.2534
+    },
+    {
+      "pl_name": "LP 890-9 c",
+      "S_eff": 0.906,
+      "eddie_score": 0.1056
+    },
+    {
+      "pl_name": "LHS 1140 b",
+      "S_eff": 0.43,
+      "eddie_score": 0.2303
+    },
+    {
+      "pl_name": "L 98-59 f",
+      "S_eff": 1.1,
+      "eddie_score": 0.0755
+    },
+    {
+      "pl_name": "TOI-7510 c",
+      "S_eff": 0.4383,
+      "eddie_score": 0.5896
+    },
+    {
+      "pl_name": "TOI-4914 b",
+      "S_eff": 0.9402,
+      "eddie_score": 0.6182
+    },
+    {
+      "pl_name": "HD 34445 c",
+      "S_eff": 0.588,
+      "eddie_score": 0.1631
+    },
+    {
+      "pl_name": "81 Cet b",
+      "S_eff": 0.3976,
+      "eddie_score": 0.2849
+    },
+    {
+      "pl_name": "HD 240210 b",
+      "S_eff": 1.1519,
+      "eddie_score": 0.0629
+    },
+    {
+      "pl_name": "HD 18438 b",
+      "S_eff": 0.673,
+      "eddie_score": 0.1365
+    },
+    {
+      "pl_name": "K2-99 c",
+      "S_eff": 0.4398,
+      "eddie_score": 0.232
+    },
+    {
+      "pl_name": "eps Tau b",
+      "S_eff": 0.5367,
+      "eddie_score": 0.1929
+    },
+    {
+      "pl_name": "Kepler-443 b",
+      "S_eff": 0.86,
+      "eddie_score": 0.2169
+    },
+    {
+      "pl_name": "HD 184010 c",
+      "S_eff": 0.6277,
+      "eddie_score": 0.1449
+    },
+    {
+      "pl_name": "HD 40956 b",
+      "S_eff": 0.8492,
+      "eddie_score": 0.0567
+    },
+    {
+      "pl_name": "Ross 128 b",
+      "S_eff": 1.38,
+      "eddie_score": 0.1174
+    },
+    {
+      "pl_name": "Kepler-22 b",
+      "S_eff": 1.013,
+      "eddie_score": 0.1624
+    },
+    {
+      "pl_name": "Wolf 1061 c",
+      "S_eff": 1.3,
+      "eddie_score": 0.1164
+    },
+    {
+      "pl_name": "BD+48 740 b",
+      "S_eff": 0.5675,
+      "eddie_score": 0.1779
+    },
+    {
+      "pl_name": "BD+20 274 b",
+      "S_eff": 1.1598,
+      "eddie_score": 0.0644
+    },
+    {
+      "pl_name": "HD 112640 b",
+      "S_eff": 0.8486,
+      "eddie_score": 0.0714
+    },
+    {
+      "pl_name": "gam Lib b",
+      "S_eff": 1.0906,
+      "eddie_score": 0.0372
+    },
+    {
+      "pl_name": "HD 180314 b",
+      "S_eff": 0.7838,
+      "eddie_score": 0.0788
+    },
+    {
+      "pl_name": "24 Sex b",
+      "S_eff": 0.6551,
+      "eddie_score": 0.1313
+    },
+    {
+      "pl_name": "Kepler-442 b",
+      "S_eff": 0.66,
+      "eddie_score": 0.1319
+    },
+    {
+      "pl_name": "Teegarden's Star b",
+      "S_eff": 1.08,
+      "eddie_score": 0.0856
+    },
+    {
+      "pl_name": "HD 174205 b",
+      "S_eff": 0.823,
+      "eddie_score": 0.0749
+    },
+    {
+      "pl_name": "HD 33142 b",
+      "S_eff": 0.8673,
+      "eddie_score": 0.0487
+    },
+    {
+      "pl_name": "HD 208897 b",
+      "S_eff": 0.9646,
+      "eddie_score": 0.0288
+    },
+    {
+      "pl_name": "HD 96700 d",
+      "S_eff": 0.7781,
+      "eddie_score": 0.0771
+    },
+    {
+      "pl_name": "Kepler-452 b",
+      "S_eff": 1.1,
+      "eddie_score": 0.1084
+    },
+    {
+      "pl_name": "HD 167042 b",
+      "S_eff": 0.7101,
+      "eddie_score": 0.108
+    },
+    {
+      "pl_name": "GJ 1002 b",
+      "S_eff": 0.67,
+      "eddie_score": 0.1315
+    },
+    {
+      "pl_name": "HD 113996 b",
+      "S_eff": 0.9625,
+      "eddie_score": 0.051
+    },
+    {
+      "pl_name": "GJ 3293 d",
+      "S_eff": 0.59,
+      "eddie_score": 0.18
+    },
+    {
+      "pl_name": "HD 134606 c",
+      "S_eff": 0.717,
+      "eddie_score": 0.1023
+    },
+    {
+      "pl_name": "TOI-7166 b",
+      "S_eff": 1.07,
+      "eddie_score": 0.1667
+    },
+    {
+      "pl_name": "GJ 3293 b",
+      "S_eff": 1.07,
+      "eddie_score": 0.0812
+    },
+    {
+      "pl_name": "TIC 4672985 b",
+      "S_eff": 1.0463,
+      "eddie_score": 0.5522
+    },
+    {
+      "pl_name": "TOI-715 b",
+      "S_eff": 0.67,
+      "eddie_score": 0.1472
+    },
+    {
+      "pl_name": "HD 158996 b",
+      "S_eff": 0.6836,
+      "eddie_score": 0.1286
+    },
+    {
+      "pl_name": "K2-9 b",
+      "S_eff": 1.36,
+      "eddie_score": 0.2021
+    },
+    {
+      "pl_name": "Teegarden's Star c",
+      "S_eff": 0.35,
+      "eddie_score": 0.2798
+    },
+    {
+      "pl_name": "TIC 241249530 b",
+      "S_eff": 0.9936,
+      "eddie_score": 0.6488
+    },
+    {
+      "pl_name": "Kepler-296 f",
+      "S_eff": 0.62,
+      "eddie_score": 0.1976
+    },
+    {
+      "pl_name": "bet Cnc b",
+      "S_eff": 1.0035,
+      "eddie_score": 0.053
+    },
+    {
+      "pl_name": "HD 205739 b",
+      "S_eff": 0.4484,
+      "eddie_score": 0.2465
+    },
+    {
+      "pl_name": "Kepler-553 c",
+      "S_eff": 0.589,
+      "eddie_score": 0.5442
+    },
+    {
+      "pl_name": "HD 25723 b",
+      "S_eff": 0.8758,
+      "eddie_score": 0.0503
+    },
+    {
+      "pl_name": "GJ 3998 d",
+      "S_eff": 1.2,
+      "eddie_score": 0.0876
+    },
+    {
+      "pl_name": "HD 6860 b",
+      "S_eff": 0.7823,
+      "eddie_score": 0.0991
+    },
+    {
+      "pl_name": "HD 191939 g",
+      "S_eff": 0.99,
+      "eddie_score": 0.0239
+    },
+    {
+      "pl_name": "HD 4732 b",
+      "S_eff": 0.8773,
+      "eddie_score": 0.0475
+    },
+    {
+      "pl_name": "HD 1666 b",
+      "S_eff": 0.8262,
+      "eddie_score": 0.0602
+    },
+    {
+      "pl_name": "GJ 3378 b",
+      "S_eff": 0.91,
+      "eddie_score": 0.0744
+    },
+    {
+      "pl_name": "Kepler-1661 b",
+      "S_eff": 0.88,
+      "eddie_score": 0.2957
+    },
+    {
+      "pl_name": "HD 87816 b",
+      "S_eff": 0.6322,
+      "eddie_score": 0.1426
+    },
+    {
+      "pl_name": "HD 224018 d",
+      "S_eff": 0.4409,
+      "eddie_score": 0.2802
+    },
+    {
+      "pl_name": "Kepler-1652 b",
+      "S_eff": 0.81,
+      "eddie_score": 0.1231
+    },
+    {
+      "pl_name": "HD 64121 b",
+      "S_eff": 0.5473,
+      "eddie_score": 0.1861
+    },
+    {
+      "pl_name": "HD 1605 b",
+      "S_eff": 0.3639,
+      "eddie_score": 0.3114
+    },
+    {
+      "pl_name": "Gliese 48 b",
+      "S_eff": 0.89,
+      "eddie_score": 0.0726
+    },
+    {
+      "pl_name": "17 Sco b",
+      "S_eff": 1.0722,
+      "eddie_score": 0.0549
+    },
+    {
+      "pl_name": "Kepler-440 b",
+      "S_eff": 1.2,
+      "eddie_score": 0.1675
+    },
+    {
+      "pl_name": "iot Dra b",
+      "S_eff": 0.8159,
+      "eddie_score": 0.0733
+    },
+    {
+      "pl_name": "gam Psc b",
+      "S_eff": 1.0138,
+      "eddie_score": 0.0306
+    },
+    {
+      "pl_name": "BD+20 2457 c",
+      "S_eff": 0.7846,
+      "eddie_score": 0.0904
+    },
+    {
+      "pl_name": "75 Cet b",
+      "S_eff": 0.469,
+      "eddie_score": 0.2342
+    },
+    {
+      "pl_name": "HD 150010 b",
+      "S_eff": 1.0114,
+      "eddie_score": 0.0508
+    },
+    {
+      "pl_name": "nu Oct A b",
+      "S_eff": 0.7288,
+      "eddie_score": 0.1003
+    },
+    {
+      "pl_name": "GJ 887 d",
+      "S_eff": 0.81,
+      "eddie_score": 0.0785
+    },
+    {
+      "pl_name": "TIC 279401253 b",
+      "S_eff": 0.7117,
+      "eddie_score": 0.6119
+    },
+    {
+      "pl_name": "HD 147873 c",
+      "S_eff": 0.4203,
+      "eddie_score": 0.2662
+    },
+    {
+      "pl_name": "HD 27969 b",
+      "S_eff": 0.76,
+      "eddie_score": 0.0692
+    },
+    {
+      "pl_name": "HD 67087 b",
+      "S_eff": 0.463,
+      "eddie_score": 0.2369
+    },
+    {
+      "pl_name": "HD 114082 b",
+      "S_eff": 0.923,
+      "eddie_score": 0.6178
+    },
+    {
+      "pl_name": "HD 208487 b",
+      "S_eff": 0.8295,
+      "eddie_score": 0.0581
+    },
+    {
+      "pl_name": "HD 126105 b",
+      "S_eff": 0.5159,
+      "eddie_score": 0.2049
+    },
+    {
+      "pl_name": "TOI-4507 b",
+      "S_eff": 0.7176,
+      "eddie_score": 0.5342
+    },
+    {
+      "pl_name": "TYC 3318-01333-1 b",
+      "S_eff": 0.6052,
+      "eddie_score": 0.157
+    },
+    {
+      "pl_name": "Kepler-1653 b",
+      "S_eff": 0.98,
+      "eddie_score": 0.1711
+    },
+    {
+      "pl_name": "GJ 273 b",
+      "S_eff": 1.06,
+      "eddie_score": 0.0842
+    },
+    {
+      "pl_name": "TOI-1294 c",
+      "S_eff": 0.9902,
+      "eddie_score": 0.0034
+    },
+    {
+      "pl_name": "K2-72 e",
+      "S_eff": 1.2,
+      "eddie_score": 0.1038
+    },
+    {
+      "pl_name": "HD 47366 b",
+      "S_eff": 0.9724,
+      "eddie_score": 0.0277
+    },
+    {
+      "pl_name": "Kepler-1649 c",
+      "S_eff": 0.75,
+      "eddie_score": 0.0914
+    },
+    {
+      "pl_name": "HD 5608 b",
+      "S_eff": 0.3604,
+      "eddie_score": 0.3147
+    },
+    {
+      "pl_name": "GJ 251 c",
+      "S_eff": 0.404,
+      "eddie_score": 0.241
+    },
+    {
+      "pl_name": "HN Lib b",
+      "S_eff": 0.503,
+      "eddie_score": 0.1866
+    },
+    {
+      "pl_name": "HD 210702 b",
+      "S_eff": 0.8894,
+      "eddie_score": 0.0438
+    },
+    {
+      "pl_name": "Kepler-1708 b",
+      "S_eff": 0.561,
+      "eddie_score": 0.5943
+    },
+    {
+      "pl_name": "TOI-7510 b",
+      "S_eff": 1.0738,
+      "eddie_score": 0.5088
+    },
+    {
+      "pl_name": "HD 109286 b",
+      "S_eff": 0.709,
+      "eddie_score": 0.0864
+    },
+    {
+      "pl_name": "HIP 111909 b",
+      "S_eff": 0.5854,
+      "eddie_score": 0.1664
+    },
+    {
+      "pl_name": "HD 47366 c",
+      "S_eff": 0.4184,
+      "eddie_score": 0.2688
+    },
+    {
+      "pl_name": "HD 60292 b",
+      "S_eff": 1.064,
+      "eddie_score": 0.0476
+    },
+    {
+      "pl_name": "TYC 1422-614-1 c",
+      "S_eff": 0.7193,
+      "eddie_score": 0.1051
+    },
+    {
+      "pl_name": "HD 94890 b",
+      "S_eff": 0.4116,
+      "eddie_score": 0.2739
+    },
+    {
+      "pl_name": "HD 96992 b",
+      "S_eff": 0.956,
+      "eddie_score": 0.0338
+    },
+    {
+      "pl_name": "HIP 18606 b",
+      "S_eff": 0.4089,
+      "eddie_score": 0.2759
+    },
+    {
+      "pl_name": "nu Oph b",
+      "S_eff": 0.6082,
+      "eddie_score": 0.1548
+    },
+    {
+      "pl_name": "TOI-2094 b",
+      "S_eff": 0.98,
+      "eddie_score": 0.1514
+    },
+    {
+      "pl_name": "HD 202696 b",
+      "S_eff": 0.5583,
+      "eddie_score": 0.1802
+    },
+    {
+      "pl_name": "TOI-6695 c",
+      "S_eff": 0.7694,
+      "eddie_score": 0.1393
+    },
+    {
+      "pl_name": "Wolf 1069 b",
+      "S_eff": 0.652,
+      "eddie_score": 0.1314
+    },
+    {
+      "pl_name": "Proxima Cen b",
+      "S_eff": 0.641,
+      "eddie_score": 0.1465
+    }
+  ]
+}
