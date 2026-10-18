@@ -1,0 +1,15 @@
+{
+  "n_total": 1981,
+  "goods_s": {
+    "n": 534,
+    "mean_resid": 0.224
+  },
+  "goods_n": {
+    "n": 182,
+    "mean_resid": -0.2781
+  },
+  "egs": {
+    "n": 1265,
+    "mean_resid": -0.0545
+  }
+}

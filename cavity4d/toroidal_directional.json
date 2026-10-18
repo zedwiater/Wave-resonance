@@ -1,0 +1,19 @@
+{
+  "n_galaxies": 717,
+  "n_goods_s": 535,
+  "n_goods_n": 182,
+  "field_dipole": {
+    "goods_s_mean_residual": 0.1553,
+    "goods_n_mean_residual": -0.4565,
+    "difference": 0.6117,
+    "significance_sigma": 9.09
+  },
+  "sky_gradient": {
+    "corr_residual_dec": -0.3043,
+    "corr_residual_ra": -0.3043
+  },
+  "bright_outliers": {
+    "goods_s_fraction_bright": 0.5833,
+    "goods_s_fraction_all": 0.7462
+  }
+}

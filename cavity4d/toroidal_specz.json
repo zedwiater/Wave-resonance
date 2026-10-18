@@ -1,0 +1,10 @@
+{
+  "n_total": 596,
+  "n_goods_s": 412,
+  "n_goods_n": 184,
+  "goods_s_mean_resid": 0.1648,
+  "goods_n_mean_resid": -0.369,
+  "difference": 0.5338,
+  "significance_sigma": 6.4,
+  "verdict": "SURVIVES"
+}
