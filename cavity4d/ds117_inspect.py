@@ -17,30 +17,35 @@ def main():
     runs = sorted(meg_dir.glob(f"{SUB}_ses-meg_task-facerecognition_run-*_meg.fif"))
     print(f"Found {len(runs)} runs", flush=True)
 
-    # Load + concatenate (preload for speed)
-    raws = []
-    for f in runs:
-        r = mne.io.read_raw_fif(f, preload=True, verbose=False)
-        raws.append(r)
-    raw = mne.concatenate_raws(raws, verbose=False)
-    print(f"sfreq={raw.info['sfreq']:.1f}, n_times={raw.n_times}", flush=True)
-
-    picks_mag = mne.pick_types(raw.info, meg="mag", exclude="bads")
-    print(f"n_mag={len(picks_mag)}", flush=True)
-
-    # Events from annotations or events.tsv — use mne.find_events on STI101
-    events = mne.find_events(raw, stim_channel="STI101", verbose=False)
-    print(f"n_events={len(events)}", flush=True)
-
-    # Wakeman&Henson codes: faces = 5,6,7 (famous 1st/imm/repeat?) —
-    # group simply: face-like (5,6,7,13,14,15) vs scrambled (17,18,19)
-    # (odd/even = stim type variants; exact mapping in events.json)
+    # Wakeman&Henson codes — group simply: face-like vs scrambled
     face_ids = [5, 6, 7, 13, 14, 15]
     scram_ids = [17, 18, 19]
-    event_id = {"faces": face_ids, "scrambled": scram_ids}
+    # MNE Epochs needs int event_id values: epoch per code, merge after
+    flat_id = {f"faces_{c}": c for c in face_ids}
+    flat_id.update({f"scram_{c}": c for c in scram_ids})
 
-    epochs = mne.Epochs(raw, events, event_id, tmin=-0.2, tmax=0.8,
+    # Load each run, epoch separately (head positions differ between runs —
+    # concatenate_raws refuses), then combine epochs
+    all_epochs = []
+    raws_ref = None
+    for f in runs:
+        r = mne.io.read_raw_fif(f, preload=True, verbose=False)
+        if raws_ref is None:
+            raws_ref = r
+            print(f"sfreq={r.info['sfreq']:.1f}", flush=True)
+        ev = mne.find_events(r, stim_channel="STI101", verbose=False)
+        ep = mne.Epochs(r, ev, flat_id, tmin=-0.2, tmax=0.8,
                         baseline=(-0.2, 0), preload=True, verbose=False)
+        ep = mne.epochs.combine_event_ids(ep, [f"faces_{c}" for c in face_ids],
+                                   {"faces": 1}, copy=False)
+        ep = mne.epochs.combine_event_ids(ep, [f"scram_{c}" for c in scram_ids],
+                                   {"scrambled": 2}, copy=False)
+        all_epochs.append(ep)
+        print(f"  {f.name}: {len(ep['faces'])} faces, {len(ep['scrambled'])} scrambled", flush=True)
+    epochs = mne.concatenate_epochs(all_epochs, on_mismatch="ignore", verbose=False)
+    raw = raws_ref  # reference for sfreq/picks
+    picks_mag = mne.pick_types(raw.info, meg="mag", exclude="bads")
+    print(f"n_mag={len(picks_mag)}, total epochs={len(epochs)}", flush=True)
 
     lines = []
     for cond in ["faces", "scrambled"]:

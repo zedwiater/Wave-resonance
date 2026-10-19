@@ -1,0 +1,7 @@
+ses-19110112: n_ep=60 Q=nan @ 50.8Hz P50/local-median=22.6x
+ses-19110208: n_ep=151 Q=nan @ 50.8Hz P50/local-median=22.4x
+ses-19110217: n_ep=184 Q=nan @ 50.8Hz P50/local-median=23.6x
+ses-19110220: n_ep=186 Q=nan @ 50.8Hz P50/local-median=22.8x
+ses-19110308: n_ep=120 Q=nan @ 50.8Hz P50/local-median=21.8x
+ses-19110831: n_ep=330 Q=nan @ 50.8Hz P50/local-median=21.8x
+ses-19110912: n_ep=120 Q=nan @ 50.8Hz P50/local-median=23.8x
