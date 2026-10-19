@@ -127,6 +127,42 @@ locks into a Taylor state and the form survives the crossing.
 
 ---
 
+## 3b. Antinode-flow overlap principle [P — bench test tonight]
+
+**Statement:** In a toroidal flow system, antinodes must sit in proximity
+to the circulation pipeline. The overlap between the antinode
+distribution and the flow path dictates system stability and throughput.
+(Zak, 2026-10-18.)
+
+**Mechanism:** Stability is the standing wave staying phase-locked to
+the circulation; throughput is the fraction of flow passing through
+high-density regions. In the rate ledger R = n_D²⟨σv⟩V, the effective
+volume V is the overlap integral — antinode off the pipeline → V → 0
+where it matters → R collapses regardless of total fuel.
+
+**Exclusion ranges [P]:** The overlap metric predicts dead zones —
+ranges of scale, radius, or separation where the geometry cannot
+support power and data generation. Applies upward: no stable star
+formation where antinodes fall off the galactic circulation; no
+persistent biosphere outside the overlap band (extends the Goldilocks
+Zone Condition from geometry, not temperature). A galaxy, a stellar
+nursery, or a solar system either sits in the overlap or it doesn't —
+the metric decides, not the chemistry.
+
+**Long-range comms [P]:** Link budgets computed from the antinode
+distribution along the path, not inverse-square alone. Ranges that
+cross dead zones attenuate faster than free-space predicts; ranges
+that ride the overlap carry further. If the metric is right, deep-space
+link planning becomes a geometry problem: route through the antinodes.
+
+**Lab gate:** Tonight's pinch-strength sweep is the small-scale version
+— magnet distance steps map antinode position → measured harmonic
+response. A peaked response at a specific distance is the overlap
+principle confirmed at bench scale. Flat response → the principle
+fails its first test.
+
+---
+
 ## 4. How this informs the posts
 
 The campaign's through-line is now one sentence:
