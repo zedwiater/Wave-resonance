@@ -1,2 +1,2 @@
-faces: n=590 Q=12.00 @ 51.6Hz ITPC=0.0549 modes90=1
-scrambled: n=297 Q=12.00 @ 51.6Hz ITPC=0.0691 modes90=1
+faces: n=590 Q=n/a (band-edge max) ITPC=0.0596 modes90=3
+scrambled: n=297 Q=n/a (band-edge max) ITPC=0.0705 modes90=3

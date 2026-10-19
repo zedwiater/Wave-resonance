@@ -30,6 +30,7 @@ def main():
     raws_ref = None
     for f in runs:
         r = mne.io.read_raw_fif(f, preload=True, verbose=False)
+        r.notch_filter(freqs=[50, 100], verbose=False)  # kill mains line noise
         if raws_ref is None:
             raws_ref = r
             print(f"sfreq={r.info['sfreq']:.1f}", flush=True)
