@@ -1,0 +1,28 @@
+metering mode: RAPL+GPU (full system)
+shared stem: 5 tokens | bare prefix: 198 tokens (tokenized)
+measuring idle baseline (3 s)...
+idle baseline: 45.2 W
+
+--- calibration batch ---
+  calib[MID]: prompt=19 tok (stem claim 5), gen=96 tok, actual 93.8 J
+  calib[MID]: prompt=23 tok (stem claim 5), gen=96 tok, actual 91.8 J
+  calib[MID]: prompt=21 tok (stem claim 5), gen=96 tok, actual 94.7 J
+refit: gen 0.977 J/tok | prompt 0.256 J/tok
+expected gen by band (calibration-derived, cap = ceiling): {'STRONG': 96, 'MID': 64, 'WEAK': 16} | overall calib mean 96.0 tok
+
+route locked: prefix = 198 tokens (tokenized, primed bare, single slot)
+
+--- verdict batch (route-ordered) ---
+[WARM/STRONG/FULL] urgency 0.94 | tokens 219 (neutron 198) | gen priced 96 (cap 128, actual 128) | cache actual 194 | predicted 99.2 J | actual 127.4 J | identity residual -28.16 J (FAIL)
+[WARM/STRONG/FULL] urgency 0.93 | tokens 225 (neutron 198) | gen priced 96 (cap 128, actual 128) | cache actual 193 | predicted 100.7 J | actual 125.2 J | identity residual -24.48 J (FAIL)
+[COLD/MID/STANDARD] urgency 0.29 | tokens 30 (neutron 5) | gen priced 64 (cap 64, actual 64) | cache actual 26 | predicted 68.9 J | actual 63.8 J | identity residual +5.18 J (OK)
+[COLD/MID/STANDARD] urgency 0.29 | tokens 32 (neutron 5) | gen priced 64 (cap 64, actual 64) | cache actual 28 | predicted 69.5 J | actual 64.1 J | identity residual +5.40 J (OK)
+[COLD/WEAK/EARLY] urgency 0.04 | tokens 7 (neutron 0) | gen priced 16 (cap 16, actual 16) | cache actual 3 | predicted 17.4 J | actual 15.9 J | identity residual +1.56 J (OK)
+[COLD/WEAK/EARLY] urgency 0.10 | tokens 16 (neutron 0) | gen priced 16 (cap 16, actual 5) | cache actual 12 | predicted 19.7 J | actual 5.3 J | identity residual +14.41 J (FAIL)
+
+--- LIVE VERDICT (draft 7) ---
+PREDICTIVE — model MAE 13.197 J beats flat 197.836 J over 6 samples
+(incumbent flat baseline: 1.69 J/token)
+passport identity: held 3/6 trials within tolerance | mean identity residual -4.35 J
+metering mode: RAPL+GPU (full system)
+results written: /home/dezritawre/wave-sunday/harness/live_verdict7_results.json
