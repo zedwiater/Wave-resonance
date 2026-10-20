@@ -45,14 +45,17 @@ def kv_id(text):
 
 def gravity(entry):
     co = sum(entry["co_use"].values())
-    return entry["use_count"] + 2 * co
+    return entry["use_count"] + 2 * co + 2 * entry.get("value", 0.0)
 
 
 class Cube:
-    def __init__(self):
+    def __init__(self, model_id=None):
         self.entries = {}       # kv_id -> entry
         self.orbits = {}        # node_id -> {size, centroid}
         self.sessions = {}      # session_id -> [kv_id, ...]
+        self.model_id = model_id   # computed faces are model-specific
+        self.anticipation_stats = {"anticipated": 0, "realized": 0,
+                                   "daydreamed": 0}
 
     # -- orbits ------------------------------------------------------------
     def load_orbits(self, nodes_path):
@@ -76,6 +79,8 @@ class Cube:
             "asked": None, "computed": None, "replied": None,
             "first_seen": ts, "last_used": ts, "use_count": 0,
             "co_use": {}, "tier": SELF_TALK,
+            "model_id": self.model_id, "provenance": "original",
+            "value": 0.0, "kind": "interaction", "cycles_left": None,
         }
 
     def add_interaction(self, prompt_text, response_text=None,
@@ -114,6 +119,17 @@ class Cube:
             self._promote(self.entries[i])
         return ids
 
+    def record_outcome(self, kid, success):
+        """Value signal: +1 when the interaction completed / was used,
+        -1 when it failed or was discarded. Gravity follows value,
+        not mere repetition."""
+        e = self.entries.get(kid)
+        if e is None:
+            return False
+        e["value"] += 1.0 if success else -1.0
+        self._promote(e)
+        return True
+
     def _promote(self, entry):
         if entry["tier"] == BLACKHOLE:
             return
@@ -124,6 +140,56 @@ class Cube:
             entry["tier"] = WORK
         else:
             entry["tier"] = SELF_TALK
+
+    # -- anticipation: self-talk triples with a destination falsifier ------
+    def add_anticipation(self, prompt_text, response_text=None,
+                         computed=None, cycles=3, ts=None):
+        """The Dweller thinks ahead: a full self-talk triple (prompt,
+        compute path, response) cached BEFORE anyone asks. It is NOT
+        restricted — it is judged. If the anticipated conversation
+        does not arrive within `cycles` idle cycles, it was a
+        daydream, and the well takes it."""
+        ids = self.add_interaction(prompt_text, response_text, computed,
+                                   ts=ts, session="self-talk")
+        e = self.entries[ids[0]]
+        e["kind"] = "anticipation"
+        e["cycles_left"] = cycles
+        self.anticipation_stats["anticipated"] += 1
+        return ids
+
+    def resolve_anticipations(self, arrived_kids):
+        """One idle cycle of judgment. An anticipation whose prompt
+        (or its orbit-mates in arrived_kids) actually showed up becomes
+        a real memory; one that keeps missing loses a cycle, and at
+        zero it black-holes. Facts gravitate; daydreams fall."""
+        arrived = set(arrived_kids)
+        for e in list(self.entries.values()):
+            if e.get("kind") != "anticipation" or e["tier"] == BLACKHOLE:
+                continue
+            if e["kv_id"] in arrived:
+                e["kind"] = "interaction"
+                e["cycles_left"] = None
+                self.anticipation_stats["realized"] += 1
+            else:
+                e["cycles_left"] -= 1
+                if e["cycles_left"] <= 0:
+                    self.blackhole(e)
+                    self.anticipation_stats["daydreamed"] += 1
+        st = self.anticipation_stats
+        judged = st["realized"] + st["daydreamed"]
+        return {**st, "hit_rate": (st["realized"] / judged)
+                if judged else None}
+
+    def set_model(self, new_model_id):
+        """Model swap: text faces survive (re-talk them), computed
+        faces go stale in place — never silently trusted again."""
+        stale = 0
+        for e in self.entries.values():
+            if e.get("computed") and e.get("model_id") != new_model_id:
+                e["computed"]["stale"] = True
+                stale += 1
+        self.model_id = new_model_id
+        return stale
 
     # -- the well ------------------------------------------------------------
     def blackhole(self, entry):
@@ -143,6 +209,7 @@ class Cube:
         if e is None or kv_id(source_text) != kid:
             return False
         e["text"] = source_text
+        e["provenance"] = "regenerated"   # a rebuild, not the record
         e["tier"] = SELF_TALK
         e["use_count"] += 1
         e["last_used"] = ts if ts is not None else time.time()
@@ -237,6 +304,42 @@ def _selftest():
     assert c.entries[kv_id("hi")]["tier"] == SELF_TALK
     print("  [OK ] promotion by co-use gravity, black-hole truncation, "
           "resurrection")
+    assert c.entries[kv_id("hi")]["provenance"] == "regenerated"
+
+    # value signal: success paves, failure doesn't
+    c2 = Cube(model_id="gemma-3-4b")
+    ids = c2.add_interaction("deploy the harness", "done",
+                             computed={"node": 6, "joules": 12.0})
+    e0 = c2.entries[ids[0]]
+    assert e0["model_id"] == "gemma-3-4b"
+    g_before = gravity(e0)
+    c2.record_outcome(ids[0], True)
+    c2.record_outcome(ids[0], True)
+    assert gravity(e0) > g_before
+    print("  [OK ] value signal moves gravity; model stamp recorded")
+
+    # anticipation falsifier: one arrives, one daydreams into the well
+    c2.add_anticipation("will he ask about tides?", "prepared answer",
+                        cycles=2)
+    c2.add_anticipation("will he ask about nothing real?", "dream",
+                        cycles=2)
+    st = c2.resolve_anticipations([kv_id("will he ask about tides?")])
+    assert c2.entries[kv_id("will he ask about tides?")]["kind"] == \
+        "interaction"
+    c2.resolve_anticipations([])
+    st = c2.resolve_anticipations([])
+    dream = c2.entries[kv_id("will he ask about nothing real?")]
+    print(f"  anticipation stats: {st}")
+    assert dream["tier"] == BLACKHOLE and st["daydreamed"] == 1
+    assert abs(st["hit_rate"] - 0.5) < 1e-9
+    print("  [OK ] anticipation: realized kept, daydream black-holed, "
+          "hit_rate 0.5")
+
+    # model swap: computed faces stale, text survives
+    n = c2.set_model("qwen3-8b")
+    assert n >= 1 and e0["computed"]["stale"] is True
+    assert e0["text"] == "deploy the harness"
+    print("  [OK ] model swap stales computed faces, text faces survive")
     print("\nself-test: PASS")
 
 

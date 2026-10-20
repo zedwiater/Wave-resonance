@@ -22,8 +22,8 @@ cost vs efficiency, in two steps:
 
   STEP 2 — EXIT PATH (urgency decides how much burn is authorized):
     STRONG (>= 0.66)  loved one: FULL — no exit, full budget, grind.
-    MID    (0.33-66)  friendly:  STANDARD — normal budget.
-    WEAK   (< 0.33)   passing hi: EARLY — short cap, cache-first,
+    MID    (0.25-66)  friendly:  STANDARD — normal budget.
+    WEAK   (< 0.25)   passing hi: EARLY — short cap, cache-first,
                       minimal burn, out fast.
 
 The exit path is chosen BEFORE the prompt fires, and the judge prices
@@ -40,7 +40,7 @@ class UrgencyJudge:
     w_route: float = 0.6
     w_complexity: float = 0.4
     strong_at: float = 0.66
-    weak_at: float = 0.33
+    weak_at: float = 0.25
     early_cap: int = 16        # tokens, WEAK path
     standard_cap: int = 64
     full_cap: int = 128
@@ -78,6 +78,8 @@ def _selftest():
         (240, 0, MID, STANDARD, "stranger with a substantial problem"),
         (12, 0, WEAK, EARLY, "passing hi"),
         (60, 0, MID, STANDARD, "ordinary cold question"),
+        (48, 0, MID, STANDARD, "draft-4 regression: ~50-token question "
+         "must not be hi-and-byed"),
     ]
     ok = True
     for pt, sp, wb, wp, label in cases:
