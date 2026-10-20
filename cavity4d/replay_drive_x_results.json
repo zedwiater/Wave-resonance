@@ -1,0 +1,384 @@
+{
+  "seed": {
+    "path": "replay_data/kv_cube_seed.jsonl",
+    "entries": 520,
+    "meta_lines_skipped": 0,
+    "kinds": {
+      "interaction": 520
+    },
+    "anticipation_entries": 0,
+    "tiers": {
+      "SELF_TALK": 495,
+      "WORK": 21,
+      "LONGTERM": 4
+    },
+    "timespan": {
+      "start": 1791873274.4242246,
+      "end": 1792491060.6016452,
+      "start_iso": "2026-10-13T06:34:34.424225+00:00",
+      "end_iso": "2026-10-20T10:11:00.601645+00:00",
+      "days": 7.15
+    }
+  },
+  "assumptions": [
+    "Cube slice as-of t: entries with first_seen <= t; stale_frac = fraction with last_used < t - 7 days; near_threshold = SELF_TALK entries with 3 <= use_count < 5.",
+    "daydream_ratio = 0.0 at every snapshot: the seed has ZERO anticipation entries (all 520 are kind == 'interaction'); the signal is absent from this data, not measured as zero.",
+    "unparsed_bytes = 1.4e9 constant (known Zak-Gemini Takeout backlog); replay does not model parse progress, so it never shrinks across the window.",
+    "Telemetry neutral: disk_free_frac 0.5, temp_c 50, ledger_trend_j_per_h 0 -> survival deficit 0 by construction.",
+    "Audit slice neutral-zero: queue 0, disagree_rate None; the seed carries no audit history, so logic_alignment deficit is 0 throughout and that drive can never fire in this replay.",
+    "Community oldest_unchecked_h = hours since window start capped at 96 (no reset events recorded in the seed); family_signal_age_h omitted.",
+    "sensor_nudge = False throughout (no sensor data in the seed).",
+    "Snapshot times: t0 = min(first_seen), then t0 + k*86400 while <= max(last_used), plus a final snapshot at max(last_used)."
+  ],
+  "snapshot_count": 9,
+  "budgets": {
+    "100.0": {
+      "mode_distribution": {
+        "THINK": 9
+      },
+      "drive_distribution": {
+        "knowledge": 9
+      },
+      "timeline": [
+        {
+          "ts": 1791873274.4242246,
+          "ts_iso": "2026-10-13T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 0.0
+          },
+          "cube_entries": 1,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1791959674.4242246,
+          "ts_iso": "2026-10-14T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 0.5
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792046074.4242246,
+          "ts_iso": "2026-10-15T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792132474.4242246,
+          "ts_iso": "2026-10-16T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792218874.4242246,
+          "ts_iso": "2026-10-17T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792305274.4242246,
+          "ts_iso": "2026-10-18T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792391674.4242246,
+          "ts_iso": "2026-10-19T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792478074.4242246,
+          "ts_iso": "2026-10-20T06:34:34.424225+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792491060.6016452,
+          "ts_iso": "2026-10-20T10:11:00.601645+00:00",
+          "mode": "THINK",
+          "drive": "knowledge",
+          "task": "corpus_parse_chunk",
+          "est_joules": 40.0,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 520,
+          "stale_frac": 0.052,
+          "near_threshold": 1
+        }
+      ]
+    },
+    "1.0": {
+      "mode_distribution": {
+        "REST": 9
+      },
+      "drive_distribution": {
+        "knowledge": 9
+      },
+      "timeline": [
+        {
+          "ts": 1791873274.4242246,
+          "ts_iso": "2026-10-13T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 0.0
+          },
+          "cube_entries": 1,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1791959674.4242246,
+          "ts_iso": "2026-10-14T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 0.5
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792046074.4242246,
+          "ts_iso": "2026-10-15T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792132474.4242246,
+          "ts_iso": "2026-10-16T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792218874.4242246,
+          "ts_iso": "2026-10-17T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792305274.4242246,
+          "ts_iso": "2026-10-18T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792391674.4242246,
+          "ts_iso": "2026-10-19T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792478074.4242246,
+          "ts_iso": "2026-10-20T06:34:34.424225+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 27,
+          "stale_frac": 0.0,
+          "near_threshold": 0
+        },
+        {
+          "ts": 1792491060.6016452,
+          "ts_iso": "2026-10-20T10:11:00.601645+00:00",
+          "mode": "REST",
+          "drive": "knowledge",
+          "task": "cube_maintenance",
+          "est_joules": 0.5,
+          "deficits": {
+            "survival": 0.0,
+            "knowledge": 1.0,
+            "logic_alignment": 0.0,
+            "community": 1.0
+          },
+          "cube_entries": 520,
+          "stale_frac": 0.052,
+          "near_threshold": 1
+        }
+      ]
+    }
+  },
+  "sanity": {
+    "knowledge_dominates": {
+      "answer": true,
+      "note": "Knowledge deficit is pinned at 1.000-1.000 at every snapshot: the constant 1.4 GB unparsed backlog saturates deficit_knowledge's unparsed term (clamp(bytes/1.4e9) = 1.0), masking its other sub-signals (stale_frac, near_threshold, daydream)."
+    },
+    "sleep_occurs": {
+      "answer": false,
+      "note": "SLEEP requires every deficit < 0.15; the pinned knowledge deficit (1.0) makes SLEEP unreachable at both budgets for the entire window."
+    },
+    "budget1_defers_to_rest": {
+      "answer": true,
+      "note": "At budget_j=1.0 the 40 J corpus_parse_chunk and the 5 J campaign sweep are both unaffordable, so every snapshot defers to REST cube_maintenance, exactly as arbitrate() is designed to do."
+    },
+    "community_shadowed": {
+      "answer": true,
+      "note": "Community deficit ramps to 1.00 (saturated from 48 h) yet never wins a single arbitration at budget 100: weighted order puts knowledge (1.0 x 1.0) ahead of community (1.0 x 0.8) and arbitrate returns on the first affordable task. While the backlog saturates, no other drive's task can ever fire."
+    },
+    "logic_alignment_no_data": {
+      "answer": true,
+      "note": "Logic alignment can never fire in this replay: the seed carries no audit history (queue 0, disagree_rate None). Coverage gap in the data, not an arbitration bug."
+    }
+  }
+}
