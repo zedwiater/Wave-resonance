@@ -1,0 +1,8 @@
+faces: n=590 top peaks (Hz): 10.0, 7.0, 15.0, 20.0
+  ladder around 10.0Hz: 0.666667x=7.0Hz, 1x=10.0Hz, 1.5x=15.0Hz, 2x=20.0Hz
+  P25/local-median=1.0x
+  P75/local-median=1.0x
+scrambled: n=297 top peaks (Hz): 7.0, 10.0, 15.0, 20.0
+  ladder around 7.0Hz: 1x=7.0Hz, 1.33333x=10.0Hz, 1.5x=10.0Hz, 2x=15.0Hz, 3x=20.0Hz
+  P25/local-median=1.0x
+  P75/local-median=1.0x
