@@ -1,0 +1,13 @@
+carrier harmonic structure — HCP noise scans (no subject)
+
+== 1-Rnoise (room noise) (sfreq=2034.5 Hz) ==
+  carrier 60: 59.23x local median
+  2nd harmonic 120: 10.48x local median
+  3rd harmonic 180: 1.32x local median
+  subharmonic 30: 1.09x local median
+
+== 2-Pnoise (phantom noise) (sfreq=2034.5 Hz) ==
+  carrier 60: 19.92x local median
+  2nd harmonic 120: 9.77x local median
+  3rd harmonic 180: 1.66x local median
+  subharmonic 30: 1.11x local median
