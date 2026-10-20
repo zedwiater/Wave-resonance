@@ -1,0 +1,551 @@
+{
+  "diagnostic": "draft-10 -4 reuse shortfall sweep",
+  "claim_definition": "len(/tokenize(shared text prefix))",
+  "actual_definition": "trial timings.cache_n",
+  "targets": [
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28,
+    32,
+    33,
+    48,
+    64,
+    65,
+    96,
+    128,
+    192,
+    224
+  ],
+  "rows": [
+    {
+      "target_tokens": 4,
+      "repetition": 1,
+      "claim": 4,
+      "actual_cache_n": 2,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 7,
+      "trial_prompt_tokens_server": 7,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 7,
+      "prefix_text_tail": "Alpha alpha beta gamma"
+    },
+    {
+      "target_tokens": 8,
+      "repetition": 1,
+      "claim": 8,
+      "actual_cache_n": 6,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 11,
+      "trial_prompt_tokens_server": 11,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 11,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 12,
+      "repetition": 1,
+      "claim": 12,
+      "actual_cache_n": 10,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 15,
+      "trial_prompt_tokens_server": 15,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 15,
+      "prefix_text_tail": " sigma theta lambda vector scalar copper"
+    },
+    {
+      "target_tokens": 16,
+      "repetition": 1,
+      "claim": 16,
+      "actual_cache_n": 14,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 19,
+      "trial_prompt_tokens_server": 19,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 19,
+      "prefix_text_tail": "calar copper silver marble velvet harbor"
+    },
+    {
+      "target_tokens": 16,
+      "repetition": 2,
+      "claim": 16,
+      "actual_cache_n": 14,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 19,
+      "trial_prompt_tokens_server": 19,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 19,
+      "prefix_text_tail": "calar copper silver marble velvet harbor"
+    },
+    {
+      "target_tokens": 20,
+      "repetition": 1,
+      "claim": 20,
+      "actual_cache_n": 18,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 23,
+      "trial_prompt_tokens_server": 23,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 23,
+      "prefix_text_tail": "elvet harbor meadow cinder falcon quartz"
+    },
+    {
+      "target_tokens": 24,
+      "repetition": 1,
+      "claim": 24,
+      "actual_cache_n": 22,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 27,
+      "trial_prompt_tokens_server": 27,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 27,
+      "prefix_text_tail": "er falcon quartz timber alpha beta gamma"
+    },
+    {
+      "target_tokens": 24,
+      "repetition": 2,
+      "claim": 24,
+      "actual_cache_n": 22,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 27,
+      "trial_prompt_tokens_server": 27,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 27,
+      "prefix_text_tail": "er falcon quartz timber alpha beta gamma"
+    },
+    {
+      "target_tokens": 28,
+      "repetition": 1,
+      "claim": 28,
+      "actual_cache_n": 26,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 31,
+      "trial_prompt_tokens_server": 31,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 31,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 28,
+      "repetition": 2,
+      "claim": 28,
+      "actual_cache_n": 26,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 31,
+      "trial_prompt_tokens_server": 31,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 31,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 32,
+      "repetition": 1,
+      "claim": 32,
+      "actual_cache_n": 30,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 35,
+      "trial_prompt_tokens_server": 35,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 35,
+      "prefix_text_tail": " sigma theta lambda vector scalar copper"
+    },
+    {
+      "target_tokens": 32,
+      "repetition": 2,
+      "claim": 32,
+      "actual_cache_n": 30,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 35,
+      "trial_prompt_tokens_server": 35,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 35,
+      "prefix_text_tail": " sigma theta lambda vector scalar copper"
+    },
+    {
+      "target_tokens": 33,
+      "repetition": 1,
+      "claim": 33,
+      "actual_cache_n": 31,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 36,
+      "trial_prompt_tokens_server": 36,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 36,
+      "prefix_text_tail": "theta lambda vector scalar copper silver"
+    },
+    {
+      "target_tokens": 48,
+      "repetition": 1,
+      "claim": 48,
+      "actual_cache_n": 46,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 51,
+      "trial_prompt_tokens_server": 51,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 51,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 48,
+      "repetition": 2,
+      "claim": 48,
+      "actual_cache_n": 46,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 51,
+      "trial_prompt_tokens_server": 51,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 51,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 64,
+      "repetition": 1,
+      "claim": 64,
+      "actual_cache_n": 62,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 67,
+      "trial_prompt_tokens_server": 67,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 67,
+      "prefix_text_tail": "er falcon quartz timber alpha beta gamma"
+    },
+    {
+      "target_tokens": 64,
+      "repetition": 2,
+      "claim": 64,
+      "actual_cache_n": 62,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 67,
+      "trial_prompt_tokens_server": 67,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 67,
+      "prefix_text_tail": "er falcon quartz timber alpha beta gamma"
+    },
+    {
+      "target_tokens": 65,
+      "repetition": 1,
+      "claim": 65,
+      "actual_cache_n": 63,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 68,
+      "trial_prompt_tokens_server": 68,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 68,
+      "prefix_text_tail": "con quartz timber alpha beta gamma delta"
+    },
+    {
+      "target_tokens": 96,
+      "repetition": 1,
+      "claim": 96,
+      "actual_cache_n": 94,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 99,
+      "trial_prompt_tokens_server": 99,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 99,
+      "prefix_text_tail": "calar copper silver marble velvet harbor"
+    },
+    {
+      "target_tokens": 96,
+      "repetition": 2,
+      "claim": 96,
+      "actual_cache_n": 94,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 99,
+      "trial_prompt_tokens_server": 99,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 99,
+      "prefix_text_tail": "calar copper silver marble velvet harbor"
+    },
+    {
+      "target_tokens": 128,
+      "repetition": 1,
+      "claim": 128,
+      "actual_cache_n": 126,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 131,
+      "trial_prompt_tokens_server": 131,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 131,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 128,
+      "repetition": 2,
+      "claim": 128,
+      "actual_cache_n": 126,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 131,
+      "trial_prompt_tokens_server": 131,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 131,
+      "prefix_text_tail": "alpha beta gamma delta omega sigma theta"
+    },
+    {
+      "target_tokens": 192,
+      "repetition": 1,
+      "claim": 192,
+      "actual_cache_n": 190,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 195,
+      "trial_prompt_tokens_server": 195,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 195,
+      "prefix_text_tail": " sigma theta lambda vector scalar copper"
+    },
+    {
+      "target_tokens": 224,
+      "repetition": 1,
+      "claim": 224,
+      "actual_cache_n": 222,
+      "shortfall": 2,
+      "prefix_end": "word-boundary",
+      "prefix_token_head_of_prime": true,
+      "prefix_token_head_of_trial": true,
+      "prime_prompt_tokens_server": 227,
+      "trial_prompt_tokens_server": 227,
+      "trial_prompt_n_evaluated": 5,
+      "trial_tokens_cached_field": 227,
+      "prefix_text_tail": "er falcon quartz timber alpha beta gamma"
+    }
+  ],
+  "candidate_rules_ranked": [
+    {
+      "rule": "constant 2",
+      "mean_abs_residual": 0,
+      "max_abs_residual": 0
+    },
+    {
+      "rule": "1 + claim mod 8",
+      "mean_abs_residual": 1.375,
+      "max_abs_residual": 3
+    },
+    {
+      "rule": "proportional 0.0322*claim",
+      "mean_abs_residual": 1.5,
+      "max_abs_residual": 5
+    },
+    {
+      "rule": "claim mod 8",
+      "mean_abs_residual": 1.875,
+      "max_abs_residual": 2
+    },
+    {
+      "rule": "-4 + ((claim mod 8) or 8)",
+      "mean_abs_residual": 2.375,
+      "max_abs_residual": 5
+    },
+    {
+      "rule": "claim mod 16",
+      "mean_abs_residual": 3.375,
+      "max_abs_residual": 10
+    },
+    {
+      "rule": "-1 + claim mod 16",
+      "mean_abs_residual": 3.625,
+      "max_abs_residual": 9
+    },
+    {
+      "rule": "-9 + ((claim mod 16) or 16)",
+      "mean_abs_residual": 5.125,
+      "max_abs_residual": 10
+    },
+    {
+      "rule": "claim mod 32",
+      "mean_abs_residual": 7.875,
+      "max_abs_residual": 26
+    },
+    {
+      "rule": "-6 + claim mod 32",
+      "mean_abs_residual": 8.375,
+      "max_abs_residual": 20
+    },
+    {
+      "rule": "-18 + ((claim mod 32) or 32)",
+      "mean_abs_residual": 10.375,
+      "max_abs_residual": 19
+    },
+    {
+      "rule": "-16 + claim mod 64",
+      "mean_abs_residual": 13,
+      "max_abs_residual": 30
+    },
+    {
+      "rule": "-28 + ((claim mod 64) or 64)",
+      "mean_abs_residual": 16,
+      "max_abs_residual": 34
+    },
+    {
+      "rule": "claim mod 64",
+      "mean_abs_residual": 17,
+      "max_abs_residual": 46
+    }
+  ],
+  "best_rule": "constant 2",
+  "supplemental_probes": {
+    "ending_length_and_exact_repeat (reuse_probe2)": [
+      {
+        "label": "divergent E=1",
+        "prefix_claim": 32,
+        "actual": 29,
+        "trial_prompt_n": 5
+      },
+      {
+        "label": "divergent E=2",
+        "prefix_claim": 32,
+        "actual": 30,
+        "trial_prompt_n": 5
+      },
+      {
+        "label": "divergent E=5tok",
+        "prefix_claim": 32,
+        "actual": 33,
+        "trial_prompt_n": 5
+      },
+      {
+        "label": "divergent E=9tok",
+        "prefix_claim": 32,
+        "actual": 32,
+        "trial_prompt_n": 10
+      },
+      {
+        "label": "exact-repeat full-text 18",
+        "actual": 16,
+        "trial_prompt_n": 3,
+        "note": "slot/prompt-cache history contaminated (identical prompt fired in an earlier probe)"
+      },
+      {
+        "label": "exact-repeat full-text 34",
+        "actual": 30,
+        "trial_prompt_n": 5
+      },
+      {
+        "label": "exact-repeat full-text 66",
+        "actual": 62,
+        "trial_prompt_n": 5
+      },
+      {
+        "label": "trial=prefix-only 32",
+        "actual": 30,
+        "trial_prompt_n": 3
+      }
+    ],
+    "exact_repeat_state_controlled (reuse_probe3, slot flushed first)": [
+      {
+        "text_tokens": 18,
+        "trial_cache_n": 16,
+        "trial_prompt_n": 3,
+        "note": "prime itself hit cache (17) \u2014 prior identical prompt in server memory; anomaly, see report"
+      },
+      {
+        "text_tokens": 34,
+        "trial_cache_n": 30,
+        "trial_prompt_n": 5
+      },
+      {
+        "text_tokens": 66,
+        "trial_cache_n": 62,
+        "trial_prompt_n": 5
+      },
+      {
+        "text_tokens": 34,
+        "prime_n_predict": 8,
+        "trial_cache_n": 30,
+        "trial_prompt_n": 5
+      },
+      {
+        "text_tokens": 34,
+        "trial_n_predict": 8,
+        "trial_cache_n": 30,
+        "trial_prompt_n": 5
+      },
+      {
+        "text_tokens": 130,
+        "trial_cache_n": 126,
+        "trial_prompt_n": 5
+      }
+    ]
+  },
+  "server_window_model": {
+    "measured": "In every draft-10 trial, every Phase A pair with a 2-token divergent ending, and every state-controlled exact repeat with >=34 text tokens, the trial evaluated exactly prompt_n=5 server tokens. Server total = text tokens + 1 (BOS). cache_n = server_total - 5 in all those cases.",
+    "shortfall_vs_shared_prefix_claim_E2": "5 - (2 ending tokens + 1 BOS) = 2 (constant, all 24 Phase A rows, residuals 0)",
+    "shortfall_vs_full_exact_claim_draft10_11": "5 - 1 BOS = 4 (draft 10: 6/6 exact; state-controlled exact repeats >=34 tokens: 4/4)",
+    "chunk_quantization": "REJECTED \u2014 claim mod 8/16/32/64 rules have mean abs residuals 1.9-17.0 vs 0.0 for the constant/window rule; shortfall is independent of claim across 4..224",
+    "mechanism_inference_NOT_measured": "Which 5 positions are re-evaluated was not measured; a fixed final-window rollback by the slot prompt matcher after the prime 1-token generation is consistent with the data but is inference, not measurement.",
+    "junction_note": "All Phase A prefixes ended at word boundaries and the prefix token ids were an exact head of both full prompts in 24/24 rows \u2014 no junction re-piecing in this construction. Mid-word prefix endings were NOT tested."
+  },
+  "draft11_claim_rule": "claim_corrected = max(0, claim - 4) for prime-textual (exact prime prompt) claims"
+}

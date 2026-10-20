@@ -1,0 +1,80 @@
+metering mode: RAPL+GPU (full system)
+shared stem: 5 tokens | bare prefix: 198 tokens (tokenized)
+measuring idle baseline (3 s)...
+idle baseline: 43.8 W
+prefix primed for calibration (stop_type=limit)
+
+--- calibration batch (terminating, per band x shape) ---
+  calib[WEAK->WEAK/BOUNDED/SELECTED]: prompt=12 tok (registry claim 0), gen=4 tok (cap 16), stop_type=eos, actual 5.1 J
+  calib[WEAK->WEAK/BOUNDED/SELECTED]: prompt=13 tok (registry claim 0), gen=4 tok (cap 16), stop_type=eos, actual 4.2 J
+  calib[WEAK->WEAK/OPEN/not-terminating(stop_type=limit)]: prompt=3 tok (registry claim 0), gen=16 tok (cap 16), stop_type=limit, actual 15.7 J
+  calib[WEAK->WEAK/OPEN/not-terminating(stop_type=limit)]: prompt=4 tok (registry claim 0), gen=16 tok (cap 16), stop_type=limit, actual 15.0 J
+  calib[WEAK->WEAK/OPEN/not-terminating(stop_type=limit)]: prompt=4 tok (registry claim 0), gen=16 tok (cap 16), stop_type=limit, actual 15.4 J
+  calib[MID->MID/BOUNDED/not-terminating(stop_type=limit)]: prompt=28 tok (registry claim 5), gen=64 tok (cap 64), stop_type=limit, actual 63.7 J
+  calib[MID->MID/BOUNDED/SELECTED]: prompt=45 tok (registry claim 0), gen=60 tok (cap 64), stop_type=eos, actual 63.6 J
+  calib[MID->MID/BOUNDED/not-terminating(stop_type=limit)]: prompt=33 tok (registry claim 5), gen=64 tok (cap 64), stop_type=limit, actual 64.9 J
+  calib[MID->MID/BOUNDED/SELECTED]: prompt=45 tok (registry claim 0), gen=61 tok (cap 64), stop_type=eos, actual 63.4 J
+  calib[MID->MID/OPEN/not-terminating(stop_type=limit)]: prompt=27 tok (registry claim 5), gen=64 tok (cap 64), stop_type=limit, actual 63.1 J
+  calib[MID->MID/OPEN/not-terminating(stop_type=limit)]: prompt=30 tok (registry claim 5), gen=64 tok (cap 64), stop_type=limit, actual 62.8 J
+  calib[STRONG->STRONG/BOUNDED/SELECTED]: prompt=238 tok (registry claim 198), gen=55 tok (cap 128), stop_type=eos, actual 59.6 J
+  calib[STRONG->STRONG/BOUNDED/SELECTED]: prompt=232 tok (registry claim 198), gen=54 tok (cap 128), stop_type=eos, actual 59.7 J
+  calib[STRONG->STRONG/OPEN/not-terminating(stop_type=limit)]: prompt=219 tok (registry claim 198), gen=128 tok (cap 128), stop_type=limit, actual 140.1 J
+  calib[STRONG->STRONG/OPEN/not-terminating(stop_type=limit)]: prompt=230 tok (registry claim 198), gen=128 tok (cap 128), stop_type=limit, actual 137.3 J
+refit: gen 1.072 J/tok (from 4 terminating samples) | prompt 0.495 J/tok
+calibration cells (band|shape: n, mean_gen):
+  MID|BOUNDED: n=2, mean=60.5
+  MID|OPEN: n=0, mean=None
+  *** CELL MID|OPEN: EMPTY — uses of it fall back (declared per trial) ***
+  STRONG|BOUNDED: n=2, mean=54.5
+  STRONG|OPEN: n=0, mean=None
+  *** CELL STRONG|OPEN: EMPTY — uses of it fall back (declared per trial) ***
+  WEAK|BOUNDED: n=2, mean=4
+  WEAK|OPEN: n=0, mean=None
+  *** CELL WEAK|OPEN: EMPTY — uses of it fall back (declared per trial) ***
+band means (fallback level 2): {'STRONG': 54.5, 'MID': 60.5, 'WEAK': 4}
+
+route locked: prefix = 198 tokens (tokenized, primed bare, single slot)
+
+--- verdict batch (band first, prime second, claim from what the prime established) ---
+[prime 0/WARM] reported cache_n=194 (logged, NOT the claim; registry claim 198) | overhead 5.38 J | claim 215 via prime-textual (raw 219, corrected -4 per Phase A) (textual prefix 1177 chars) | band before prime=STRONG, at firing=STRONG (guard OK)
+[WARM/STRONG/FULL/OPEN] urgency 0.94 | tokens 219 (neutron 215 via prime-textual) | gen priced 128 via open-cap:STRONG (cell (STRONG,OPEN) n=0 < 2 — rule 1) (cap 128, actual 128, stop_type=limit) | cache actual 215 | predicted 139.2 J | actual 135.3 J | identity residual +3.85 J (OK)
+[prime 1/WARM] reported cache_n=193 (logged, NOT the claim; registry claim 198) | overhead 5.62 J | claim 221 via prime-textual (raw 225, corrected -4 per Phase A) (textual prefix 1207 chars) | band before prime=STRONG, at firing=STRONG (guard OK)
+[WARM/STRONG/FULL/OPEN] urgency 0.93 | tokens 225 (neutron 221 via prime-textual) | gen priced 128 via open-cap:STRONG (cell (STRONG,OPEN) n=0 < 2 — rule 1) (cap 128, actual 128, stop_type=limit) | cache actual 221 | predicted 139.2 J | actual 128.4 J | identity residual +10.73 J (OK)
+[prime 2/COLD] reported cache_n=0 (logged, NOT the claim; registry claim 5) | overhead 6.50 J | claim 26 via prime-textual (raw 30, corrected -4 per Phase A) (textual prefix 166 chars) | band before prime=MID, at firing=MID (guard OK)
+[COLD/MID/STANDARD/OPEN] urgency 0.29 | tokens 30 (neutron 26 via prime-textual) | gen priced 64 via open-cap:MID (cell (MID,OPEN) n=0 < 2 — rule 1) (cap 64, actual 64, stop_type=limit) | cache actual 26 | predicted 70.6 J | actual 71.4 J | identity residual -0.85 J (OK)
+[prime 3/COLD] reported cache_n=0 (logged, NOT the claim; registry claim 5) | overhead 4.33 J | claim 28 via prime-textual (raw 32, corrected -4 per Phase A) (textual prefix 175 chars) | band before prime=MID, at firing=MID (guard OK)
+[COLD/MID/STANDARD/OPEN] urgency 0.29 | tokens 32 (neutron 28 via prime-textual) | gen priced 64 via open-cap:MID (cell (MID,OPEN) n=0 < 2 — rule 1) (cap 64, actual 64, stop_type=limit) | cache actual 28 | predicted 70.6 J | actual 66.8 J | identity residual +3.78 J (OK)
+[prime 4/COLD] reported cache_n=0 (logged, NOT the claim; registry claim 0) | overhead 0.98 J | claim 3 via prime-textual (raw 7, corrected -4 per Phase A) (textual prefix 32 chars) | band before prime=WEAK, at firing=WEAK (guard OK)
+[COLD/WEAK/EARLY/BOUNDED] urgency 0.04 | tokens 7 (neutron 3 via prime-textual) | gen priced 4 via cell:(WEAK,BOUNDED) n=2 (cap 16, actual 16, stop_type=limit) | cache actual 3 | predicted 6.3 J | actual 16.8 J | identity residual -10.57 J (FAIL)
+[prime 5/COLD] reported cache_n=12 (logged, NOT the claim; registry claim 0) | overhead 1.27 J | claim 12 via prime-textual (raw 16, corrected -4 per Phase A) (textual prefix 60 chars) | band before prime=WEAK, at firing=WEAK (guard OK)
+[COLD/WEAK/EARLY/OPEN] urgency 0.10 | tokens 16 (neutron 12 via prime-textual) | gen priced 16 via open-cap:WEAK (cell (WEAK,OPEN) n=0 < 2 — rule 1) (cap 16, actual 5, stop_type=eos) | cache actual 12 | predicted 19.1 J | actual 5.5 J | identity residual +13.67 J (FAIL)
+
+--- LIVE VERDICT (draft 11) ---
+PREDICTIVE — model MAE 7.243 J beats flat 194.058 J over 6 samples
+(incumbent flat baseline: 1.69 J/token)
+passport identity: held 4/6 trials within tolerance | mean identity residual +3.43 J
+prime overhead (primes, excluded from trials): 24.08 J over 6 primes
+metering mode: RAPL+GPU (full system)
+band guard: all trials band-before-prime == band-at-firing: True
+
+--- prime cost-benefit (rule 3) ---
+  route 0/WARM #455ceb: prime 5.38 J | claim 215 tok via prime-textual | savings/repeat 106.49 J | realized x1 = 106.49 J | net +101.11 J | break-even repeats 1 | PAID
+  route 1/WARM #a2e954: prime 5.62 J | claim 221 tok via prime-textual | savings/repeat 109.46 J | realized x1 = 109.46 J | net +103.84 J | break-even repeats 1 | PAID
+  route 2/COLD #197a69: prime 6.50 J | claim 26 tok via prime-textual | savings/repeat 12.88 J | realized x1 = 12.88 J | net +6.37 J | break-even repeats 1 | PAID
+  route 3/COLD #b3671d: prime 4.33 J | claim 28 tok via prime-textual | savings/repeat 13.87 J | realized x1 = 13.87 J | net +9.54 J | break-even repeats 1 | PAID
+  route 4/COLD #ca1012: prime 0.98 J | claim 3 tok via prime-textual | savings/repeat 1.49 J | realized x1 = 1.49 J | net +0.50 J | break-even repeats 1 | PAID
+  route 5/COLD #c29366: prime 1.27 J | claim 12 tok via prime-textual | savings/repeat 5.94 J | realized x1 = 5.94 J | net +4.68 J | break-even repeats 1 | PAID
+  TOTAL: overhead 24.08 J vs neutron savings 250.13 J -> priming PAID FOR ITSELF this run
+
+--- stop-field finding (carried, re-verified) ---
+Across all generations of this run the completion response carried stop keys ['stop', 'stop_type', 'stopping_word', 'truncated']; the searched keys ['finish_reason', 'stopped_eos', 'stopped_limit', 'stopped_word'] NEVER appeared. Termination is signalled by stop_type: counts {'limit': 22, 'eos': 7}. 'terminating' in draft 11 = stop_type in (eos, word); 'hit_limit' = stop_type == limit. Draft 8's stopped_eos/stopped_limit reads were reads of keys this server build does not emit.
+response top-level keys (first generation): ['content', 'generation_settings', 'has_new_line', 'id_slot', 'index', 'model', 'prompt', 'stop', 'stop_type', 'stopping_word', 'timings', 'tokens', 'tokens_cached', 'tokens_evaluated', 'tokens_predicted', 'truncated']
+
+--- drafts 7 / 8 / 9 / 10 / 11 ---
+draft     model MAE   flat MAE  identity  mean resid  overhead
+draft7        13.20     197.84 3/6             -4.35         —
+draft8        49.05     211.18 1/6            -26.35     21.85
+draft9        24.82     196.84 1/6            -11.82     33.08
+draft10        7.42     198.48 3/6             +3.76     23.85
+draft11        7.24     194.06 4/6             +3.43     24.08
+results written: /home/dezritawre/wave-sunday/harness/live_verdict11_results.json
