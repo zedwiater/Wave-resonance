@@ -1,0 +1,46 @@
+induced reflections — HCP n-back sub 106521
+(carrier harmonics, subharmonics, modulation sidebands; ratios vs local median, 1.0x = clean null)
+run1: aligned 124/160 trials, lag=5.5s
+run2: aligned 128/160 trials, lag=6.5s
+
+== 0-back (n=2 runs averaged) ==
+  carrier 60: 3.23x local median
+  2nd harmonic 120: 4.76x local median
+  3rd harmonic 180: 1.07x local median
+  subharmonic 30 (f/2): 1.02x local median
+  subharmonic 20 (f/3): 1.06x local median
+  sideband 60-6.2Hz (53.8Hz): 0.95x
+  sideband 60+6.2Hz (66.2Hz): 0.99x
+  sideband 120-6.2Hz (113.8Hz): 0.97x
+  sideband 120+6.2Hz (126.2Hz): 1.01x
+  sideband 60-12.4Hz (47.6Hz): 1.01x
+  sideband 60+12.4Hz (72.4Hz): 1.02x
+  sideband 120-12.4Hz (107.6Hz): 1.00x
+  sideband 120+12.4Hz (132.4Hz): 1.01x
+  sideband 60-10.0Hz (50.0Hz): 0.95x
+  sideband 60+10.0Hz (70.0Hz): 0.99x
+  sideband 120-10.0Hz (110.0Hz): 0.99x
+  sideband 120+10.0Hz (130.0Hz): 1.00x
+
+== 2-back (n=2 runs averaged) ==
+  carrier 60: 3.37x local median
+  2nd harmonic 120: 4.69x local median
+  3rd harmonic 180: 1.10x local median
+  subharmonic 30 (f/2): 1.02x local median
+  subharmonic 20 (f/3): 1.06x local median
+  sideband 60-6.2Hz (53.8Hz): 0.94x
+  sideband 60+6.2Hz (66.2Hz): 0.99x
+  sideband 120-6.2Hz (113.8Hz): 0.99x
+  sideband 120+6.2Hz (126.2Hz): 1.00x
+  sideband 60-12.4Hz (47.6Hz): 1.01x
+  sideband 60+12.4Hz (72.4Hz): 0.99x
+  sideband 120-12.4Hz (107.6Hz): 0.99x
+  sideband 120+12.4Hz (132.4Hz): 1.01x
+  sideband 60-10.0Hz (50.0Hz): 0.96x
+  sideband 60+10.0Hz (70.0Hz): 1.01x
+  sideband 120-10.0Hz (110.0Hz): 0.97x
+  sideband 120+10.0Hz (130.0Hz): 1.00x
+
+== full-run carrier harmonic structure (resting, both runs) ==
+  run1: 60Hz=16.2x, 120Hz=31.0x, 180Hz=1.5x, 30Hz=1.0x
+  run2: 60Hz=18.9x, 120Hz=31.5x, 180Hz=1.5x, 30Hz=1.0x
