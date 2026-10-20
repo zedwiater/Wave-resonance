@@ -258,18 +258,48 @@ class Cube:
             # named "self-talk" — so persistence cannot smuggle a
             # self-talk id into the registry either.
             f.write(json.dumps({"_meta": "cube_state",
+                                "saved_at": time.time(),
                                 "real_arrivals":
                                     sorted(self._real_arrivals)}) + "\n")
 
-    def load(self, path):
+    def load(self, path, now=None, cycle_seconds=3600.0):
+        """Restore entries + the real-arrival registry from disk.
+
+        Invariant: the arrivals registry survives restart intact —
+        ground truth does not decay. Anticipations do NOT survive
+        for free: downtime burns their cycles. The wall-clock gap
+        since the save's saved_at stamp is converted to missed idle
+        cycles (cycle_seconds each), subtracted from every live
+        anticipation's cycles_left; one that hits zero black-holes
+        on load, counted as daydreamed. A stale daydream from a
+        previous session therefore dies at the door instead of
+        realizing later. Old save files without saved_at get no
+        decay (saved_at treated as now); clock skew clamps at 0.
+        """
+        now = now if now is not None else time.time()
+        saved_at = None
         for line in open(path):
             if not line.strip():
                 continue
             e = json.loads(line)
             if e.get("_meta") == "cube_state":
                 self._real_arrivals.update(e.get("real_arrivals", []))
+                saved_at = e.get("saved_at", saved_at)
                 continue
             self.entries[e["kv_id"]] = e
+        if saved_at is not None:
+            downtime = max(0.0, now - saved_at)
+            missed_cycles = int(downtime // cycle_seconds)
+            if missed_cycles > 0:
+                for e in list(self.entries.values()):
+                    if e.get("kind") != "anticipation" \
+                            or e["tier"] == BLACKHOLE \
+                            or e.get("cycles_left") is None:
+                        continue
+                    e["cycles_left"] -= missed_cycles
+                    if e["cycles_left"] <= 0:
+                        self.blackhole(e)
+                        self.anticipation_stats["daydreamed"] += 1
         return len(self.entries)
 
 
@@ -421,6 +451,66 @@ def _selftest():
     print(f"  persistence stats after reload: {st}")
     print("  [OK ] arrivals persist: real arrival realized after "
           "reload, self-talk id never registered")
+
+    # downtime decay on load: the registry survives restart intact,
+    # anticipations do not — downtime burns their remaining cycles,
+    # so a stale daydream black-holes at the door.
+    c6 = Cube()
+    c6.add_interaction("the question that really came", session="live")
+    c6.add_anticipation("a dream with three cycles", "dream",
+                        cycles=3)
+    decay_kid = kv_id("a dream with three cycles")
+    arrived_kid = kv_id("the question that really came")
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "cube_decay.jsonl"
+        c6.save(p)
+        saved_at = None
+        for line in open(p):
+            rec = json.loads(line)
+            if rec.get("_meta") == "cube_state":
+                saved_at = rec["saved_at"]
+        assert saved_at is not None
+        # (a) 2.5 h down at 1 h/cycle: loses 2 cycles, survives on 1
+        c7 = Cube()
+        c7.load(p, now=saved_at + 2.5 * 3600, cycle_seconds=3600.0)
+        e7 = c7.entries[decay_kid]
+        print(f"  decay (a): cycles_left={e7['cycles_left']} "
+              f"tier={e7['tier']} kind={e7['kind']}")
+        assert e7["kind"] == "anticipation" and e7["cycles_left"] == 1
+        assert e7["tier"] != BLACKHOLE
+        print("  [OK ] downtime decay: 2 missed cycles burned, "
+              "anticipation survives with 1")
+        # (b) 4 h down: cycles exhausted — black-holed on load,
+        # daydreamed counted, registry still intact
+        c8 = Cube()
+        c8.load(p, now=saved_at + 4 * 3600, cycle_seconds=3600.0)
+        e8 = c8.entries[decay_kid]
+        print(f"  decay (b): tier={e8['tier']} daydreamed="
+              f"{c8.anticipation_stats['daydreamed']} registry "
+              f"intact={arrived_kid in c8._real_arrivals}")
+        assert e8["tier"] == BLACKHOLE
+        assert c8.anticipation_stats["daydreamed"] == 1
+        assert arrived_kid in c8._real_arrivals
+        print("  [OK ] downtime decay: stale daydream black-holed on "
+              "load, arrivals registry intact")
+        # (c) old-format file (no saved_at): no decay, however late
+        lines = []
+        for line in open(p):
+            rec = json.loads(line)
+            if rec.get("_meta") == "cube_state":
+                rec.pop("saved_at", None)
+            lines.append(json.dumps(rec))
+        p_old = Path(td) / "cube_old.jsonl"
+        p_old.write_text("\n".join(lines) + "\n")
+        c9 = Cube()
+        c9.load(p_old, now=saved_at + 100 * 3600,
+                cycle_seconds=3600.0)
+        e9 = c9.entries[decay_kid]
+        print(f"  decay (c): cycles_left={e9['cycles_left']} "
+              f"tier={e9['tier']} (old format, no saved_at)")
+        assert e9["cycles_left"] == 3 and e9["tier"] != BLACKHOLE
+        print("  [OK ] downtime decay: old-format save loads with "
+              "no decay")
     print("\nself-test: PASS")
 
 

@@ -145,6 +145,33 @@ probe set — cancellation that degrades answers shows up there first.
    goes live inside a sealed falsifier)
 6. Qwen3-8B bench inside the cavity accounting; whitepaper; outreach
 
+## 7b. The light-inquiry ladder (front end, from the human-cognition frame)
+
+Humans don't run a full reasoning pass on every input. The front end gets the
+same ladder, keyed to cancellation state — five rungs, cheapest first:
+
+- **SHRUG** — excitation below route threshold, no orbit match: no generation.
+  The input settles into the cube as an unrealized trace. **Scope: ambient and
+  self-talk traffic only.** A person addressing the Dweller directly never gets
+  a shrug — they get at minimum the echo. (Sensor Ego already lives here:
+  sub-2.5σ nudges are ignored by design.)
+- **ECHO** — orbit match found: instant alignment acknowledgment from the
+  matched standing state (the snappy drop, Zak's UX law) while the fuller path
+  prices itself behind it. This is cancellation verification, not an answer.
+- **CLARIFY** — alignment ambiguous or cache state uncertain: ONE cheap probe
+  (a short clarifying question to the user, or a discovery probe to the
+  server). Probes are cheap, **not free** — draft 8 measured 2–6 J per probe,
+  and a probe's result prices neutrons only; it never raises a generation cap.
+- **ASSUME** — probe/registry confirms the warm route: execute at maximum
+  cancellation (neutron-priced prefix, expected-length generation).
+- **FULL** — no cancellation available: the delta is computed at full price.
+  This is the only rung that was previously the default for everything.
+
+The ladder is the urgency judge grown a front door: WEAK/EARLY ≈ CLARIFY
+territory, MID ≈ ASSUME, STRONG ≈ FULL. What it adds is the two rungs the
+judge never had — SHRUG (zero burn for ambient noise) and ECHO (zero-gen
+alignment signal) — and the rule that probes inform pricing, never banding.
+
 ## 8. Falsifiers, stated up front
 
 - If `gross − cancelled` drifts from metered delta beyond noise across a
