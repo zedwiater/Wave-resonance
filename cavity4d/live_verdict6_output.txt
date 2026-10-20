@@ -1,0 +1,26 @@
+metering mode: RAPL+GPU (full system)
+measuring idle baseline (3 s)...
+idle baseline: 43.7 W
+
+--- calibration batch ---
+  calib: gen=96 tok, actual 103.0 J
+  calib: gen=96 tok, actual 100.1 J
+  calib: gen=96 tok, actual 102.7 J
+refit: gen 1.069 J/tok | prompt 0.414 J/tok
+
+route locked: prefix = 199 tokens (single slot, no pinning)
+
+--- verdict batch (route-ordered) ---
+[WARM/STRONG/FULL] urgency 0.81 | cache judged 199 actual 194 | predicted 176.2 J | actual 136.6 J | identity residual +39.66 J (FAIL)
+[WARM/STRONG/FULL] urgency 0.80 | cache judged 199 actual 193 | predicted 179.5 J | actual 136.7 J | identity residual +42.80 J (FAIL)
+[COLD/MID/STANDARD] urgency 0.26 | cache judged 0 actual 26 | predicted 85.8 J | actual 65.9 J | identity residual +19.94 J (FAIL)
+[COLD/MID/STANDARD] urgency 0.28 | cache judged 0 actual 28 | predicted 86.7 J | actual 64.8 J | identity residual +21.82 J (FAIL)
+[COLD/WEAK/EARLY] urgency 0.05 | cache judged 0 actual 3 | predicted 20.4 J | actual 16.4 J | identity residual +4.04 J (FAIL)
+[COLD/WEAK/EARLY] urgency 0.09 | cache judged 0 actual 12 | predicted 23.3 J | actual 5.9 J | identity residual +17.47 J (FAIL)
+
+--- LIVE VERDICT (draft 6) ---
+PREDICTIVE — model MAE 24.289 J beats flat 193.727 J over 6 samples
+(incumbent flat baseline: 1.69 J/token)
+passport identity: held 0/6 trials within tolerance | mean identity residual +24.29 J
+metering mode: RAPL+GPU (full system)
+results written: /home/dezritawre/wave-sunday/harness/live_verdict6_results.json

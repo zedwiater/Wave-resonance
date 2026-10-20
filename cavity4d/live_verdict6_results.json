@@ -1,0 +1,5006 @@
+{
+  "draft": 6,
+  "metering_mode": "RAPL+GPU (full system)",
+  "idle_w": 43.69690334493551,
+  "gen_rate_j_per_tok": 1.0693155497005356,
+  "prompt_rate_j_per_tok": 0.41412749336361526,
+  "prefix_tokens": 199,
+  "mae_model_j": 24.28937474302842,
+  "mae_flat_j": 193.72730655335295,
+  "identity_held": 0,
+  "identity_n": 6,
+  "mean_identity_residual_j": 24.28937474302842,
+  "trials": [
+    {
+      "kind": "WARM",
+      "band": "STRONG",
+      "exit_path": "FULL",
+      "urgency": 0.8061224489795918,
+      "cache_judged": 199,
+      "cache_actual": 194,
+      "pred_j": 176.214502231212,
+      "actual_j": 136.55432234291013,
+      "model_err_j": 39.66017988830188,
+      "flat_err_j": 451.56567765708985,
+      "prompt_tokens_server": 220,
+      "gen_tokens_server": 128,
+      "gross_j": 258.62587341057133,
+      "cancelled_j": 82.41137117935929,
+      "passport_paid_j": 176.21450223121204,
+      "paid_vs_pred_drift_j": 2.842170943040401e-14,
+      "identity_residual_j": 39.66017988830191,
+      "identity_ok": false,
+      "identity_tolerance_j": 13.655432234291013,
+      "prompt_kv_id": "455ceb0792afadc9",
+      "response_kv_id": "3e6a218ceb9ecc17",
+      "n_token_ids": 219,
+      "passport": {
+        "token_ids": [
+          818,
+          6794,
+          25828,
+          36326,
+          32761,
+          1418,
+          10134,
+          618,
+          496,
+          110777,
+          236761,
+          562,
+          15903,
+          6794,
+          22353,
+          699,
+          886,
+          7860,
+          1131,
+          2264,
+          23076,
+          506,
+          18271,
+          529,
+          506,
+          4253,
+          607,
+          625,
+          236764,
+          532,
+          506,
+          11985,
+          7860,
+          37669,
+          236751,
+          496,
+          2263,
+          3567,
+          529,
+          506,
+          6953,
+          21735,
+          684,
+          1061,
+          1852,
+          32451,
+          236764,
+          1061,
+          1852,
+          50777,
+          16979,
+          236764,
+          532,
+          1061,
+          1852,
+          4083,
+          529,
+          4487,
+          31192,
+          236761,
+          1174,
+          563,
+          3217,
+          506,
+          1638,
+          8411,
+          28132,
+          740,
+          3196,
+          618,
+          496,
+          44770,
+          2978,
+          28937,
+          528,
+          614,
+          7738,
+          18782,
+          236764,
+          496,
+          37402,
+          16856,
+          2342,
+          614,
+          29228,
+          91608,
+          236764,
+          532,
+          496,
+          3188,
+          10134,
+          14187,
+          2342,
+          4882,
+          12290,
+          236787,
+          506,
+          15903,
+          563,
+          4512,
+          236764,
+          506,
+          10134,
+          1677,
+          506,
+          981,
+          236761,
+          121315,
+          50178,
+          7519,
+          531,
+          3423,
+          7121,
+          672,
+          23469,
+          236764,
+          122674,
+          1418,
+          8434,
+          11519,
+          607,
+          5769,
+          6953,
+          625,
+          563,
+          532,
+          1144,
+          506,
+          10134,
+          1602,
+          531,
+          625,
+          236764,
+          834,
+          600,
+          951,
+          33437,
+          3671,
+          3785,
+          23153,
+          506,
+          2978,
+          573,
+          506,
+          3666,
+          653,
+          506,
+          8411,
+          573,
+          506,
+          13401,
+          236761,
+          669,
+          77213,
+          30672,
+          26266,
+          3541,
+          6589,
+          534,
+          51791,
+          236764,
+          506,
+          22823,
+          11001,
+          3541,
+          3962,
+          236764,
+          506,
+          8411,
+          657,
+          41607,
+          532,
+          1061,
+          28132,
+          657,
+          886,
+          7549,
+          12571,
+          236764,
+          532,
+          506,
+          3697,
+          10946,
+          529,
+          506,
+          36326,
+          563,
+          10264,
+          1724,
+          27892,
+          7732,
+          1651,
+          16935,
+          1217,
+          901,
+          4628,
+          236761,
+          17770,
+          784,
+          529,
+          506,
+          2787,
+          236764,
+          4903,
+          496,
+          2822,
+          15649,
+          26804,
+          1144,
+          506,
+          10134,
+          33235,
+          600,
+          506,
+          15903,
+          7057,
+          3914,
+          2847,
+          236761
+        ],
+        "embedding_point": "warm:locked-prefix-route",
+        "prompt_kv_id": "455ceb0792afadc9",
+        "path": [
+          {
+            "name": "prompt-cached:wpe.weight",
+            "full_price": 0.7496570830539949,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:wte.weight",
+            "full_price": 14.478379278000238,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt:wpe.weight",
+            "full_price": 0.3578764969353242,
+            "paid_price": 0.3578764969353242,
+            "neutron": false
+          },
+          {
+            "name": "prompt:wte.weight",
+            "full_price": 6.911789102562928,
+            "paid_price": 6.911789102562928,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8068687891026481,
+            "paid_price": 0.8068687891026481,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.47479013780529966,
+            "paid_price": 0.47479013780529966,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.702579625885299,
+            "paid_price": 0.702579625885299,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.6884653030438532,
+            "paid_price": 0.6884653030438532,
+            "neutron": false
+          },
+          {
+            "name": "gen:wpe.weight",
+            "full_price": 1.2450630955507627,
+            "paid_price": 1.2450630955507627,
+            "neutron": false
+          },
+          {
+            "name": "gen:wte.weight",
+            "full_price": 24.04632215170655,
+            "paid_price": 24.04632215170655,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          }
+        ],
+        "response_kv_id": "3e6a218ceb9ecc17",
+        "interactions": [
+          {
+            "other_id": "bca8ab66a43a5d19",
+            "joules": 82.41137117935943
+          }
+        ],
+        "oscillations": [],
+        "totals": {
+          "gross_joules": 258.62587341057133,
+          "cancelled_joules": 82.41137117935929,
+          "paid_joules": 176.21450223121204,
+          "j_total_interacted": 82.41137117935943,
+          "j_total_oscillation": 0
+        }
+      }
+    },
+    {
+      "kind": "WARM",
+      "band": "STRONG",
+      "exit_path": "FULL",
+      "urgency": 0.7953642384105961,
+      "cache_judged": 199,
+      "cache_actual": 193,
+      "pred_j": 179.52752217812093,
+      "actual_j": 136.72592448090444,
+      "model_err_j": 42.80159769721649,
+      "flat_err_j": 461.53407551909555,
+      "prompt_tokens_server": 226,
+      "gen_tokens_server": 128,
+      "gross_j": 261.9388933574801,
+      "cancelled_j": 82.41137117935918,
+      "passport_paid_j": 179.5275221781209,
+      "paid_vs_pred_drift_j": -2.842170943040401e-14,
+      "identity_residual_j": 42.801597697216465,
+      "identity_ok": false,
+      "identity_tolerance_j": 13.672592448090445,
+      "prompt_kv_id": "a2e9545227a0e1e5",
+      "response_kv_id": "097ce3fd19129af7",
+      "n_token_ids": 225,
+      "passport": {
+        "token_ids": [
+          818,
+          6794,
+          25828,
+          36326,
+          32761,
+          1418,
+          10134,
+          618,
+          496,
+          110777,
+          236761,
+          562,
+          15903,
+          6794,
+          22353,
+          699,
+          886,
+          7860,
+          1131,
+          2264,
+          23076,
+          506,
+          18271,
+          529,
+          506,
+          4253,
+          607,
+          625,
+          236764,
+          532,
+          506,
+          11985,
+          7860,
+          37669,
+          236751,
+          496,
+          2263,
+          3567,
+          529,
+          506,
+          6953,
+          21735,
+          684,
+          1061,
+          1852,
+          32451,
+          236764,
+          1061,
+          1852,
+          50777,
+          16979,
+          236764,
+          532,
+          1061,
+          1852,
+          4083,
+          529,
+          4487,
+          31192,
+          236761,
+          1174,
+          563,
+          3217,
+          506,
+          1638,
+          8411,
+          28132,
+          740,
+          3196,
+          618,
+          496,
+          44770,
+          2978,
+          28937,
+          528,
+          614,
+          7738,
+          18782,
+          236764,
+          496,
+          37402,
+          16856,
+          2342,
+          614,
+          29228,
+          91608,
+          236764,
+          532,
+          496,
+          3188,
+          10134,
+          14187,
+          2342,
+          4882,
+          12290,
+          236787,
+          506,
+          15903,
+          563,
+          4512,
+          236764,
+          506,
+          10134,
+          1677,
+          506,
+          981,
+          236761,
+          121315,
+          50178,
+          7519,
+          531,
+          3423,
+          7121,
+          672,
+          23469,
+          236764,
+          122674,
+          1418,
+          8434,
+          11519,
+          607,
+          5769,
+          6953,
+          625,
+          563,
+          532,
+          1144,
+          506,
+          10134,
+          1602,
+          531,
+          625,
+          236764,
+          834,
+          600,
+          951,
+          33437,
+          3671,
+          3785,
+          23153,
+          506,
+          2978,
+          573,
+          506,
+          3666,
+          653,
+          506,
+          8411,
+          573,
+          506,
+          13401,
+          236761,
+          669,
+          77213,
+          30672,
+          26266,
+          3541,
+          6589,
+          534,
+          51791,
+          236764,
+          506,
+          22823,
+          11001,
+          3541,
+          3962,
+          236764,
+          506,
+          8411,
+          657,
+          41607,
+          532,
+          1061,
+          28132,
+          657,
+          886,
+          7549,
+          12571,
+          236764,
+          532,
+          506,
+          3697,
+          10946,
+          529,
+          506,
+          36326,
+          563,
+          10264,
+          1724,
+          27892,
+          7732,
+          1651,
+          16935,
+          1217,
+          901,
+          4628,
+          236761,
+          17770,
+          784,
+          529,
+          506,
+          2787,
+          236764,
+          4903,
+          496,
+          2822,
+          15649,
+          26804,
+          3217,
+          614,
+          7738,
+          2978,
+          532,
+          496,
+          4882,
+          3660,
+          6360,
+          1607,
+          28132,
+          24781,
+          2342,
+          506,
+          1638,
+          15903,
+          236761
+        ],
+        "embedding_point": "warm:locked-prefix-route",
+        "prompt_kv_id": "a2e9545227a0e1e5",
+        "path": [
+          {
+            "name": "prompt-cached:wpe.weight",
+            "full_price": 0.7496570830539949,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:wte.weight",
+            "full_price": 14.478379278000238,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_attn",
+            "full_price": 1.6901777792781787,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:attn.c_proj",
+            "full_price": 0.9945603939289961,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_fc",
+            "full_price": 1.4717194268544684,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt-cached:mlp.c_proj",
+            "full_price": 1.4421536347971242,
+            "paid_price": 0.0,
+            "neutron": true
+          },
+          {
+            "name": "prompt:wpe.weight",
+            "full_price": 0.38801346509829887,
+            "paid_price": 0.38801346509829887,
+            "neutron": false
+          },
+          {
+            "name": "prompt:wte.weight",
+            "full_price": 7.49383450067349,
+            "paid_price": 7.49383450067349,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.8748156345007659,
+            "paid_price": 0.8748156345007659,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.5147724651994301,
+            "paid_price": 0.5147724651994301,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.7617442259598505,
+            "paid_price": 0.7617442259598505,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.7464413285633357,
+            "paid_price": 0.7464413285633357,
+            "neutron": false
+          },
+          {
+            "name": "gen:wpe.weight",
+            "full_price": 1.2450630955507627,
+            "paid_price": 1.2450630955507627,
+            "neutron": false
+          },
+          {
+            "name": "gen:wte.weight",
+            "full_price": 24.04632215170655,
+            "paid_price": 24.04632215170655,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 2.8071207829135294,
+            "paid_price": 2.8071207829135294,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 1.6518091681770086,
+            "paid_price": 1.6518091681770086,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 2.444295647707019,
+            "paid_price": 2.444295647707019,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 2.3951914940700476,
+            "paid_price": 2.3951914940700476,
+            "neutron": false
+          }
+        ],
+        "response_kv_id": "097ce3fd19129af7",
+        "interactions": [
+          {
+            "other_id": "bca8ab66a43a5d19",
+            "joules": 82.41137117935943
+          }
+        ],
+        "oscillations": [],
+        "totals": {
+          "gross_joules": 261.9388933574801,
+          "cancelled_joules": 82.41137117935918,
+          "paid_joules": 179.5275221781209,
+          "j_total_interacted": 82.41137117935943,
+          "j_total_oscillation": 0
+        }
+      }
+    },
+    {
+      "kind": "COLD",
+      "band": "MID",
+      "exit_path": "STANDARD",
+      "urgency": 0.2625,
+      "cache_judged": 0,
+      "cache_actual": 26,
+      "pred_j": 85.82954990210612,
+      "actual_j": 65.8855722852308,
+      "model_err_j": 19.94397761687533,
+      "flat_err_j": 94.66442771476919,
+      "prompt_tokens_server": 31,
+      "gen_tokens_server": 64,
+      "gross_j": 85.8295499021061,
+      "cancelled_j": 0.0,
+      "passport_paid_j": 85.8295499021061,
+      "paid_vs_pred_drift_j": -2.842170943040401e-14,
+      "identity_residual_j": 19.9439776168753,
+      "identity_ok": false,
+      "identity_tolerance_j": 6.588557228523079,
+      "prompt_kv_id": "197a69907715357b",
+      "response_kv_id": "72182de4680744bb",
+      "n_token_ids": 30,
+      "passport": {
+        "token_ids": [
+          6974,
+          496,
+          2822,
+          15649,
+          1003,
+          3217,
+          496,
+          14701,
+          517,
+          16713,
+          528,
+          496,
+          15406,
+          1308,
+          496,
+          3425,
+          16984,
+          236764,
+          1699,
+          506,
+          5192,
+          529,
+          51585,
+          236764,
+          14581,
+          532,
+          4022,
+          8798,
+          5459,
+          236761
+        ],
+        "embedding_point": "cold:unique-route",
+        "prompt_kv_id": "197a69907715357b",
+        "path": [
+          {
+            "name": "prompt:wpe.weight",
+            "full_price": 0.158219082855617,
+            "paid_price": 0.158219082855617,
+            "neutron": false
+          },
+          {
+            "name": "prompt:wte.weight",
+            "full_price": 3.055738340080452,
+            "paid_price": 3.055738340080452,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.35672093834011814,
+            "paid_price": 0.35672093834011814,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.20990721881918512,
+            "paid_price": 0.20990721881918512,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.31061415039139534,
+            "paid_price": 0.31061415039139534,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3043741339772825,
+            "paid_price": 0.3043741339772825,
+            "neutron": false
+          },
+          {
+            "name": "gen:wpe.weight",
+            "full_price": 0.6225315477753813,
+            "paid_price": 0.6225315477753813,
+            "neutron": false
+          },
+          {
+            "name": "gen:wte.weight",
+            "full_price": 12.023161075853276,
+            "paid_price": 12.023161075853276,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          }
+        ],
+        "response_kv_id": "72182de4680744bb",
+        "interactions": [],
+        "oscillations": [],
+        "totals": {
+          "gross_joules": 85.8295499021061,
+          "cancelled_joules": 0.0,
+          "paid_joules": 85.8295499021061,
+          "j_total_interacted": 0,
+          "j_total_oscillation": 0
+        }
+      }
+    },
+    {
+      "kind": "COLD",
+      "band": "MID",
+      "exit_path": "STANDARD",
+      "urgency": 0.275,
+      "cache_judged": 0,
+      "cache_actual": 28,
+      "pred_j": 86.65780488883334,
+      "actual_j": 64.83313612147505,
+      "model_err_j": 21.82466876735829,
+      "flat_err_j": 99.09686387852496,
+      "prompt_tokens_server": 33,
+      "gen_tokens_server": 64,
+      "gross_j": 86.65780488883335,
+      "cancelled_j": 0.0,
+      "passport_paid_j": 86.65780488883335,
+      "paid_vs_pred_drift_j": 1.4210854715202004e-14,
+      "identity_residual_j": 21.824668767358304,
+      "identity_ok": false,
+      "identity_tolerance_j": 6.483313612147505,
+      "prompt_kv_id": "b3671da617546346",
+      "response_kv_id": "bbcb93a5a09117ac",
+      "n_token_ids": 32,
+      "passport": {
+        "token_ids": [
+          6974,
+          496,
+          2822,
+          15649,
+          1003,
+          3217,
+          26550,
+          41796,
+          637,
+          79479,
+          5205,
+          529,
+          51364,
+          236764,
+          1699,
+          506,
+          5192,
+          529,
+          5149,
+          236764,
+          7132,
+          532,
+          506,
+          990,
+          1534,
+          506,
+          13053,
+          532,
+          506,
+          5057,
+          32643,
+          236761
+        ],
+        "embedding_point": "cold:unique-route",
+        "prompt_kv_id": "b3671da617546346",
+        "path": [
+          {
+            "name": "prompt:wpe.weight",
+            "full_price": 0.1657533248963607,
+            "paid_price": 0.1657533248963607,
+            "neutron": false
+          },
+          {
+            "name": "prompt:wte.weight",
+            "full_price": 3.2012496896080926,
+            "paid_price": 3.2012496896080926,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.37370764968964754,
+            "paid_price": 0.37370764968964754,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.21990280066771772,
+            "paid_price": 0.21990280066771772,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.32540530041003324,
+            "paid_price": 0.32540530041003324,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.3188681403571531,
+            "paid_price": 0.3188681403571531,
+            "neutron": false
+          },
+          {
+            "name": "gen:wpe.weight",
+            "full_price": 0.6225315477753813,
+            "paid_price": 0.6225315477753813,
+            "neutron": false
+          },
+          {
+            "name": "gen:wte.weight",
+            "full_price": 12.023161075853276,
+            "paid_price": 12.023161075853276,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 1.4035603914567647,
+            "paid_price": 1.4035603914567647,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.8259045840885043,
+            "paid_price": 0.8259045840885043,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 1.2221478238535095,
+            "paid_price": 1.2221478238535095,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 1.1975957470350238,
+            "paid_price": 1.1975957470350238,
+            "neutron": false
+          }
+        ],
+        "response_kv_id": "bbcb93a5a09117ac",
+        "interactions": [],
+        "oscillations": [],
+        "totals": {
+          "gross_joules": 86.65780488883335,
+          "cancelled_joules": 0.0,
+          "paid_joules": 86.65780488883335,
+          "j_total_interacted": 0,
+          "j_total_oscillation": 0
+        }
+      }
+    },
+    {
+      "kind": "COLD",
+      "band": "WEAK",
+      "exit_path": "EARLY",
+      "urgency": 0.05,
+      "cache_judged": 0,
+      "cache_actual": 3,
+      "pred_j": 20.422068742117492,
+      "actual_j": 16.382784577451254,
+      "model_err_j": 4.039284164666238,
+      "flat_err_j": 24.17721542254875,
+      "prompt_tokens_server": 8,
+      "gen_tokens_server": 16,
+      "gross_j": 20.422068742117496,
+      "cancelled_j": 0.0,
+      "passport_paid_j": 20.422068742117496,
+      "paid_vs_pred_drift_j": 3.552713678800501e-15,
+      "identity_residual_j": 4.039284164666242,
+      "identity_ok": false,
+      "identity_tolerance_j": 2.0,
+      "prompt_kv_id": "ca101275d196803b",
+      "response_kv_id": "f0c2b4b9f9b1ca99",
+      "n_token_ids": 7,
+      "passport": {
+        "token_ids": [
+          37889,
+          29104,
+          528,
+          886,
+          2822,
+          13315,
+          236761
+        ],
+        "embedding_point": "cold:unique-route",
+        "prompt_kv_id": "ca101275d196803b",
+        "path": [
+          {
+            "name": "prompt:wpe.weight",
+            "full_price": 0.03013696816297467,
+            "paid_price": 0.03013696816297467,
+            "neutron": false
+          },
+          {
+            "name": "prompt:wte.weight",
+            "full_price": 0.5820453981105623,
+            "paid_price": 0.5820453981105623,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.06794684539811774,
+            "paid_price": 0.06794684539811774,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.0399823273941305,
+            "paid_price": 0.0399823273941305,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.059164600074551495,
+            "paid_price": 0.059164600074551495,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.05797602551948238,
+            "paid_price": 0.05797602551948238,
+            "neutron": false
+          },
+          {
+            "name": "gen:wpe.weight",
+            "full_price": 0.15563288694384533,
+            "paid_price": 0.15563288694384533,
+            "neutron": false
+          },
+          {
+            "name": "gen:wte.weight",
+            "full_price": 3.005790268963319,
+            "paid_price": 3.005790268963319,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          }
+        ],
+        "response_kv_id": "f0c2b4b9f9b1ca99",
+        "interactions": [],
+        "oscillations": [],
+        "totals": {
+          "gross_joules": 20.422068742117496,
+          "cancelled_joules": 0.0,
+          "paid_joules": 20.422068742117496,
+          "j_total_interacted": 0,
+          "j_total_oscillation": 0
+        }
+      }
+    },
+    {
+      "kind": "COLD",
+      "band": "WEAK",
+      "exit_path": "EARLY",
+      "urgency": 0.09375,
+      "cache_judged": 0,
+      "cache_actual": 12,
+      "pred_j": 23.320961195662797,
+      "actual_j": 5.854420871910497,
+      "model_err_j": 17.466540323752298,
+      "flat_err_j": 31.3255791280895,
+      "prompt_tokens_server": 17,
+      "gen_tokens_server": 5,
+      "gross_j": 23.320961195662793,
+      "cancelled_j": 0.0,
+      "passport_paid_j": 23.320961195662793,
+      "paid_vs_pred_drift_j": -3.552713678800501e-15,
+      "identity_residual_j": 17.466540323752298,
+      "identity_ok": false,
+      "identity_tolerance_j": 2.0,
+      "prompt_kv_id": "c2936643ec77e84d",
+      "response_kv_id": "051f0fa106ba1c07",
+      "n_token_ids": 16,
+      "passport": {
+        "token_ids": [
+          7925,
+          528,
+          496,
+          2321,
+          4171,
+          236787,
+          1144,
+          2258,
+          563,
+          506,
+          7217,
+          580,
+          496,
+          3582,
+          1719,
+          236881
+        ],
+        "embedding_point": "cold:unique-route",
+        "prompt_kv_id": "c2936643ec77e84d",
+        "path": [
+          {
+            "name": "prompt:wpe.weight",
+            "full_price": 0.0565068153055775,
+            "paid_price": 0.0565068153055775,
+            "neutron": false
+          },
+          {
+            "name": "prompt:wte.weight",
+            "full_price": 1.0913351214573044,
+            "paid_price": 1.0913351214573044,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_attn",
+            "full_price": 0.12740033512147075,
+            "paid_price": 0.12740033512147075,
+            "neutron": false
+          },
+          {
+            "name": "prompt:attn.c_proj",
+            "full_price": 0.07496686386399468,
+            "paid_price": 0.07496686386399468,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_fc",
+            "full_price": 0.11093362513978405,
+            "paid_price": 0.11093362513978405,
+            "neutron": false
+          },
+          {
+            "name": "prompt:mlp.c_proj",
+            "full_price": 0.10870504784902947,
+            "paid_price": 0.10870504784902947,
+            "neutron": false
+          },
+          {
+            "name": "gen:wpe.weight",
+            "full_price": 0.15563288694384533,
+            "paid_price": 0.15563288694384533,
+            "neutron": false
+          },
+          {
+            "name": "gen:wte.weight",
+            "full_price": 3.005790268963319,
+            "paid_price": 3.005790268963319,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_attn",
+            "full_price": 0.3508900978641912,
+            "paid_price": 0.3508900978641912,
+            "neutron": false
+          },
+          {
+            "name": "gen:attn.c_proj",
+            "full_price": 0.20647614602212608,
+            "paid_price": 0.20647614602212608,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_fc",
+            "full_price": 0.3055369559633774,
+            "paid_price": 0.3055369559633774,
+            "neutron": false
+          },
+          {
+            "name": "gen:mlp.c_proj",
+            "full_price": 0.29939893675875595,
+            "paid_price": 0.29939893675875595,
+            "neutron": false
+          }
+        ],
+        "response_kv_id": "051f0fa106ba1c07",
+        "interactions": [],
+        "oscillations": [],
+        "totals": {
+          "gross_joules": 23.320961195662793,
+          "cancelled_joules": 0.0,
+          "paid_joules": 23.320961195662793,
+          "j_total_interacted": 0,
+          "j_total_oscillation": 0
+        }
+      }
+    }
+  ]
+}
