@@ -1,0 +1,47 @@
+induced reflections — ds000117 sub-01 (UK 50 Hz grid carrier), no notch
+
+== faces (n=6 runs averaged) ==
+  carrier 50: 22.40x local median
+  2nd harmonic 100: 1.12x local median
+  3rd harmonic 150: 1.07x local median
+  subharmonic 25 (f/2): 0.97x local median
+  subharmonic 16.7 (f/3): 1.03x local median
+  sideband 50-10.0Hz (40.0Hz): 0.91x
+  sideband 50+10.0Hz (60.0Hz): 0.99x
+  sideband 100-10.0Hz (90.0Hz): 1.00x
+  sideband 100+10.0Hz (110.0Hz): 0.97x
+  sideband 50-7.0Hz (43.0Hz): 0.45x
+  sideband 50+7.0Hz (57.0Hz): 0.93x
+  sideband 100-7.0Hz (93.0Hz): 0.99x
+  sideband 100+7.0Hz (107.0Hz): 0.96x
+  sideband 50-15.0Hz (35.0Hz): 0.97x
+  sideband 50+15.0Hz (65.0Hz): 0.99x
+  sideband 100-15.0Hz (85.0Hz): 1.00x
+  sideband 100+15.0Hz (115.0Hz): 1.00x
+  sideband 50-20.0Hz (30.0Hz): 0.99x
+  sideband 50+20.0Hz (70.0Hz): 1.00x
+  sideband 100-20.0Hz (80.0Hz): 1.00x
+  sideband 100+20.0Hz (120.0Hz): 1.00x
+
+== scrambled (n=6 runs averaged) ==
+  carrier 50: 22.87x local median
+  2nd harmonic 100: 1.12x local median
+  3rd harmonic 150: 1.07x local median
+  subharmonic 25 (f/2): 0.97x local median
+  subharmonic 16.7 (f/3): 1.03x local median
+  sideband 50-10.0Hz (40.0Hz): 0.91x
+  sideband 50+10.0Hz (60.0Hz): 0.99x
+  sideband 100-10.0Hz (90.0Hz): 1.00x
+  sideband 100+10.0Hz (110.0Hz): 0.97x
+  sideband 50-7.0Hz (43.0Hz): 0.45x
+  sideband 50+7.0Hz (57.0Hz): 0.93x
+  sideband 100-7.0Hz (93.0Hz): 0.99x
+  sideband 100+7.0Hz (107.0Hz): 0.95x
+  sideband 50-15.0Hz (35.0Hz): 0.96x
+  sideband 50+15.0Hz (65.0Hz): 0.99x
+  sideband 100-15.0Hz (85.0Hz): 1.00x
+  sideband 100+15.0Hz (115.0Hz): 1.00x
+  sideband 50-20.0Hz (30.0Hz): 0.99x
+  sideband 50+20.0Hz (70.0Hz): 1.00x
+  sideband 100-20.0Hz (80.0Hz): 1.00x
+  sideband 100+20.0Hz (120.0Hz): 1.00x
