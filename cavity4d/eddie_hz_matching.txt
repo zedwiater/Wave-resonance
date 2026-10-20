@@ -1,0 +1,43 @@
+Eddie Hz-matching — estimated Schumann fundamentals, conservative HZ planets
+f_est = 7.83 / (R/R_earth); neural band = 5-13 Hz
+
+109 conservative-HZ planets; 108 with measured radii; 17 in the 5-13 Hz neural band
+
+closest to Earth's 7.83 Hz fundamental:
+  Teegarden's Star c: R=1.02 R_earth, f_est=7.68 Hz [IN BAND]
+  Proxima Cen b: R=1.02 R_earth, f_est=7.68 Hz [IN BAND]
+  GJ 1002 b: R=1.03 R_earth, f_est=7.60 Hz [IN BAND]
+  TRAPPIST-1 f: R=1.04 R_earth, f_est=7.49 Hz [IN BAND]
+  Teegarden's Star b: R=1.05 R_earth, f_est=7.46 Hz [IN BAND]
+  Kepler-1649 c: R=1.06 R_earth, f_est=7.39 Hz [IN BAND]
+  Wolf 1069 b: R=1.08 R_earth, f_est=7.25 Hz [IN BAND]
+  TRAPPIST-1 e: R=0.92 R_earth, f_est=8.51 Hz [IN BAND]
+  Ross 128 b: R=1.11 R_earth, f_est=7.05 Hz [IN BAND]
+  K2-72 e: R=1.29 R_earth, f_est=6.07 Hz [IN BAND]
+  GJ 3378 b: R=1.32 R_earth, f_est=5.93 Hz [IN BAND]
+  Kepler-442 b: R=1.34 R_earth, f_est=5.84 Hz [IN BAND]
+  LP 890-9 c: R=1.37 R_earth, f_est=5.73 Hz [IN BAND]
+  TRAPPIST-1 d: R=0.79 R_earth, f_est=9.94 Hz [IN BAND]
+  L 98-59 f: R=1.48 R_earth, f_est=5.29 Hz [IN BAND]
+
+full in-band list (sorted by |f - 7.83|):
+  Teegarden's Star c: R=1.02, f=7.68 Hz
+  Proxima Cen b: R=1.02, f=7.68 Hz
+  GJ 1002 b: R=1.03, f=7.60 Hz
+  TRAPPIST-1 f: R=1.04, f=7.49 Hz
+  Teegarden's Star b: R=1.05, f=7.46 Hz
+  Kepler-1649 c: R=1.06, f=7.39 Hz
+  Wolf 1069 b: R=1.08, f=7.25 Hz
+  TRAPPIST-1 e: R=0.92, f=8.51 Hz
+  Ross 128 b: R=1.11, f=7.05 Hz
+  K2-72 e: R=1.29, f=6.07 Hz
+  GJ 3378 b: R=1.32, f=5.93 Hz
+  Kepler-442 b: R=1.34, f=5.84 Hz
+  LP 890-9 c: R=1.37, f=5.73 Hz
+  TRAPPIST-1 d: R=0.79, f=9.94 Hz
+  L 98-59 f: R=1.48, f=5.29 Hz
+  GJ 273 b: R=1.51, f=5.19 Hz
+  TOI-715 b: R=1.55, f=5.05 Hz
+
+Gap: 1 of 109 HZ planets have NO measured radius — no Hz estimate possible from transit data (RV-only discoveries).
+No-radius names (first 20): HD 202696 b
