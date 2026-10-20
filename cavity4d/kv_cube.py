@@ -250,10 +250,25 @@ class Cube:
         with open(path, "w") as f:
             for e in self.entries.values():
                 f.write(json.dumps(e) + "\n")
+            # Sidecar record in the same JSONL (the file's existing
+            # persistence pattern): the real-arrival registry rides
+            # along so a reload keeps the anticipation falsifier's
+            # ground truth. This set only ever holds real-traffic
+            # ids — add_interaction registers nothing from sessions
+            # named "self-talk" — so persistence cannot smuggle a
+            # self-talk id into the registry either.
+            f.write(json.dumps({"_meta": "cube_state",
+                                "real_arrivals":
+                                    sorted(self._real_arrivals)}) + "\n")
 
     def load(self, path):
         for line in open(path):
+            if not line.strip():
+                continue
             e = json.loads(line)
+            if e.get("_meta") == "cube_state":
+                self._real_arrivals.update(e.get("real_arrivals", []))
+                continue
             self.entries[e["kv_id"]] = e
         return len(self.entries)
 
@@ -378,6 +393,34 @@ def _selftest():
     assert n >= 1 and e0["computed"]["stale"] is True
     assert e0["text"] == "deploy the harness"
     print("  [OK ] model swap stales computed faces, text faces survive")
+
+    # persistence: the real-arrival registry survives save/load —
+    # an anticipation whose prompt really arrived can still be
+    # realized after a reload, while a self-talk-only id stays OUT
+    # of the registry across the round trip.
+    import tempfile
+    c4 = Cube()
+    c4.add_interaction("the persisted question", session="live")
+    c4.add_anticipation("the persisted question", "prepared",
+                        cycles=3)
+    c4.add_anticipation("a self-talk only dream", "dream", cycles=3)
+    real_kid = kv_id("the persisted question")
+    dream_kid = kv_id("a self-talk only dream")
+    assert real_kid in c4._real_arrivals
+    assert dream_kid not in c4._real_arrivals
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "cube.jsonl"
+        c4.save(p)
+        c5 = Cube()
+        c5.load(p)
+    assert real_kid in c5._real_arrivals
+    assert dream_kid not in c5._real_arrivals
+    st = c5.resolve_anticipations()
+    assert st["realized"] == 1
+    assert c5.entries[real_kid]["kind"] == "interaction"
+    print(f"  persistence stats after reload: {st}")
+    print("  [OK ] arrivals persist: real arrival realized after "
+          "reload, self-talk id never registered")
     print("\nself-test: PASS")
 
 
