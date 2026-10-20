@@ -1,51 +1,60 @@
-"""spectral_gate.py — grounded frequency exclusion + source-scale labeling.
+"""spectral_gate.py v2 — grounded exclusion + source-scale labeling.
 
-The exclusion list is NOT a hand-waved bandpass. It is GROUNDED in measured
-carriers (2026-10-19/20 MEG campaign: HCP n-back + noise scans, ds000117):
+Three layers (cosmic firewall & transformer, mapped to code):
+  1. Exclusion mask  = perimeter firewall (strips grid power).
+  2. Spectral labeler = deep packet inspection (stamps every peak).
+  3. Transform        = black-hole compression (huge spectrum in,
+                        tiny structured scalars out).
 
-  US grid: f0=60 Hz. Task spectrum: 60=17-19x, 120=31x (doubling ratio ~1.7);
-           emptyroom 60=59x, 120=10.5x (ratio 0.18); phantom ratio 0.49.
-  UK grid: f0=50 Hz. 50=22-23x, 100=1.12x (NO doubling).
-  Sidebands at carrier +/- neural (6.2, 12.4, 10 Hz): 0.91-1.02x — NULL.
-  Subharmonics (f0/2, f0/3): ~1.0x — NULL.
+Label grammar: <whose>:<what> — plain words, readable cold by humans
+and LLMs. First word = whose it is; second = what it does.
 
-Every spectral bin gets a LABEL by source scale so downstream code never
-mistakes a carrier for a signal (the ds117 lesson: 51.6 Hz 'gamma' was grid):
+  grid:carrier        grid:subharmonic     grid:harmonic
+  body:reflection     planet:cavity
+  brain:fundamental   brain:harmonic       brain:rhythm
+  unknown:unclassified
 
-  labels: grid-carrier | grid-harmonic | grid-subharmonic |
-          boundary-reflection | planetary-cavity | neural | unknown
+Every label carries a policy verb — the firewall's standing orders:
+  PROTECT    brain:*, planet:*, body:reflection — never stripped, ever.
+  STRIP      grid:carrier, grid:subharmonic — delete the power.
+  TRANSFORM  grid:harmonic — delete the power, KEEP THE RATIO
+             (the 120/60 ratio is data: 0.18 room, 0.49 phantom, 1.7 brain).
+  QUARANTINE unknown:* — kept, flagged, never silently dropped.
 
-Transport-side: exclusion_mask() zeroes carrier bins for phase-lock work.
-Harvest-side: label_spectrum() annotates peaks with their scale.
+Metadata contract: every stamped item carries
+  {freq, power, label, policy, ratio_to_carrier, provenance}
+so numbers arrive pre-interpreted instead of waiting for a hallucination.
+
+Grounded in measured carriers (2026-10-19/20 MEG campaign, GitHub
+Wave-resonance cavity4d): US f0=60 (task 60=17-19x, 120=31x; emptyroom
+60=59x, 120=10.5x; phantom 19.9/9.8x). UK f0=50 (50=22-23x, 100=1.12x,
+no doubling). Sidebands carrier+/-neural: 0.91-1.02x NULL. Subs: ~1.0x.
 """
 import numpy as np
 
-# --- measured carrier tables (provenance: GitHub Wave-resonance, cavity4d) ---
 CARRIERS = {
-    "us": {
-        "f0": 60.0,
-        "harmonics": [120.0, 180.0, 240.0],
-        "subharmonics": [30.0, 20.0],
-        "doubling_ratio_task": 1.7,      # subject in dewar
-        "doubling_ratio_emptyroom": 0.18,
-        "doubling_ratio_phantom": 0.49,
-    },
-    "uk": {
-        "f0": 50.0,
-        "harmonics": [100.0, 150.0, 200.0],
-        "subharmonics": [25.0, 16.7],
-        "doubling_ratio_task": 1.12 / 22.6,  # ~0.05 — effectively no doubling
-        "doubling_ratio_emptyroom": None,    # measured: ds117 emptyroom 50 Hz dominant
-    },
+    "us": {"f0": 60.0, "harmonics": [120.0, 180.0, 240.0],
+           "subharmonics": [30.0, 20.0]},
+    "uk": {"f0": 50.0, "harmonics": [100.0, 150.0, 200.0],
+           "subharmonics": [25.0, 16.7]},
 }
 
-# --- acceptance windows (the scales we care about) ---
-WINDOWS = {
-    "neural": (4.0, 14.0),          # theta+alpha; measured n-back fundamental 6.2 Hz
-    "planetary-cavity": (7.0, 9.0), # Schumann 7.83 Hz +/- tolerance
-}
+WINDOWS = {"neural": (4.0, 14.0), "planetary-cavity": (7.0, 9.0)}
+NEURAL_FREQS = [6.2, 12.4, 10.0]
+FUNDAMENTAL = 6.2
+HARMONIC2 = 12.4
 
-NEURAL_FREQS = [6.2, 12.4, 10.0]    # measured neural peaks (HCP n-back)
+POLICY = {
+    "grid:carrier": "STRIP",
+    "grid:subharmonic": "STRIP",
+    "grid:harmonic": "TRANSFORM",
+    "body:reflection": "PROTECT",
+    "planet:cavity": "PROTECT",
+    "brain:fundamental": "PROTECT",
+    "brain:harmonic": "PROTECT",
+    "brain:rhythm": "PROTECT",
+    "unknown:unclassified": "QUARANTINE",
+}
 
 
 def _near(freq, targets, tol):
@@ -53,103 +62,158 @@ def _near(freq, targets, tol):
 
 
 def label_bin(freq, grid="us", tol=1.5, carrier_tol=2.5):
-    """Assign a source-scale label to one frequency bin.
-
-    carrier_tol is deliberately wider than tol: line frequency drifts and
-    spectral bins are wide (ds117 taught us 51.6 Hz on a 50 Hz grid).
-    When in doubt, the gate over-labels the grid — a false carrier flag
-    is cheap; a missed one ships a fake discovery.
-    """
+    """<whose>:<what> for one frequency. carrier_tol is deliberately wide:
+    line frequency drifts and bins are wide (ds117: 51.6 Hz on a 50 grid).
+    A false carrier flag is cheap; a missed one ships a fake discovery."""
     c = CARRIERS[grid]
     if _near(freq, [c["f0"]], carrier_tol):
-        return "grid-carrier"
+        return "grid:carrier"
     if _near(freq, c["harmonics"], tol):
-        return "grid-harmonic"
+        return "grid:harmonic"
     if _near(freq, c["subharmonics"], tol):
-        return "grid-subharmonic"
-    # boundary reflections: carrier/harmonic modulated by a neural freq
+        return "grid:subharmonic"
     for base in [c["f0"]] + c["harmonics"]:
         for fn in NEURAL_FREQS:
             if _near(freq, [base - fn, base + fn], tol):
-                return "boundary-reflection"
+                return "body:reflection"
     lo, hi = WINDOWS["planetary-cavity"]
     if lo <= freq <= hi:
-        return "planetary-cavity"   # overlaps neural; cavity wins the label
-                                    # because it's the environmental scale
+        return "planet:cavity"
     lo, hi = WINDOWS["neural"]
     if lo <= freq <= hi:
-        return "neural"
-    return "unknown"
+        if _near(freq, [FUNDAMENTAL], tol):
+            return "brain:fundamental"
+        if _near(freq, [HARMONIC2], tol):
+            return "brain:harmonic"
+        return "brain:rhythm"
+    return "unknown:unclassified"
 
 
-def label_spectrum(freqs, psd, grid="us", tol=1.5, carrier_tol=2.5):
-    """Return [(freq, power, label), ...] for every bin."""
-    return [(float(f), float(p), label_bin(float(f), grid, tol, carrier_tol))
-            for f, p in zip(freqs, psd)]
+def policy_for(label):
+    return POLICY[label]
+
+
+def _carrier_power(freqs, psd, grid):
+    c = CARRIERS[grid]
+    idx = int(np.argmin(np.abs(np.asarray(freqs) - c["f0"])))
+    return float(psd[idx]) if float(psd[idx]) > 0 else float("nan")
+
+
+def inspect_spectrum(freqs, psd, grid="us", tol=1.5, carrier_tol=2.5):
+    """DPI layer: stamp every bin with the metadata contract."""
+    freqs = np.asarray(freqs, dtype=float)
+    psd = np.asarray(psd, dtype=float)
+    pc = _carrier_power(freqs, psd, grid)
+    out = []
+    for f, p in zip(freqs, psd):
+        lab = label_bin(float(f), grid, tol, carrier_tol)
+        prov = ("measured-carrier-table" if lab.startswith("grid:")
+                else "sideband-of-carrier" if lab == "body:reflection"
+                else "acceptance-window" if ":" in lab and
+                     lab.split(":")[0] in ("brain", "planet")
+                else "fallback")
+        out.append({
+            "freq": float(f), "power": float(p), "label": lab,
+            "policy": policy_for(lab),
+            "ratio_to_carrier": float(p / pc) if pc and pc == pc else None,
+            "provenance": prov,
+        })
+    return out
 
 
 def exclusion_mask(freqs, grid="us", tol=1.5, carrier_tol=2.5):
-    """True = keep. Carrier bins (and their harmonics/subs) are excluded
-    so a phase-lock loop never latches onto the grid by mistake.
-    Boundary-reflection bins are KEPT (they're the signal we hunt)."""
-    keep = np.ones(len(freqs), dtype=bool)
-    for i, f in enumerate(freqs):
-        if label_bin(float(f), grid, tol, carrier_tol) in (
-                "grid-carrier", "grid-harmonic", "grid-subharmonic"):
-            keep[i] = False
-    return keep
+    """Firewall layer: True = keep. STRIP and TRANSFORM bins leave the
+    stream (TRANSFORM ratios are preserved by transform_scalars)."""
+    return np.array([
+        policy_for(label_bin(float(f), grid, tol, carrier_tol))
+        in ("PROTECT", "QUARANTINE")
+        for f in freqs])
+
+
+def transform_scalars(freqs, psd, grid="us"):
+    """Black-hole layer: massive spectrum in, tiny structured scalars out.
+    These are the numbers that ride along as context after stripping."""
+    freqs = np.asarray(freqs, dtype=float)
+    psd = np.asarray(psd, dtype=float)
+    c = CARRIERS[grid]
+
+    def power_at(f0, tol=1.5):
+        m = np.abs(freqs - f0) <= tol
+        return float(np.max(psd[m])) if m.any() else float("nan")
+
+    p_car = power_at(c["f0"], 2.5)
+    p_h2 = power_at(c["harmonics"][0])
+    refl = []
+    for base in [c["f0"]] + c["harmonics"]:
+        for fn in NEURAL_FREQS:
+            for s in (-1, 1):
+                m = (np.abs(freqs - (base + s * fn)) <= 8.0) & \
+                    (np.abs(freqs - (base + s * fn)) > 3.0)
+                med = float(np.median(psd[m])) if m.any() else float("nan")
+                pv = power_at(base + s * fn, 0.75)
+                if med and med == med and med > 0:
+                    refl.append(pv / med)
+    return {
+        "grid": grid,
+        "carrier_power": p_car,
+        "harmonic_ratio": (p_h2 / p_car) if p_car and p_car == p_car
+        and p_car > 0 else None,
+        "subharmonic_ratio": (power_at(c["subharmonics"][0]) / p_car)
+        if p_car and p_car > 0 else None,
+        "reflection_max_ratio": max(refl) if refl else None,
+    }
 
 
 def gated_peak(freqs, psd, grid="us", band=None, tol=1.5, carrier_tol=2.5):
-    """Strongest peak after exclusion. If band is given as (lo, hi),
-    restrict to that acceptance window first (PLL-lite)."""
+    """Strongest surviving peak after the firewall, fully stamped."""
     freqs = np.asarray(freqs, dtype=float)
     psd = np.asarray(psd, dtype=float)
-    keep = exclusion_mask(freqs, grid, tol)
+    keep = exclusion_mask(freqs, grid, tol, carrier_tol)
     if band is not None:
         keep &= (freqs >= band[0]) & (freqs <= band[1])
     if not keep.any():
         return None
     idx = int(np.argmax(np.where(keep, psd, -np.inf)))
-    return {"freq": float(freqs[idx]), "power": float(psd[idx]),
-            "label": label_bin(float(freqs[idx]), grid, tol, carrier_tol)}
+    stamped = inspect_spectrum(freqs, psd, grid, tol, carrier_tol)
+    return stamped[idx]
 
 
-# ---------------------------------------------------------------------------
-# Self-test: replay tonight's measured numbers through the gate.
 # ---------------------------------------------------------------------------
 def _selftest():
-    print("label checks (must all pass):")
     cases = [
-        (51.6, "uk", "grid-carrier"),       # the ds117 misread
-        (50.8, "uk", "grid-carrier"),       # emptyroom peak
-        (60.8, "us", "grid-carrier"),       # notch-skirt ghost
-        (120.0, "us", "grid-harmonic"),
-        (30.0, "us", "grid-subharmonic"),
-        (66.2, "us", "boundary-reflection"),  # 60 + 6.2
-        (53.8, "us", "boundary-reflection"),  # 60 - 6.2
-        (7.83, "us", "planetary-cavity"),
-        (6.2, "us", "neural"),                # measured n-back fundamental
-        (10.0, "us", "neural"),
-        (88.0, "us", "unknown"),
+        (51.6, "uk", "grid:carrier", "STRIP"),
+        (50.8, "uk", "grid:carrier", "STRIP"),
+        (60.8, "us", "grid:carrier", "STRIP"),
+        (120.0, "us", "grid:harmonic", "TRANSFORM"),
+        (30.0, "us", "grid:subharmonic", "STRIP"),
+        (66.2, "us", "body:reflection", "PROTECT"),
+        (53.8, "us", "body:reflection", "PROTECT"),
+        (7.83, "us", "planet:cavity", "PROTECT"),
+        (6.2, "us", "brain:fundamental", "PROTECT"),
+        (12.4, "us", "brain:harmonic", "PROTECT"),
+        (10.0, "us", "brain:rhythm", "PROTECT"),
+        (88.0, "us", "unknown:unclassified", "QUARANTINE"),
     ]
     ok = True
-    for f, g, want in cases:
-        got = label_bin(f, g)
-        status = "OK " if got == want else "FAIL"
-        if got != want:
-            ok = False
-        print(f"  [{status}] {f} Hz ({g}) -> {got} (want {want})")
+    for f, g, want_lab, want_pol in cases:
+        lab = label_bin(f, g)
+        pol = policy_for(lab)
+        good = (lab == want_lab and pol == want_pol)
+        ok &= good
+        print(f"  [{'OK ' if good else 'FAIL'}] {f} Hz ({g}) -> {lab} [{pol}]")
 
-    # exclusion must remove the grid, keep the brain
     freqs = np.arange(1, 201, 1.0)
     psd = np.random.default_rng(0).normal(1.0, 0.05, len(freqs))
-    psd[freqs == 60] = 50.0     # carrier
-    psd[freqs == 120] = 80.0    # harmonic (loudest thing in the room)
-    psd[freqs == 10] = 5.0      # neural alpha — the actual signal
+    psd[freqs == 60] = 50.0
+    psd[freqs == 120] = 80.0
+    psd[freqs == 10] = 5.0
     pk = gated_peak(freqs, psd, grid="us", band=WINDOWS["neural"])
-    print(f"\ngated peak in neural band: {pk}")
-    assert pk and pk["label"] == "neural" and pk["freq"] == 10.0
+    print(f"\ngated peak: {pk['label']} @ {pk['freq']} Hz, policy {pk['policy']}")
+    assert pk["label"] == "brain:rhythm" and pk["freq"] == 10.0
+    sc = transform_scalars(freqs, psd, grid="us")
+    print(f"transform scalars: harmonic_ratio={sc['harmonic_ratio']:.2f} "
+          f"(expect ~1.60)")
+    assert abs(sc["harmonic_ratio"] - 1.6) < 0.05
     print("\nself-test:", "PASS" if ok else "FAIL")
 
 
