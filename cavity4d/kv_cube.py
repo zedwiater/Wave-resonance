@@ -56,6 +56,11 @@ class Cube:
         self.model_id = model_id   # computed faces are model-specific
         self.anticipation_stats = {"anticipated": 0, "realized": 0,
                                    "daydreamed": 0}
+        # registry of REAL arrivals: kv_ids recorded by add_interaction
+        # from actual traffic (any session except "self-talk"). Only an
+        # id in here can realize an anticipation — self-talk can never
+        # certify its own predictions.
+        self._real_arrivals = set()
 
     # -- orbits ------------------------------------------------------------
     def load_orbits(self, nodes_path):
@@ -117,6 +122,10 @@ class Cube:
             members.extend(ids)
         for i in ids:
             self._promote(self.entries[i])
+        if session != "self-talk":
+            # real traffic arrived — register it as a ground-truth
+            # arrival for the anticipation falsifier
+            self._real_arrivals.update(ids)
         return ids
 
     def record_outcome(self, kid, success):
@@ -157,12 +166,20 @@ class Cube:
         self.anticipation_stats["anticipated"] += 1
         return ids
 
-    def resolve_anticipations(self, arrived_kids):
-        """One idle cycle of judgment. An anticipation whose prompt
-        (or its orbit-mates in arrived_kids) actually showed up becomes
-        a real memory; one that keeps missing loses a cycle, and at
-        zero it black-holes. Facts gravitate; daydreams fall."""
-        arrived = set(arrived_kids)
+    def resolve_anticipations(self, arrived_kids=None):
+        """One idle cycle of judgment. An anticipation is realized
+        only on an EXACT kv_id match against registered real-traffic
+        arrivals (ids recorded by add_interaction from sessions other
+        than "self-talk"). A caller-supplied list is intersected with
+        that registry, so self-talk ids can never realize anything,
+        even if a caller passes them; with no list, the registry
+        itself is the arrived set. One that keeps missing loses a
+        cycle, and at zero it black-holes. Facts gravitate; daydreams
+        fall."""
+        if arrived_kids is None:
+            arrived = set(self._real_arrivals)
+        else:
+            arrived = set(arrived_kids) & self._real_arrivals
         for e in list(self.entries.values()):
             if e.get("kind") != "anticipation" or e["tier"] == BLACKHOLE:
                 continue
@@ -318,11 +335,15 @@ def _selftest():
     assert gravity(e0) > g_before
     print("  [OK ] value signal moves gravity; model stamp recorded")
 
-    # anticipation falsifier: one arrives, one daydreams into the well
+    # anticipation falsifier: one arrives (as REAL traffic), one
+    # daydreams into the well
     c2.add_anticipation("will he ask about tides?", "prepared answer",
                         cycles=2)
     c2.add_anticipation("will he ask about nothing real?", "dream",
                         cycles=2)
+    # the tides conversation actually shows up — a real interaction,
+    # not self-talk — which registers its id as a ground-truth arrival
+    c2.add_interaction("will he ask about tides?", session="live")
     st = c2.resolve_anticipations([kv_id("will he ask about tides?")])
     assert c2.entries[kv_id("will he ask about tides?")]["kind"] == \
         "interaction"
@@ -334,6 +355,23 @@ def _selftest():
     assert abs(st["hit_rate"] - 0.5) < 1e-9
     print("  [OK ] anticipation: realized kept, daydream black-holed, "
           "hit_rate 0.5")
+
+    # anticipation guard: passing an anticipation's OWN id (with no
+    # real-traffic arrival behind it) must NOT realize it — self-talk
+    # can never certify itself. It just loses cycles and black-holes.
+    c3 = Cube()
+    c3.add_anticipation("will he ask the cube's own question?",
+                        "self answer", cycles=2)
+    own = kv_id("will he ask the cube's own question?")
+    st = c3.resolve_anticipations([own])
+    ge = c3.entries[own]
+    assert ge["kind"] == "anticipation" and st["realized"] == 0
+    st = c3.resolve_anticipations([own])
+    print(f"  guard stats: {st}")
+    assert ge["tier"] == BLACKHOLE and st["daydreamed"] == 1
+    assert st["hit_rate"] == 0.0
+    print("  [OK ] anticipation guard: self-passed id never realizes, "
+          "daydream black-holed, hit_rate 0")
 
     # model swap: computed faces stale, text survives
     n = c2.set_model("qwen3-8b")

@@ -30,6 +30,13 @@ sensing"):
   dwell_work is the DWELL job slot: the KV cube's idle_cycle (and
   the anticipation falsifier) plug in here and think at trickle
   prices while the node sleeps.
+
+v2.1 — YieldSensor also feels system load (loadavg), and an optional
+  ClockGovernor raises GPU clocks (DPM "high") only for the burst
+  moment and releases them ("auto") on return to DWELL — clocks are
+  never pinned high at idle. The governor is OFF unless
+  HARNESS_DPM_DYNAMIC=1, and every write is best-effort (needs root
+  on the real node; failure is logged, never raised).
 """
 import os
 from dataclasses import dataclass, field
@@ -43,6 +50,29 @@ HUMAN_PATTERNS = ("TS4_x64", "AppId=", "waitforexitandrun", "Proton")
 
 class YieldSensor:
     """Feel, from system input telemetry only."""
+
+    def __init__(self, loadavg_path="/proc/loadavg", load_threshold=None):
+        self.loadavg_path = loadavg_path
+        # yield when the 1-min load says the machine is already busy
+        # being used: default 90% of the core count
+        self.load_threshold = (load_threshold if load_threshold
+                               is not None
+                               else 0.9 * (os.cpu_count() or 1))
+
+    def loadavg(self):
+        """1-minute load average, or None if unreadable."""
+        try:
+            return float(Path(self.loadavg_path).read_text()
+                         .split()[0])
+        except (OSError, ValueError, IndexError):
+            return None
+
+    def load_high(self, load=None):
+        """True when load (given, or read from loadavg_path) exceeds
+        the threshold. Split out so the threshold is unit-testable."""
+        if load is None:
+            load = self.loadavg()
+        return load is not None and load > self.load_threshold
 
     def gpu_busy(self):
         vals = []
@@ -71,8 +101,47 @@ class YieldSensor:
     def yielding(self):
         if self.human_workload():
             return True
+        if self.load_high():
+            return True
         busy = self.gpu_busy()
         return busy is not None and busy >= 85
+
+
+DPM_SYSFS = "/sys/class/drm/card2/device/power_dpm_force_performance_level"
+
+
+class ClockGovernor:
+    """Dynamic DPM: clocks up for the burst, released at dwell.
+
+    Writes "high" to the DPM force-performance-level knob on BURST
+    entry and "auto" on DWELL entry. Disabled unless enabled=True or
+    HARNESS_DPM_DYNAMIC=1 — when disabled it is a strict no-op.
+    Writes need root on the real node, so failure is logged and
+    swallowed: a governor that can't write must never crash the
+    controller (and on machines without the knob, that's expected).
+    """
+
+    def __init__(self, sysfs_path=DPM_SYSFS, enabled=None):
+        self.path = Path(sysfs_path)
+        self.enabled = (os.environ.get("HARNESS_DPM_DYNAMIC") == "1"
+                        if enabled is None else bool(enabled))
+
+    def _write(self, value):
+        if not self.enabled:
+            return False
+        try:
+            self.path.write_text(value)
+            return True
+        except OSError as e:
+            print(f"  [clock] governor: write {value!r} to "
+                  f"{self.path} failed ({e}); continuing")
+            return False
+
+    def burst(self):
+        return self._write("high")
+
+    def dwell(self):
+        return self._write("auto")
 
 
 @dataclass
@@ -88,6 +157,23 @@ class BurstController:
     yield_check: object = None     # callable -> bool (YieldSensor.yielding)
     dwell_work: object = None      # callable(dt) — the DWELL job (cube)
     yielding: bool = False
+    clock_governor: object = None  # ClockGovernor; default built disabled
+
+    def __post_init__(self):
+        if self.clock_governor is None:
+            self.clock_governor = ClockGovernor()
+
+    def _enter(self, state):
+        """Transition helper: the clock governor hears BURST and
+        DWELL entries (raising / releasing the GPU clocks); HOLD is
+        silent. No-op when the state isn't actually changing."""
+        if state == self.state:
+            return
+        self.state = state
+        if state == BURST:
+            self.clock_governor.burst()
+        elif state == DWELL:
+            self.clock_governor.dwell()
 
     def set_impedance(self, z):
         """Dynamic rho/sigma hook. Clamped to [0, 1]."""
@@ -121,13 +207,13 @@ class BurstController:
         if self.charge >= self.capacity:
             self.charge = self.capacity  # saturate, don't overflow
             if lock_quality >= self.lock_threshold:
-                self.state = BURST
+                self._enter(BURST)
                 self.bursts += 1
                 self.charge = 0.0
-                self.state = DWELL      # immediate return to sleep
+                self._enter(DWELL)      # immediate return to sleep
                 return {"event": "BURST", "packet": "transform_scalars",
                         "bursts_total": self.bursts}
-            self.state = HOLD
+            self._enter(HOLD)
         else:
             if self.state == HOLD and lock_quality >= self.lock_threshold:
                 # lock cleaned up before full: still wait for capacity
@@ -136,7 +222,7 @@ class BurstController:
                 if self.decay > 0:
                     self.charge = max(0.0, self.charge - self.decay * dt)
                     if self.charge < self.capacity:
-                        self.state = DWELL
+                        self._enter(DWELL)
                 # else: HOLD persists — buffer stays full, waiting for lock
         return None
 
@@ -217,6 +303,81 @@ def _selftest():
     ok &= good
     print(f"  [{'OK ' if good else 'FAIL'}] dwell work: {ticks['n']} ticks "
           f"in DWELL, silent under yield")
+
+    # 8. loadavg signal: threshold function + injected fake loadavg
+    import tempfile
+    s = YieldSensor(load_threshold=4.0)
+    good = s.load_high(10.0) and not s.load_high(1.0)
+    good &= abs(YieldSensor().load_threshold
+                - 0.9 * (os.cpu_count() or 1)) < 1e-9
+    with tempfile.TemporaryDirectory() as td:
+        fake = Path(td) / "loadavg"
+        fake.write_text("9.99 1.00 0.50 1/100 123\n")
+        s2 = YieldSensor(loadavg_path=str(fake), load_threshold=4.0)
+        good &= s2.loadavg() == 9.99 and s2.load_high()
+        fake.write_text("0.10 0.20 0.30 1/100 124\n")
+        good &= not s2.load_high()
+    ok &= good
+    print(f"  [{'OK ' if good else 'FAIL'}] loadavg: threshold + fake "
+          f"file both read correctly (default threshold "
+          f"{YieldSensor().load_threshold:.1f})")
+
+    # 9. clock governor ON: burst writes high, dwell releases to auto
+    class RecGovernor(ClockGovernor):
+        def __init__(self, **kw):
+            super().__init__(**kw)
+            self.calls = []
+
+        def burst(self):
+            self.calls.append("high")
+            return super().burst()
+
+        def dwell(self):
+            self.calls.append("auto")
+            return super().dwell()
+
+    with tempfile.TemporaryDirectory() as td:
+        knob = Path(td) / "dpm"
+        gov = RecGovernor(sysfs_path=knob, enabled=True)
+        gov.burst()
+        first = knob.read_text()
+        gov.dwell()
+        second = knob.read_text()
+        gov.calls.clear()
+        c = BurstController(capacity=1.0, harvest_coeff=0.5,
+                            clock_governor=gov)
+        ev = None
+        for _ in range(10):
+            ev = c.step(1.0, carrier_power=0.5, lock_quality=0.9)
+            if ev:
+                break
+        good = (first == "high" and second == "auto"
+                and gov.calls == ["high", "auto"]
+                and knob.read_text() == "auto" and ev is not None)
+    ok &= good
+    print(f"  [{'OK ' if good else 'FAIL'}] governor on: burst->high, "
+          f"dwell->auto, in that order, file ends at auto")
+
+    # 10. clock governor OFF (default): writes nothing; env flag is
+    # the only switch; a bad path is swallowed, never raised
+    with tempfile.TemporaryDirectory() as td:
+        knob = Path(td) / "dpm"
+        gov = ClockGovernor(sysfs_path=knob, enabled=False)
+        gov.burst()
+        gov.dwell()
+        good = not knob.exists()
+        os.environ["HARNESS_DPM_DYNAMIC"] = "1"
+        try:
+            good &= ClockGovernor(sysfs_path=knob).enabled
+        finally:
+            del os.environ["HARNESS_DPM_DYNAMIC"]
+        good &= not ClockGovernor(sysfs_path=knob).enabled
+        bad = ClockGovernor(sysfs_path=Path(td) / "nope" / "dpm",
+                            enabled=True)
+        good &= bad.burst() is False      # logged, not raised
+    ok &= good
+    print(f"  [{'OK ' if good else 'FAIL'}] governor off: no writes; "
+          f"env flag gates the default; bad path swallowed")
 
     print("\nself-test:", "PASS" if ok else "FAIL")
 
