@@ -1,0 +1,10 @@
+run1: align via STI 013, lag=6.5s, matched 160/160 (100%)
+run2: align via STI 013, lag=6.5s, matched 160/160 (100%)
+0back: n=160 Q=n/a (band-edge max)
+  peaks: 6.4, 12.4, 10.0, 60.8
+  ladder@6.4Hz: 1x=6.4Hz, 1.33333x=10.0Hz, 1.5x=10.0Hz, 2x=12.4Hz
+  60Hz subs: P30=1.0x, P90=1.0x
+2back: n=160 Q=n/a (band-edge max)
+  peaks: 6.0, 12.4, 60.8
+  ladder@6.0Hz: 1x=6.0Hz, 2x=12.4Hz
+  60Hz subs: P30=1.0x, P90=1.0x
