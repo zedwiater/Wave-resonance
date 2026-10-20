@@ -1,0 +1,48 @@
+metering mode: RAPL+GPU (full system)
+shared stem: 5 tokens | bare prefix: 198 tokens (tokenized)
+measuring idle baseline (3 s)...
+idle baseline: 43.6 W
+prefix primed for calibration
+
+--- calibration batch (terminating, per band) ---
+  calib[WEAK->WEAK/SELECTED]: prompt=12 tok (claim 0), gen=4 tok (cap 16), actual 8.1 J
+  calib[WEAK->WEAK/SELECTED]: prompt=13 tok (claim 0), gen=4 tok (cap 16), actual 5.0 J
+  calib[MID->MID/no-EOS]: prompt=28 tok (claim 5), gen=64 tok (cap 64), actual 71.0 J
+  calib[MID->MID/SELECTED]: prompt=45 tok (claim 0), gen=60 tok (cap 64), actual 75.1 J
+  calib[MID->MID/no-EOS]: prompt=33 tok (claim 5), gen=64 tok (cap 64), actual 71.8 J
+  calib[MID->MID/SELECTED]: prompt=45 tok (claim 0), gen=59 tok (cap 64), actual 65.5 J
+  calib[STRONG->STRONG/SELECTED]: prompt=238 tok (claim 198), gen=67 tok (cap 128), actual 75.0 J
+  calib[STRONG->STRONG/SELECTED]: prompt=232 tok (claim 198), gen=51 tok (cap 128), actual 57.0 J
+refit: gen 1.118 J/tok (from 4 terminating samples) | prompt 0.443 J/tok
+calibration per band: STRONG: n=2, mean=59 | MID: n=2, mean=59.5 | WEAK: n=2, mean=4
+expected gen by band: {'STRONG': 59, 'MID': 60, 'WEAK': 4}
+
+route locked: prefix = 198 tokens (tokenized, primed bare, single slot)
+
+--- verdict batch (route-ordered, probe before pricing) ---
+[probe 0/WARM] cache_n=194 (draft-7 registry claim would be 198) | overhead 5.69 J
+[WARM/STRONG/FULL] urgency 0.93 | tokens 219 (neutron 194) | gen priced 59 (cap 128, actual 128) | cache actual 215 | predicted 77.1 J | actual 135.2 J | identity residual -58.13 J (FAIL)
+[probe 1/WARM] cache_n=193 (draft-7 registry claim would be 198) | overhead 5.63 J
+[WARM/STRONG/FULL] urgency 0.91 | tokens 225 (neutron 193) | gen priced 59 (cap 128, actual 128) | cache actual 221 | predicted 80.2 J | actual 137.2 J | identity residual -57.08 J (FAIL)
+[probe 2/COLD] cache_n=26 (draft-7 registry claim would be 5) | overhead 3.86 J
+[COLD/STRONG/FULL] urgency 0.71 | tokens 30 (neutron 26) | gen priced 59 (cap 128, actual 118) | cache actual 26 | predicted 67.8 J | actual 125.2 J | identity residual -57.43 J (FAIL)
+[probe 3/COLD] cache_n=28 (draft-7 registry claim would be 5) | overhead 2.25 J
+[COLD/STRONG/FULL] urgency 0.73 | tokens 32 (neutron 28) | gen priced 59 (cap 128, actual 120) | cache actual 28 | predicted 67.8 J | actual 121.3 J | identity residual -53.54 J (FAIL)
+[probe 4/COLD] cache_n=3 (draft-7 registry claim would be 0) | overhead 2.28 J
+[COLD/MID/STANDARD] urgency 0.30 | tokens 7 (neutron 3) | gen priced 60 (cap 64, actual 64) | cache actual 3 | predicted 68.9 J | actual 64.6 J | identity residual +4.30 J (OK)
+[probe 5/COLD] cache_n=12 (draft-7 registry claim would be 0) | overhead 2.14 J
+[COLD/MID/STANDARD] urgency 0.55 | tokens 16 (neutron 12) | gen priced 60 (cap 64, actual 5) | cache actual 12 | predicted 68.9 J | actual 5.1 J | identity residual +63.81 J (FAIL)
+
+--- LIVE VERDICT (draft 8) ---
+PREDICTIVE — model MAE 49.048 J beats flat 211.182 J over 6 samples
+(incumbent flat baseline: 1.69 J/token)
+passport identity: held 1/6 trials within tolerance | mean identity residual -26.35 J
+discovery overhead (probes, excluded from trials): 21.85 J over 6 probes
+metering mode: RAPL+GPU (full system)
+
+--- draft 7 vs draft 8 ---
+model MAE:  13.20 J -> 49.05 J
+flat MAE:   197.84 J -> 211.18 J
+identity:   3/6 -> 1/6 | mean residual -4.35 -> -26.35 J
+discovery overhead (new cost): 21.85 J
+results written: /home/dezritawre/wave-sunday/harness/live_verdict8_results.json
