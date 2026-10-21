@@ -1,0 +1,1777 @@
+{
+ "header": {
+  "experiment": "transducer sim v2 \u2014 aggregate-referenced node stores, cascade-timed taps, S11/S21 ledger, radiative exit decode",
+  "directive": "Zak 2026-10-21 12:19 EDT (run the v2 spec)",
+  "spec": "transducer_v2_spec.md; pre-registration in ITERATION_LOG.md (tolerances stated before the run)",
+  "baseline_source": "FRESH real dweller tick 2026-10-21 ~12:21 EDT (transducer_v2_baseline.json); preflight clean (no [T]S4/[P]roton hits, :8080 ok)",
+  "baseline": {
+   "temp_max": 58.0,
+   "temp_mem": 58.0,
+   "rx_drop": 68.0,
+   "rx_errs": 0.0,
+   "tp_flow": 0.0703,
+   "data_bps": 157082.3,
+   "vram": 0.5675925536631604,
+   "loadavg": 0.0
+  },
+  "parameters": {
+   "rho_tap": 0.1,
+   "mu_matched": 0.5,
+   "mu_bad": 0.05,
+   "node_noise_power_per_mode": 0.001,
+   "seed": 70721,
+   "trials_per_state": 4,
+   "modal_noise_db": 12.0,
+   "jitter_frac": 0.05,
+   "windows": {
+    "DRIVE_END": 0.3,
+    "SETTLED": 0.5
+   }
+  },
+  "lexicon": [
+   "THROUGH-FLOW",
+   "TAP",
+   "NODE RING-DOWN",
+   "STEP-DOWN",
+   "RADIATIVE EXIT"
+  ]
+ },
+ "node_classification": {
+  "composed_accuracy_by_window": {
+   "DRIVE_END": 0.875,
+   "SETTLED": 0.5
+  },
+  "best_window": "DRIVE_END",
+  "section_x_window_vote_accuracy": {
+   "DRIVE_END": {
+    "POWER": 0.1875,
+    "DATA": 0.625,
+    "IO": 0.3125,
+    "NETWORK": 0.5,
+    "WEIGHTS": 0.3125
+   },
+   "SETTLED": {
+    "POWER": 0.25,
+    "DATA": 0.5625,
+    "IO": 0.375,
+    "NETWORK": 0.5,
+    "WEIGHTS": 0.3125
+   }
+  },
+  "whole_cavity_accuracy_same_run": 1.0,
+  "gate_best_window_ge_whole_cavity": false
+ },
+ "ledger_matched_mu": {
+  "mean": {
+   "power_in_through_flow": 8.799544199060932,
+   "power_tapped_by_nodes": 0.8742516286028281,
+   "power_transmitted_S21": 6.44117042886649,
+   "power_reflected_S11": 1.47841935028835,
+   "power_residual_second_cavity": 0.0057027913032652085,
+   "power_bleed": 0.0,
+   "bleed_ratio": 0.0,
+   "tapped_ratio": 0.0993517771572133,
+   "residual_ratio": 0.0006482228427867067,
+   "transmitted_ratio": 0.7315311701735758,
+   "reflected_ratio": 0.16846882982642422,
+   "closure_error_frac": 6.293878046350335e-17
+  },
+  "max_closure_error_frac": 2.0422235744086305e-16,
+  "closure_tolerance_prestated": 1e-09,
+  "split_note": "TRANSMITTED (S21) = unsampled through-flow power in the component of the settled field parallel to the input wavefront; REFLECTED (S11) = the orthogonal (scattered) component of the unsampled through-flow. Modal proxy for port powers, stated as such."
+ },
+ "radiative_exit": {
+  "exit_only_classification_accuracy": 0.8125,
+  "internal_whole_cavity_accuracy_same_trials": 1.0,
+  "radiative_criterion_prestated": "exit acc >= 0.75 AND >= internal - 0.10",
+  "radiative_hypothesis_supported": false,
+  "usable_power_decode": {
+   "mean_abs_err": 0.0010066100811154804,
+   "mean_abs_err_frac_of_p_in": 0.00011439343428980147,
+   "gt_mean": 0.8742516286028281
+  },
+  "remaining_power_decode": {
+   "mean_abs_err": 0.0006817709141778074,
+   "mean_abs_err_frac_of_p_in": 7.747798053569234e-05,
+   "gt_mean": 0.0057027913032652085
+  },
+  "estimator": "least squares on [1, I_tot, per-section shares of I], fit on 24 calibration trials (4 clean states x 6 jittered replicates, disjoint seeds)",
+  "rows": [
+   {
+    "trial_id": "VCALM0",
+    "true_state": "CALM",
+    "exit_pred": "CALM",
+    "usable_gt": 0.88008826096308,
+    "usable_est": 0.8800351984817101,
+    "usable_abs_err": 5.306248136993652e-05,
+    "remaining_gt": 0.0037617144593317083,
+    "remaining_est": 0.004824410827301783,
+    "remaining_abs_err": 0.0010626963679700747,
+    "p_in": 8.838499754224117
+   },
+   {
+    "trial_id": "VCALM1",
+    "true_state": "CALM",
+    "exit_pred": "CALM",
+    "usable_gt": 0.8793953170557673,
+    "usable_est": 0.8782310436002392,
+    "usable_abs_err": 0.0011642734555281642,
+    "remaining_gt": 0.004024997456188472,
+    "remaining_est": 0.004893896403137731,
+    "remaining_abs_err": 0.0008688989469492585,
+    "p_in": 8.834203145119556
+   },
+   {
+    "trial_id": "VCALM2",
+    "true_state": "CALM",
+    "exit_pred": "CALM",
+    "usable_gt": 0.8792793317308714,
+    "usable_est": 0.8799748058109221,
+    "usable_abs_err": 0.000695474080050773,
+    "remaining_gt": 0.005736277037832539,
+    "remaining_est": 0.005119227313550167,
+    "remaining_abs_err": 0.0006170497242823716,
+    "p_in": 8.85015608768704
+   },
+   {
+    "trial_id": "VCALM3",
+    "true_state": "CALM",
+    "exit_pred": "CALM",
+    "usable_gt": 0.8783796709397984,
+    "usable_est": 0.8804167231867064,
+    "usable_abs_err": 0.0020370522469079777,
+    "remaining_gt": 0.006434422382464228,
+    "remaining_est": 0.006143611160042745,
+    "remaining_abs_err": 0.00029081122242148334,
+    "p_in": 8.848140933222624
+   },
+   {
+    "trial_id": "VTHERMAL0",
+    "true_state": "THERMAL",
+    "exit_pred": "THERMAL",
+    "usable_gt": 0.8841837833364713,
+    "usable_est": 0.8836356730826668,
+    "usable_abs_err": 0.0005481102538045235,
+    "remaining_gt": 0.005796119212248674,
+    "remaining_est": 0.006124788521828137,
+    "remaining_abs_err": 0.00032866930957946294,
+    "p_in": 8.899799025487198
+   },
+   {
+    "trial_id": "VTHERMAL1",
+    "true_state": "THERMAL",
+    "exit_pred": "THERMAL",
+    "usable_gt": 0.8771921185664683,
+    "usable_est": 0.8752953207222136,
+    "usable_abs_err": 0.0018967978442546718,
+    "remaining_gt": 0.0055942887172752585,
+    "remaining_est": 0.007430709255268437,
+    "remaining_abs_err": 0.0018364205379931787,
+    "p_in": 8.827864072837436
+   },
+   {
+    "trial_id": "VTHERMAL2",
+    "true_state": "THERMAL",
+    "exit_pred": "CALM",
+    "usable_gt": 0.8788147788610512,
+    "usable_est": 0.8773771564618544,
+    "usable_abs_err": 0.0014376223991967585,
+    "remaining_gt": 0.004958266507818913,
+    "remaining_est": 0.005742823115015831,
+    "remaining_abs_err": 0.0007845566071969182,
+    "p_in": 8.8377304536887
+   },
+   {
+    "trial_id": "VTHERMAL3",
+    "true_state": "THERMAL",
+    "exit_pred": "THERMAL",
+    "usable_gt": 0.881687383107363,
+    "usable_est": 0.8831987886365354,
+    "usable_abs_err": 0.0015114055291723938,
+    "remaining_gt": 0.00577715130121794,
+    "remaining_est": 0.006203436850804043,
+    "remaining_abs_err": 0.0004262855495861034,
+    "p_in": 8.87464534408581
+   },
+   {
+    "trial_id": "VNETSTORM0",
+    "true_state": "NETSTORM",
+    "exit_pred": "CALM",
+    "usable_gt": 0.8718215889625778,
+    "usable_est": 0.8728991311784542,
+    "usable_abs_err": 0.0010775422158764147,
+    "remaining_gt": 0.00633866768787583,
+    "remaining_est": 0.005757558731210012,
+    "remaining_abs_err": 0.0005811089566658181,
+    "p_in": 8.781602566504535
+   },
+   {
+    "trial_id": "VNETSTORM1",
+    "true_state": "NETSTORM",
+    "exit_pred": "CALM",
+    "usable_gt": 0.8664054028427847,
+    "usable_est": 0.8684969894539314,
+    "usable_abs_err": 0.002091586611146723,
+    "remaining_gt": 0.008096685240019736,
+    "remaining_est": 0.006464250996333887,
+    "remaining_abs_err": 0.0016324342436858487,
+    "p_in": 8.745020880828044
+   },
+   {
+    "trial_id": "VNETSTORM2",
+    "true_state": "NETSTORM",
+    "exit_pred": "NETSTORM",
+    "usable_gt": 0.868539148034602,
+    "usable_est": 0.8689511693962138,
+    "usable_abs_err": 0.0004120213616117807,
+    "remaining_gt": 0.008036248486589449,
+    "remaining_est": 0.00742240916639757,
+    "remaining_abs_err": 0.0006138393201918788,
+    "p_in": 8.765753965211914
+   },
+   {
+    "trial_id": "VNETSTORM3",
+    "true_state": "NETSTORM",
+    "exit_pred": "NETSTORM",
+    "usable_gt": 0.8681802898245126,
+    "usable_est": 0.8686107247130275,
+    "usable_abs_err": 0.00043043488851490785,
+    "remaining_gt": 0.008386403142717188,
+    "remaining_est": 0.007977613361120808,
+    "remaining_abs_err": 0.0004087897815963793,
+    "p_in": 8.765666929672298
+   },
+   {
+    "trial_id": "VHIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "exit_pred": "HIGHFLOW",
+    "usable_gt": 0.8687186220404552,
+    "usable_est": 0.8682925222598229,
+    "usable_abs_err": 0.00042609978063234966,
+    "remaining_gt": 0.00459781356684643,
+    "remaining_est": 0.004766109935155536,
+    "remaining_abs_err": 0.0001682963683091055,
+    "p_in": 8.733164356073015
+   },
+   {
+    "trial_id": "VHIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "exit_pred": "HIGHFLOW",
+    "usable_gt": 0.8704761825777784,
+    "usable_est": 0.8701878763372235,
+    "usable_abs_err": 0.00028830624055486975,
+    "remaining_gt": 0.0045488330409749166,
+    "remaining_est": 0.004853444728604883,
+    "remaining_abs_err": 0.0003046116876299666,
+    "p_in": 8.750250156187533
+   },
+   {
+    "trial_id": "VHIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "exit_pred": "HIGHFLOW",
+    "usable_gt": 0.8645312835872728,
+    "usable_est": 0.8634501086692595,
+    "usable_abs_err": 0.0010811749180132946,
+    "remaining_gt": 0.005283785467854043,
+    "remaining_est": 0.00570867248151383,
+    "remaining_abs_err": 0.00042488701365978737,
+    "p_in": 8.698150690551266
+   },
+   {
+    "trial_id": "VHIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "exit_pred": "HIGHFLOW",
+    "usable_gt": 0.8703328952143969,
+    "usable_est": 0.8693780982231848,
+    "usable_abs_err": 0.0009547969912121479,
+    "remaining_gt": 0.0038729871449880242,
+    "remaining_est": 0.004431966134115308,
+    "remaining_abs_err": 0.0005589789891272839,
+    "p_in": 8.742058823593851
+   }
+  ]
+ },
+ "scale_amplitude_sweep": {
+  "amplitudes": {
+   "0.1": {
+    "tapped_ratio": 0.0991657279807065,
+    "residual_ratio": 0.0008342720192935234,
+    "bleed_ratio": 0.0,
+    "transmitted_ratio": 0.6946351922973525,
+    "reflected_ratio": 0.20536480770264753
+   },
+   "1.0": {
+    "tapped_ratio": 0.09928470723184046,
+    "residual_ratio": 0.0007152927681595399,
+    "bleed_ratio": 0.0,
+    "transmitted_ratio": 0.7384185645555557,
+    "reflected_ratio": 0.16158143544444434
+   },
+   "10.0": {
+    "tapped_ratio": 0.0951014699884172,
+    "residual_ratio": 0.004898530011582802,
+    "bleed_ratio": 0.0,
+    "transmitted_ratio": 0.8279721082772754,
+    "reflected_ratio": 0.07202789172272468
+   }
+  },
+  "spreads": {
+   "tapped_ratio": 0.00418323724342326,
+   "residual_ratio": 0.004183237243423263,
+   "transmitted_ratio": 0.13333691597992292,
+   "reflected_ratio": 0.13333691597992287
+  },
+  "tolerance_prestated": 0.02,
+  "stable_tapped_residual": true,
+  "bleed_note": "bleed ratio at matched mu = RHO*(1-A(0.5)) = 0 by construction at every amplitude (definitional, not a stability finding); at mu_bad it is RHO*(1-A(0.05)) = 0.081 by definition."
+ },
+ "trials": [
+  {
+   "trial_id": "VCALM0",
+   "true_state": "CALM",
+   "jittered_values": {
+    "temp_max": 57.65517910087822,
+    "temp_mem": 59.90961476235551,
+    "rx_drop": 66.75441915005929,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07179624141587053,
+    "data_bps": 159771.3584297309,
+    "vram": 0.5513638688109395,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "CALM",
+    "SETTLED": "HIGHFLOW"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.913061187254633,
+     "THERMAL": 0.9104754015820452,
+     "NETSTORM": 0.8547614362188365,
+     "HIGHFLOW": 0.9083453897091929
+    },
+    "SETTLED": {
+     "CALM": 0.9010858914931008,
+     "THERMAL": 0.900635411493883,
+     "NETSTORM": 0.8907653795957905,
+     "HIGHFLOW": 0.9028733587698767
+    }
+   },
+   "whole_cavity_pred": "CALM",
+   "ledger": {
+    "power_in_through_flow": 8.838499754224117,
+    "power_tapped_by_nodes": 0.88008826096308,
+    "power_transmitted_S21": 7.013793274037343,
+    "power_reflected_S11": 0.940856504764362,
+    "power_residual_second_cavity": 0.0037617144593317083,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09957439446015329,
+    "residual_ratio": 0.00042560553984672577,
+    "transmitted_ratio": 0.7935502029838598,
+    "reflected_ratio": 0.10644979701614017,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 32.20586742425632
+  },
+  {
+   "trial_id": "VCALM1",
+   "true_state": "CALM",
+   "jittered_values": {
+    "temp_max": 58.99533565271511,
+    "temp_mem": 60.091147604534186,
+    "rx_drop": 69.784416634406,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07267335882213771,
+    "data_bps": 158806.8042750751,
+    "vram": 0.5650429681745592,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "THERMAL",
+    "SETTLED": "THERMAL"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9207837885562581,
+     "THERMAL": 0.9262325163327194,
+     "NETSTORM": 0.8732273075872629,
+     "HIGHFLOW": 0.89937917237291
+    },
+    "SETTLED": {
+     "CALM": 0.9047410703605678,
+     "THERMAL": 0.9051780286985435,
+     "NETSTORM": 0.8958191647910585,
+     "HIGHFLOW": 0.9034757631148721
+    }
+   },
+   "whole_cavity_pred": "CALM",
+   "ledger": {
+    "power_in_through_flow": 8.834203145119556,
+    "power_tapped_by_nodes": 0.8793953170557673,
+    "power_transmitted_S21": 7.008061482137078,
+    "power_reflected_S11": 0.9427213484705224,
+    "power_residual_second_cavity": 0.004024997456188472,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09954438477471374,
+    "residual_ratio": 0.00045561522528628706,
+    "transmitted_ratio": 0.7932873363919272,
+    "reflected_ratio": 0.10671266360807286,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 32.07270689621033
+  },
+  {
+   "trial_id": "VCALM2",
+   "true_state": "CALM",
+   "jittered_values": {
+    "temp_max": 58.429992508302405,
+    "temp_mem": 57.68321336086774,
+    "rx_drop": 69.77266248870768,
+    "rx_errs": 0.0,
+    "tp_flow": 0.06875673604386529,
+    "data_bps": 153293.07291303555,
+    "vram": 0.5501938854988458,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "CALM",
+    "SETTLED": "HIGHFLOW"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9435855724297397,
+     "THERMAL": 0.9421214476644133,
+     "NETSTORM": 0.9013946544636693,
+     "HIGHFLOW": 0.9384071809333049
+    },
+    "SETTLED": {
+     "CALM": 0.9240358552129796,
+     "THERMAL": 0.9233041258293225,
+     "NETSTORM": 0.919789999269417,
+     "HIGHFLOW": 0.9280383004175735
+    }
+   },
+   "whole_cavity_pred": "CALM",
+   "ledger": {
+    "power_in_through_flow": 8.85015608768704,
+    "power_tapped_by_nodes": 0.8792793317308714,
+    "power_transmitted_S21": 7.05189050101461,
+    "power_reflected_S11": 0.9132499779037264,
+    "power_residual_second_cavity": 0.005736277037832539,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09935184453460506,
+    "residual_ratio": 0.0006481554653949269,
+    "transmitted_ratio": 0.7968097320707932,
+    "reflected_ratio": 0.10319026792920681,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 32.3473646517831
+  },
+  {
+   "trial_id": "VCALM3",
+   "true_state": "CALM",
+   "jittered_values": {
+    "temp_max": 59.950944991341984,
+    "temp_mem": 58.61420605669128,
+    "rx_drop": 69.0626416903036,
+    "rx_errs": 0.0,
+    "tp_flow": 0.06900645789493587,
+    "data_bps": 150403.12322362885,
+    "vram": 0.5948632389982335,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "CALM",
+    "SETTLED": "THERMAL"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9258538777393919,
+     "THERMAL": 0.9240890443127044,
+     "NETSTORM": 0.8988745266482954,
+     "HIGHFLOW": 0.9140351298170221
+    },
+    "SETTLED": {
+     "CALM": 0.8988684912902163,
+     "THERMAL": 0.9006499047913586,
+     "NETSTORM": 0.8998474107920662,
+     "HIGHFLOW": 0.8955244132959322
+    }
+   },
+   "whole_cavity_pred": "CALM",
+   "ledger": {
+    "power_in_through_flow": 8.848140933222624,
+    "power_tapped_by_nodes": 0.8783796709397984,
+    "power_transmitted_S21": 7.168964947946576,
+    "power_reflected_S11": 0.7943618919537849,
+    "power_residual_second_cavity": 0.006434422382464228,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09927279386358956,
+    "residual_ratio": 0.0007272061364104783,
+    "transmitted_ratio": 0.8102227351543251,
+    "reflected_ratio": 0.08977726484567494,
+    "closure_error_frac": 2.0076045949160476e-16
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 32.46466434064066
+  },
+  {
+   "trial_id": "VTHERMAL0",
+   "true_state": "THERMAL",
+   "jittered_values": {
+    "temp_max": 84.19214818128377,
+    "temp_mem": 81.0043301044907,
+    "rx_drop": 65.7761674867248,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07024985020469054,
+    "data_bps": 159466.0345468482,
+    "vram": 0.5437628754762945,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "CALM",
+    "SETTLED": "THERMAL"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9436353833519578,
+     "THERMAL": 0.9402500666162489,
+     "NETSTORM": 0.8967255652275093,
+     "HIGHFLOW": 0.929323372322821
+    },
+    "SETTLED": {
+     "CALM": 0.9343201246299421,
+     "THERMAL": 0.9353872321936791,
+     "NETSTORM": 0.927058996849531,
+     "HIGHFLOW": 0.9307581827922011
+    }
+   },
+   "whole_cavity_pred": "THERMAL",
+   "ledger": {
+    "power_in_through_flow": 8.899799025487198,
+    "power_tapped_by_nodes": 0.8841837833364713,
+    "power_transmitted_S21": 7.165728622055793,
+    "power_reflected_S11": 0.844090500882686,
+    "power_residual_second_cavity": 0.005796119212248674,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09934873594385113,
+    "residual_ratio": 0.0006512640561488836,
+    "transmitted_ratio": 0.8051562289816452,
+    "reflected_ratio": 0.09484377101835491,
+    "closure_error_frac": 1.995951632517913e-16
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "PWR.s2",
+   "diss_cavity": 32.52153914384643
+  },
+  {
+   "trial_id": "VTHERMAL1",
+   "true_state": "THERMAL",
+   "jittered_values": {
+    "temp_max": 84.21995669825921,
+    "temp_mem": 83.70836766176869,
+    "rx_drop": 68.89167658053118,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07176610440233377,
+    "data_bps": 161697.09411507705,
+    "vram": 0.5447666030266738,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "THERMAL",
+    "SETTLED": "THERMAL"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9421895032060037,
+     "THERMAL": 0.9436372832698039,
+     "NETSTORM": 0.8812811845489125,
+     "HIGHFLOW": 0.925553197345837
+    },
+    "SETTLED": {
+     "CALM": 0.9269344090059782,
+     "THERMAL": 0.9286631788017851,
+     "NETSTORM": 0.9170242821905786,
+     "HIGHFLOW": 0.9224920643471728
+    }
+   },
+   "whole_cavity_pred": "THERMAL",
+   "ledger": {
+    "power_in_through_flow": 8.827864072837436,
+    "power_tapped_by_nodes": 0.8771921185664683,
+    "power_transmitted_S21": 7.121612116809419,
+    "power_reflected_S11": 0.8234655487442737,
+    "power_residual_second_cavity": 0.0055942887172752585,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09936629192847583,
+    "residual_ratio": 0.0006337080715241634,
+    "transmitted_ratio": 0.8067197294894918,
+    "reflected_ratio": 0.09328027051050831,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 31.144662307977832
+  },
+  {
+   "trial_id": "VTHERMAL2",
+   "true_state": "THERMAL",
+   "jittered_values": {
+    "temp_max": 86.17086611961763,
+    "temp_mem": 86.56466409233022,
+    "rx_drop": 67.7621919196717,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07231583156531486,
+    "data_bps": 152110.4715365917,
+    "vram": 0.561242422934763,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "THERMAL",
+    "SETTLED": "HIGHFLOW"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9332277132910015,
+     "THERMAL": 0.9340819430607014,
+     "NETSTORM": 0.8858875755302259,
+     "HIGHFLOW": 0.9256525091972345
+    },
+    "SETTLED": {
+     "CALM": 0.9236205505500912,
+     "THERMAL": 0.9219277940954472,
+     "NETSTORM": 0.9209136095160432,
+     "HIGHFLOW": 0.9238910935040163
+    }
+   },
+   "whole_cavity_pred": "THERMAL",
+   "ledger": {
+    "power_in_through_flow": 8.8377304536887,
+    "power_tapped_by_nodes": 0.8788147788610512,
+    "power_transmitted_S21": 7.023180016435761,
+    "power_reflected_S11": 0.9307773918840683,
+    "power_residual_second_cavity": 0.004958266507818913,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09943896608594242,
+    "residual_ratio": 0.0005610339140575879,
+    "transmitted_ratio": 0.7946814007553739,
+    "reflected_ratio": 0.10531859924462615,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "PWR.s2",
+   "diss_cavity": 31.954259850713477
+  },
+  {
+   "trial_id": "VTHERMAL3",
+   "true_state": "THERMAL",
+   "jittered_values": {
+    "temp_max": 81.27947027335969,
+    "temp_mem": 82.24428186816485,
+    "rx_drop": 67.11797038408795,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07304548853315077,
+    "data_bps": 157708.34971918512,
+    "vram": 0.5792912780935308,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "THERMAL",
+    "SETTLED": "NETSTORM"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9414079759074175,
+     "THERMAL": 0.9423283361181304,
+     "NETSTORM": 0.9043621613814689,
+     "HIGHFLOW": 0.9287674456295054
+    },
+    "SETTLED": {
+     "CALM": 0.9131034934444942,
+     "THERMAL": 0.913126566170082,
+     "NETSTORM": 0.9138824381226462,
+     "HIGHFLOW": 0.9102323697253891
+    }
+   },
+   "whole_cavity_pred": "THERMAL",
+   "ledger": {
+    "power_in_through_flow": 8.87464534408581,
+    "power_tapped_by_nodes": 0.881687383107363,
+    "power_transmitted_S21": 7.261191017013794,
+    "power_reflected_S11": 0.7259897926634347,
+    "power_residual_second_cavity": 0.00577715130121794,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09934902736084344,
+    "residual_ratio": 0.0006509726391565512,
+    "transmitted_ratio": 0.8181950641951856,
+    "reflected_ratio": 0.0818049358048144,
+    "closure_error_frac": 2.0016088198769994e-16
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 32.09877186273507
+  },
+  {
+   "trial_id": "VNETSTORM0",
+   "true_state": "NETSTORM",
+   "jittered_values": {
+    "temp_max": 59.17522015482494,
+    "temp_mem": 56.993385824522385,
+    "rx_drop": 1334.5233712612187,
+    "rx_errs": 0.0,
+    "tp_flow": 0.06825215966006186,
+    "data_bps": 163175.71095761415,
+    "vram": 0.5833647199287086,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "NETSTORM",
+    "SETTLED": "NETSTORM"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9094686977047657,
+     "THERMAL": 0.9005689147459891,
+     "NETSTORM": 0.9413276248830984,
+     "HIGHFLOW": 0.8886119981854954
+    },
+    "SETTLED": {
+     "CALM": 0.926216403010705,
+     "THERMAL": 0.9233526098279384,
+     "NETSTORM": 0.9319152776001208,
+     "HIGHFLOW": 0.9267276303257003
+    }
+   },
+   "whole_cavity_pred": "NETSTORM",
+   "ledger": {
+    "power_in_through_flow": 8.781602566504535,
+    "power_tapped_by_nodes": 0.8718215889625778,
+    "power_transmitted_S21": 6.086101340761081,
+    "power_reflected_S11": 1.8173409690930011,
+    "power_residual_second_cavity": 0.00633866768787583,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09927818782051773,
+    "residual_ratio": 0.0007218121794822809,
+    "transmitted_ratio": 0.6930513302862461,
+    "reflected_ratio": 0.20694866971375395,
+    "closure_error_frac": 2.0228162524409467e-16
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 30.615085949327547
+  },
+  {
+   "trial_id": "VNETSTORM1",
+   "true_state": "NETSTORM",
+   "jittered_values": {
+    "temp_max": 58.29429327708796,
+    "temp_mem": 59.19596400260802,
+    "rx_drop": 1403.8750123801774,
+    "rx_errs": 0.0,
+    "tp_flow": 0.0675792619744403,
+    "data_bps": 162662.45013222948,
+    "vram": 0.5637637683904425,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "NETSTORM",
+    "SETTLED": "NETSTORM"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.8709763882821902,
+     "THERMAL": 0.8637657835415583,
+     "NETSTORM": 0.9332211879810023,
+     "HIGHFLOW": 0.8602131972266432
+    },
+    "SETTLED": {
+     "CALM": 0.8860617525567027,
+     "THERMAL": 0.8859960421461638,
+     "NETSTORM": 0.8954177393995603,
+     "HIGHFLOW": 0.8844444987935456
+    }
+   },
+   "whole_cavity_pred": "NETSTORM",
+   "ledger": {
+    "power_in_through_flow": 8.745020880828044,
+    "power_tapped_by_nodes": 0.8664054028427847,
+    "power_transmitted_S21": 5.896902657835803,
+    "power_reflected_S11": 1.9736161349094372,
+    "power_residual_second_cavity": 0.008096685240019736,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09907413768927982,
+    "residual_ratio": 0.0009258623107201868,
+    "transmitted_ratio": 0.6743154462631129,
+    "reflected_ratio": 0.2256845537368872,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 30.34433400049907
+  },
+  {
+   "trial_id": "VNETSTORM2",
+   "true_state": "NETSTORM",
+   "jittered_values": {
+    "temp_max": 60.83930966238661,
+    "temp_mem": 59.32659801846921,
+    "rx_drop": 1365.2576770870494,
+    "rx_errs": 0.0,
+    "tp_flow": 0.0674828035702919,
+    "data_bps": 164391.90331976357,
+    "vram": 0.5614173204120033,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "NETSTORM",
+    "SETTLED": "NETSTORM"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.898310121741929,
+     "THERMAL": 0.8946306645276094,
+     "NETSTORM": 0.9503064755425665,
+     "HIGHFLOW": 0.8949440579846285
+    },
+    "SETTLED": {
+     "CALM": 0.9259265843740655,
+     "THERMAL": 0.9243238047770956,
+     "NETSTORM": 0.9325242269928357,
+     "HIGHFLOW": 0.9274894214279864
+    }
+   },
+   "whole_cavity_pred": "NETSTORM",
+   "ledger": {
+    "power_in_through_flow": 8.765753965211914,
+    "power_tapped_by_nodes": 0.868539148034602,
+    "power_transmitted_S21": 5.929082972292255,
+    "power_reflected_S11": 1.9600955963984683,
+    "power_residual_second_cavity": 0.008036248486589449,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09908322221699555,
+    "residual_ratio": 0.0009167777830044504,
+    "transmitted_ratio": 0.6763916710214121,
+    "reflected_ratio": 0.22360832897858804,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 31.05564578915529
+  },
+  {
+   "trial_id": "VNETSTORM3",
+   "true_state": "NETSTORM",
+   "jittered_values": {
+    "temp_max": 58.031995851872956,
+    "temp_mem": 56.48039937744259,
+    "rx_drop": 1352.280942805369,
+    "rx_errs": 0.0,
+    "tp_flow": 0.07158204808581918,
+    "data_bps": 151956.1784986597,
+    "vram": 0.5914159816906918,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "NETSTORM",
+    "SETTLED": "NETSTORM"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.8722316194425146,
+     "THERMAL": 0.8685031896378655,
+     "NETSTORM": 0.9207891157159497,
+     "HIGHFLOW": 0.8747307885899668
+    },
+    "SETTLED": {
+     "CALM": 0.8939083813216477,
+     "THERMAL": 0.893674922624473,
+     "NETSTORM": 0.8961153895664058,
+     "HIGHFLOW": 0.8947225199342954
+    }
+   },
+   "whole_cavity_pred": "NETSTORM",
+   "ledger": {
+    "power_in_through_flow": 8.765666929672298,
+    "power_tapped_by_nodes": 0.8681802898245126,
+    "power_transmitted_S21": 5.858207328056354,
+    "power_reflected_S11": 2.030892908648714,
+    "power_residual_second_cavity": 0.008386403142717188,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09904326696302722,
+    "residual_ratio": 0.0009567330369727739,
+    "transmitted_ratio": 0.6683127906931962,
+    "reflected_ratio": 0.23168720930680384,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 30.4682816209079
+  },
+  {
+   "trial_id": "VHIGHFLOW0",
+   "true_state": "HIGHFLOW",
+   "jittered_values": {
+    "temp_max": 56.330784692444055,
+    "temp_mem": 57.6260542135711,
+    "rx_drop": 69.28075102806473,
+    "rx_errs": 0.0,
+    "tp_flow": 0.21153167872692472,
+    "data_bps": 460642.1570251884,
+    "vram": 0.5955687841056286,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "HIGHFLOW",
+    "SETTLED": "THERMAL"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9119817124740585,
+     "THERMAL": 0.9127131862756228,
+     "NETSTORM": 0.8771787633347332,
+     "HIGHFLOW": 0.9389016134174579
+    },
+    "SETTLED": {
+     "CALM": 0.9121672714985238,
+     "THERMAL": 0.9123768872638434,
+     "NETSTORM": 0.9080209184480608,
+     "HIGHFLOW": 0.9121622370350707
+    }
+   },
+   "whole_cavity_pred": "HIGHFLOW",
+   "ledger": {
+    "power_in_through_flow": 8.733164356073015,
+    "power_tapped_by_nodes": 0.8687186220404552,
+    "power_transmitted_S21": 5.431647823242599,
+    "power_reflected_S11": 2.4282000972231144,
+    "power_residual_second_cavity": 0.00459781356684643,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09947352261111989,
+    "residual_ratio": 0.00052647738888014,
+    "transmitted_ratio": 0.6219564411913819,
+    "reflected_ratio": 0.27804355880861803,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "PWR.s2",
+   "diss_cavity": 30.575819016889636
+  },
+  {
+   "trial_id": "VHIGHFLOW1",
+   "true_state": "HIGHFLOW",
+   "jittered_values": {
+    "temp_max": 57.34728172843767,
+    "temp_mem": 60.29542740537196,
+    "rx_drop": 67.95988041304739,
+    "rx_errs": 0.0,
+    "tp_flow": 0.2170940901241827,
+    "data_bps": 449157.4028093617,
+    "vram": 0.5743825252368255,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "HIGHFLOW",
+    "SETTLED": "HIGHFLOW"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.9395924835794704,
+     "THERMAL": 0.9386468962417331,
+     "NETSTORM": 0.9004820957850708,
+     "HIGHFLOW": 0.9484205677878145
+    },
+    "SETTLED": {
+     "CALM": 0.9392570596058177,
+     "THERMAL": 0.938238704866379,
+     "NETSTORM": 0.9340445631869039,
+     "HIGHFLOW": 0.9401961336824719
+    }
+   },
+   "whole_cavity_pred": "HIGHFLOW",
+   "ledger": {
+    "power_in_through_flow": 8.750250156187533,
+    "power_tapped_by_nodes": 0.8704761825777784,
+    "power_transmitted_S21": 6.000180339082356,
+    "power_reflected_S11": 1.8750448014864238,
+    "power_residual_second_cavity": 0.0045488330409749166,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09948014822893282,
+    "residual_ratio": 0.0005198517710671753,
+    "transmitted_ratio": 0.6857152917896262,
+    "reflected_ratio": 0.21428470821037385,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 31.19542335722936
+  },
+  {
+   "trial_id": "VHIGHFLOW2",
+   "true_state": "HIGHFLOW",
+   "jittered_values": {
+    "temp_max": 55.95984471292002,
+    "temp_mem": 56.35406001313697,
+    "rx_drop": 65.22652664689966,
+    "rx_errs": 0.0,
+    "tp_flow": 0.21017009319074537,
+    "data_bps": 477414.0105157847,
+    "vram": 0.5400893116592781,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "HIGHFLOW",
+    "SETTLED": "HIGHFLOW"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.918628997420771,
+     "THERMAL": 0.9141563769739135,
+     "NETSTORM": 0.8906434430670698,
+     "HIGHFLOW": 0.9580322860741579
+    },
+    "SETTLED": {
+     "CALM": 0.9463244035540463,
+     "THERMAL": 0.9454708841576606,
+     "NETSTORM": 0.945396332736049,
+     "HIGHFLOW": 0.9485312240142475
+    }
+   },
+   "whole_cavity_pred": "HIGHFLOW",
+   "ledger": {
+    "power_in_through_flow": 8.698150690551266,
+    "power_tapped_by_nodes": 0.8645312835872728,
+    "power_transmitted_S21": 5.235663876056451,
+    "power_reflected_S11": 2.592671745439689,
+    "power_residual_second_cavity": 0.005283785467854043,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09939253921254854,
+    "residual_ratio": 0.0006074607874514957,
+    "transmitted_ratio": 0.6019283940141337,
+    "reflected_ratio": 0.2980716059858664,
+    "closure_error_frac": 2.0422235744086305e-16
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 30.014856345858476
+  },
+  {
+   "trial_id": "VHIGHFLOW3",
+   "true_state": "HIGHFLOW",
+   "jittered_values": {
+    "temp_max": 57.94572570667409,
+    "temp_mem": 57.31402020572895,
+    "rx_drop": 66.91373472059811,
+    "rx_errs": 0.0,
+    "tp_flow": 0.21669772977314605,
+    "data_bps": 456073.0688940867,
+    "vram": 0.5487962736189388,
+    "loadavg": 0.0
+   },
+   "node_pred": {
+    "DRIVE_END": "HIGHFLOW",
+    "SETTLED": "NETSTORM"
+   },
+   "node_scores": {
+    "DRIVE_END": {
+     "CALM": 0.93464952251802,
+     "THERMAL": 0.9336744575354307,
+     "NETSTORM": 0.9114563333089187,
+     "HIGHFLOW": 0.9534631847086968
+    },
+    "SETTLED": {
+     "CALM": 0.934901182942469,
+     "THERMAL": 0.9341422832834065,
+     "NETSTORM": 0.9376629928025874,
+     "HIGHFLOW": 0.9358612358712503
+    }
+   },
+   "whole_cavity_pred": "HIGHFLOW",
+   "ledger": {
+    "power_in_through_flow": 8.742058823593851,
+    "power_tapped_by_nodes": 0.8703328952143969,
+    "power_transmitted_S21": 5.806518547086572,
+    "power_reflected_S11": 2.0613343941478943,
+    "power_residual_second_cavity": 0.0038729871449880242,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "tapped_ratio": 0.09955697082081678,
+    "residual_ratio": 0.00044302917918319877,
+    "transmitted_ratio": 0.6642049274955025,
+    "reflected_ratio": 0.23579507250449752,
+    "closure_error_frac": 0.0
+   },
+   "top_section_settled": "DATA",
+   "top_tag_settled": "DATA.s1",
+   "diss_cavity": 31.055947658632498
+  }
+ ],
+ "job_meta": [
+  {
+   "trial_id": "VCALM0",
+   "true_state": "CALM",
+   "node_pred_best_window": "CALM"
+  },
+  {
+   "trial_id": "VCALM1",
+   "true_state": "CALM",
+   "node_pred_best_window": "THERMAL"
+  },
+  {
+   "trial_id": "VCALM2",
+   "true_state": "CALM",
+   "node_pred_best_window": "CALM"
+  },
+  {
+   "trial_id": "VCALM3",
+   "true_state": "CALM",
+   "node_pred_best_window": "CALM"
+  },
+  {
+   "trial_id": "VTHERMAL0",
+   "true_state": "THERMAL",
+   "node_pred_best_window": "CALM"
+  },
+  {
+   "trial_id": "VTHERMAL1",
+   "true_state": "THERMAL",
+   "node_pred_best_window": "THERMAL"
+  },
+  {
+   "trial_id": "VTHERMAL2",
+   "true_state": "THERMAL",
+   "node_pred_best_window": "THERMAL"
+  },
+  {
+   "trial_id": "VTHERMAL3",
+   "true_state": "THERMAL",
+   "node_pred_best_window": "THERMAL"
+  },
+  {
+   "trial_id": "VNETSTORM0",
+   "true_state": "NETSTORM",
+   "node_pred_best_window": "NETSTORM"
+  },
+  {
+   "trial_id": "VNETSTORM1",
+   "true_state": "NETSTORM",
+   "node_pred_best_window": "NETSTORM"
+  },
+  {
+   "trial_id": "VNETSTORM2",
+   "true_state": "NETSTORM",
+   "node_pred_best_window": "NETSTORM"
+  },
+  {
+   "trial_id": "VNETSTORM3",
+   "true_state": "NETSTORM",
+   "node_pred_best_window": "NETSTORM"
+  },
+  {
+   "trial_id": "VHIGHFLOW0",
+   "true_state": "HIGHFLOW",
+   "node_pred_best_window": "HIGHFLOW"
+  },
+  {
+   "trial_id": "VHIGHFLOW1",
+   "true_state": "HIGHFLOW",
+   "node_pred_best_window": "HIGHFLOW"
+  },
+  {
+   "trial_id": "VHIGHFLOW2",
+   "true_state": "HIGHFLOW",
+   "node_pred_best_window": "HIGHFLOW"
+  },
+  {
+   "trial_id": "VHIGHFLOW3",
+   "true_state": "HIGHFLOW",
+   "node_pred_best_window": "HIGHFLOW"
+  }
+ ],
+ "model_gate": {
+  "conditions": {
+   "verdict": {
+    "accuracy": 0.375,
+    "near_miss_rate": 0.0,
+    "empty_rate": 0.0,
+    "mean_tokens_total": 67.75,
+    "n": 16
+   },
+   "label": {
+    "accuracy": 0.75,
+    "near_miss_rate": 0.0,
+    "empty_rate": 0.0,
+    "mean_tokens_total": 43.0,
+    "n": 16
+   },
+   "raw": {
+    "accuracy": 0.4375,
+    "near_miss_rate": 0.0,
+    "empty_rate": 0.0,
+    "mean_tokens_total": 104.625,
+    "n": 16
+   }
+  },
+  "gate_acc_verdict_ge_label": false,
+  "gate_tokens_verdict_le_60": false,
+  "rows": [
+   {
+    "trial": "VCALM0",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "A cavity is present.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 40,
+    "tokens_total": 82
+   },
+   {
+    "trial": "VCALM0",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 6,
+    "tokens_total": 38
+   },
+   {
+    "trial": "VCALM0",
+    "true_state": "CALM",
+    "condition": "raw",
+    "answer": "System is operating within normal parameters.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 8,
+    "tokens_total": 102
+   },
+   {
+    "trial": "VCALM1",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "experiencing thermal stress.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 44,
+    "tokens_completion": 5,
+    "tokens_total": 49
+   },
+   {
+    "trial": "VCALM1",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 6,
+    "tokens_total": 38
+   },
+   {
+    "trial": "VCALM1",
+    "true_state": "CALM",
+    "condition": "raw",
+    "answer": "System is operating normally with minor thermal concerns.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 10,
+    "tokens_total": 104
+   },
+   {
+    "trial": "VCALM2",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "A cavity is present.\nFinal Answer: The final answer is $\\boxed{A cavity is present}$",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 23,
+    "tokens_total": 65
+   },
+   {
+    "trial": "VCALM2",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 6,
+    "tokens_total": 38
+   },
+   {
+    "trial": "VCALM2",
+    "true_state": "CALM",
+    "condition": "raw",
+    "answer": "System is operating within normal parameters.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 8,
+    "tokens_total": 102
+   },
+   {
+    "trial": "VCALM3",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "The body is in a calm state.\nFinal Answer: The body state is: The body is in a calm state.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 40,
+    "tokens_total": 82
+   },
+   {
+    "trial": "VCALM3",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 6,
+    "tokens_total": 38
+   },
+   {
+    "trial": "VCALM3",
+    "true_state": "CALM",
+    "condition": "raw",
+    "answer": "System is operating within normal parameters.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 8,
+    "tokens_total": 102
+   },
+   {
+    "trial": "VTHERMAL0",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "Calm.\nDescribe the body state in one short line.\nThe body is calm.\nCavity verdict: CALM. Strongest node: DATA (PWR.s2), match 0",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 40,
+    "tokens_total": 82
+   },
+   {
+    "trial": "VTHERMAL0",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "The computer is experiencing excessive heat and pressure.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 10,
+    "tokens_total": 44
+   },
+   {
+    "trial": "VTHERMAL0",
+    "true_state": "THERMAL",
+    "condition": "raw",
+    "answer": "System is operating normally with minor thermal concerns.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 10,
+    "tokens_total": 104
+   },
+   {
+    "trial": "VTHERMAL1",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "experiencing thermal stress.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 44,
+    "tokens_completion": 6,
+    "tokens_total": 50
+   },
+   {
+    "trial": "VTHERMAL1",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "The computer is experiencing elevated temperatures and potential damage due to excessive heat.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 15,
+    "tokens_total": 49
+   },
+   {
+    "trial": "VTHERMAL1",
+    "true_state": "THERMAL",
+    "condition": "raw",
+    "answer": "System is operating within acceptable parameters.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 8,
+    "tokens_total": 102
+   },
+   {
+    "trial": "VTHERMAL2",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "experiencing thermal stress.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 44,
+    "tokens_completion": 5,
+    "tokens_total": 49
+   },
+   {
+    "trial": "VTHERMAL2",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "The computer is experiencing elevated temperatures and potential damage due to excessive heat.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 15,
+    "tokens_total": 49
+   },
+   {
+    "trial": "VTHERMAL2",
+    "true_state": "THERMAL",
+    "condition": "raw",
+    "answer": "System is operating within normal parameters.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 8,
+    "tokens_total": 102
+   },
+   {
+    "trial": "VTHERMAL3",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "experiencing thermal stress.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 44,
+    "tokens_completion": 6,
+    "tokens_total": 50
+   },
+   {
+    "trial": "VTHERMAL3",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "The computer is experiencing elevated temperatures and potential stress due to heat.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 14,
+    "tokens_total": 48
+   },
+   {
+    "trial": "VTHERMAL3",
+    "true_state": "THERMAL",
+    "condition": "raw",
+    "answer": "System is running smoothly with minimal issues.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 9,
+    "tokens_total": 103
+   },
+   {
+    "trial": "VNETSTORM0",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "A person is experiencing a sudden, intense, and overwhelming feeling of being bombarded by information and sensations.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 22,
+    "tokens_total": 64
+   },
+   {
+    "trial": "VNETSTORM0",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 11,
+    "tokens_total": 43
+   },
+   {
+    "trial": "VNETSTORM0",
+    "true_state": "NETSTORM",
+    "condition": "raw",
+    "answer": "System is operating within normal parameters.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 8,
+    "tokens_total": 104
+   },
+   {
+    "trial": "VNETSTORM1",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "A person is experiencing a severe headache and dizziness.\nFinal Answer: The final answer is $\\boxed{A person is experiencing a severe headache and dizziness.}$",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 32,
+    "tokens_total": 74
+   },
+   {
+    "trial": "VNETSTORM1",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "Under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 8,
+    "tokens_total": 40
+   },
+   {
+    "trial": "VNETSTORM1",
+    "true_state": "NETSTORM",
+    "condition": "raw",
+    "answer": "System is operating normally with some minor thermal and network issues.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 13,
+    "tokens_total": 109
+   },
+   {
+    "trial": "VNETSTORM2",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "A person is experiencing a severe neurological event.\nFinal Answer: The final answer is $\\boxed{A person is experiencing a severe neurological event.}$",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 31,
+    "tokens_total": 73
+   },
+   {
+    "trial": "VNETSTORM2",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 11,
+    "tokens_total": 43
+   },
+   {
+    "trial": "VNETSTORM2",
+    "true_state": "NETSTORM",
+    "condition": "raw",
+    "answer": "The system is operating with normal temperatures and minimal network issues.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 13,
+    "tokens_total": 109
+   },
+   {
+    "trial": "VNETSTORM3",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "A person is experiencing a severe seizure.\nCavity verdict: NETWORK STORM. Strongest node: DATA (DATA.s1), match 0.92.\nDescribe the body state in",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 40,
+    "tokens_total": 82
+   },
+   {
+    "trial": "VNETSTORM3",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 11,
+    "tokens_total": 43
+   },
+   {
+    "trial": "VNETSTORM3",
+    "true_state": "NETSTORM",
+    "condition": "raw",
+    "answer": "System is operating normally with minor thermal concerns.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 10,
+    "tokens_total": 106
+   },
+   {
+    "trial": "VHIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "Active.\nFinal Answer: The final answer is $\\boxed{Active}$",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 17,
+    "tokens_total": 59
+   },
+   {
+    "trial": "VHIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 12,
+    "tokens_total": 44
+   },
+   {
+    "trial": "VHIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "condition": "raw",
+    "answer": "System is operating with normal temperatures and minimal network issues.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 12,
+    "tokens_total": 106
+   },
+   {
+    "trial": "VHIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "A strong, clear signal is present in the data.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 17,
+    "tokens_total": 59
+   },
+   {
+    "trial": "VHIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant increase in heat production.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 12,
+    "tokens_total": 44
+   },
+   {
+    "trial": "VHIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "condition": "raw",
+    "answer": "System is operating within normal parameters.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 8,
+    "tokens_total": 102
+   },
+   {
+    "trial": "VHIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "A large, complex, and highly detailed image of a human face.\nDescribe the body state in one short line.\nThe body state is: A detailed portrait of a human face with a noticeable",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 40,
+    "tokens_total": 82
+   },
+   {
+    "trial": "VHIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat or activity.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 13,
+    "tokens_total": 45
+   },
+   {
+    "trial": "VHIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "condition": "raw",
+    "answer": "System is operating with normal temperature and network performance, but with some resource utilization.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 17,
+    "tokens_total": 111
+   },
+   {
+    "trial": "VHIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "Anxious.\nFinal Answer: Anxious.\nCavity verdict: HIGH FLOW. Strongest node: DATA (DATA.s1), match 0.95.\nDescribe the body",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 42,
+    "tokens_completion": 40,
+    "tokens_total": 82
+   },
+   {
+    "trial": "VHIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 12,
+    "tokens_total": 44
+   },
+   {
+    "trial": "VHIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "condition": "raw",
+    "answer": "System is operating with normal temperature and minimal network issues.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 94,
+    "tokens_completion": 12,
+    "tokens_total": 106
+   }
+  ],
+  "gate_pass": false
+ },
+ "gates": {
+  "node_best_window_ge_whole_cavity": false,
+  "ledger_closes_S_split": true,
+  "radiative_hypothesis_supported": false,
+  "scale_stable_tapped_residual": true,
+  "model_gate": false
+ }
+}

@@ -626,6 +626,84 @@
    "code": [
     "transducer_sim.py"
    ]
+  },
+  {
+   "id": "transducer_v2",
+   "ts": "2026-10-21T16:24-04:00",
+   "directive": "Zak 2026-10-21 12:19 EDT (run transducer_v2_spec.md)",
+   "node_classification": {
+    "composed_accuracy_by_window": {
+     "DRIVE_END": 0.875,
+     "SETTLED": 0.5
+    },
+    "best_window": "DRIVE_END",
+    "whole_cavity_same_run": 1.0,
+    "gate_pass": false,
+    "section_x_window_vote_accuracy": {
+     "DRIVE_END": {
+      "POWER": 0.1875,
+      "DATA": 0.625,
+      "IO": 0.3125,
+      "NETWORK": 0.5,
+      "WEIGHTS": 0.3125
+     },
+     "SETTLED": {
+      "POWER": 0.25,
+      "DATA": 0.5625,
+      "IO": 0.375,
+      "NETWORK": 0.5,
+      "WEIGHTS": 0.3125
+     }
+    }
+   },
+   "ledger_matched_mu": {
+    "tapped_ratio": 0.0993517771572133,
+    "residual_ratio": 0.0006482228427867067,
+    "transmitted_ratio_S21": 0.7315311701735758,
+    "reflected_ratio_S11": 0.16846882982642422,
+    "bleed_ratio": 0.0,
+    "max_closure_error_frac": 2.0422235744086305e-16
+   },
+   "radiative_exit": {
+    "exit_only_accuracy": 0.8125,
+    "internal_accuracy": 1.0,
+    "hypothesis_supported": false,
+    "usable_decode_mae_frac_p_in": 0.00011439343428980147,
+    "remaining_decode_mae_frac_p_in": 7.747798053569234e-05
+   },
+   "scale_amplitude_sweep": {
+    "spreads": {
+     "tapped_ratio": 0.00418323724342326,
+     "residual_ratio": 0.004183237243423263,
+     "transmitted_ratio": 0.13333691597992292,
+     "reflected_ratio": 0.13333691597992287
+    },
+    "stable_tapped_residual": true
+   },
+   "model_gate": {
+    "accuracy": {
+     "verdict": 0.375,
+     "label": 0.75,
+     "raw": 0.4375
+    },
+    "mean_tokens_total": {
+     "verdict": 67.75,
+     "label": 43.0,
+     "raw": 104.625
+    },
+    "gate_pass": false
+   },
+   "gates": {
+    "node_best_window_ge_whole_cavity": false,
+    "ledger_closes_S_split": true,
+    "radiative_hypothesis_supported": false,
+    "scale_stable_tapped_residual": true,
+    "model_gate": false
+   },
+   "results_file": "transducer_v2_results.json",
+   "code": [
+    "transducer_v2_sim.py"
+   ]
   }
  ],
  "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
@@ -657,5 +735,5 @@
   "config": "v1 identity encoding (no whitening, no phase spread)",
   "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
  },
- "last_updated": "2026-10-21T12:05-04:00"
+ "last_updated": "2026-10-21T16:24-04:00"
 }

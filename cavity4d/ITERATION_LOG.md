@@ -641,3 +641,31 @@ GATES: G1 PASS (useful ratio 5.26x at mu 0.5, through loss 10%; rider: node accu
 G2 DISSECTION: Every node's inverted CALM baseline nulls TOO well: nd_proper 0.87-0.999 for every section and every true state — the template attractor collapses all settled states to within ~1-13% residual of the CALM direction per section, so state identity is NOT in the post-cancellation residual (best residual matches <= ~0.2, swamped by CALM's nd_proper in the composition; every section votes CALM 16/16). The whole-cavity chain reads the identity from the rectified autocorrelation signature instead. Follow-up queued (not run): node stores referenced to the aggregate bank baseline with LUT-style delta matching (parallel component kept), per section.
 
 POWER LEDGER (arbitrary units, NOT joules; tolerance 1e-9): matched mu 0.5: in 8.810 = tapped 0.853 + passed/reflected 7.929 + RESIDUAL SECOND CAVITY 0.028 + bleed 0.000 (bleed ratio 0.0000). Over the mu sweep: bleed ratio spans 0.0000-0.0922 (max at the mismatched extremes, zero at critical coupling by construction); residual ratio at matched 0.0032; max closure error over sweep 2.02e-16. Full per-mu ledger in transducer_results.json -> power_ledger.by_mu.
+
+
+## 2026-10-21T16:22-04:00 — transducer_v2 PRE-REGISTRATION (written before the run)
+
+Pipeline stages (spec lexicon only): THROUGH-FLOW -> TAP -> NODE RING-DOWN -> STEP-DOWN -> RADIATIVE EXIT.
+Design: nodes referenced to the AGGREGATE bank baseline (settled/drive-end aggregate field of the 17-pattern bank), LUT-style delta matching per section (delta vector matched whole — parallel component kept, nothing projected out). Tap windows: DRIVE_END (t=0.30) and SETTLED (t=0.50) per node, full section x window matrix. Matched mu=0.5, RHO=0.10, node noise 1e-3/mode as v1. Baseline: FRESH tick ~12:21 EDT (transducer_v2_baseline.json), preflight clean.
+PRE-STATED TOLERANCES / CRITERIA:
+- Ledger closure (S11/S21 split): |tapped + transmitted + reflected + residual_second_cavity + bleed - P_in| / P_in <= 1e-9 (partition is by construction; numeric check reported).
+- Amplitude-sweep stability (0.1x/1x/10x THROUGH-FLOW): tapped fraction and residual fraction are STABLE if spread (max-min across amplitudes) <= 0.02. Bleed at matched mu is 0 by construction and at mu_bad is RHO*(1-A) by definition — reported, NOT claimed as a stability finding.
+- Radiative-subspectra criterion: hypothesis SUPPORTED if exit-only classification >= 0.75 AND >= internal (whole-cavity rectified) accuracy - 0.10 on the same trials.
+- Node gate: best-window composed node accuracy >= whole-cavity same-run accuracy.
+- Model gate: verdict arm (wrapper-LUT verdict + ONE metadata line) accuracy >= label arm AND mean total tokens <= 60 (Gemma, 16 trials, label + raw arms same-seed).
+Exit decode estimator (stated in advance): exit intensity spectrum I_n = (1-RHO)*|a_settled,n|^2 + |r_n|^2 (two exit ports, intensities summed; r = node-arm residual field after the aggregate component the stores account for is removed). Usable/remaining power decoded by least squares on features [1, I_tot, per-section shares of I] fit on 24 calibration trials (4 clean states x 6 jittered replicates); errors vs ledger ground truth on the 16 test trials.
+
+
+## 2026-10-21T16:24-04:00 — transducer_v2 (Zak 12:19 go)
+
+Stages: THROUGH-FLOW -> TAP -> NODE RING-DOWN -> STEP-DOWN -> RADIATIVE EXIT. Nodes aggregate-referenced (LUT delta stores per section, parallel component kept); taps at DRIVE_END (0.30 s) and SETTLED (0.50 s); ledger with S11/S21 split; exit decode from the radiative intensity spectrum alone. Baseline: FRESH tick ~12:21 EDT (transducer_v2_baseline.json), preflight clean.
+
+NODE RING-DOWN: composed accuracy by window {'DRIVE_END': 0.875, 'SETTLED': 0.5} (best DRIVE_END) vs whole-cavity same-run 1.000 — gate FAIL. Section x window vote accuracy: {'DRIVE_END': {'POWER': 0.1875, 'DATA': 0.625, 'IO': 0.3125, 'NETWORK': 0.5, 'WEIGHTS': 0.3125}, 'SETTLED': {'POWER': 0.25, 'DATA': 0.5625, 'IO': 0.375, 'NETWORK': 0.5, 'WEIGHTS': 0.3125}}.
+
+LEDGER (matched mu, S-split; arbitrary units, NOT joules): in 1.000 = tapped 0.0994 + transmitted(S21) 0.7315 + reflected(S11) 0.1685 + residual_second_cavity 0.0006 + bleed 0.0000; max closure error 2.04e-16 (tolerance 1e-9).
+
+RADIATIVE EXIT: exit-only classification 0.812 vs internal 1.000 — radiative hypothesis NOT SUPPORTED (criterion: >= 0.75 and >= internal - 0.10). Power decode from exit alone: usable MAE 0.000 of P_in, remaining MAE 0.000 of P_in.
+
+STEP-DOWN / SCALE: fraction spreads over 0.1x/1x/10x THROUGH-FLOW {'tapped_ratio': 0.0042, 'residual_ratio': 0.0042, 'transmitted_ratio': 0.1333, 'reflected_ratio': 0.1333} (tolerance 0.02) — tapped+residual STABLE.
+
+MODEL GATE: verdict acc 0.375 / 67.75 tok; label 0.750 / 43.0 tok; raw 0.438 / 104.625 tok — gate FAIL (acc >= label AND verdict tokens <= 60).
