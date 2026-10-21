@@ -1,0 +1,174 @@
+{
+  "test": "ball_balance dual-task bilateral test",
+  "started_at": "2026-10-21T01:27:31.049255+00:00",
+  "plant": {
+    "dt": 0.01,
+    "run_seconds": 120.0,
+    "initial_x": 0.45,
+    "physics": "a = 0.55*theta - 0.12*v + wind; x += v*dt; v += a*dt",
+    "wind": "+0.35 for t in [40, 70]",
+    "target": "0.0 before t=90; +0.30 from t=90",
+    "fall_rule": "crossing into |x| > 1.0; no reset (none specified)",
+    "reflex_prompt_template": "You control a ball on a tilting beam. Positive tilt accelerates the ball toward +x. Reply with ONLY a new tilt number in degrees, from -12 to 12.\nExamples:\nx=0.40, v=0.30, tilt=0.00, target=0.00 -> -8\nx=-0.10, v=-0.30, tilt=0.00, target=0.20 -> 8\nx=0.32, v=-0.50, tilt=1.00, target=0.30 -> 5\n{coach}Now: x={x}, v={v}, tilt={tilt}, target={target} ->",
+    "thinking_schedule": [
+      {
+        "t": 20.0,
+        "question": "Explain in ~120 words why a ball on a tilting beam is harder to balance when corrections are delayed."
+      },
+      {
+        "t": 50.0,
+        "question": "In ~120 words: what strategy should a balancing controller use when a steady sideways force appears?"
+      },
+      {
+        "t": 80.0,
+        "question": "In ~120 words: the target just moved (or is about to) - how should the controller adapt?"
+      }
+    ]
+  },
+  "arms": {
+    "S": {
+      "falls": 1,
+      "time_in_center_pct": 0.18333333333333332,
+      "rms_abs_error": 695.8085188974514,
+      "max_abs_x": 1122.1400945006258,
+      "samples": 12000,
+      "final_t": 120.00000000002449,
+      "final_x": -1122.1400945006258,
+      "final_v": -10.13318865992477,
+      "control_calls": 200,
+      "control_latency_mean_s": 0.5356465667049634,
+      "control_latency_p95_s": 0.5870872529922053,
+      "control_unparseable": 111,
+      "control_errors": 0,
+      "tokens": {
+        "reflex": 379,
+        "thinking": 340,
+        "coach": 0,
+        "total": 719
+      },
+      "joules_est": 359.5,
+      "joules_basis": "EST: tokens * 0.5 J/token",
+      "wall_time_s": 120.0413036729442,
+      "aborted": false,
+      "abort_reason": null,
+      "thinking_answers": [
+        {
+          "scheduled_t": 20.0,
+          "started_t": 20.15000000000035,
+          "finished_t": 24.36000000000101,
+          "question": "Explain in ~120 words why a ball on a tilting beam is harder to balance when corrections are delayed.",
+          "answer": "\n\nA ball on a tilting beam will be harder to balance when corrections are delayed because of the increasing angular momentum as the tilt grows.  As the beam tilts, the ball's position shifts, creating an imbalance.  A quick correction \u2013 like a nudge \u2013 quickly restores the balance. However, with a delayed correction, the imbalance grows larger. The ball moves further, generating more angular momentum. This momentum builds up, making it increasingly difficult to counteract the tilt.  Essentially, the system becomes increasingly unstable with each passing moment of delay.\n",
+          "tokens": 111,
+          "latency_s": 4.205802118056454,
+          "error": null
+        },
+        {
+          "scheduled_t": 50.0,
+          "started_t": 50.1099999999986,
+          "finished_t": 54.58999999999771,
+          "question": "In ~120 words: what strategy should a balancing controller use when a steady sideways force appears?",
+          "answer": "\n\nA balancing controller should employ a **counter-torque** strategy. This means it should generate a torque in the *opposite* direction to the sideways force. The controller's sensors detect the force, and it immediately adjusts the motor's speed to create a torque that precisely cancels out the disturbance.\n\nThis is achieved through feedback control, continuously monitoring the system's position and adjusting the motor accordingly. The goal is to maintain stability and prevent any deviation from the desired equilibrium position.  Proper tuning of the controller\u2019s parameters is crucial for effective counter-torque application.\n",
+          "tokens": 118,
+          "latency_s": 4.479419042007066,
+          "error": null
+        },
+        {
+          "scheduled_t": 80.0,
+          "started_t": 80.12000000000408,
+          "finished_t": 84.33000000000624,
+          "question": "In ~120 words: the target just moved (or is about to) - how should the controller adapt?",
+          "answer": "\n\nFirst, immediately assess the new position and distance. Prioritize a quick, accurate adjustment of your aiming point. Don't over-correct; small, subtle adjustments are usually better than large, erratic movements.\n\nConsider the target's movement pattern. Is it a predictable strafe? A sudden jump? Anticipate their next move.\n\nIf possible, utilize a tactical advantage like cover or elevation change to gain a better angle. Finally, maintain situational awareness and be ready to react to any further changes in the target's position.\n",
+          "tokens": 111,
+          "latency_s": 4.208928951993585,
+          "error": null
+        }
+      ],
+      "coach_note": null,
+      "coach_record": null
+    },
+    "B": {
+      "falls": 1,
+      "time_in_center_pct": 0.0,
+      "rms_abs_error": 986.6391045446669,
+      "max_abs_x": 1469.0339618636986,
+      "samples": 12000,
+      "final_t": 120.00000000002449,
+      "final_x": 1469.0339618636986,
+      "final_v": 19.34842457635709,
+      "control_calls": 341,
+      "control_latency_mean_s": 0.351865459312043,
+      "control_latency_p95_s": 0.459375026053749,
+      "control_unparseable": 0,
+      "control_errors": 0,
+      "tokens": {
+        "reflex": 1324,
+        "thinking": 355,
+        "coach": 1,
+        "total": 1680
+      },
+      "joules_est": 840.0,
+      "joules_basis": "EST: tokens * 0.5 J/token",
+      "wall_time_s": 120.01367750100326,
+      "aborted": false,
+      "abort_reason": null,
+      "thinking_answers": [
+        {
+          "scheduled_t": 20.0,
+          "started_t": 20.000000000000327,
+          "finished_t": 26.48000000000134,
+          "question": "Explain in ~120 words why a ball on a tilting beam is harder to balance when corrections are delayed.",
+          "answer": "\n\nA ball on a tilting beam is in a state of rotational equilibrium. When the beam tilts, the ball rolls to counteract the tilt, maintaining balance. However, if corrections are delayed \u2013 meaning the ball doesn't immediately roll to the lower side \u2013 the tilt continues. This creates a growing torque, forcing the ball to roll further and faster to compensate.  As the tilt increases, the required roll rate of the ball also increases exponentially.  This escalating response makes the system increasingly difficult to balance, eventually leading to instability and the ball falling off the beam.  Immediate corrections are crucial for stability.",
+          "tokens": 122,
+          "latency_s": 6.476222601020709,
+          "error": null
+        },
+        {
+          "scheduled_t": 50.0,
+          "started_t": 50.00999999999862,
+          "finished_t": 55.6499999999975,
+          "question": "In ~120 words: what strategy should a balancing controller use when a steady sideways force appears?",
+          "answer": "\n\nA balancing controller, designed to maintain a stable position, should immediately apply a corrective force opposite to the steady sideways force. This is achieved by adjusting the control inputs \u2013 typically motor speed or valve position \u2013 to generate a reaction torque. The magnitude of this corrective force should be proportional to the magnitude of the sideways force.  \n\nThe controller continuously monitors the position, and adjusts its output to counteract any deviation, ensuring the system returns to its equilibrium point. A fast response is crucial to prevent the system from drifting.\n\n",
+          "tokens": 105,
+          "latency_s": 5.640849830000661,
+          "error": null
+        },
+        {
+          "scheduled_t": 80.0,
+          "started_t": 80.00000000000402,
+          "finished_t": 86.73000000000746,
+          "question": "In ~120 words: the target just moved (or is about to) - how should the controller adapt?",
+          "answer": "\n\nWhen a target moves, the controller needs to immediately adjust the aiming solution. This involves several key adjustments. Firstly, calculate the new target position relative to the controller's current aim. Then, apply a corrective course change to maintain the desired trajectory. Consider the target's speed and acceleration to predict its future position.\n\nFurthermore, adjust the controller's aim rate to match the target\u2019s movement. If the target is moving quickly, a faster aim rate is needed. Finally, use prediction to anticipate the target's next move and pre-emptively adjust the aim. This requires constant monitoring and rapid adaptation.\n",
+          "tokens": 128,
+          "latency_s": 6.736279707052745,
+          "error": null
+        }
+      ],
+      "coach_note": "",
+      "coach_record": {
+        "scheduled_t": 55.0,
+        "started_t": 55.6499999999975,
+        "summary": {
+          "current_x": 1093.371439602028,
+          "mean_x_5s": 1122.9367120966979,
+          "rms_err_5s": 1123.0435904319177,
+          "falls_so_far": 1,
+          "target": 0.0,
+          "wind_active": true
+        },
+        "note": "",
+        "tokens": 1,
+        "latency_s": 0.5152002830291167,
+        "error": null
+      }
+    }
+  },
+  "gate": {
+    "falls_condition": true,
+    "in_center_condition": false,
+    "in_center_diff_points": -0.18333333333333332,
+    "falls_diff": 0,
+    "thinking_quality": "parent judges from full answers in this file",
+    "balance_gate_pass": false
+  },
+  "finished_at": "2026-10-21T01:31:31.104517+00:00"
+}
