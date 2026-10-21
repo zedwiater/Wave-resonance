@@ -1,0 +1,107 @@
+{
+ "best_config": null,
+ "experiments_done": [
+  {
+   "id": "iter1_expA_encoding_fix",
+   "ts": "2026-10-21T00:36-04:00",
+   "arms": {
+    "v1_identity": {
+     "cavity": 0.844,
+     "control": 0.76,
+     "margin_pts": 8.3,
+     "sig_mutual_cos": 0.885,
+     "gates": "acc PASS, margin FAIL"
+    },
+    "whiten_tau0.1": {
+     "cavity": 0.75,
+     "control": 0.771,
+     "margin_pts": -2.1,
+     "sig_mutual_cos": 0.824,
+     "gates": "FAIL"
+    },
+    "whiten_tau0.03": {
+     "cavity": 0.646,
+     "control": 0.688,
+     "margin_pts": -4.2,
+     "sig_mutual_cos": 0.817,
+     "gates": "FAIL"
+    },
+    "whiten_tau0.01": {
+     "cavity": 0.469,
+     "control": 0.656,
+     "margin_pts": -18.8,
+     "sig_mutual_cos": 0.813,
+     "gates": "FAIL"
+    },
+    "whiten_tau0.1+phase": {
+     "cavity": 0.75,
+     "control": 0.771,
+     "margin_pts": -2.1,
+     "sig_mutual_cos": 0.705,
+     "gates": "FAIL"
+    },
+    "phase_only": {
+     "cavity": 0.771,
+     "control": 0.76,
+     "margin_pts": 1.0,
+     "sig_mutual_cos": 0.79,
+     "gates": "FAIL"
+    }
+   },
+   "verdict": "NO translator-v1. Whitening buys decisiveness (sig-cos 0.885 -> 0.705 best) but pays more accuracy than it earns: sensor noise is amplified in the floored null directions before the cavity sees it. Phase spread alone is decisiveness-positive, accuracy-neutral-to-negative.",
+   "results_file": "iter1_expA_results.json"
+  },
+  {
+   "id": "iter1_expB_cavity_informs_model",
+   "ts": "2026-10-21T00:47-04:00",
+   "accuracies": {
+    "corrupted": 0.1,
+    "cavity_completed": 0.05,
+    "clean": 1.0
+   },
+   "cavity_selection_accuracy": 0.05,
+   "gate": "FAIL ((ii) needed >= (i)+20pts and within 10 of (iii))",
+   "diagnosis": "byte-spectrum encoding has no character locality: raw-NN on corrupted spectra also 0.050 (chance); cosine to true question 0.464 < best wrong 0.772; 10% char drop -> 0.200. Under modal-native degradation (40% modes zeroed) cavity selection = 0.700 vs raw-NN 0.350: the cavity completes in its own space; the TEXT DOOR is the failure, not the cavity.",
+   "results_file": "iter1_expBC_results.json"
+  },
+  {
+   "id": "iter1_expC_boundary_reading",
+   "ts": "2026-10-21T00:47-04:00",
+   "cavity_classification_accuracy": 1.0,
+   "raw_nn_classification_accuracy": 1.0,
+   "summary_names_true_state": {
+    "cavity_label": 0.5,
+    "raw_numbers": 0.75,
+    "nothing": 0.0
+   },
+   "notes": "4 states x 5 jittered trials all classified correctly by cavity AND raw NN (states well separated in telemetry encoding \u2014 decisiveness not yet stressed). Verbalization: raw numbers beat cavity label this round; HIGHFLOW missed under both (Gemma read HIGH FLOW as 'heat'); CALM label summary said 'tranquility' \u2014 outside the keyword list, scored False (judge near-miss, flagged). n=4 summaries/condition: indicative only.",
+   "results_file": "iter1_expBC_results.json"
+  }
+ ],
+ "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
+ "queue": [
+  "completion-regime translator: cavity invoked ONLY on degraded inputs; beta {6,9,14,20} x settle {0.5,0.9,1.4s} sweep scored on PARTIAL-only margin (identity arm partial margin is already +16.7 pts \u2014 widen it)",
+  "modal-native text door: token/n-gram-level spectral encoding with locality (byte spectrum is a hash); re-run Exp B with word-drop corruption (ASR-style) instead of char-drop",
+  "readout-side whitening only: whiten the rectified SIGNATURES for classification, keep coupling inputs raw (decisiveness without pre-cavity noise amplification)",
+  "telemetry decisiveness stress: boundary states at graded distances (THERMAL +5/+10/+25 C) \u2014 find where cavity vs raw-NN classification actually separates",
+  "pump mode/amplitude variants (pump mode 1/2/3, amplitude 0.5/1/2) under identity encoding",
+  "bank scaling 13 -> 50 templates under identity encoding (does the partial-regime margin survive bank correlation?)",
+  "completion-depth curve: partial fractions {0.2, 0.4, 0.6} x cavity margin (identity encoding)",
+  "translator latency benchmark: cavity readout path vs extra-model-call harness path"
+ ],
+ "started": "2026-10-21T00:30:00-04:00",
+ "v1_baseline": {
+  "margin_points": 2.1,
+  "power_snr_db_off": 9.32,
+  "power_snr_db_on": 30.7,
+  "recall_cavity": 0.719,
+  "recall_control": 0.698,
+  "signature_mutual_cosine": ">0.99 (decisiveness debt)",
+  "verdict": "recall gates FAIL; pump-gated rectification PASS"
+ },
+ "best_partial_signal": {
+  "config": "v1 identity encoding (no whitening, no phase spread)",
+  "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
+ },
+ "last_updated": "2026-10-21T00:52-04:00"
+}

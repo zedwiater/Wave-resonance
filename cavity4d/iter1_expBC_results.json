@@ -1,0 +1,468 @@
+{
+ "expB": {
+  "accuracies": {
+   "corrupted": 0.1,
+   "completed": 0.05,
+   "clean": 1.0
+  },
+  "gate_completed_ge_corrupted_plus20_and_within10_of_clean": false,
+  "cavity_selection_accuracy": 0.05,
+  "n": 20,
+  "detail": [
+   {
+    "idx": 0,
+    "corrupted": {
+     "answer": "Two.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Leonardo da Vinci.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Paris.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 1,
+    "corrupted": {
+     "answer": "A hat.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Shakespeare.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Tokyo.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 2,
+    "corrupted": {
+     "answer": "Shakespeare.",
+     "correct": true
+    },
+    "completed": {
+     "answer": "Cheetah.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Shakespeare.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 3,
+    "corrupted": {
+     "answer": "Aurum",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Thermometer.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Au",
+     "correct": true
+    }
+   },
+   {
+    "idx": 4,
+    "corrupted": {
+     "answer": "I don't know.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Leonardo da Vinci.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Six sides.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 5,
+    "corrupted": {
+     "answer": "Red Ant",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Two.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Mars.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 6,
+    "corrupted": {
+     "answer": "A whale.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Shakespeare.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Pacific Ocean.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 7,
+    "corrupted": {
+     "answer": "A lion.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Shakespeare.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Leonardo da Vinci.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 8,
+    "corrupted": {
+     "answer": "\"I am a rat\"",
+     "correct": false
+    },
+    "completed": {
+     "answer": "British pound.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Carbon dioxide.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 9,
+    "corrupted": {
+     "answer": "100 degrees Celsius",
+     "correct": true
+    },
+    "completed": {
+     "answer": "Leonardo da Vinci.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "100 \u00b0C",
+     "correct": true
+    }
+   },
+   {
+    "idx": 10,
+    "corrupted": {
+     "answer": "No, thank you.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Two.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Seven.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 11,
+    "corrupted": {
+     "answer": "A riddle.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "British Pound.",
+     "correct": true
+    },
+    "clean": {
+     "answer": "British pound.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 12,
+    "corrupted": {
+     "answer": "Gender identity.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Thermometer.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Einstein.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 13,
+    "corrupted": {
+     "answer": "A whale.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Shakespeare.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Cheetah.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 14,
+    "corrupted": {
+     "answer": "The sun rises.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Tokyo.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Thermometer.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 15,
+    "corrupted": {
+     "answer": "a riddle.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Thermometer.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "1440",
+     "correct": true
+    }
+   },
+   {
+    "idx": 16,
+    "corrupted": {
+     "answer": "A line of text.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Shakespeare.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Avocado.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 17,
+    "corrupted": {
+     "answer": "37 degrees Celsius.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Leonardo da Vinci.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Mercury.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 18,
+    "corrupted": {
+     "answer": "Arbor",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Tokyo.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Honey and wax.",
+     "correct": true
+    }
+   },
+   {
+    "idx": 19,
+    "corrupted": {
+     "answer": "Zero.",
+     "correct": false
+    },
+    "completed": {
+     "answer": "Mercury.",
+     "correct": false
+    },
+    "clean": {
+     "answer": "Two.",
+     "correct": true
+    }
+   }
+  ],
+  "diagnosis": "char-space corruption destroys the spectral-bit encoding's locality: raw-NN selection on corrupted spectra is also 0.050 (chance); mean cosine to the true question 0.464 < best wrong 0.772; even 10% char drop gives 0.200. Under MODAL-native degradation (40% modes zeroed) cavity selection is 0.700 vs raw-NN 0.350 \u2014 the cavity completes in its own space; the byte-spectrum door does not survive character edits."
+ },
+ "expC": {
+  "cavity_classification_accuracy": 1.0,
+  "raw_nn_classification_accuracy": {
+   "CALM": 1.0,
+   "THERMAL": 1.0,
+   "NETSTORM": 1.0,
+   "HIGHFLOW": 1.0
+  },
+  "per_state_cavity": {
+   "CALM": {
+    "preds": [
+     "CALM",
+     "CALM",
+     "CALM",
+     "CALM",
+     "CALM"
+    ],
+    "accuracy": 1.0
+   },
+   "THERMAL": {
+    "preds": [
+     "THERMAL",
+     "THERMAL",
+     "THERMAL",
+     "THERMAL",
+     "THERMAL"
+    ],
+    "accuracy": 1.0
+   },
+   "NETSTORM": {
+    "preds": [
+     "NETSTORM",
+     "NETSTORM",
+     "NETSTORM",
+     "NETSTORM",
+     "NETSTORM"
+    ],
+    "accuracy": 1.0
+   },
+   "HIGHFLOW": {
+    "preds": [
+     "HIGHFLOW",
+     "HIGHFLOW",
+     "HIGHFLOW",
+     "HIGHFLOW",
+     "HIGHFLOW"
+    ],
+    "accuracy": 1.0
+   }
+  },
+  "majority_labels_fed_to_model": {
+   "CALM": "CALM",
+   "THERMAL": "THERMAL",
+   "NETSTORM": "NETSTORM",
+   "HIGHFLOW": "HIGHFLOW"
+  },
+  "summary_grid": {
+   "CALM": {
+    "label": {
+     "summary": "The computer is currently in a state of tranquility.",
+     "names_true_state": false
+    },
+    "raw": {
+     "summary": "The computer is operating normally with moderate temperatures and a slight network issue, but otherwise performing well.",
+     "names_true_state": true
+    },
+    "none": {
+     "summary": "The computer is currently in a state of dormancy.",
+     "names_true_state": false
+    }
+   },
+   "THERMAL": {
+    "label": {
+     "summary": "The computer's body is experiencing thermal stress.",
+     "names_true_state": true
+    },
+    "raw": {
+     "summary": "System is stable with minor thermal concerns and network congestion.",
+     "names_true_state": true
+    },
+    "none": {
+     "summary": "The computer is currently in a state of low power consumption, idling and awaiting instructions.",
+     "names_true_state": false
+    }
+   },
+   "NETSTORM": {
+    "label": {
+     "summary": "The computer is under attack by a network-based threat.",
+     "names_true_state": true
+    },
+    "raw": {
+     "summary": "The computer is operating normally with some minor network fluctuations and moderate resource utilization.",
+     "names_true_state": true
+    },
+    "none": {
+     "summary": "The computer is currently running.",
+     "names_true_state": false
+    }
+   },
+   "HIGHFLOW": {
+    "label": {
+     "summary": "The computer is experiencing a significant amount of heat.",
+     "names_true_state": false
+    },
+    "raw": {
+     "summary": "The computer is operating within normal parameters, with a slight thermal concern at the maximum temperature of 50.85 C, and a minor network issue with 88 receive drops per interval.",
+     "names_true_state": false
+    },
+    "none": {
+     "summary": "The computer is currently running smoothly, with no errors detected.",
+     "names_true_state": false
+    }
+   }
+  },
+  "summary_names_true_state_rate": {
+   "label": 0.5,
+   "raw": 0.75,
+   "none": 0.0
+  },
+  "keywords": {
+   "CALM": [
+    "calm",
+    "normal",
+    "stable",
+    "healthy",
+    "nominal",
+    "quiet"
+   ],
+   "THERMAL": [
+    "hot",
+    "heat",
+    "thermal",
+    "temperature",
+    "overheat",
+    "warm"
+   ],
+   "NETSTORM": [
+    "network",
+    "packet",
+    "drop",
+    "storm",
+    "connectivity"
+   ],
+   "HIGHFLOW": [
+    "flow",
+    "power",
+    "energy",
+    "throughput",
+    "high load",
+    "busy"
+   ]
+  }
+ }
+}
