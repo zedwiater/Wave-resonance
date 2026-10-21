@@ -121,21 +121,527 @@
     "results_file": "iter15_expD_results.json"
    },
    "verdict": "Topology + answer key built and measured. Packet v2 AS SPECIFIED loses on both gate halves \u2014 reported, not rescued. The translator idea survives only in compact form: the winning channel this round is the cavity's own classification at 45 tokens. Packet v3 must be an order of magnitude smaller or the speed claim stays empty."
+  },
+  {
+   "id": "iter2_expDprime_packet_v3_compact",
+   "ts": "2026-10-21T01:33-04:00",
+   "seed": 5151,
+   "preflight": "clean (only SSH-wrapper echo hits; :8080 healthy)",
+   "cavity_per_trial_label_accuracy": 0.938,
+   "packet_v3_lut_top_match_accuracy": 1.0,
+   "accuracy": {
+    "label": 0.75,
+    "raw": 0.375,
+    "packet": 0.188
+   },
+   "empty_answer_rate": {
+    "label": 0.0,
+    "raw": 0.0,
+    "packet": 0.0
+   },
+   "mean_tokens_total": {
+    "label": 42.2,
+    "raw": 103.3,
+    "packet": 268.7
+   },
+   "gate": "FAIL both halves (packet acc < raw; packet tokens 2.6x raw)",
+   "failure_dissection": [
+    "Priming killed the empties (0/16 vs 9/16) \u2014 robustness sub-question answered; stop-set was the cause.",
+    "New format artifact: 16/16 packet answers open with bracketed key id [state:XXX] then code fences \u2014 model treats compact packet as code/config, not lookup key; picked key's top-ranked entry 0/16 times.",
+    "Key excerpt scores flat 0.99-1.00 across all states (v1 decisiveness debt); only order carries signal, model ignored it.",
+    "Tokens 3.4x better than v2 (269 vs 921) but still 2.6x raw; completions bloated by fence regurgitation.",
+    "Label channel replicates: 0.750 at 42 tokens, twice at n=16."
+   ],
+   "verdict": "Packet v3 FAILS. Tension for the digest: standing spec (never a bare label) vs measured gate (bare cavity word 0.750/42tok beats raw prose and every packet tried). Translator survives only with a packet format a 4B model actually consumes as lookup.",
+   "results_file": "iter15v3_expD_results.json",
+   "prep_file": "iter15v3_expD_prep.json",
+   "answers_file": "iter15v3_model_answers.json",
+   "code": [
+    "expD_v3_prep.py",
+    "expD_v3_runner.py",
+    "expD_v3_score.py",
+    "cavity_topology.py: build_packet_v3 + compact_meaning"
+   ]
+  },
+  {
+   "id": "iter2_expE_packet_v4_prose_key",
+   "ts": "2026-10-21T02:46-04:00",
+   "seed": 8181,
+   "preflight": "clean (no TS4/Proton; :8080 healthy)",
+   "cavity_per_trial_label_accuracy": 0.938,
+   "packet_v4_cavity_side_top_match": 0.875,
+   "accuracy": {
+    "label": 0.688,
+    "raw": 0.312,
+    "packet": 0.75
+   },
+   "near_miss_rate": {
+    "label": 0.0,
+    "raw": 0.0,
+    "packet": 0.062
+   },
+   "empty_answer_rate": {
+    "label": 0.0,
+    "raw": 0.0,
+    "packet": 0.0
+   },
+   "id_echo_rate": {
+    "v3": 1.0,
+    "v4": 0.0
+   },
+   "mean_tokens_total": {
+    "label": 42.5,
+    "raw": 102.8,
+    "packet": 184.6
+   },
+   "mean_tokens_prompt": {
+    "label": 32.4,
+    "raw": 92.5,
+    "packet": 149.0
+   },
+   "mean_tokens_completion": {
+    "label": 10.1,
+    "raw": 10.3,
+    "packet": 35.6
+   },
+   "gate": "SPLIT: acc PASS (packet 0.750 >= raw 0.312; id-echo 0/16), tokens FAIL (packet 1.8x raw)",
+   "failure_dissection": [
+    "Pre-stated split resolved toward FORMAT artifact confirmed: id-echo 16/16 -> 0/16 and accuracy 0.188 -> 0.750 from bracket/ID/score removal alone. The model DOES rank-use a prose key list at 4B \u2014 v3's failure was format-brittle, not lookup-semantic.",
+    "Packet acc (0.750) now matches the label channel's band (0.688 this round) and beats raw by 44 pts; packet prompt cost 1.61x raw (149 vs 92.5) is the floor: framing + section sentence + 3 ranked meanings. No redundancy left to cut except line-count and top_k.",
+    "New consumption artifact replaces the old one: fence regurgitation + HALLUCINATED deltas ('Wave-interference deltas: 0.12, 0.08...' \u2014 numbers never in the packet). 13/16 packet answers wrapped in ``` fences; completion bloat 35.6 vs 10.3. The lookup works; the prose register invites fabrication.",
+    "The cavity-side key is sound: top-match by delta cosine correct 14/16; the two misses were the CALM/THERMAL boundary pair (WCALM0 ranked THERMAL first, WTHERMAL0 CALM first) \u2014 the known soft boundary in delta space, softened further without whitening (readout-side whitening queue item still pending).",
+    "Label channel 0.688 this round (fresh jitter; raw 0.312 \u2014 Gemma's prose-temperature bias again: 60C baseline read as 'minor thermal concerns'). Label remains the cheap channel (42.5 tok)."
+   ],
+   "verdict": "Translator product metric HALF-met: equal-or-better accuracy at 1.8x tokens. The packet is now a working lookup (the standing-spec shape survives), but the token floor must fall under raw for the claim to hold. Packet v5 (two-line, ~90-100 tok) is the falsifiable next step.",
+   "results_file": "iter15v4_expD_results.json",
+   "prep_file": "iter15v4_expD_prep.json",
+   "answers_file": "iter15v4_model_answers.json",
+   "code": [
+    "expD_v4_prep.py",
+    "expD_v4_score.py",
+    "cavity_topology.py: build_packet_v4 + prose_meaning"
+   ]
+  },
+  {
+   "id": "iter2_expF_packet_v5_two_line",
+   "ts": "2026-10-21T03:41-04:00",
+   "seed": 9292,
+   "preflight": "clean (no TS4/Proton; :8080 healthy)",
+   "cavity_per_trial_label_accuracy": 1.0,
+   "packet_v5_cavity_side_top_match": 1.0,
+   "accuracy": {
+    "label": 0.75,
+    "raw": 0.562,
+    "packet": 0.562
+   },
+   "near_miss_rate": {
+    "label": 0.0,
+    "raw": 0.0,
+    "packet": 0.0
+   },
+   "empty_answer_rate": {
+    "label": 0.0,
+    "raw": 0.0,
+    "packet": 0.0
+   },
+   "mean_tokens_prompt": {
+    "label": 32.5,
+    "raw": 92.5,
+    "packet": 93.8
+   },
+   "mean_tokens_completion": {
+    "label": 10.6,
+    "raw": 12.1,
+    "packet": 37.0
+   },
+   "mean_tokens_total": {
+    "label": 43.1,
+    "raw": 104.6,
+    "packet": 130.8
+   },
+   "gate": "FAIL (acc True 0.562>=0.562; tokens False: packet prompt 93.8 > raw 92.5 by 1.4%)",
+   "failure_dissection": [
+    "Cavity-side key PERFECT 16/16 (top-match by delta cosine = true state; per-trial label 16/16): the miss is 100% model-side consumption, not the cavity or the key.",
+    "v5's 2-line packet reads as machine config, not language: answers lead with wrong guesses ('stable.', 'overheating.') then hallucinated self-Q&A ('What is the most likely cause...'), and fence-regurgitate a JSON 'cavity_readout' schema echoing the packet (7/16 answers contain ``` fences with invented structure).",
+    "HIGHFLOW collapsed 0/4 -> 'thermal stress' 3x + 'calm' 1x despite HIGHFLOW ranked first in the key: compression below the prose register breaks rank-following at 4B. The v4 'numbered prose sentence' shape was load-bearing.",
+    "Prompt tokens nearly hit the floor (93.8 vs 92.5) but completion bloat persisted (37.0 vs 12.1) -> total 130.8 vs 104.6. The two-line budget cannot buy lookup behavior at 4B.",
+    "v2(921,0.188) -> v3(269,0.188) -> v4(149,0.750) -> v5(94,0.562): the accuracy-vs-tokens curve is non-monotonic; v4 is the current optimum. Compression is not free.",
+    "Standing-spec tension unresolved: bare cavity label 0.750 at 43 tok remains the best channel; it is still a bare label, against Zak's standing spec."
+   ],
+   "verdict": "Translator gate FAILS. Next packet lever (explicitly reserved): v4's prose register at top_k=2 / trimmed intro (~130 tok) \u2014 cut tokens WITHOUT leaving the prose register. Packet v5 format retired.",
+   "results_file": "iter15v5_expD_results.json",
+   "prep_file": "iter15v5_expD_prep.json",
+   "answers_file": "iter15v5_model_answers.json",
+   "code": [
+    "expD_v5_prep.py",
+    "expD_v5_score.py",
+    "cavity_topology.py: build_packet_v5 + V5_STATE_MEANINGS"
+   ]
+  },
+  {
+   "id": "iter3_preCouplingTap",
+   "ts": "2026-10-21T04:36-04:00",
+   "seed": 7171,
+   "trials_per_section": 5,
+   "arms": {
+    "LIN_alpha0_settled": {
+     "POWER": 5,
+     "DATA": 5,
+     "IO": 5,
+     "NETWORK": 5,
+     "WEIGHTS": 5
+    },
+    "EARLY_alpha1_drive_end": {
+     "POWER": 5,
+     "DATA": 5,
+     "IO": 5,
+     "NETWORK": 5,
+     "WEIGHTS": 5
+    },
+    "LATE_alpha1_settled": {
+     "POWER": 5,
+     "DATA": 5,
+     "IO": 5,
+     "NETWORK": 2,
+     "WEIGHTS": 2
+    }
+   },
+   "mean_top_share": {
+    "POWER": {
+     "LIN": 0.686,
+     "EARLY": 0.589,
+     "LATE": 0.463
+    },
+    "DATA": {
+     "LIN": 0.486,
+     "EARLY": 0.469,
+     "LATE": 0.447
+    },
+    "IO": {
+     "LIN": 0.727,
+     "EARLY": 0.69,
+     "LATE": 0.461
+    },
+    "NETWORK": {
+     "LIN": 0.697,
+     "EARLY": 0.567,
+     "LATE": 0.344
+    },
+    "WEIGHTS": {
+     "LIN": 0.646,
+     "EARLY": 0.565,
+     "LATE": 0.333
+    }
+   },
+   "confusions_LATE": {
+    "NETWORK->DATA": 3,
+    "WEIGHTS->DATA": 3
+   },
+   "gates": {
+    "G1_LIN_all_ge_4of5": true,
+    "G2_EARLY_NET_ge_3of5": true,
+    "G2_EARLY_others_ge_4of5": true,
+    "G3_LATE_NET_le_2of5": true,
+    "G3_LATE_others_ge_4of5": false
+   },
+   "verdict": "G1+G2+G3-: tag identity survives to drive end (NETWORK 5/5 at t=0.30s) and dies in the post-drive ring-down (NET 2/5, WEIGHTS 2/5 settled; confusions land on DATA 3+3). The template coupling acts as a cascade operator: it re-expresses injected high-band/WEIGHTS energy into the bank's dominant low-mode direction (DATA.s1). WEIGHTS decaying too is new \u2014 the model's-own-pattern tag is also re-expressed. MHD check (lit): Kolmogorov/Kraichnan cascade completes in a few eddy-turnover times with most time at the injection scale; the honest translation is that section identity must be read on a timescale shorter than the nonlinear turnover \u2014 i.e. tap at drive end, never after ring-down. Queued: cascade-time readout test (tag-share decay curve) + packet v6 with early-tap tags.",
+   "results_file": "iter3_preCouplingTap_results.json",
+   "code": [
+    "iter3_preCouplingTap.py"
+   ]
+  },
+  {
+   "id": "iter3b_cascadeDecay",
+   "ts": "2026-10-21T05:36-04:00",
+   "seed": 8182,
+   "t_taps": [
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5
+   ],
+   "mean_share": {
+    "POWER": [
+     0.492,
+     0.434,
+     0.378,
+     0.338,
+     0.303
+    ],
+    "DATA": [
+     0.462,
+     0.457,
+     0.45,
+     0.46,
+     0.462
+    ],
+    "IO": [
+     0.583,
+     0.553,
+     0.503,
+     0.435,
+     0.352
+    ],
+    "NETWORK": [
+     0.427,
+     0.353,
+     0.278,
+     0.216,
+     0.163
+    ],
+    "WEIGHTS": [
+     0.589,
+     0.544,
+     0.491,
+     0.435,
+     0.351
+    ]
+   },
+   "hits": {
+    "POWER": [
+     5,
+     5,
+     5,
+     3,
+     3
+    ],
+    "DATA": [
+     5,
+     5,
+     5,
+     5,
+     5
+    ],
+    "IO": [
+     5,
+     5,
+     5,
+     5,
+     2
+    ],
+    "NETWORK": [
+     5,
+     4,
+     2,
+     2,
+     1
+    ],
+    "WEIGHTS": [
+     5,
+     5,
+     4,
+     4,
+     4
+    ]
+   },
+   "t_cascade_hit_majority": {
+    "NETWORK": "0.35-0.40",
+    "IO": "0.45-0.50",
+    "WEIGHTS_share": "0.35-0.40",
+    "POWER": "none",
+    "DATA": "none"
+   },
+   "gates": "G1+G2+G3 FAIL on criterion calibration: injected-share<0.5 reads <0.5 at t=0.30 where rank-1 tags are intact 25/25 (DATA.s1 always takes a share). Share<0.5 was the wrong pre-stated yardstick; null kept.",
+   "verdict": "Decay curve measured: NETWORK fastest cascade casualty (hits 5/5->1/5); WEIGHTS decays in share but holds rank-1 4/5 through 0.50; all sections rank-1 intact at drive end. Tap-at-drive-end rule quantified, not yet adopted for the packet.",
+   "results_file": "iter3b_cascadeDecay_results.json",
+   "code": [
+    "iter3b_cascadeDecay.py"
+   ]
+  },
+  {
+   "id": "iter4_packet_v6_early_tap",
+   "ts": "2026-10-21T06:34-04:00",
+   "seed": 9494,
+   "preflight": "bracket-pattern pgrep initially flagged TS4+Proton; both were pgrep self-matches (pattern [T]S4 matches literal '[T]S4' in pgrep's own cmdline); verified clean with cmdline exclusion; :8080 healthy",
+   "conditions": {
+    "label": {
+     "accuracy": 0.75,
+     "mean_tokens_total": 42.8
+    },
+    "raw": {
+     "accuracy": 0.375,
+     "mean_tokens_total": 103.6
+    },
+    "packet_early": {
+     "accuracy": 0.625,
+     "mean_tokens_total": 182.2
+    },
+    "packet_settled": {
+     "accuracy": 0.812,
+     "mean_tokens_total": 180.5
+    }
+   },
+   "gates": {
+    "G1_early_key_top_match_ge_14_of_16": "PASS (16/16; settled also 16/16)",
+    "G2_early_rank1_section_hit_ge_11_of_12_and_ge_settled": "FAIL (early 6/12 < settled 8/12)",
+    "G3_acc_early_ge_acc_settled_and_ge_raw": "FAIL (0.625 < 0.812; > 0.375)",
+    "G4_tokens_early_le_raw": "FAIL (182.2 > 103.6)"
+   },
+   "failure_dissection": [
+    "G2 FAIL is the informative result: drive-end taps are WORSE on section tags for whole-pattern body states (7/16 early readouts read POWER); the iter3/3b tag-recovery applies to section-localized injections, not the Exp D stimulus class.",
+    "G3 FAIL confirmed the cavity->model correspondence in the wrong direction: no tag recovery -> no accuracy gain; spurious POWER hit-section sentences actively misled (0.812 -> 0.625).",
+    "packet_settled replicated v4 at 0.812 (highest packet accuracy at n=16) and beat the label arm (0.750) for the first time \u2014 at 4.2x label tokens.",
+    "Token floor identical across taps (147.5 vs 149.0 prompt); completion bloat persists in both packet arms."
+   ],
+   "verdict": "Packet v6 early-tap lever retired for body states. Tap-at-drive-end rule now qualified: localized disturbances only. Translator accuracy-half gate keeps passing (settled packet 0.812), token-half keeps failing.",
+   "results_file": "iter15v6_expD_results.json",
+   "prep_file": "iter15v6_expD_prep.json",
+   "answers_file": "iter15v6_model_answers.json",
+   "code": [
+    "expD_v6_prep.py",
+    "expD_v6_score.py"
+   ]
+  },
+  {
+   "id": "iter5_expDprime_cue_class",
+   "ts": "2026-10-21T08:05-04:00",
+   "seed": 31337,
+   "preflight": "clean (no TS4/Proton; :8080 healthy)",
+   "design_audit": "cue modal-energy audit pre-gating: pure-tone cues ~100% DATA-band; only noise_burst has high-band content (WTS 0.314/IO 0.242/NET 0.086)",
+   "execution_note": "first prep run had trial-id collision (chirp_up/chirp_down/chime_two_tone -> CCH*); caught on 32/64 answer count; fixed per-cue tags, full re-run; cavity gates replicated exactly",
+   "cavity_side": {
+    "G1_key_top_match_early_ge_14_of_16": "PASS (16/16; settled 13/16 \u2014 noise_burst mis-keyed as chirp_down 3/4 at settle)",
+    "G2a_noiseburst_highband_tag_early_ge_3_of_4_and_settled_le_1_of_4": "FAIL (early 0/4, settled 0/4 \u2014 rank-1 reads DATA at drive end; re-expression completes during the drive)",
+    "G2b_puretone_DATA_DATA_null_ge_10_of_12": "PASS (12/12)"
+   },
+   "model_side": {
+    "accuracy": {
+     "label": 1.0,
+     "raw": 0.25,
+     "packet_early": 0.375,
+     "packet_settled": 0.562
+    },
+    "mean_tokens_total": {
+     "label": 42.5,
+     "raw": 215.9,
+     "packet_early": 201.1,
+     "packet_settled": 199.6
+    },
+    "per_cue_accuracy": {
+     "chirp_up": {
+      "label": 1.0,
+      "raw": 0.75,
+      "packet_early": 1.0,
+      "packet_settled": 1.0
+     },
+     "chirp_down": {
+      "label": 1.0,
+      "raw": 0.25,
+      "packet_early": 0.25,
+      "packet_settled": 0.25
+     },
+     "noise_burst": {
+      "label": 1.0,
+      "raw": 0.0,
+      "packet_early": 0.25,
+      "packet_settled": 0.25
+     },
+     "chime_two_tone": {
+      "label": 1.0,
+      "raw": 0.0,
+      "packet_early": 0.0,
+      "packet_settled": 0.75
+     }
+    },
+    "G3_acc_early_ge_settled_and_raw": "FAIL (0.375 < 0.562)",
+    "G4_tokens_early_le_raw": "PASS-vacuous (201.1 <= 215.9; raw control confirmed vacuous for identity)"
+   },
+   "failure_dissection": [
+    "v4 prose register does not transfer to the cue class: model treats cue packets as code/config (fence regurgitation, invented multiple-choice, tool_code blocks); #1-ranked key entry ignored; direction words lost (chirp_down -> 'rising chirp')",
+    "settled 0.562 win is multiple-choice regurgitation luck: all 3 chime hits are option lists containing 'doorbell' with committed answer 'falling chirp'/print(A); committed-answer reading ~0/4",
+    "raw 0.25 inflated by first-item bias (chirp_up listed first in unranked key; model defaults to it); true derivation-from-numbers ~0",
+    "queue question resolved NO on both halves: (a) early tap does not recover section tags for full-vector cue injections \u2014 iter3 tap rule bounded to localized injections; (b) model side does not follow cavity-side key advantage (16/16 vs 13/16)"
+   ],
+   "mhd_note": "G2a mechanism named: inverse energy cascade / spectral condensation (Paret & Tabeling 1997) \u2014 high-mode energy accumulating in the lowest accessible mode (DATA.s1); timescale rule already measured via iter3/3b decay curves",
+   "verdict": "Exp D' FAILS both halves. Standing-spec tension x3: bare cavity label 1.000/42.5tok beats every packet; for the cue class the packet adds only failure modes.",
+   "results_file": "iter15cue_expD_results.json",
+   "prep_file": "iter15cue_expD_prep.json",
+   "answers_file": "iter15cue_model_answers.json",
+   "code": [
+    "expD_cue_prep.py",
+    "expD_cue_score.py"
+   ]
+  },
+  {
+   "id": "transducer_v1",
+   "ts": "2026-10-21T12:05-04:00",
+   "directive": "Zak 2026-10-21 11:41 EDT (+ power-ledger addendum 11:48)",
+   "architecture": "tap coupler RHO=0.10 on the through-flow + one node per cavity section; node = side-coupled resonator, absorption A(mu)=4mu(1-mu), inverted (conjugate) stores; two-stage readout: cancel vs proper (CALM) baseline, match the residual vs stored inverted state deltas; verdicts only leave the nodes.",
+   "G1_efficiency": {
+    "useful_ratio_best_over_unmatched": 5.263157894736842,
+    "best_mu": 0.5,
+    "node_accuracy_best_mu": 0.25,
+    "node_accuracy_mu_bad": 0.25,
+    "gate_pass_letter": true,
+    "note": "Gate letter PASS on the absorption ratio (5.26x) at 10% through loss, but the usefulness rider FAILS to differentiate: node accuracy is flat 0.250 at every mu because the readout downstream is CALM-locked (see G2) \u2014 matched power could not be cashed by this readout."
+   },
+   "G2_decomposition_fidelity": {
+    "node_verdict_accuracy": 0.25,
+    "whole_cavity_same_run": 0.8125,
+    "gate_pass": false,
+    "per_section_vote_accuracy": {
+     "POWER": 0.25,
+     "DATA": 0.25,
+     "IO": 0.25,
+     "NETWORK": 0.25,
+     "WEIGHTS": 0.25
+    },
+    "dissection": "Every node's inverted CALM baseline nulls TOO well: nd_proper 0.87-0.999 for every section and every true state \u2014 the template attractor collapses all settled states to within ~1-13% residual of the CALM direction per section, so state identity is NOT in the post-cancellation residual (best residual matches <= ~0.2, swamped by CALM's nd_proper in the composition; every section votes CALM 16/16). The whole-cavity chain reads the identity from the rectified autocorrelation signature instead. Follow-up queued (not run): node stores referenced to the aggregate bank baseline with LUT-style delta matching (parallel component kept), per section."
+   },
+   "G3_model_consumption": {
+    "accuracy": {
+     "label": 0.5,
+     "packet_v4": 0.5625,
+     "verdict": 0.125
+    },
+    "mean_tokens_total": {
+     "label": 42.25,
+     "packet_v4": 182.8125,
+     "verdict": 122.0
+    },
+    "gate_pass": false
+   },
+   "G4_power_honesty": {
+    "ratio": 1.0280674461488513,
+    "gate_pass": true
+   },
+   "power_ledger_matched": {
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.8526701458942302,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.028337907813708662,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "residual_ratio": 0.003216532209262062,
+    "closure_error_frac": 0.0
+   },
+   "power_ledger_bleed_ratio_range": [
+    0.0,
+    0.09215999999999999
+   ],
+   "power_ledger_max_closure_error_frac": 2.016277640055634e-16,
+   "verdict": "Transducer v1: G1 letter PASS / usefulness undemonstrated, G2 FAIL (dissected: inverted CALM baselines null too well \u2014 identity lives in the rectified signature, not the orthogonal residual), G3 as measured, G4 PASS. Power ledger closes at every mu. Queued follow-up: aggregate-baseline-referenced node stores with LUT-style delta matching per section.",
+   "results_file": "transducer_results.json",
+   "code": [
+    "transducer_sim.py"
+   ]
   }
  ],
  "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
  "queue": [
-  "packet v3 \u2014 COMPACT translator: per-section delta ENERGIES + top-3 subspectra tags + ONE-line LUT meanings (codes, not paragraphs); target < raw-prose tokens (~90); retest Exp D gate unchanged",
-  "packet robustness: kill the immediate-stop artifact (no-newline stop set / answer priming) and re-measure packet accuracy with content actually emitted \u2014 separate format brittleness from lookup failure",
-  "section-tag readout tap BEFORE template coupling (linear tap on the driven state) vs after: does the NETWORK band tag survive when the attractor does not re-express it? (sanity NETWORK 1/5 under full coupling)",
+  "rank-1 cascade refinement: taps 0.30-0.45 in 0.025 steps, 8 trials, hit-majority criterion (no share<0.5) \u2014 pin NETWORK t_cascade between 0.35-0.40 s and WEIGHTS decay onset",
   "completion-regime translator: cavity invoked ONLY on degraded inputs; beta {6,9,14,20} x settle {0.5,0.9,1.4s} sweep scored on PARTIAL-only margin (identity arm partial margin is already +16.7 pts \u2014 widen it)",
   "modal-native text door: token/n-gram-level spectral encoding with locality (byte spectrum is a hash); re-run Exp B with word-drop corruption (ASR-style) instead of char-drop",
-  "readout-side whitening only: whiten the rectified SIGNATURES for classification, keep coupling inputs raw (decisiveness without pre-cavity noise amplification)",
+  "readout-side whitening only: whiten the rectified SIGNATURES for classification, keep coupling inputs raw (decisiveness without pre-cavity noise amplification) \u2014 also sharpens key scores for the packet excerpt",
   "telemetry decisiveness stress: boundary states at graded distances (THERMAL +5/+10/+25 C) \u2014 find where cavity vs raw-NN classification actually separates",
   "pump mode/amplitude variants (pump mode 1/2/3, amplitude 0.5/1/2) under identity encoding",
   "bank scaling 13 -> 50 templates under identity encoding (does the partial-regime margin survive bank correlation?)",
   "completion-depth curve: partial fractions {0.2, 0.4, 0.6} x cavity margin (identity encoding)",
-  "translator latency benchmark: cavity readout path vs extra-model-call harness path"
+  "translator latency benchmark: cavity readout path vs extra-model-call harness path",
+  "cue-packet v2: single-answer-forced format (no-list/no-fence instruction) + top-1-only key \u2014 test whether the cue-class enumeration artifact is format-curable",
+  "judge hardening: committed-answer scoring (first phrase / final line) alongside keyword scoring for packet arms",
+  "inverse-cascade as named mechanism for tag timing: predict which (section, stimulus-class) pairs keep tags at drive end vs lose them during the drive; test with band-spread probes"
  ],
  "started": "2026-10-21T00:30:00-04:00",
  "v1_baseline": {
@@ -151,5 +657,5 @@
   "config": "v1 identity encoding (no whitening, no phase spread)",
   "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
  },
- "last_updated": "2026-10-21T01:12-04:00"
+ "last_updated": "2026-10-21T12:05-04:00"
 }

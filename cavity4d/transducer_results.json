@@ -1,0 +1,2711 @@
+{
+ "header": {
+  "experiment": "transducer sim v1 \u2014 tap coupler + impedance-matched section nodes with inverted baselines, trigger verdicts",
+  "directive": "Zak 2026-10-21 11:41 EDT",
+  "baseline_source": "FRESH real dweller tick 2026-10-21 ~11:44 EDT (transducer_baseline.json); preflight clean (no TS4/Proton, :8080 ok)",
+  "baseline": {
+   "temp_max": 54.0,
+   "temp_mem": 54.0,
+   "rx_drop": 72.0,
+   "rx_errs": 0.0,
+   "tp_flow": 0.0689,
+   "data_bps": 96475.9,
+   "vram": 0.5675920758928571,
+   "loadavg": 0.16
+  },
+  "parameters": {
+   "rho_tap": 0.1,
+   "mu_bad": 0.05,
+   "node_noise_power_per_mode": 0.001,
+   "seed": 60621,
+   "trials_per_state": 4,
+   "modal_noise_db": 12.0,
+   "jitter_frac": 0.05
+  }
+ },
+ "G1_efficiency": {
+  "best_mu": 0.5,
+  "useful_frac_best": 0.1,
+  "useful_frac_mu_bad_0.05": 0.019000000000000003,
+  "useful_ratio_best_over_unmatched": 5.263157894736842,
+  "through_power_loss_frac": 0.1,
+  "node_accuracy_best_mu": 0.25,
+  "node_accuracy_mu_bad": 0.25,
+  "gate_ratio_ge_2": true,
+  "gate_through_loss_le_0.10": true,
+  "sweep": [
+   {
+    "mu": 0.02,
+    "absorption": 0.0784,
+    "useful_tapped_frac_of_through_power": 0.00784,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.05162858672354654,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.017442444687155865,
+     "power_bleed": 0.8119370222972365,
+     "bleed_ratio": 0.09215999999999999,
+     "residual_ratio": 0.0019798280632901196,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.05,
+    "absorption": 0.19,
+    "useful_tapped_frac_of_through_power": 0.019000000000000003,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.14478402474448301,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.02260750546002543,
+     "power_bleed": 0.7136165235034307,
+     "bleed_ratio": 0.08100000000000002,
+     "residual_ratio": 0.0025660952093316497,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.1,
+    "absorption": 0.36000000000000004,
+    "useful_tapped_frac_of_through_power": 0.036000000000000004,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.2917644736427837,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.025398425692074407,
+     "power_bleed": 0.5638451543730809,
+     "bleed_ratio": 0.064,
+     "residual_ratio": 0.0028828823510953037,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.2,
+    "absorption": 0.6400000000000001,
+    "useful_tapped_frac_of_through_power": 0.06400000000000002,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.5366189830613327,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.027226171311748506,
+     "power_bleed": 0.3171628993348578,
+     "bleed_ratio": 0.035999999999999976,
+     "residual_ratio": 0.003090343067485078,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.3,
+    "absorption": 0.84,
+    "useful_tapped_frac_of_through_power": 0.084,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.7121218560162325,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.027924909098436392,
+     "power_bleed": 0.14096128859327028,
+     "bleed_ratio": 0.016000000000000004,
+     "residual_ratio": 0.003169654236520035,
+     "closure_error_frac": 0.0
+    }
+   },
+   {
+    "mu": 0.4,
+    "absorption": 0.96,
+    "useful_tapped_frac_of_through_power": 0.096,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.8175247182929825,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.028243013266638802,
+     "power_bleed": 0.03524032214831759,
+     "bleed_ratio": 0.0040000000000000036,
+     "residual_ratio": 0.0032057610765044812,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.5,
+    "absorption": 1.0,
+    "useful_tapped_frac_of_through_power": 0.1,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.8526701458942302,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.028337907813708662,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "residual_ratio": 0.003216532209262062,
+     "closure_error_frac": 0.0
+    }
+   },
+   {
+    "mu": 0.6,
+    "absorption": 0.96,
+    "useful_tapped_frac_of_through_power": 0.096,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.8175247182929825,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.028243013266638802,
+     "power_bleed": 0.03524032214831759,
+     "bleed_ratio": 0.0040000000000000036,
+     "residual_ratio": 0.0032057610765044812,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.7,
+    "absorption": 0.8400000000000001,
+    "useful_tapped_frac_of_through_power": 0.08400000000000002,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.7121218560162328,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.027924909098436385,
+     "power_bleed": 0.14096128859327023,
+     "bleed_ratio": 0.016,
+     "residual_ratio": 0.003169654236520034,
+     "closure_error_frac": 0.0
+    }
+   },
+   {
+    "mu": 0.8,
+    "absorption": 0.6399999999999999,
+    "useful_tapped_frac_of_through_power": 0.06399999999999999,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.5366189830613323,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.02722617131174854,
+     "power_bleed": 0.31716289933485803,
+     "bleed_ratio": 0.036,
+     "residual_ratio": 0.003090343067485082,
+     "closure_error_frac": 0.0
+    }
+   },
+   {
+    "mu": 0.9,
+    "absorption": 0.35999999999999993,
+    "useful_tapped_frac_of_through_power": 0.036,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.2917644736427836,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.025398425692074435,
+     "power_bleed": 0.5638451543730811,
+     "bleed_ratio": 0.06400000000000002,
+     "residual_ratio": 0.0028828823510953067,
+     "closure_error_frac": 0.0
+    }
+   },
+   {
+    "mu": 0.95,
+    "absorption": 0.19000000000000017,
+    "useful_tapped_frac_of_through_power": 0.019000000000000017,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.14478402474448313,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.02260750546002543,
+     "power_bleed": 0.7136165235034306,
+     "bleed_ratio": 0.081,
+     "residual_ratio": 0.0025660952093316497,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   },
+   {
+    "mu": 0.98,
+    "absorption": 0.07840000000000007,
+    "useful_tapped_frac_of_through_power": 0.007840000000000007,
+    "node_verdict_accuracy": 0.25,
+    "power_ledger": {
+     "power_in_through_flow": 8.81008053707939,
+     "power_tapped_by_nodes": 0.051628586723546616,
+     "power_reflected_passed": 7.92907248337145,
+     "power_residual_second_cavity": 0.01744244468715588,
+     "power_bleed": 0.8119370222972365,
+     "bleed_ratio": 0.09215999999999999,
+     "residual_ratio": 0.0019798280632901213,
+     "closure_error_frac": 2.016277640055634e-16
+    }
+   }
+  ],
+  "gate_pass": true
+ },
+ "G2_decomposition_fidelity": {
+  "mu_used": 0.5,
+  "node_verdict_accuracy": 0.25,
+  "dissection": {
+   "per_section_best_state_counts": {
+    "POWER": {
+     "CALM": 16,
+     "THERMAL": 0,
+     "NETSTORM": 0,
+     "HIGHFLOW": 0
+    },
+    "DATA": {
+     "CALM": 16,
+     "THERMAL": 0,
+     "NETSTORM": 0,
+     "HIGHFLOW": 0
+    },
+    "IO": {
+     "CALM": 16,
+     "THERMAL": 0,
+     "NETSTORM": 0,
+     "HIGHFLOW": 0
+    },
+    "NETWORK": {
+     "CALM": 16,
+     "THERMAL": 0,
+     "NETSTORM": 0,
+     "HIGHFLOW": 0
+    },
+    "WEIGHTS": {
+     "CALM": 16,
+     "THERMAL": 0,
+     "NETSTORM": 0,
+     "HIGHFLOW": 0
+    }
+   },
+   "nd_proper_range_by_section": {
+    "POWER": [
+     0.9932264772977295,
+     0.9999752936497267
+    ],
+    "DATA": [
+     0.9483080164233805,
+     0.9826628567993385
+    ],
+    "IO": [
+     0.7965205546209759,
+     0.9497105033377332
+    ],
+    "NETWORK": [
+     0.8523499657049386,
+     0.9757663494100223
+    ],
+    "WEIGHTS": [
+     0.8700545204244496,
+     0.9699256392276244
+    ]
+   },
+   "residual_energy_frac_range_by_section": {
+    "POWER": [
+     2.4706350273376754e-05,
+     0.006773522702270116
+    ],
+    "DATA": [
+     0.017337143200660887,
+     0.051691983576619235
+    ],
+    "IO": [
+     0.0502894966622667,
+     0.20347944537902402
+    ],
+    "NETWORK": [
+     0.024233650589977805,
+     0.14765003429506102
+    ],
+    "WEIGHTS": [
+     0.030074360772375904,
+     0.12994547957555083
+    ]
+   },
+   "mechanism": "Every node's inverted CALM baseline nulls TOO well: nd_proper 0.87-0.999 for every section and every true state \u2014 the template attractor collapses all settled states to within ~1-13% residual of the CALM direction per section, so state identity is NOT in the post-cancellation residual (best residual matches <= ~0.2, swamped by CALM's nd_proper in the composition; every section votes CALM 16/16). The whole-cavity chain reads the identity from the rectified autocorrelation signature instead. Follow-up queued (not run): node stores referenced to the aggregate bank baseline with LUT-style delta matching (parallel component kept), per section."
+  },
+  "per_section_vote_accuracy_detail": {
+   "POWER": 0.25,
+   "DATA": 0.25,
+   "IO": 0.25,
+   "NETWORK": 0.25,
+   "WEIGHTS": 0.25
+  },
+  "whole_cavity_accuracy_same_run": 0.8125,
+  "overnight_whole_cavity_band": [
+   0.938,
+   1.0
+  ],
+  "gate_acc_ge_0.94": false,
+  "per_section_vote_accuracy": {
+   "POWER": 0.25,
+   "DATA": 0.25,
+   "IO": 0.25,
+   "NETWORK": 0.25,
+   "WEIGHTS": 0.25
+  },
+  "diagnostic_nulldepth_signature_nn_accuracy": 0.3125
+ },
+ "G4_power_honesty": {
+  "mean_diss_transducer_total": 32.269971945743194,
+  "mean_diss_whole_cavity_same_task": 31.388963892035257,
+  "mean_node_ringdown_tap_energy": 0.881008053707939,
+  "ratio": 1.0280674461488513,
+  "v1_recorded_reference_prompt_task": 18.78587663130379,
+  "gate_ratio_le_1.5": true,
+  "power_ledger_matched_config": "see top-level power_ledger.matched (residual-in-second-cavity + bleed ratio for the matched configuration)",
+  "note": "arbitrary units, NOT joules. Conservative: tapped energy counted on top of the through-flow dissipation it was sampled from (double-counts the tapped fraction)."
+ },
+ "power_ledger": {
+  "definitions": "arbitrary units, NOT joules. P_in = mean settled through-flow power sum_s ||a_settled,s||^2 over the 16 trials. passed/reflected = (1-RHO)*P_in (never sampled). coupled = RHO*A(mu)*P_in enters the node arm; tapped_by_nodes = sum_s coupled_s * ND_proper_s (power the nodes cancel against their inverted proper baselines); power_residual_second_cavity = sum_s coupled_s * (1 - ND_proper_s) (power left standing in the inverted cavity after translation); bleed = RHO*(1-A(mu))*P_in (sampled, lost to impedance mismatch \u2014 neither usefully tapped nor left standing accounted). bleed_ratio = bleed / P_in.",
+  "tolerance_frac": 1e-09,
+  "by_mu": [
+   {
+    "mu": 0.02,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.05162858672354654,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.017442444687155865,
+    "power_bleed": 0.8119370222972365,
+    "bleed_ratio": 0.09215999999999999,
+    "residual_ratio": 0.0019798280632901196,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.05,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.14478402474448301,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.02260750546002543,
+    "power_bleed": 0.7136165235034307,
+    "bleed_ratio": 0.08100000000000002,
+    "residual_ratio": 0.0025660952093316497,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.1,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.2917644736427837,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.025398425692074407,
+    "power_bleed": 0.5638451543730809,
+    "bleed_ratio": 0.064,
+    "residual_ratio": 0.0028828823510953037,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.2,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.5366189830613327,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.027226171311748506,
+    "power_bleed": 0.3171628993348578,
+    "bleed_ratio": 0.035999999999999976,
+    "residual_ratio": 0.003090343067485078,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.3,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.7121218560162325,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.027924909098436392,
+    "power_bleed": 0.14096128859327028,
+    "bleed_ratio": 0.016000000000000004,
+    "residual_ratio": 0.003169654236520035,
+    "closure_error_frac": 0.0
+   },
+   {
+    "mu": 0.4,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.8175247182929825,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.028243013266638802,
+    "power_bleed": 0.03524032214831759,
+    "bleed_ratio": 0.0040000000000000036,
+    "residual_ratio": 0.0032057610765044812,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.5,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.8526701458942302,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.028337907813708662,
+    "power_bleed": 0.0,
+    "bleed_ratio": 0.0,
+    "residual_ratio": 0.003216532209262062,
+    "closure_error_frac": 0.0
+   },
+   {
+    "mu": 0.6,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.8175247182929825,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.028243013266638802,
+    "power_bleed": 0.03524032214831759,
+    "bleed_ratio": 0.0040000000000000036,
+    "residual_ratio": 0.0032057610765044812,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.7,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.7121218560162328,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.027924909098436385,
+    "power_bleed": 0.14096128859327023,
+    "bleed_ratio": 0.016,
+    "residual_ratio": 0.003169654236520034,
+    "closure_error_frac": 0.0
+   },
+   {
+    "mu": 0.8,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.5366189830613323,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.02722617131174854,
+    "power_bleed": 0.31716289933485803,
+    "bleed_ratio": 0.036,
+    "residual_ratio": 0.003090343067485082,
+    "closure_error_frac": 0.0
+   },
+   {
+    "mu": 0.9,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.2917644736427836,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.025398425692074435,
+    "power_bleed": 0.5638451543730811,
+    "bleed_ratio": 0.06400000000000002,
+    "residual_ratio": 0.0028828823510953067,
+    "closure_error_frac": 0.0
+   },
+   {
+    "mu": 0.95,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.14478402474448313,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.02260750546002543,
+    "power_bleed": 0.7136165235034306,
+    "bleed_ratio": 0.081,
+    "residual_ratio": 0.0025660952093316497,
+    "closure_error_frac": 2.016277640055634e-16
+   },
+   {
+    "mu": 0.98,
+    "power_in_through_flow": 8.81008053707939,
+    "power_tapped_by_nodes": 0.051628586723546616,
+    "power_reflected_passed": 7.92907248337145,
+    "power_residual_second_cavity": 0.01744244468715588,
+    "power_bleed": 0.8119370222972365,
+    "bleed_ratio": 0.09215999999999999,
+    "residual_ratio": 0.0019798280632901213,
+    "closure_error_frac": 2.016277640055634e-16
+   }
+  ],
+  "matched_mu": 0.5,
+  "matched": {
+   "power_in_through_flow": 8.81008053707939,
+   "power_tapped_by_nodes": 0.8526701458942302,
+   "power_reflected_passed": 7.92907248337145,
+   "power_residual_second_cavity": 0.028337907813708662,
+   "power_bleed": 0.0,
+   "bleed_ratio": 0.0,
+   "residual_ratio": 0.003216532209262062,
+   "closure_error_frac": 0.0
+  },
+  "bleed_ratio_range_over_sweep": [
+   0.0,
+   0.09215999999999999
+  ],
+  "max_closure_error_frac_over_sweep": 2.016277640055634e-16
+ },
+ "trials": [
+  {
+   "trial_id": "TCALM0",
+   "true_state": "CALM",
+   "node_pred": "CALM",
+   "node_correct": true,
+   "whole_cavity_pred": "CALM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9990909294214987,
+     "match_by_state": {
+      "CALM": 0.9990909294214987,
+      "THERMAL": 0.05974583738945839,
+      "NETSTORM": 0.025181633878411148,
+      "HIGHFLOW": 0.02673472668692902
+     },
+     "nd_proper": 0.9990909294214987,
+     "residual_energy_frac": 0.0009090705785014435,
+     "severity": 0.0009090705785013142,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s2",
+     "shallowest_nd": 0.9999999999999997
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9826628567993385,
+     "match_by_state": {
+      "CALM": 0.9826628567993385,
+      "THERMAL": 0.15435667945120687,
+      "NETSTORM": 0.12491200217394163,
+      "HIGHFLOW": 0.04784178974012549
+     },
+     "nd_proper": 0.9826628567993385,
+     "residual_energy_frac": 0.017337143200660887,
+     "severity": 0.017337143200661487,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.6844628292205023
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.8717316363834429,
+     "match_by_state": {
+      "CALM": 0.8717316363834429,
+      "THERMAL": 0.01814954519759174,
+      "NETSTORM": 0.005614820111830904,
+      "HIGHFLOW": 0.00751877064777592
+     },
+     "nd_proper": 0.8717316363834429,
+     "residual_energy_frac": 0.12826836361655708,
+     "severity": 0.12826836361655714,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.7140638357723915
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9757663494100223,
+     "match_by_state": {
+      "CALM": 0.9757663494100223,
+      "THERMAL": 0.00029282501857340527,
+      "NETSTORM": 0.0009364044177797716,
+      "HIGHFLOW": 0.020616421212593907
+     },
+     "nd_proper": 0.9757663494100223,
+     "residual_energy_frac": 0.024233650589977805,
+     "severity": 0.02423365058997773,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9385863748162296
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9304415153909388,
+     "match_by_state": {
+      "CALM": 0.9304415153909388,
+      "THERMAL": 0.0004180153837262308,
+      "NETSTORM": 0.0024174183705909604,
+      "HIGHFLOW": 0.015900533748431502
+     },
+     "nd_proper": 0.9304415153909388,
+     "residual_energy_frac": 0.06955848460906071,
+     "severity": 0.06955848460906122,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.6253347186929453
+    }
+   }
+  },
+  {
+   "trial_id": "TCALM1",
+   "true_state": "CALM",
+   "node_pred": "CALM",
+   "node_correct": true,
+   "whole_cavity_pred": "CALM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9989492502048406,
+     "match_by_state": {
+      "CALM": 0.9989492502048406,
+      "THERMAL": 0.0597458373894599,
+      "NETSTORM": 0.02518163387841215,
+      "HIGHFLOW": 0.026734726686929774
+     },
+     "nd_proper": 0.9989492502048406,
+     "residual_energy_frac": 0.0010507497951598543,
+     "severity": 0.0010507497951594003,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999997
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9714989077810312,
+     "match_by_state": {
+      "CALM": 0.9714989077810312,
+      "THERMAL": 0.018247700285912924,
+      "NETSTORM": 0.0069728138172933645,
+      "HIGHFLOW": 0.006987606680584572
+     },
+     "nd_proper": 0.9714989077810312,
+     "residual_energy_frac": 0.028501092218968963,
+     "severity": 0.028501092218968793,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.7771595407160463
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.9215621586015801,
+     "match_by_state": {
+      "CALM": 0.9215621586015801,
+      "THERMAL": 0.004481537623374963,
+      "NETSTORM": 0.004123145969499526,
+      "HIGHFLOW": 0.001240360396536669
+     },
+     "nd_proper": 0.9215621586015801,
+     "residual_energy_frac": 0.07843784139842001,
+     "severity": 0.07843784139841992,
+     "severity_word": "none",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.7705799104631039
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.961180458085948,
+     "match_by_state": {
+      "CALM": 0.961180458085948,
+      "THERMAL": 0.0011188553250566062,
+      "NETSTORM": 0.005680947785231851,
+      "HIGHFLOW": 0.0689377180537216
+     },
+     "nd_proper": 0.961180458085948,
+     "residual_energy_frac": 0.03881954191405223,
+     "severity": 0.038819541914052014,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9584850213436594
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.8866994912816287,
+     "match_by_state": {
+      "CALM": 0.8866994912816287,
+      "THERMAL": 0.0014248526085796052,
+      "NETSTORM": 0.0007863258996445769,
+      "HIGHFLOW": 0.03567264853078325
+     },
+     "nd_proper": 0.8866994912816287,
+     "residual_energy_frac": 0.11330050871837152,
+     "severity": 0.11330050871837127,
+     "severity_word": "low",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.26517438018902895
+    }
+   }
+  },
+  {
+   "trial_id": "TCALM2",
+   "true_state": "CALM",
+   "node_pred": "CALM",
+   "node_correct": true,
+   "whole_cavity_pred": "THERMAL",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9979502904582214,
+     "match_by_state": {
+      "CALM": 0.9979502904582214,
+      "THERMAL": 0.059745837389458975,
+      "NETSTORM": 0.025181633878411557,
+      "HIGHFLOW": 0.026734726686929285
+     },
+     "nd_proper": 0.9979502904582214,
+     "residual_energy_frac": 0.002049709541779315,
+     "severity": 0.0020497095417786326,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 1.0
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9749860437497658,
+     "match_by_state": {
+      "CALM": 0.9749860437497658,
+      "THERMAL": 0.03553914349757345,
+      "NETSTORM": 0.09852392980585976,
+      "HIGHFLOW": 0.03210249314316889
+     },
+     "nd_proper": 0.9749860437497658,
+     "residual_energy_frac": 0.0250139562502342,
+     "severity": 0.02501395625023417,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.5397799604456139
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.8829394737241748,
+     "match_by_state": {
+      "CALM": 0.8829394737241748,
+      "THERMAL": 0.013916907487251017,
+      "NETSTORM": 0.011617345226259146,
+      "HIGHFLOW": 0.007151847310415691
+     },
+     "nd_proper": 0.8829394737241748,
+     "residual_energy_frac": 0.11706052627582517,
+     "severity": 0.1170605262758252,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.6296490809375772
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9754960068102505,
+     "match_by_state": {
+      "CALM": 0.9754960068102505,
+      "THERMAL": 0.0004509192047249202,
+      "NETSTORM": 0.002556021818162251,
+      "HIGHFLOW": 0.06255317545934774
+     },
+     "nd_proper": 0.9754960068102505,
+     "residual_energy_frac": 0.024503993189749784,
+     "severity": 0.024503993189749496,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9313104530680685
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9574221876657094,
+     "match_by_state": {
+      "CALM": 0.9574221876657094,
+      "THERMAL": 0.0009114412197842736,
+      "NETSTORM": 0.0012140699219689904,
+      "HIGHFLOW": 0.012383329312944589
+     },
+     "nd_proper": 0.9574221876657094,
+     "residual_energy_frac": 0.04257781233429022,
+     "severity": 0.04257781233429059,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.5086906508459861
+    }
+   }
+  },
+  {
+   "trial_id": "TCALM3",
+   "true_state": "CALM",
+   "node_pred": "CALM",
+   "node_correct": true,
+   "whole_cavity_pred": "CALM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9973937793261713,
+     "match_by_state": {
+      "CALM": 0.9973937793261713,
+      "THERMAL": 0.05974583738945983,
+      "NETSTORM": 0.025181633878412078,
+      "HIGHFLOW": 0.026734726686929347
+     },
+     "nd_proper": 0.9973937793261713,
+     "residual_energy_frac": 0.0026062206738282573,
+     "severity": 0.002606220673828652,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s2",
+     "shallowest_nd": 0.9999999999999994
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.972686778422335,
+     "match_by_state": {
+      "CALM": 0.972686778422335,
+      "THERMAL": 0.00598841005316438,
+      "NETSTORM": 0.10020764813505073,
+      "HIGHFLOW": 0.006696060938447982
+     },
+     "nd_proper": 0.972686778422335,
+     "residual_energy_frac": 0.027313221577664786,
+     "severity": 0.027313221577665026,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.817195784033426
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.9428516651238451,
+     "match_by_state": {
+      "CALM": 0.9428516651238451,
+      "THERMAL": 0.02332577037384844,
+      "NETSTORM": 0.004083339375073955,
+      "HIGHFLOW": 0.006115183446943283
+     },
+     "nd_proper": 0.9428516651238451,
+     "residual_energy_frac": 0.057148334876154935,
+     "severity": 0.057148334876154894,
+     "severity_word": "none",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.8037049379486944
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9534139035244018,
+     "match_by_state": {
+      "CALM": 0.9534139035244018,
+      "THERMAL": 0.00011739145028934616,
+      "NETSTORM": 0.015066367229561237,
+      "HIGHFLOW": 0.38116817885960774
+     },
+     "nd_proper": 0.9534139035244018,
+     "residual_energy_frac": 0.04658609647559823,
+     "severity": 0.04658609647559819,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9597242478898029
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.941809044102187,
+     "match_by_state": {
+      "CALM": 0.941809044102187,
+      "THERMAL": 0.00012223256531932353,
+      "NETSTORM": 0.001681163019778316,
+      "HIGHFLOW": 0.023653940602723654
+     },
+     "nd_proper": 0.941809044102187,
+     "residual_energy_frac": 0.058190955897813056,
+     "severity": 0.05819095589781298,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.8856037715035323
+    }
+   }
+  },
+  {
+   "trial_id": "TTHERMAL0",
+   "true_state": "THERMAL",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "CALM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9993945247034365,
+     "match_by_state": {
+      "CALM": 0.9993945247034365,
+      "THERMAL": 0.05974583738946173,
+      "NETSTORM": 0.025181633878413358,
+      "HIGHFLOW": 0.026734726686930964
+     },
+     "nd_proper": 0.9993945247034365,
+     "residual_energy_frac": 0.0006054752965633141,
+     "severity": 0.000605475296563518,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999999
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.980481387545316,
+     "match_by_state": {
+      "CALM": 0.980481387545316,
+      "THERMAL": 0.10572097714780412,
+      "NETSTORM": 0.002813577763242654,
+      "HIGHFLOW": 0.05286388808826147
+     },
+     "nd_proper": 0.980481387545316,
+     "residual_energy_frac": 0.019518612454683285,
+     "severity": 0.019518612454684003,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.6683081760608907
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.9078165501283563,
+     "match_by_state": {
+      "CALM": 0.9078165501283563,
+      "THERMAL": 0.03387258618847062,
+      "NETSTORM": 0.010418673125770744,
+      "HIGHFLOW": 0.010128124853840962
+     },
+     "nd_proper": 0.9078165501283563,
+     "residual_energy_frac": 0.09218344987164348,
+     "severity": 0.09218344987164373,
+     "severity_word": "none",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.8516470691661765
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.8887429510434879,
+     "match_by_state": {
+      "CALM": 0.8887429510434879,
+      "THERMAL": 0.0010310473916051051,
+      "NETSTORM": 0.0017002826085141232,
+      "HIGHFLOW": 0.05385403803048242
+     },
+     "nd_proper": 0.8887429510434879,
+     "residual_energy_frac": 0.1112570489565117,
+     "severity": 0.11125704895651212,
+     "severity_word": "low",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.7817154305697483
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.8700545204244496,
+     "match_by_state": {
+      "CALM": 0.8700545204244496,
+      "THERMAL": 0.00046036218633086715,
+      "NETSTORM": 0.0007746039902325841,
+      "HIGHFLOW": 0.018997320065353856
+     },
+     "nd_proper": 0.8700545204244496,
+     "residual_energy_frac": 0.12994547957555083,
+     "severity": 0.12994547957555036,
+     "severity_word": "low",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.6494899933724974
+    }
+   }
+  },
+  {
+   "trial_id": "TTHERMAL1",
+   "true_state": "THERMAL",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "THERMAL",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9988853163338897,
+     "match_by_state": {
+      "CALM": 0.9988853163338897,
+      "THERMAL": 0.059745837389459155,
+      "NETSTORM": 0.025181633878411647,
+      "HIGHFLOW": 0.026734726686929198
+     },
+     "nd_proper": 0.9988853163338897,
+     "residual_energy_frac": 0.001114683666110545,
+     "severity": 0.0011146836661103388,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999998
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9772085119918821,
+     "match_by_state": {
+      "CALM": 0.9772085119918821,
+      "THERMAL": 0.0695415256426303,
+      "NETSTORM": 0.033685733446563115,
+      "HIGHFLOW": 0.038982317147029606
+     },
+     "nd_proper": 0.9772085119918821,
+     "residual_energy_frac": 0.022791488008117856,
+     "severity": 0.02279148800811792,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.6204764776266375
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.7982294412810592,
+     "match_by_state": {
+      "CALM": 0.7982294412810592,
+      "THERMAL": 0.0041837586545732715,
+      "NETSTORM": 0.0009392725981681432,
+      "HIGHFLOW": 7.266197984080095e-05
+     },
+     "nd_proper": 0.7982294412810592,
+     "residual_energy_frac": 0.20177055871894076,
+     "severity": 0.20177055871894078,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.2714458343390032
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9562708855523987,
+     "match_by_state": {
+      "CALM": 0.9562708855523987,
+      "THERMAL": 0.0012216269663604341,
+      "NETSTORM": 0.0014792230977883198,
+      "HIGHFLOW": 0.01446511719858909
+     },
+     "nd_proper": 0.9562708855523987,
+     "residual_energy_frac": 0.0437291144476013,
+     "severity": 0.0437291144476013,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s2",
+     "shallowest_nd": 0.9423588560105479
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9266893272329918,
+     "match_by_state": {
+      "CALM": 0.9266893272329918,
+      "THERMAL": 6.327678879412578e-05,
+      "NETSTORM": 0.0010272273203914477,
+      "HIGHFLOW": 0.05196912707411228
+     },
+     "nd_proper": 0.9266893272329918,
+     "residual_energy_frac": 0.07331067276700837,
+     "severity": 0.0733106727670082,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.11698814829532868
+    }
+   }
+  },
+  {
+   "trial_id": "TTHERMAL2",
+   "true_state": "THERMAL",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "CALM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9987069751895258,
+     "match_by_state": {
+      "CALM": 0.9987069751895258,
+      "THERMAL": 0.059745837389461105,
+      "NETSTORM": 0.02518163387841295,
+      "HIGHFLOW": 0.026734726686930582
+     },
+     "nd_proper": 0.9987069751895258,
+     "residual_energy_frac": 0.0012930248104740711,
+     "severity": 0.0012930248104742192,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999998
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9676273148997572,
+     "match_by_state": {
+      "CALM": 0.9676273148997572,
+      "THERMAL": 0.2612259043112899,
+      "NETSTORM": 0.08081099399046462,
+      "HIGHFLOW": 0.09709649320676234
+     },
+     "nd_proper": 0.9676273148997572,
+     "residual_energy_frac": 0.03237268510024293,
+     "severity": 0.032372685100242826,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.8115883978798555
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.8687360672392795,
+     "match_by_state": {
+      "CALM": 0.8687360672392795,
+      "THERMAL": 0.012731886865522986,
+      "NETSTORM": 0.0023265691955009888,
+      "HIGHFLOW": 0.0018159197812445864
+     },
+     "nd_proper": 0.8687360672392795,
+     "residual_energy_frac": 0.13126393276072054,
+     "severity": 0.13126393276072046,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.5049513846406218
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9602195731900839,
+     "match_by_state": {
+      "CALM": 0.9602195731900839,
+      "THERMAL": 0.0036176447203428073,
+      "NETSTORM": 0.004602948801875452,
+      "HIGHFLOW": 0.1702035684112824
+     },
+     "nd_proper": 0.9602195731900839,
+     "residual_energy_frac": 0.03978042680991605,
+     "severity": 0.039780426809916114,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9273172026270224
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9616834880750497,
+     "match_by_state": {
+      "CALM": 0.9616834880750497,
+      "THERMAL": 0.002413552413275772,
+      "NETSTORM": 0.006154963682584471,
+      "HIGHFLOW": 0.0784474052609184
+     },
+     "nd_proper": 0.9616834880750497,
+     "residual_energy_frac": 0.03831651192495088,
+     "severity": 0.038316511924950336,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.5681923328156898
+    }
+   }
+  },
+  {
+   "trial_id": "TTHERMAL3",
+   "true_state": "THERMAL",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "THERMAL",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9986696748183208,
+     "match_by_state": {
+      "CALM": 0.9986696748183208,
+      "THERMAL": 0.05974583738946103,
+      "NETSTORM": 0.025181633878412876,
+      "HIGHFLOW": 0.026734726686930315
+     },
+     "nd_proper": 0.9986696748183208,
+     "residual_energy_frac": 0.001330325181679095,
+     "severity": 0.0013303251816791928,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s2",
+     "shallowest_nd": 0.9999999999999997
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9690730146160467,
+     "match_by_state": {
+      "CALM": 0.9690730146160467,
+      "THERMAL": 0.07872313194208277,
+      "NETSTORM": 0.2061410695242517,
+      "HIGHFLOW": 0.03306375474780005
+     },
+     "nd_proper": 0.9690730146160467,
+     "residual_energy_frac": 0.030926985383952985,
+     "severity": 0.03092698538395333,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.7201997545548
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.8923180158805994,
+     "match_by_state": {
+      "CALM": 0.8923180158805994,
+      "THERMAL": 0.01218881643553307,
+      "NETSTORM": 0.0031311727333378082,
+      "HIGHFLOW": 0.00255316230710137
+     },
+     "nd_proper": 0.8923180158805994,
+     "residual_energy_frac": 0.10768198411940033,
+     "severity": 0.10768198411940055,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s2",
+     "shallowest_nd": 0.9473628319577287
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9570144088222907,
+     "match_by_state": {
+      "CALM": 0.9570144088222907,
+      "THERMAL": 0.00022317632549797268,
+      "NETSTORM": 0.005517088062120055,
+      "HIGHFLOW": 0.1710900412416797
+     },
+     "nd_proper": 0.9570144088222907,
+     "residual_energy_frac": 0.04298559117770916,
+     "severity": 0.04298559117770928,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9194291305558525
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9699256392276244,
+     "match_by_state": {
+      "CALM": 0.9699256392276244,
+      "THERMAL": 0.0003956453758896207,
+      "NETSTORM": 0.0013813904412400436,
+      "HIGHFLOW": 0.10489568476560031
+     },
+     "nd_proper": 0.9699256392276244,
+     "residual_energy_frac": 0.030074360772375904,
+     "severity": 0.030074360772375575,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.40798228560823474
+    }
+   }
+  },
+  {
+   "trial_id": "TNETSTORM0",
+   "true_state": "NETSTORM",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "NETSTORM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9993916174769419,
+     "match_by_state": {
+      "CALM": 0.9993916174769419,
+      "THERMAL": 0.05974583738945996,
+      "NETSTORM": 0.025181633878412185,
+      "HIGHFLOW": 0.02673472668692978
+     },
+     "nd_proper": 0.9993916174769419,
+     "residual_energy_frac": 0.000608382523058034,
+     "severity": 0.0006083825230580597,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999999
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.970175109334216,
+     "match_by_state": {
+      "CALM": 0.970175109334216,
+      "THERMAL": 0.06649812658541802,
+      "NETSTORM": 0.09405807593229029,
+      "HIGHFLOW": 0.03622559406333136
+     },
+     "nd_proper": 0.970175109334216,
+     "residual_energy_frac": 0.029824890665784597,
+     "severity": 0.029824890665783976,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.7042037363160668
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.9497105033377332,
+     "match_by_state": {
+      "CALM": 0.9497105033377332,
+      "THERMAL": 0.005717916374645982,
+      "NETSTORM": 0.0004621646813565013,
+      "HIGHFLOW": 0.0029314654918450715
+     },
+     "nd_proper": 0.9497105033377332,
+     "residual_energy_frac": 0.0502894966622667,
+     "severity": 0.050289496662266786,
+     "severity_word": "none",
+     "shallowest_subspectra": "IO.s2",
+     "shallowest_nd": 0.9620289850770272
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9456818229983018,
+     "match_by_state": {
+      "CALM": 0.9456818229983018,
+      "THERMAL": 0.0019640595706203233,
+      "NETSTORM": 0.0052471922900151355,
+      "HIGHFLOW": 0.19521561109788613
+     },
+     "nd_proper": 0.9456818229983018,
+     "residual_energy_frac": 0.05431817700169766,
+     "severity": 0.054318177001698165,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s2",
+     "shallowest_nd": 0.9535485513969874
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.8957192218289699,
+     "match_by_state": {
+      "CALM": 0.8957192218289699,
+      "THERMAL": 0.001385930106014199,
+      "NETSTORM": 0.0022292044978289107,
+      "HIGHFLOW": 0.004411249648173617
+     },
+     "nd_proper": 0.8957192218289699,
+     "residual_energy_frac": 0.10428077817103007,
+     "severity": 0.1042807781710301,
+     "severity_word": "low",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.8646857748213266
+    }
+   }
+  },
+  {
+   "trial_id": "TNETSTORM1",
+   "true_state": "NETSTORM",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "NETSTORM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9982628524530684,
+     "match_by_state": {
+      "CALM": 0.9982628524530684,
+      "THERMAL": 0.059745837389459655,
+      "NETSTORM": 0.02518163387841198,
+      "HIGHFLOW": 0.02673472668692943
+     },
+     "nd_proper": 0.9982628524530684,
+     "residual_energy_frac": 0.0017371475469314846,
+     "severity": 0.00173714754693155,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s2",
+     "shallowest_nd": 0.9999999999999996
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9741321457175072,
+     "match_by_state": {
+      "CALM": 0.9741321457175072,
+      "THERMAL": 0.19968934645692996,
+      "NETSTORM": 0.18096555834010722,
+      "HIGHFLOW": 0.10329814189461303
+     },
+     "nd_proper": 0.9741321457175072,
+     "residual_energy_frac": 0.02586785428249271,
+     "severity": 0.02586785428249283,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.6625936385589636
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.861055890022607,
+     "match_by_state": {
+      "CALM": 0.861055890022607,
+      "THERMAL": 0.0001505873496217153,
+      "NETSTORM": 0.003513942225898649,
+      "HIGHFLOW": 0.00042900564776635926
+     },
+     "nd_proper": 0.861055890022607,
+     "residual_energy_frac": 0.13894410997739284,
+     "severity": 0.13894410997739304,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.7545043137455314
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.8523499657049386,
+     "match_by_state": {
+      "CALM": 0.8523499657049386,
+      "THERMAL": 0.0024667975148305035,
+      "NETSTORM": 0.0026158270508978287,
+      "HIGHFLOW": 0.034191083561000146
+     },
+     "nd_proper": 0.8523499657049386,
+     "residual_energy_frac": 0.14765003429506102,
+     "severity": 0.1476500342950614,
+     "severity_word": "low",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.6633162695561735
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.8774998924677575,
+     "match_by_state": {
+      "CALM": 0.8774998924677575,
+      "THERMAL": 0.00045095952349669994,
+      "NETSTORM": 0.0006331891100291511,
+      "HIGHFLOW": 0.005684344896420135
+     },
+     "nd_proper": 0.8774998924677575,
+     "residual_energy_frac": 0.12250010753224227,
+     "severity": 0.1225001075322425,
+     "severity_word": "low",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.34801380571528095
+    }
+   }
+  },
+  {
+   "trial_id": "TNETSTORM2",
+   "true_state": "NETSTORM",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "NETSTORM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9999752936497267,
+     "match_by_state": {
+      "CALM": 0.9999752936497267,
+      "THERMAL": 0.059745837389456054,
+      "NETSTORM": 0.02518163387840964,
+      "HIGHFLOW": 0.026734726686927814
+     },
+     "nd_proper": 0.9999752936497267,
+     "residual_energy_frac": 2.4706350273376754e-05,
+     "severity": 2.470635027329582e-05,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s2",
+     "shallowest_nd": 1.0
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9797441133916562,
+     "match_by_state": {
+      "CALM": 0.9797441133916562,
+      "THERMAL": 0.0346979688795945,
+      "NETSTORM": 0.09569513828597531,
+      "HIGHFLOW": 0.012166095423930018
+     },
+     "nd_proper": 0.9797441133916562,
+     "residual_energy_frac": 0.020255886608344043,
+     "severity": 0.020255886608343765,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.6771833674348368
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.8910434584768889,
+     "match_by_state": {
+      "CALM": 0.8910434584768889,
+      "THERMAL": 0.0011628565753386074,
+      "NETSTORM": 0.0029046749233065175,
+      "HIGHFLOW": 0.0007250623874682437
+     },
+     "nd_proper": 0.8910434584768889,
+     "residual_energy_frac": 0.10895654152311142,
+     "severity": 0.10895654152311107,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.6712536173280496
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9319376682234222,
+     "match_by_state": {
+      "CALM": 0.9319376682234222,
+      "THERMAL": 0.004746484011492151,
+      "NETSTORM": 0.011082132923058135,
+      "HIGHFLOW": 0.17234086212554317
+     },
+     "nd_proper": 0.9319376682234222,
+     "residual_energy_frac": 0.06806233177657732,
+     "severity": 0.06806233177657783,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.8398125369901651
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9021442747007526,
+     "match_by_state": {
+      "CALM": 0.9021442747007526,
+      "THERMAL": 0.0007783449089535102,
+      "NETSTORM": 0.0017331600130336866,
+      "HIGHFLOW": 0.018577403172001523
+     },
+     "nd_proper": 0.9021442747007526,
+     "residual_energy_frac": 0.09785572529924762,
+     "severity": 0.09785572529924735,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.5859911332616313
+    }
+   }
+  },
+  {
+   "trial_id": "TNETSTORM3",
+   "true_state": "NETSTORM",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "NETSTORM",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9957385620959258,
+     "match_by_state": {
+      "CALM": 0.9957385620959258,
+      "THERMAL": 0.05974583738945943,
+      "NETSTORM": 0.025181633878411814,
+      "HIGHFLOW": 0.026734726686929423
+     },
+     "nd_proper": 0.9957385620959258,
+     "residual_energy_frac": 0.0042614379040739675,
+     "severity": 0.0042614379040741834,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s2",
+     "shallowest_nd": 0.9999999999999997
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9483080164233805,
+     "match_by_state": {
+      "CALM": 0.9483080164233805,
+      "THERMAL": 0.07213856027895155,
+      "NETSTORM": 0.3692914306148954,
+      "HIGHFLOW": 0.022416623015650602
+     },
+     "nd_proper": 0.9483080164233805,
+     "residual_energy_frac": 0.051691983576619235,
+     "severity": 0.05169198357661953,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.840266459248348
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.9433427760841483,
+     "match_by_state": {
+      "CALM": 0.9433427760841483,
+      "THERMAL": 0.025511711500405397,
+      "NETSTORM": 0.0041823551915729,
+      "HIGHFLOW": 0.005491981791620183
+     },
+     "nd_proper": 0.9433427760841483,
+     "residual_energy_frac": 0.05665722391585201,
+     "severity": 0.05665722391585171,
+     "severity_word": "none",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.9291693968427382
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9659617917096825,
+     "match_by_state": {
+      "CALM": 0.9659617917096825,
+      "THERMAL": 0.0011094255894833092,
+      "NETSTORM": 0.00399702308734614,
+      "HIGHFLOW": 0.26197671971966235
+     },
+     "nd_proper": 0.9659617917096825,
+     "residual_energy_frac": 0.03403820829031719,
+     "severity": 0.03403820829031745,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9629258112173601
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9277021717726123,
+     "match_by_state": {
+      "CALM": 0.9277021717726123,
+      "THERMAL": 0.0008095771203070877,
+      "NETSTORM": 0.0007207162650930528,
+      "HIGHFLOW": 0.03960741038293523
+     },
+     "nd_proper": 0.9277021717726123,
+     "residual_energy_frac": 0.07229782822738781,
+     "severity": 0.07229782822738773,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.6700658442081036
+    }
+   }
+  },
+  {
+   "trial_id": "THIGHFLOW0",
+   "true_state": "HIGHFLOW",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "HIGHFLOW",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9998387380289911,
+     "match_by_state": {
+      "CALM": 0.9998387380289911,
+      "THERMAL": 0.059745837389455984,
+      "NETSTORM": 0.025181633878409555,
+      "HIGHFLOW": 0.0267347266869271
+     },
+     "nd_proper": 0.9998387380289911,
+     "residual_energy_frac": 0.0001612619710092074,
+     "severity": 0.00016126197100885253,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999997
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9752664938612463,
+     "match_by_state": {
+      "CALM": 0.9752664938612463,
+      "THERMAL": 0.03620384432907099,
+      "NETSTORM": 0.006297214060932297,
+      "HIGHFLOW": 0.013509135040048558
+     },
+     "nd_proper": 0.9752664938612463,
+     "residual_energy_frac": 0.024733506138754052,
+     "severity": 0.02473350613875369,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.5646622680234814
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.8524950912254512,
+     "match_by_state": {
+      "CALM": 0.8524950912254512,
+      "THERMAL": 0.03805254338457069,
+      "NETSTORM": 0.004641298823381738,
+      "HIGHFLOW": 0.008074914177336209
+     },
+     "nd_proper": 0.8524950912254512,
+     "residual_energy_frac": 0.14750490877454833,
+     "severity": 0.1475049087745488,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.6469623538150657
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.9230670150977477,
+     "match_by_state": {
+      "CALM": 0.9230670150977477,
+      "THERMAL": 0.003585708135046307,
+      "NETSTORM": 0.0014952477973453461,
+      "HIGHFLOW": 0.012551909125242278
+     },
+     "nd_proper": 0.9230670150977477,
+     "residual_energy_frac": 0.07693298490225225,
+     "severity": 0.07693298490225231,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.8493120909218284
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9160345173306828,
+     "match_by_state": {
+      "CALM": 0.9160345173306828,
+      "THERMAL": 0.0036473633992424584,
+      "NETSTORM": 0.005190625022678358,
+      "HIGHFLOW": 6.158609976889325e-05
+     },
+     "nd_proper": 0.9160345173306828,
+     "residual_energy_frac": 0.08396548266931772,
+     "severity": 0.08396548266931725,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.9027042875134793
+    }
+   }
+  },
+  {
+   "trial_id": "THIGHFLOW1",
+   "true_state": "HIGHFLOW",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "HIGHFLOW",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.997127774748869,
+     "match_by_state": {
+      "CALM": 0.997127774748869,
+      "THERMAL": 0.05974583738945841,
+      "NETSTORM": 0.025181633878411172,
+      "HIGHFLOW": 0.026734726686928712
+     },
+     "nd_proper": 0.997127774748869,
+     "residual_energy_frac": 0.0028722252511311813,
+     "severity": 0.0028722252511309554,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999998
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9731335769360632,
+     "match_by_state": {
+      "CALM": 0.9731335769360632,
+      "THERMAL": 0.1773177332165832,
+      "NETSTORM": 0.054714318521601926,
+      "HIGHFLOW": 0.056969468024637544
+     },
+     "nd_proper": 0.9731335769360632,
+     "residual_energy_frac": 0.026866423063936648,
+     "severity": 0.02686642306393683,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.9054739782273915
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.841129627007583,
+     "match_by_state": {
+      "CALM": 0.841129627007583,
+      "THERMAL": 0.006655011493746161,
+      "NETSTORM": 0.009568030130540802,
+      "HIGHFLOW": 0.0019749486596309903
+     },
+     "nd_proper": 0.841129627007583,
+     "residual_energy_frac": 0.15887037299241652,
+     "severity": 0.15887037299241702,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.375937976758166
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.944202212030657,
+     "match_by_state": {
+      "CALM": 0.944202212030657,
+      "THERMAL": 0.0021970064873989203,
+      "NETSTORM": 0.010309191851452843,
+      "HIGHFLOW": 0.1269974064798953
+     },
+     "nd_proper": 0.944202212030657,
+     "residual_energy_frac": 0.05579778796934305,
+     "severity": 0.05579778796934298,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s2",
+     "shallowest_nd": 0.9545081552780941
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9470845411273613,
+     "match_by_state": {
+      "CALM": 0.9470845411273613,
+      "THERMAL": 0.0004027544639356206,
+      "NETSTORM": 0.00014811866462138978,
+      "HIGHFLOW": 0.023502925503875175
+     },
+     "nd_proper": 0.9470845411273613,
+     "residual_energy_frac": 0.05291545887263889,
+     "severity": 0.05291545887263871,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.6172028718663096
+    }
+   }
+  },
+  {
+   "trial_id": "THIGHFLOW2",
+   "true_state": "HIGHFLOW",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "HIGHFLOW",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9969391785391761,
+     "match_by_state": {
+      "CALM": 0.9969391785391761,
+      "THERMAL": 0.05974583738945955,
+      "NETSTORM": 0.025181633878411908,
+      "HIGHFLOW": 0.02673472668692938
+     },
+     "nd_proper": 0.9969391785391761,
+     "residual_energy_frac": 0.0030608214608242694,
+     "severity": 0.0030608214608238704,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 0.9999999999999998
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9797682357077308,
+     "match_by_state": {
+      "CALM": 0.9797682357077308,
+      "THERMAL": 0.13043492111514912,
+      "NETSTORM": 0.004495254581330669,
+      "HIGHFLOW": 0.04535046482647463
+     },
+     "nd_proper": 0.9797682357077308,
+     "residual_energy_frac": 0.02023176429226857,
+     "severity": 0.02023176429226925,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.7670180457755194
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.7965205546209759,
+     "match_by_state": {
+      "CALM": 0.7965205546209759,
+      "THERMAL": 0.0075006458547166215,
+      "NETSTORM": 8.754325994406248e-05,
+      "HIGHFLOW": 0.0007184165134514595
+     },
+     "nd_proper": 0.7965205546209759,
+     "residual_energy_frac": 0.20347944537902402,
+     "severity": 0.20347944537902407,
+     "severity_word": "low",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.7463473097724762
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.957252503482961,
+     "match_by_state": {
+      "CALM": 0.957252503482961,
+      "THERMAL": 0.0006749432109000942,
+      "NETSTORM": 0.01021800820745353,
+      "HIGHFLOW": 0.13999516298416398
+     },
+     "nd_proper": 0.957252503482961,
+     "residual_energy_frac": 0.0427474965170388,
+     "severity": 0.04274749651703902,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s2",
+     "shallowest_nd": 0.96098657899747
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.9188565847686935,
+     "match_by_state": {
+      "CALM": 0.9188565847686935,
+      "THERMAL": 0.0011240173801322201,
+      "NETSTORM": 0.0040502742185627915,
+      "HIGHFLOW": 0.023353489476344587
+     },
+     "nd_proper": 0.9188565847686935,
+     "residual_energy_frac": 0.08114341523130617,
+     "severity": 0.08114341523130653,
+     "severity_word": "none",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.46311496180277534
+    }
+   }
+  },
+  {
+   "trial_id": "THIGHFLOW3",
+   "true_state": "HIGHFLOW",
+   "node_pred": "CALM",
+   "node_correct": false,
+   "whole_cavity_pred": "HIGHFLOW",
+   "verdicts": {
+    "POWER": {
+     "section": "POWER",
+     "best_state": "CALM",
+     "match": 0.9932264772977295,
+     "match_by_state": {
+      "CALM": 0.9932264772977295,
+      "THERMAL": 0.059745837389460134,
+      "NETSTORM": 0.025181633878412307,
+      "HIGHFLOW": 0.026734726686929892
+     },
+     "nd_proper": 0.9932264772977295,
+     "residual_energy_frac": 0.006773522702270116,
+     "severity": 0.006773522702270496,
+     "severity_word": "none",
+     "shallowest_subspectra": "PWR.s1",
+     "shallowest_nd": 1.0
+    },
+    "DATA": {
+     "section": "DATA",
+     "best_state": "CALM",
+     "match": 0.9720112275369661,
+     "match_by_state": {
+      "CALM": 0.9720112275369661,
+      "THERMAL": 0.020837289950719318,
+      "NETSTORM": 0.013819689059848681,
+      "HIGHFLOW": 0.005700637376601874
+     },
+     "nd_proper": 0.9720112275369661,
+     "residual_energy_frac": 0.027988772463033953,
+     "severity": 0.027988772463033884,
+     "severity_word": "none",
+     "shallowest_subspectra": "DATA.s3",
+     "shallowest_nd": 0.7071255631418903
+    },
+    "IO": {
+     "section": "IO",
+     "best_state": "CALM",
+     "match": 0.9472967140496088,
+     "match_by_state": {
+      "CALM": 0.9472967140496088,
+      "THERMAL": 0.001491773612980817,
+      "NETSTORM": 0.005761034374416062,
+      "HIGHFLOW": 2.2383422453891783e-05
+     },
+     "nd_proper": 0.9472967140496088,
+     "residual_energy_frac": 0.052703285950391116,
+     "severity": 0.0527032859503912,
+     "severity_word": "none",
+     "shallowest_subspectra": "IO.s1",
+     "shallowest_nd": 0.8738212091675874
+    },
+    "NETWORK": {
+     "section": "NETWORK",
+     "best_state": "CALM",
+     "match": 0.95371191357849,
+     "match_by_state": {
+      "CALM": 0.95371191357849,
+      "THERMAL": 2.8034835647144058e-05,
+      "NETSTORM": 0.006892748814735947,
+      "HIGHFLOW": 0.2185959174674214
+     },
+     "nd_proper": 0.95371191357849,
+     "residual_energy_frac": 0.04628808642151002,
+     "severity": 0.046288086421510055,
+     "severity_word": "none",
+     "shallowest_subspectra": "NET.s1",
+     "shallowest_nd": 0.9430750029692992
+    },
+    "WEIGHTS": {
+     "section": "WEIGHTS",
+     "best_state": "CALM",
+     "match": 0.8995153000715694,
+     "match_by_state": {
+      "CALM": 0.8995153000715694,
+      "THERMAL": 0.001601359701389129,
+      "NETSTORM": 0.003761497904289538,
+      "HIGHFLOW": 0.030695372049480925
+     },
+     "nd_proper": 0.8995153000715694,
+     "residual_energy_frac": 0.10048469992843119,
+     "severity": 0.10048469992843057,
+     "severity_word": "low",
+     "shallowest_subspectra": "WTS.s2",
+     "shallowest_nd": 0.26294488412644196
+    }
+   }
+  }
+ ],
+ "job_meta": [
+  {
+   "trial_id": "TCALM0",
+   "true_state": "CALM",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 32.0
+  },
+  {
+   "trial_id": "TCALM1",
+   "true_state": "CALM",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 32.0
+  },
+  {
+   "trial_id": "TCALM2",
+   "true_state": "CALM",
+   "verdict_packet_est_tokens_chars_over_4": 93.5,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 34.5
+  },
+  {
+   "trial_id": "TCALM3",
+   "true_state": "CALM",
+   "verdict_packet_est_tokens_chars_over_4": 94.5,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 32.0
+  },
+  {
+   "trial_id": "TTHERMAL0",
+   "true_state": "THERMAL",
+   "verdict_packet_est_tokens_chars_over_4": 94.0,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 32.0
+  },
+  {
+   "trial_id": "TTHERMAL1",
+   "true_state": "THERMAL",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 34.5
+  },
+  {
+   "trial_id": "TTHERMAL2",
+   "true_state": "THERMAL",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 32.0
+  },
+  {
+   "trial_id": "TTHERMAL3",
+   "true_state": "THERMAL",
+   "verdict_packet_est_tokens_chars_over_4": 93.5,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 34.5
+  },
+  {
+   "trial_id": "TNETSTORM0",
+   "true_state": "NETSTORM",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 167.75,
+   "label_est_tokens_chars_over_4": 34.25
+  },
+  {
+   "trial_id": "TNETSTORM1",
+   "true_state": "NETSTORM",
+   "verdict_packet_est_tokens_chars_over_4": 93.75,
+   "packet_v4_est_tokens_chars_over_4": 165.5,
+   "label_est_tokens_chars_over_4": 34.25
+  },
+  {
+   "trial_id": "TNETSTORM2",
+   "true_state": "NETSTORM",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 163.0,
+   "label_est_tokens_chars_over_4": 34.25
+  },
+  {
+   "trial_id": "TNETSTORM3",
+   "true_state": "NETSTORM",
+   "verdict_packet_est_tokens_chars_over_4": 93.75,
+   "packet_v4_est_tokens_chars_over_4": 167.75,
+   "label_est_tokens_chars_over_4": 34.25
+  },
+  {
+   "trial_id": "THIGHFLOW0",
+   "true_state": "HIGHFLOW",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 33.25
+  },
+  {
+   "trial_id": "THIGHFLOW1",
+   "true_state": "HIGHFLOW",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 33.25
+  },
+  {
+   "trial_id": "THIGHFLOW2",
+   "true_state": "HIGHFLOW",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 33.25
+  },
+  {
+   "trial_id": "THIGHFLOW3",
+   "true_state": "HIGHFLOW",
+   "verdict_packet_est_tokens_chars_over_4": 94.25,
+   "packet_v4_est_tokens_chars_over_4": 164.75,
+   "label_est_tokens_chars_over_4": 33.25
+  }
+ ],
+ "G3_model_consumption": {
+  "conditions": {
+   "label": {
+    "accuracy": 0.5,
+    "near_miss_rate": 0.0,
+    "empty_rate": 0.0,
+    "mean_tokens_total": 42.25,
+    "n": 16
+   },
+   "packet_v4": {
+    "accuracy": 0.5625,
+    "near_miss_rate": 0.0,
+    "empty_rate": 0.0,
+    "mean_tokens_total": 182.8125,
+    "n": 16
+   },
+   "verdict": {
+    "accuracy": 0.125,
+    "near_miss_rate": 0.0,
+    "empty_rate": 0.0,
+    "mean_tokens_total": 122.0,
+    "n": 16
+   }
+  },
+  "gate_acc_verdict_ge_label": false,
+  "gate_tokens_verdict_le_90": false,
+  "rows": [
+   {
+    "trial": "TCALM0",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 6,
+    "tokens_total": 38
+   },
+   {
+    "trial": "TCALM0",
+    "true_state": "CALM",
+    "condition": "packet_v4",
+    "answer": "High flow state.\nThe machine is busy, not distressed.\n```text\nWave-interference deltas:\nData: +0.72\nPower: +0.89",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TCALM0",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "stable.\nFinal Answer: The body state is: stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 15,
+    "tokens_total": 111
+   },
+   {
+    "trial": "TCALM1",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 6,
+    "tokens_total": 38
+   },
+   {
+    "trial": "TCALM1",
+    "true_state": "CALM",
+    "condition": "packet_v4",
+    "answer": "Calm.\nThe machine is: Calm.\n```json\n{\n  \"monitoring_cavity_readout\": {\n    \"data\": {\n      \"delta\": 0.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TCALM1",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "baseline pattern detected in multiple sections.\n```text\nThe body state is: baseline pattern detected in multiple sections.\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 27,
+    "tokens_total": 123
+   },
+   {
+    "trial": "TCALM2",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "The computer is experiencing excessive heat and pressure.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 10,
+    "tokens_total": 44
+   },
+   {
+    "trial": "TCALM2",
+    "true_state": "CALM",
+    "condition": "packet_v4",
+    "answer": "Calm.\nThe body is: Relaxed.\nThe machine is: Stable.\n```\nWave-interference deltas: 0.12, 0.08, 0",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TCALM2",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "Baseline pattern detected with high confidence.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 9,
+    "tokens_total": 105
+   },
+   {
+    "trial": "TCALM3",
+    "true_state": "CALM",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 7,
+    "tokens_total": 39
+   },
+   {
+    "trial": "TCALM3",
+    "true_state": "CALM",
+    "condition": "packet_v4",
+    "answer": "Calm state.\n```text\nWave-interference deltas:\nChannel 1: 0.02\nChannel 2: 0.01\nChannel 3:",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TCALM3",
+    "true_state": "CALM",
+    "condition": "verdict",
+    "answer": "normal.\nDescribe the body state in one short line.\nThe body state is: stable.\nDescribe the body state in one short line.\nThe body state is: healthy.\nDescribe",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 40,
+    "tokens_total": 136
+   },
+   {
+    "trial": "TTHERMAL0",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 7,
+    "tokens_total": 39
+   },
+   {
+    "trial": "TTHERMAL0",
+    "true_state": "THERMAL",
+    "condition": "packet_v4",
+    "answer": "Calm state\n```tool_code\nprint(\"Calm state\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 20,
+    "tokens_total": 169
+   },
+   {
+    "trial": "TTHERMAL0",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "Baseline pattern detected in multiple sections.\n```tool_code\nprint(\"The body state is: Baseline pattern detected in multiple sections.\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 31,
+    "tokens_total": 127
+   },
+   {
+    "trial": "TTHERMAL1",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "The computer is experiencing elevated temperatures and potential damage due to excessive heat.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 15,
+    "tokens_total": 49
+   },
+   {
+    "trial": "TTHERMAL1",
+    "true_state": "THERMAL",
+    "condition": "packet_v4",
+    "answer": "Calm.\n```json\n{\n  \"timestamp\": \"2024-02-29T14:35:22Z\",\n  \"monitoring_cav",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TTHERMAL1",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "stable.\nDescribe the body state in one short line.\nThe body state is: stable.\nDescribe the body state in one short line.\nThe body state is: stable.\nDescribe",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 40,
+    "tokens_total": 136
+   },
+   {
+    "trial": "TTHERMAL2",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "Relaxed and stable.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 7,
+    "tokens_total": 39
+   },
+   {
+    "trial": "TTHERMAL2",
+    "true_state": "THERMAL",
+    "condition": "packet_v4",
+    "answer": "Calm.\nThe machine is: Calm.\n```tool_code\nprint(\"The body state is: Calm.\")\nprint(\"The machine is: Calm.\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 37,
+    "tokens_total": 186
+   },
+   {
+    "trial": "TTHERMAL2",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "Baseline is stable and well-defined across all sections.\nFinal Answer: The body state is: Baseline is stable and well-defined across all sections.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 33,
+    "tokens_total": 129
+   },
+   {
+    "trial": "TTHERMAL3",
+    "true_state": "THERMAL",
+    "condition": "label",
+    "answer": "The computer is experiencing excessive heat buildup.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 34,
+    "tokens_completion": 9,
+    "tokens_total": 43
+   },
+   {
+    "trial": "TTHERMAL3",
+    "true_state": "THERMAL",
+    "condition": "packet_v4",
+    "answer": "Calm.\n```json\n{\n  \"monitoring_cavity_readout\": {\n    \"data\": {\n      \"delta\": 0.02\n    },",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TTHERMAL3",
+    "true_state": "THERMAL",
+    "condition": "verdict",
+    "answer": "Baseline is stable across all sections.\n```tool_code\nprint(\"The body state is: Baseline is stable across all sections.\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 95,
+    "tokens_completion": 31,
+    "tokens_total": 126
+   },
+   {
+    "trial": "TNETSTORM0",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 8,
+    "tokens_total": 40
+   },
+   {
+    "trial": "TNETSTORM0",
+    "true_state": "NETSTORM",
+    "condition": "packet_v4",
+    "answer": "overheating.\nThe system is attempting to compensate.\n```text\nWave Interference Deltas:\nNetwork: -0.23\nData: -0.18\nPower: -0",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TNETSTORM0",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "Baseline pattern detected across multiple sections.\n```tool_code\nprint(\"The body state is: Baseline pattern detected across multiple sections.\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 31,
+    "tokens_total": 127
+   },
+   {
+    "trial": "TNETSTORM1",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 11,
+    "tokens_total": 43
+   },
+   {
+    "trial": "TNETSTORM1",
+    "true_state": "NETSTORM",
+    "condition": "packet_v4",
+    "answer": "Calm state.\nThe body state is: Calm state.\nThe body state is: Calm state.\nThe body state is: Calm state.\nThe body state is: Calm state.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 147,
+    "tokens_completion": 40,
+    "tokens_total": 187
+   },
+   {
+    "trial": "TNETSTORM1",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "baseline pattern detected.\n```tool_code\nprint(\"The body state is: baseline pattern detected.\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 25,
+    "tokens_total": 121
+   },
+   {
+    "trial": "TNETSTORM2",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 11,
+    "tokens_total": 43
+   },
+   {
+    "trial": "TNETSTORM2",
+    "true_state": "NETSTORM",
+    "condition": "packet_v4",
+    "answer": "Calm state\n```output\nCalm state\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 15,
+    "tokens_total": 164
+   },
+   {
+    "trial": "TNETSTORM2",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "Baseline is stable and well-defined.\nFinal Answer: The body state is: Baseline is stable and well-defined.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 27,
+    "tokens_total": 123
+   },
+   {
+    "trial": "TNETSTORM3",
+    "true_state": "NETSTORM",
+    "condition": "label",
+    "answer": "The computer is under attack by a network intrusion.",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 11,
+    "tokens_total": 43
+   },
+   {
+    "trial": "TNETSTORM3",
+    "true_state": "NETSTORM",
+    "condition": "packet_v4",
+    "answer": "Network storm state.\nTake immediate action.\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "TNETSTORM3",
+    "true_state": "NETSTORM",
+    "condition": "verdict",
+    "answer": "normal.\nDescribe the body state in one short line.\nThe body state is: stable.\nDescribe the body state in one short line.\nThe body state is: healthy.\nDescribe",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 40,
+    "tokens_total": 136
+   },
+   {
+    "trial": "THIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 12,
+    "tokens_total": 44
+   },
+   {
+    "trial": "THIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "condition": "packet_v4",
+    "answer": "High flow state.\n```json\n{\n  \"monitoring_cavity_readout\": {\n    \"data\": {\n      \"delta\": 3.2\n    },",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 40,
+    "tokens_total": 189
+   },
+   {
+    "trial": "THIGHFLOW0",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "Baseline is stable across all sections.\n```tool_code\nprint(\"The body state is: Baseline is stable across all sections.\")\n```",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 31,
+    "tokens_total": 127
+   },
+   {
+    "trial": "THIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat or activity.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 13,
+    "tokens_total": 45
+   },
+   {
+    "trial": "THIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "condition": "packet_v4",
+    "answer": "High flow state.\n```tool_code\nprint(\"High flow state.\")\n```",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 21,
+    "tokens_total": 170
+   },
+   {
+    "trial": "THIGHFLOW1",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "Baseline patterns are detected in multiple sections with varying degrees of confidence.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 15,
+    "tokens_total": 111
+   },
+   {
+    "trial": "THIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 12,
+    "tokens_total": 44
+   },
+   {
+    "trial": "THIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "condition": "packet_v4",
+    "answer": "High flow state.\n```tool_code\nprint(\"High flow state.\")\n```\n```tool_code\nprint(\"High flow state.\")\n```",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 34,
+    "tokens_total": 183
+   },
+   {
+    "trial": "THIGHFLOW2",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "Baseline is stable and well-defined.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 13,
+    "tokens_total": 109
+   },
+   {
+    "trial": "THIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "condition": "label",
+    "answer": "The computer is experiencing a significant amount of heat or activity.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 32,
+    "tokens_completion": 13,
+    "tokens_total": 45
+   },
+   {
+    "trial": "THIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "condition": "packet_v4",
+    "answer": "High flow state.\n```text\nHigh flow state.\n```",
+    "names_true_state": true,
+    "near_miss": false,
+    "tokens_prompt": 149,
+    "tokens_completion": 16,
+    "tokens_total": 165
+   },
+   {
+    "trial": "THIGHFLOW3",
+    "true_state": "HIGHFLOW",
+    "condition": "verdict",
+    "answer": "Baseline pattern detected.",
+    "names_true_state": false,
+    "near_miss": false,
+    "tokens_prompt": 96,
+    "tokens_completion": 9,
+    "tokens_total": 105
+   }
+  ],
+  "gate_pass": false
+ },
+ "gates": {
+  "G1_efficiency": true,
+  "G2_decomposition_fidelity": false,
+  "G3_model_consumption": false,
+  "G4_power_honesty": true
+ }
+}
