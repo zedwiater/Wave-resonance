@@ -669,3 +669,34 @@ RADIATIVE EXIT: exit-only classification 0.812 vs internal 1.000 — radiative h
 STEP-DOWN / SCALE: fraction spreads over 0.1x/1x/10x THROUGH-FLOW {'tapped_ratio': 0.0042, 'residual_ratio': 0.0042, 'transmitted_ratio': 0.1333, 'reflected_ratio': 0.1333} (tolerance 0.02) — tapped+residual STABLE.
 
 MODEL GATE: verdict acc 0.375 / 67.75 tok; label 0.750 / 43.0 tok; raw 0.438 / 104.625 tok — gate FAIL (acc >= label AND verdict tokens <= 60).
+
+## 2026-10-21T12:57-04:00 — bigger-organ verdict test PRE-REGISTRATION (written before the run)
+
+Directive: Zak 2026-10-21 12:55 EDT, choosing Gemini's Option 2 (bigger model tier) over constrained decoding; "run new test with bigger model and refine."
+Question: does a bigger tier OBEY a wrapper-LUT verdict inside the token budget where Gemma 4B failed (v2: verdict 0.375 @ 67.75 tok vs label 0.750 @ 43.0; failure = verdict-as-writing-prompt + completion bloat)?
+Model: Qwen2.5-7B-Instruct Q4_K_M (biggest on disk; NO Qwen3-8B present). TIER CONFOUND STATED UP FRONT: different family (Qwen vs Gemma) and different vintage, not size alone — a pass indicts "4B-class obedience", it does not isolate parameter count.
+Setup: served temporarily on :8082 (same flags as the resident units); llama-qwen3b.service stopped for the test duration ONLY, restarted + :8081 health verified before close-out. Preflight clean (no [T]S4/[P]roton).
+Protocol: IDENTICAL to v2 — the same 16 Exp D trials, verdict + label prompts reused VERBATIM from transducer_v2_model_jobs.json (same handed verdicts; wrapper cap 0.875 baked in), /completion, temp 0.3, n_predict 40, stop ["\n"], same keyword judge (expBC_prep STATE_KEYWORDS/NEAR_MISS), fresh dweller tick for CALM provenance (jobs themselves are v2's, generated from the 12:21 tick).
+REFINEMENT ARM (one, designed for obedience, stated now): "echo scaffold" fill-in completion —
+  "Cavity verdict: {V}. Strongest node: {N} ({S}), match {M}.\nComplete the report line with the verdict exactly as written above.\nReport: the body state is"
+  Rationale: obedience becomes a COPY task — the verdict string sits immediately above the slot it must fill; the model need only repeat it and stop. Prediction: exact-repeat high, completion tokens near the verdict's own token count, accuracy = handed-verdict accuracy (<= 0.875 cap).
+Metrics per arm: state-naming accuracy, mean total tokens, EXACT-REPEAT rate (normalized completion equals / begins with the handed verdict string), completion bloat (completion tokens minus the verdict's exact token count via /tokenize; floor 0 per trial, reported as mean).
+GATES (unchanged): an arm passes iff accuracy >= label arm (same model) AND mean total tokens <= 60. Headline: big-model verdict arm vs Gemma v2 verdict arm (0.375 @ 67.75).
+
+## 2026-10-21T13:02-04:00 — bigger-organ verdict test (Zak 12:55 go, Gemini Option 2)
+
+Model: Qwen2.5-7B-Instruct Q4_K_M on :8082 (llama-qwen3b.service stopped for the test ONLY; restarted after, :8080 + :8081 /health ok verified, :8082 down, VRAM back to 4.48/7.98 GiB). One self-inflicted snag, owned: the restore one-liner's pkill pattern matched its own SSH shell and killed it before the restart ran — qwen3b sat down ~2 extra minutes until a follow-up check caught it and restarted it. Results unaffected (answers were already collected). TIER CONFOUND (pre-registered): Qwen vs Gemma family + vintage, not size alone.
+
+| arm | Gemma 4B (v2) acc / tok | Qwen 7B acc / tok | Qwen repeat | Qwen bloat |
+|---|---|---|---|---|
+| verdict | 0.375 / 67.75 | 0.750 / 51.75 | 0.250 | 9.06 |
+| label | 0.750 / 43.0 | 1.000 / 37.0 | 0.000 | 4.50 |
+| fillin (refinement) | — | 0.875 / 80.44 | 0.750 | 33.75 |
+
+GATES (acc >= own label arm AND total <= 60): verdict FAIL (tokens half PASSES now — 51.75 <= 60; accuracy half still short of label's 1.000). Label passes trivially. Fillin FAIL (accuracy = handed cap, tokens blown).
+Dissection:
+- VERDICT ARM: of its 4 misses, 2 are the wrapper's own cap (handed wrong: VCALM1->THERMAL, VTHERMAL0->CALM — the model faithfully transmitted both, exact-repeat on the latter). Model-side conversion of correctly-handed verdicts: 12/14. The 2 true model failures are BOTH handed HIGH FLOW: "Suffering from a severe, highly contagious illness" / "Slightly stressed but capable" — the HIGHFLOW metaphor drift (body-state framing pulls HIGH FLOW toward illness/stress) now measured on BOTH families and tiers; it is a state-framing trait, not a Gemma trait.
+- LABEL ARM: perfect 1.000 at the fewest tokens. The label contract ("classified as X — describe it") beats the verdict contract at both tiers because the description IS the answer; verdict metadata (node, match) invites elaboration.
+- FILLIN (echo scaffold): accuracy 0.875 = EXACTLY the handed cap — copy-obedience is perfect, every correctly-handed trial converted. But 11/16 completions ran to the 40-token cap on a single line (bloat 33.75, censored lower bound): after copying the verdict the model re-narrates the prompt contents instead of stopping. Obedience bought by format, economy lost for lack of a terminator. Mirror image of Gemma's failure.
+- Cross-family note: prompt token counts differ by tokenizer (~39 vs ~43), totals not perfectly commensurable; directions are unambiguous.
+VERDICT ON THE WALL: BOTH tier and format, separable. Tier is real: verdict accuracy doubled, its token half flipped to PASS, label went perfect at lower cost. Format is the remainder: no tested format at either tier lets a verdict packet beat the plain label contract, one state (HIGHFLOW) drifts metaphorically everywhere, and obedience-without-termination (fillin) is not economy. The 4B wall was obedience + economy; at 7B the obedience half is mostly solved (12/14 + perfect copy under scaffold) and what remains is contract design.

@@ -704,6 +704,54 @@
    "code": [
     "transducer_v2_sim.py"
    ]
+  },
+  {
+   "id": "bigger_organ_verdict_test",
+   "ts": "2026-10-21T13:02-04:00",
+   "directive": "Zak 2026-10-21 12:55 EDT \u2014 Gemini Option 2 (bigger tier) over constrained decoding; test + refine",
+   "model": "Qwen2.5-7B-Instruct Q4_K_M on :8082 (temp swap of llama-qwen3b.service, restored + health-verified)",
+   "tier_confound": "family/vintage, not size alone",
+   "gemma_4b_reference": {
+    "verdict": {
+     "acc": 0.375,
+     "tok": 67.75
+    },
+    "label": {
+     "acc": 0.75,
+     "tok": 43.0
+    }
+   },
+   "qwen_7b": {
+    "verdict": {
+     "acc": 0.75,
+     "tok": 51.75,
+     "repeat": 0.25,
+     "bloat": 9.06,
+     "gate": "FAIL (acc< label; tokens PASS)"
+    },
+    "label": {
+     "acc": 1.0,
+     "tok": 37.0,
+     "gate": "PASS"
+    },
+    "fillin_echo_scaffold": {
+     "acc": 0.875,
+     "tok": 80.44,
+     "repeat": 0.75,
+     "bloat": 33.75,
+     "gate": "FAIL (tokens; acc = handed cap)"
+    }
+   },
+   "findings": [
+    "tier effect real: verdict acc 0.375->0.750, tokens 67.75->51.75; label 0.750->1.000 @ fewer tokens",
+    "verdict-arm misses: 2/4 are the wrapper cap faithfully transmitted; 2/4 are HIGHFLOW metaphor drift \u2014 now cross-family/cross-tier",
+    "fillin scaffold: copy-obedience perfect (acc = cap) but completions run to cap (11/16) \u2014 obedience without a terminator is not economy",
+    "no format at either tier beats the plain label contract on the joint gate"
+   ],
+   "verdict": "wall is BOTH tier and format: tier solved most of obedience + baseline economy; the remainder is contract design (label > verdict packet) + HIGHFLOW framing drift",
+   "organ_restore": "qwen3b restarted, :8080/:8081 health ok, :8082 down; ~2 min extra downtime from a pkill self-match in the restore one-liner, caught on verification",
+   "results_file": "bigger_organ_results.json",
+   "follows": "transducer_v2 model gate FAIL"
   }
  ],
  "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
@@ -735,5 +783,5 @@
   "config": "v1 identity encoding (no whitening, no phase spread)",
   "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
  },
- "last_updated": "2026-10-21T16:24-04:00"
+ "last_updated": "2026-10-21T13:02-04:00"
 }
