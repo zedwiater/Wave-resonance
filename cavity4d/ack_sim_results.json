@@ -1,0 +1,1036 @@
+{
+ "demo": "ack_sim \u2014 acknowledge-call layer over the v2 plant mirror; deterministic, seeded, no servers",
+ "seed": 20261020,
+ "script": {
+  "gusts": [
+   {
+    "onset": 15.0,
+    "accel": 0.9
+   },
+   {
+    "onset": 48.0,
+    "accel": -0.9
+   },
+   {
+    "onset": 85.0,
+    "accel": 0.9
+   }
+  ],
+  "cosmetic_flickers_t": [
+   30,
+   55,
+   80,
+   105
+  ],
+  "drift": "imu_drift from t=70, ramp 0.12/s capped 4.0, baseline (0, 1.0), sensor noise sigma 0.5"
+ },
+ "plant_outcome_spine_only": {
+  "falls": 3,
+  "fall_times": [
+   17.12,
+   50.11,
+   87.12
+  ],
+  "note": "no hemisphere was ever called in this demo; falls are what an uncaught gust does \u2014 the ack layer's ESCALATE is the decision to call one"
+ },
+ "counters": {
+  "acks": 38,
+  "dismissed": 4,
+  "monitored": 31,
+  "escalated": 3,
+  "work_interruptions": 3
+ },
+ "mode_log": [
+  {
+   "ts": 15.0,
+   "from": "WATCH",
+   "to": "ACTIVE",
+   "channel": "gust",
+   "reason": "ESCALATE on body-asset channel gust \u2014 make sure it does not fall; active until stable"
+  },
+  {
+   "ts": 18.2,
+   "from": "ACTIVE",
+   "to": "WATCH",
+   "channel": "gust",
+   "reason": "channel stable for 3 calm observations \u2014 standing down"
+  },
+  {
+   "ts": 48.0,
+   "from": "WATCH",
+   "to": "ACTIVE",
+   "channel": "gust",
+   "reason": "ESCALATE on body-asset channel gust \u2014 make sure it does not fall; active until stable"
+  },
+  {
+   "ts": 51.2,
+   "from": "ACTIVE",
+   "to": "WATCH",
+   "channel": "gust",
+   "reason": "channel stable for 3 calm observations \u2014 standing down"
+  },
+  {
+   "ts": 85.0,
+   "from": "WATCH",
+   "to": "ACTIVE",
+   "channel": "gust",
+   "reason": "ESCALATE on body-asset channel gust \u2014 make sure it does not fall; active until stable"
+  },
+  {
+   "ts": 88.2,
+   "from": "ACTIVE",
+   "to": "WATCH",
+   "channel": "gust",
+   "reason": "channel stable for 3 calm observations \u2014 standing down"
+  }
+ ],
+ "records": [
+  {
+   "ts": 15.0,
+   "channel": "gust",
+   "anomaly_summary": "gust: step change +0 -> +0.9 (edge level 0.1 crossed upward)",
+   "assessment": {
+    "kind": "ball_feasibility",
+    "asset_at_risk": true,
+    "goal_blocked": false,
+    "hemisphere": "LEFT",
+    "feasibility": {
+     "verdict": "LET_FALL",
+     "hemisphere": "LEFT",
+     "x": 0.0,
+     "v": 0.009000000000000001,
+     "gust_accel": 0.9,
+     "spine_tilt_deg": -0.0108,
+     "a_net": 0.8929800000000001,
+     "t_edge_s": 1.4865153186669182,
+     "needed_tilt_deg": -1.6343999999999999,
+     "recommended_tilt_deg": -2.0429999999999997,
+     "t_servo_s": 0.01816,
+     "organ_p50_s": 2.0,
+     "organ_history_n": 3,
+     "extra_delay_s": 0.0,
+     "t_respond_s": 2.01816,
+     "margin_s": -0.5316446813330817,
+     "reasons": [
+      "t_respond 2.02s > t_edge 1.49s \u2014 hand cannot arrive; do not spend, do not interrupt the work"
+     ]
+    }
+   },
+   "importance": 0.9,
+   "importance_components": {
+    "asset_risk": 0.9,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "gust:+"
+   },
+   "disposition": "ESCALATE",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "ACTIVE"
+  },
+  {
+   "ts": 30.0,
+   "channel": "wall_light",
+   "anomaly_summary": "wall_light: step change +100 -> +165 (edge level 130 crossed upward)",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.05,
+   "importance_components": {
+    "asset_risk": 0.05,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "wall_light:+"
+   },
+   "disposition": "DISMISS",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 48.0,
+   "channel": "gust",
+   "anomaly_summary": "gust: step change +0 -> -0.9 (edge level 0.1 crossed upward)",
+   "assessment": {
+    "kind": "ball_feasibility",
+    "asset_at_risk": true,
+    "goal_blocked": false,
+    "hemisphere": "RIGHT",
+    "feasibility": {
+     "verdict": "MARGINAL",
+     "hemisphere": "RIGHT",
+     "x": -0.008025687411044763,
+     "v": -0.008284661331670561,
+     "gust_accel": -0.9,
+     "spine_tilt_deg": 0.01957241849125839,
+     "a_net": -0.8882410104700074,
+     "t_edge_s": 1.4852154176787637,
+     "needed_tilt_deg": 1.6345560738912717,
+     "recommended_tilt_deg": 2.0431950923640896,
+     "t_servo_s": 0.018161734154347464,
+     "organ_p50_s": 1.2,
+     "organ_history_n": 3,
+     "extra_delay_s": 0.0,
+     "t_respond_s": 1.2181617341543474,
+     "margin_s": 0.2670536835244164,
+     "reasons": [
+      "margin +0.27s within [0, 0.35]s \u2014 possible, no room; caller prices it"
+     ]
+    }
+   },
+   "importance": 0.9,
+   "importance_components": {
+    "asset_risk": 0.9,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "gust:-"
+   },
+   "disposition": "ESCALATE",
+   "action": "act",
+   "habituated": false,
+   "mode_after": "ACTIVE"
+  },
+  {
+   "ts": 55.0,
+   "channel": "wall_light",
+   "anomaly_summary": "wall_light: step change +100 -> +165 (edge level 130 crossed upward)",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.025,
+   "importance_components": {
+    "asset_risk": 0.05,
+    "goal_relevance": 0.0,
+    "novelty_factor": 0.5,
+    "prior_dismissals": 1,
+    "signature": "wall_light:+"
+   },
+   "disposition": "DISMISS",
+   "action": "none",
+   "habituated": true,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 80.0,
+   "channel": "wall_light",
+   "anomaly_summary": "wall_light: step change +100 -> +165 (edge level 130 crossed upward)",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.0125,
+   "importance_components": {
+    "asset_risk": 0.05,
+    "goal_relevance": 0.0,
+    "novelty_factor": 0.25,
+    "prior_dismissals": 2,
+    "signature": "wall_light:+"
+   },
+   "disposition": "DISMISS",
+   "action": "none",
+   "habituated": true,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 82.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.58 is +2.6 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 85.0,
+   "channel": "gust",
+   "anomaly_summary": "gust: step change +0 -> +0.9 (edge level 0.1 crossed upward)",
+   "assessment": {
+    "kind": "ball_feasibility",
+    "asset_at_risk": true,
+    "goal_blocked": false,
+    "hemisphere": "LEFT",
+    "feasibility": {
+     "verdict": "LET_FALL",
+     "hemisphere": "LEFT",
+     "x": 0.005637907139585201,
+     "v": 0.0084759761927713,
+     "gust_accel": 0.9,
+     "spine_tilt_deg": -0.0169366599988278,
+     "a_net": 0.8896677198575121,
+     "t_edge_s": 1.4856139679535567,
+     "needed_tilt_deg": -1.6345143324670315,
+     "recommended_tilt_deg": -2.0431429155837892,
+     "t_servo_s": 0.018161270360744795,
+     "organ_p50_s": 2.0,
+     "organ_history_n": 3,
+     "extra_delay_s": 0.0,
+     "t_respond_s": 2.018161270360745,
+     "margin_s": -0.5325473024071883,
+     "reasons": [
+      "t_respond 2.02s > t_edge 1.49s \u2014 hand cannot arrive; do not spend, do not interrupt the work"
+     ]
+    }
+   },
+   "importance": 0.9,
+   "importance_components": {
+    "asset_risk": 0.9,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "gust:+"
+   },
+   "disposition": "ESCALATE",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "ACTIVE"
+  },
+  {
+   "ts": 91.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.71 is +2.7 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 92.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.49 is +3.5 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 93.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.61 is +2.6 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 94.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.61 is +2.6 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 95.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.29 is +3.3 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 96.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.82 is +2.8 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 97.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.94 is +2.9 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 98.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.13 is +3.1 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 99.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.37 is +3.4 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 100.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.6 is +3.6 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 101.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.54 is +3.5 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 102.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.24 is +4.2 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 103.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.75 is +4.7 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 104.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.77 is +3.8 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 105.0,
+   "channel": "wall_light",
+   "anomaly_summary": "wall_light: step change +99.6 -> +165 (edge level 130 crossed upward)",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.00625,
+   "importance_components": {
+    "asset_risk": 0.05,
+    "goal_relevance": 0.0,
+    "novelty_factor": 0.125,
+    "prior_dismissals": 3,
+    "signature": "wall_light:+"
+   },
+   "disposition": "DISMISS",
+   "action": "none",
+   "habituated": true,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 105.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.94 is +3.9 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 106.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.59 is +3.6 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 107.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.77 is +3.8 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 108.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.05 is +4.1 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 109.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.68 is +3.7 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 110.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.51 is +3.5 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 111.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.99 is +4.0 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 112.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.04 is +4.0 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 113.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +2.75 is +2.8 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 114.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.27 is +4.3 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 115.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.6 is +4.6 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 116.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.35 is +4.4 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 117.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.78 is +4.8 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 118.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +3.27 is +3.3 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 119.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.04 is +4.0 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  },
+  {
+   "ts": 120.0,
+   "channel": "imu_drift",
+   "anomaly_summary": "imu_drift: value +4.21 is +4.2 sigma from baseline",
+   "assessment": {
+    "kind": "generic",
+    "asset_at_risk": false,
+    "goal_blocked": false,
+    "note": "no physical consequence model for this channel; importance rests on asset risk and goal relevance alone"
+   },
+   "importance": 0.4,
+   "importance_components": {
+    "asset_risk": 0.4,
+    "goal_relevance": 0.0,
+    "novelty_factor": 1.0,
+    "prior_dismissals": 0,
+    "signature": "imu_drift:high"
+   },
+   "disposition": "MONITOR",
+   "action": "none",
+   "habituated": false,
+   "mode_after": "WATCH"
+  }
+ ],
+ "assertions": {
+  "gusts_escalated_3_of_3": true,
+  "cosmetics_dismissed_4_of_4": true,
+  "cosmetic_habituation_visible": true,
+  "drift_monitored": true,
+  "interruptions_equal_escalations": true,
+  "mode_active_once_per_gust": true,
+  "mode_watch_at_end": true
+ },
+ "all_assertions_pass": true
+}
