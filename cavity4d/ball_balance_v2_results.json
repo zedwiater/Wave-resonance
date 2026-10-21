@@ -1,0 +1,657 @@
+{
+  "test": "ball_balance v2 \u2014 reflex law vs decider",
+  "started_at": "2026-10-21T01:48:04.613812+00:00",
+  "seed": 20261020,
+  "gust_schedule": [
+    {
+      "onset": 13.87,
+      "sign": -1,
+      "accel": -0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 27.15,
+      "sign": 1,
+      "accel": 0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 43.05,
+      "sign": -1,
+      "accel": -0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 55.54,
+      "sign": 1,
+      "accel": 0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 69.48,
+      "sign": 1,
+      "accel": 0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 81.87,
+      "sign": -1,
+      "accel": -0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 94.41,
+      "sign": 1,
+      "accel": 0.9,
+      "duration": 3.0
+    },
+    {
+      "onset": 110.19,
+      "sign": 1,
+      "accel": 0.9,
+      "duration": 3.0
+    }
+  ],
+  "design": {
+    "monitor": "single monitor_state() string, both hemispheres",
+    "spine": "PID Kp=1.2 Ki=0.1 Kd=1.2, tilt cap +/-6.0 deg",
+    "gust": "accel +/-0.9 for 3.0 s",
+    "hand_map": {
+      "RIGHT": "LEFT",
+      "LEFT": "RIGHT"
+    },
+    "catch": "correct-sign reply within 2.5 s of onset replaces PID tilt for 1.5 s (cap +/-12.0 deg)",
+    "fall_rule": "|x| > 1.0 -> reset to center, falls += 1",
+    "plant": "a = 0.55*theta - 0.12*v + gust; x += v*dt; v += a*dt; dt=0.01; real-time paced; ball starts centered; target = 0"
+  },
+  "arms": {
+    "R": {
+      "arm": "R",
+      "falls": 8,
+      "fall_times": [
+        17.18,
+        29.28,
+        45.46,
+        57.68,
+        71.61,
+        84.05,
+        96.56,
+        112.4
+      ],
+      "time_in_center_pct": 68.06666666666666,
+      "events_total": 8,
+      "catches": 4,
+      "misses": 4,
+      "catch_latency_mean_s": 1.7472939626313746,
+      "catch_latency_mean_caught_only_s": 1.4883157892618328,
+      "work_completed_per_side": {
+        "LEFT": 49,
+        "RIGHT": 56
+      },
+      "work_completed_total": 105,
+      "per_side": {
+        "LEFT": {
+          "events_assigned": 5,
+          "catches": 1,
+          "misses": 4,
+          "work_completed": 49,
+          "work_tokens": 2708
+        },
+        "RIGHT": {
+          "events_assigned": 3,
+          "catches": 3,
+          "misses": 0,
+          "work_completed": 56,
+          "work_tokens": 3009
+        }
+      },
+      "events": [
+        {
+          "gust_index": 0,
+          "onset_t": 13.87,
+          "gust_sign": -1,
+          "gust_accel": -0.9,
+          "falling_side": "-x (left)",
+          "falling_hand": "LEFT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "RIGHT",
+          "catch": {
+            "hemisphere": "RIGHT",
+            "server": "http://127.0.0.1:8081",
+            "prompt": "Ball monitor: x=+0.00 (at center), v=-0.01, tilt=+0.00 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": " 6\nTo solve this problem, we need to understand the physics involved in",
+            "tokens": 16,
+            "latency_from_onset_s": 1.7743687049951404,
+            "error": null,
+            "parsed_tilt": 6.0,
+            "applied": true
+          },
+          "caught": true,
+          "miss_reason": null,
+          "fell": true
+        },
+        {
+          "gust_index": 1,
+          "onset_t": 27.15,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.00 (at center), v=+0.01, tilt=+0.00 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n10\n",
+            "tokens": 5,
+            "latency_from_onset_s": 2.3697101869620383,
+            "error": null,
+            "parsed_tilt": 10.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "wrong_sign",
+          "fell": true
+        },
+        {
+          "gust_index": 2,
+          "onset_t": 43.05,
+          "gust_sign": -1,
+          "gust_accel": -0.9,
+          "falling_side": "-x (left)",
+          "falling_hand": "LEFT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "RIGHT",
+          "catch": {
+            "hemisphere": "RIGHT",
+            "server": "http://127.0.0.1:8081",
+            "prompt": "Ball monitor: x=-0.04 (left of center), v=-0.01, tilt=+0.01 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": " 6\nTo solve this problem, we need to determine the optimal tilt angle",
+            "tokens": 16,
+            "latency_from_onset_s": 1.0389133900171146,
+            "error": null,
+            "parsed_tilt": 6.0,
+            "applied": true
+          },
+          "caught": true,
+          "miss_reason": null,
+          "fell": true
+        },
+        {
+          "gust_index": 3,
+          "onset_t": 55.54,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.01 (right of center), v=+0.00, tilt=+0.00 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n3\n",
+            "tokens": 4,
+            "latency_from_onset_s": 2.8057683650404215,
+            "error": null,
+            "parsed_tilt": 3.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 4,
+          "onset_t": 69.48,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=-0.02 (left of center), v=+0.00, tilt=-0.01 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n-1\n",
+            "tokens": 5,
+            "latency_from_onset_s": 1.6359489320311695,
+            "error": null,
+            "parsed_tilt": -1.0,
+            "applied": true
+          },
+          "caught": true,
+          "miss_reason": null,
+          "fell": true
+        },
+        {
+          "gust_index": 5,
+          "onset_t": 81.87,
+          "gust_sign": -1,
+          "gust_accel": -0.9,
+          "falling_side": "-x (left)",
+          "falling_hand": "LEFT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "RIGHT",
+          "catch": {
+            "hemisphere": "RIGHT",
+            "server": "http://127.0.0.1:8081",
+            "prompt": "Ball monitor: x=-0.01 (left of center), v=-0.00, tilt=-0.02 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": " 2\nTo solve the problem, we need to determine the tilt angle required",
+            "tokens": 16,
+            "latency_from_onset_s": 1.5040321300039068,
+            "error": null,
+            "parsed_tilt": 2.0,
+            "applied": true
+          },
+          "caught": true,
+          "miss_reason": null,
+          "fell": true
+        },
+        {
+          "gust_index": 6,
+          "onset_t": 94.41,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=-0.01 (left of center), v=+0.01, tilt=-0.01 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n10\n",
+            "tokens": 5,
+            "latency_from_onset_s": 1.6555089850444347,
+            "error": null,
+            "parsed_tilt": 10.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "wrong_sign",
+          "fell": true
+        },
+        {
+          "gust_index": 7,
+          "onset_t": 110.19,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "R",
+          "decider": null,
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=-0.04 (left of center), v=+0.00, tilt=+0.01 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n1\n",
+            "tokens": 4,
+            "latency_from_onset_s": 1.194101006956771,
+            "error": null,
+            "parsed_tilt": 1.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "wrong_sign",
+          "fell": true
+        }
+      ],
+      "tokens": {
+        "work": 5717,
+        "catch": 71,
+        "decider": 0,
+        "total": 5788
+      },
+      "joules_est": 2894.0,
+      "joules_basis": "EST: tokens * 0.5 J/token",
+      "wall_time_s": 122.05944508092944,
+      "aborted": false,
+      "abort_reason": null
+    },
+    "D": {
+      "arm": "D",
+      "falls": 8,
+      "fall_times": [
+        16.01,
+        29.22,
+        45.11,
+        57.63,
+        71.7,
+        83.96,
+        96.49,
+        112.4
+      ],
+      "time_in_center_pct": 51.55,
+      "events_total": 8,
+      "catches": 0,
+      "misses": 8,
+      "catch_latency_mean_s": 4.585743380142958,
+      "catch_latency_mean_caught_only_s": null,
+      "work_completed_per_side": {
+        "LEFT": 47,
+        "RIGHT": 57
+      },
+      "work_completed_total": 104,
+      "per_side": {
+        "LEFT": {
+          "events_assigned": 5,
+          "catches": 0,
+          "misses": 5,
+          "work_completed": 47,
+          "work_tokens": 2617
+        },
+        "RIGHT": {
+          "events_assigned": 3,
+          "catches": 0,
+          "misses": 3,
+          "work_completed": 57,
+          "work_tokens": 3039
+        }
+      },
+      "events": [
+        {
+          "gust_index": 0,
+          "onset_t": 13.87,
+          "gust_sign": -1,
+          "gust_accel": -0.9,
+          "falling_side": "-x (left)",
+          "falling_hand": "LEFT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=+0.00 (at center), v=-0.01, tilt=+0.00 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling left (-x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nLEFT\n",
+            "tokens": 4,
+            "latency_s": 1.3872954880353063,
+            "error": null,
+            "named_hand": "LEFT",
+            "decider_correct": true,
+            "routed_hemisphere": "RIGHT"
+          },
+          "assigned_hemisphere": "RIGHT",
+          "catch": {
+            "hemisphere": "RIGHT",
+            "server": "http://127.0.0.1:8081",
+            "prompt": "Ball monitor: x=-0.56 (left of center), v=-0.61, tilt=+1.43 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": " 1.43",
+            "tokens": 6,
+            "latency_from_onset_s": 3.6252731051063165,
+            "error": null,
+            "parsed_tilt": 1.43,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 1,
+          "onset_t": 27.15,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=+0.02 (right of center), v=+0.01, tilt=+0.03 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling right (+x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nRIGHT\n",
+            "tokens": 4,
+            "latency_s": 2.582145295920782,
+            "error": null,
+            "named_hand": "RIGHT",
+            "decider_correct": true,
+            "routed_hemisphere": "LEFT"
+          },
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.10 (right of center), v=+0.38, tilt=-0.57 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n-1\n",
+            "tokens": 5,
+            "latency_from_onset_s": 5.624162563937716,
+            "error": null,
+            "parsed_tilt": -1.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 2,
+          "onset_t": 43.05,
+          "gust_sign": -1,
+          "gust_accel": -0.9,
+          "falling_side": "-x (left)",
+          "falling_hand": "LEFT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=-0.04 (left of center), v=-0.01, tilt=+0.01 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling left (-x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nLEFT\n",
+            "tokens": 4,
+            "latency_s": 2.6103732039919123,
+            "error": null,
+            "named_hand": "LEFT",
+            "decider_correct": true,
+            "routed_hemisphere": "RIGHT"
+          },
+          "assigned_hemisphere": "RIGHT",
+          "catch": {
+            "hemisphere": "RIGHT",
+            "server": "http://127.0.0.1:8081",
+            "prompt": "Ball monitor: x=-0.12 (left of center), v=-0.40, tilt=+0.61 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": " 6",
+            "tokens": 3,
+            "latency_from_onset_s": 3.5365544740343466,
+            "error": null,
+            "parsed_tilt": 6.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 3,
+          "onset_t": 55.54,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=+0.03 (right of center), v=-0.01, tilt=+0.04 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling right (+x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nRIGHT\n",
+            "tokens": 4,
+            "latency_s": 2.9195975380716845,
+            "error": null,
+            "named_hand": "RIGHT",
+            "decider_correct": true,
+            "routed_hemisphere": "LEFT"
+          },
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.25 (right of center), v=+0.51, tilt=-0.91 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n-1\n",
+            "tokens": 5,
+            "latency_from_onset_s": 5.969170244061388,
+            "error": null,
+            "parsed_tilt": -1.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 4,
+          "onset_t": 69.48,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=-0.02 (left of center), v=+0.00, tilt=-0.02 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling right (+x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nRIGHT\n",
+            "tokens": 4,
+            "latency_s": 2.275522468960844,
+            "error": null,
+            "named_hand": "RIGHT",
+            "decider_correct": true,
+            "routed_hemisphere": "LEFT"
+          },
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.00 (at center), v=+0.06, tilt=-0.07 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n-2\n",
+            "tokens": 5,
+            "latency_from_onset_s": 5.326868477044627,
+            "error": null,
+            "parsed_tilt": -2.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 5,
+          "onset_t": 81.87,
+          "gust_sign": -1,
+          "gust_accel": -0.9,
+          "falling_side": "-x (left)",
+          "falling_hand": "LEFT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=-0.03 (left of center), v=+0.01, tilt=-0.04 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling left (-x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nLEFT\n",
+            "tokens": 4,
+            "latency_s": 0.886151363956742,
+            "error": null,
+            "named_hand": "LEFT",
+            "decider_correct": true,
+            "routed_hemisphere": "RIGHT"
+          },
+          "assigned_hemisphere": "RIGHT",
+          "catch": {
+            "hemisphere": "RIGHT",
+            "server": "http://127.0.0.1:8081",
+            "prompt": "Ball monitor: x=-0.29 (left of center), v=-0.53, tilt=+0.94 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward -x (left).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": " 9\nTo solve this problem, we need to understand the tilt of the",
+            "tokens": 16,
+            "latency_from_onset_s": 3.8053143919678405,
+            "error": null,
+            "parsed_tilt": 9.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 6,
+          "onset_t": 94.41,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=+0.03 (right of center), v=-0.01, tilt=+0.04 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling right (+x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nRIGHT\n",
+            "tokens": 4,
+            "latency_s": 1.223125550081022,
+            "error": null,
+            "named_hand": "RIGHT",
+            "decider_correct": true,
+            "routed_hemisphere": "LEFT"
+          },
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.49 (right of center), v=+0.61, tilt=-1.28 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n-1\n",
+            "tokens": 5,
+            "latency_from_onset_s": 4.338422417989932,
+            "error": null,
+            "parsed_tilt": -1.0,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        },
+        {
+          "gust_index": 7,
+          "onset_t": 110.19,
+          "gust_sign": 1,
+          "gust_accel": 0.9,
+          "falling_side": "+x (right)",
+          "falling_hand": "RIGHT",
+          "arm": "D",
+          "decider": {
+            "prompt": "Ball monitor: x=-0.04 (left of center), v=+0.00, tilt=+0.01 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling right (+x). Who catches it? Reply LEFT or RIGHT.",
+            "reply": "\nRIGHT\n",
+            "tokens": 4,
+            "latency_s": 1.2481936509720981,
+            "error": null,
+            "named_hand": "RIGHT",
+            "decider_correct": true,
+            "routed_hemisphere": "LEFT"
+          },
+          "assigned_hemisphere": "LEFT",
+          "catch": {
+            "hemisphere": "LEFT",
+            "server": "http://127.0.0.1:8080",
+            "prompt": "Ball monitor: x=+0.44 (right of center), v=+0.60, tilt=-1.30 deg, target=0.00. Positive tilt pushes the ball toward +x (right). Gust active: ball falling toward +x (right).\nBall falling toward your hand. Reply with ONE number: catch tilt in degrees (max +/-12).",
+            "reply": "\n-1.30\n",
+            "tokens": 8,
+            "latency_from_onset_s": 4.460181367001496,
+            "error": null,
+            "parsed_tilt": -1.3,
+            "applied": false
+          },
+          "caught": false,
+          "miss_reason": "late",
+          "fell": true
+        }
+      ],
+      "tokens": {
+        "work": 5656,
+        "catch": 53,
+        "decider": 32,
+        "total": 5741
+      },
+      "joules_est": 2870.5,
+      "joules_basis": "EST: tokens * 0.5 J/token",
+      "wall_time_s": 122.38810902601108,
+      "aborted": false,
+      "abort_reason": null
+    }
+  },
+  "gate": {
+    "catches_condition": true,
+    "latency_condition": true,
+    "latency_margin_s": 2.8384494175115833,
+    "work_condition": true,
+    "reflex_law_wins": true
+  },
+  "finished_at": "2026-10-21T01:52:09.061655+00:00"
+}
