@@ -52,7 +52,20 @@ TICK_S = 60.0
 TICK_BUDGET_J = 120.0        # per-tick ceiling for priced idle work
 CUBE_PATH = os.path.expanduser("~/wave-sunday/harness/kv_cube.jsonl")
 LOG_PATH = os.path.expanduser("~/wave-sunday/harness/dweller_log.jsonl")
+STATE_PATH = os.path.expanduser(
+    "~/wave-sunday/harness/community_state.json")
 UNPARSED_BYTES = 1_400_000_000   # Zak<->Gemini Takeout backlog (known)
+
+# -- toddler-proofing: deterministic guards, checked before any work --
+# The resident may never run wild: these are hard code limits, not
+# model judgment. A tripped guard logs one line and the tick does
+# nothing else.
+TEMP_HOLD_C = 85.0           # at/above: no work at all (THERMAL_HOLD)
+TEMP_MAINT_ONLY_C = 78.0     # at/above: maintenance only, no THINK
+DISK_FLOOR_FRAC = 0.05       # below: no cube saves (DISK_HOLD)
+WORK_PER_HOUR = 6            # max maintenance executions per hour
+LOG_MAX_BYTES = 10_000_000   # dweller log rotation ceiling
+RSS_CAP_KB = 1_000_000       # self memory ceiling (~1 GB): exit if hit
 
 
 def read_temp_c():
@@ -72,6 +85,24 @@ def telemetry_snapshot():
             "ledger_trend_j_per_h": 0.0}
 
 
+def community_snapshot(path=STATE_PATH, now=None):
+    """Community drive source (Zak, 2026-10-20): the MHD Transduction
+    campaign — spreading and developing the theory — monitored by the
+    daily update and engagement report. State file carries the last
+    report/check timestamps; deficits age from them. Missing or
+    unreadable file -> neutral (deficit 0), never a crash."""
+    now = now if now is not None else time.time()
+    try:
+        st = json.load(open(path))
+    except (OSError, ValueError):
+        return {"oldest_unchecked_h": 0.0, "family_signal_age_h": 0.0}
+    def age_h(key):
+        ts = st.get(key)
+        return max(0.0, (now - ts) / 3600.0) if ts else 0.0
+    return {"oldest_unchecked_h": age_h("last_campaign_check_ts"),
+            "family_signal_age_h": age_h("last_engagement_report_ts")}
+
+
 class Dweller:
     def __init__(self, cube, log_fn, meter_fn=None, yield_fn=None,
                  telemetry_fn=telemetry_snapshot, idle_w=45.0):
@@ -85,6 +116,7 @@ class Dweller:
         self.cycles = []                # health-audit joule cycles
         self.joules_today = 0.0
         self.ticks = 0
+        self.work_times = []            # maintenance execution times
 
     def tick(self, ts=None, env_events=()):
         ts = ts if ts is not None else time.time()
@@ -94,8 +126,21 @@ class Dweller:
                    "note": "human on the machine — no work"}
             self.log_fn(rec)
             return rec
-        snap = {"telemetry": self.telemetry_fn(),
+        tel = self.telemetry_fn()
+        # hard guards before any decision: heat and disk are the body
+        if tel.get("temp_c", 0.0) >= TEMP_HOLD_C:
+            rec = {"ts": ts, "mode": "THERMAL_HOLD",
+                   "temp_c": tel["temp_c"]}
+            self.log_fn(rec)
+            return rec
+        if tel.get("disk_free_frac", 1.0) < DISK_FLOOR_FRAC:
+            rec = {"ts": ts, "mode": "DISK_HOLD",
+                   "disk_free_frac": tel["disk_free_frac"]}
+            self.log_fn(rec)
+            return rec
+        snap = {"telemetry": tel,
                 "joules_today": self.joules_today,
+                "community": community_snapshot(now=ts),
                 **drive_x.cube_snapshot(self.cube,
                                         unparsed_bytes=UNPARSED_BYTES)}
         decision = circadian.circadian_decision(
@@ -103,8 +148,21 @@ class Dweller:
             joule_cycles=self.cycles[-24:], state=self.state)
         if decision["drive"]:
             self.state["last_served"][decision["drive"]] = ts
+        # thermal demotion: hot body does maintenance, never THINK
+        if tel.get("temp_c", 0.0) >= TEMP_MAINT_ONLY_C \
+                and decision["mode"] == "THINK":
+            decision = {**decision, "mode": "REST",
+                        "task": "cube_maintenance",
+                        "note": "thermal demotion"}
+        # rate cap: maintenance executions per hour are hard-capped
+        self.work_times = [t for t in self.work_times if ts - t < 3600]
+        if decision["task"] in ("cube_maintenance", "condense") \
+                and len(self.work_times) >= WORK_PER_HOUR:
+            decision = {**decision, "mode": "SLEEP", "task": None,
+                        "note": "rate_capped"}
         metered = None
         if decision["task"] in ("cube_maintenance", "condense"):
+            self.work_times.append(ts)
             if self.meter_fn:
                 metered = self.meter_fn(2.0)
             result = self.cube.idle_cycle(now=ts)
@@ -168,11 +226,41 @@ def dry_run():
     return True
 
 
+def _rss_kb():
+    try:
+        for line in open("/proc/self/status"):
+            if line.startswith("VmRSS"):
+                return int(line.split()[1])
+    except OSError:
+        pass
+    return 0
+
+
+def _rotate_log():
+    if os.path.exists(LOG_PATH) \
+            and os.path.getsize(LOG_PATH) > LOG_MAX_BYTES:
+        for i in (2, 1):
+            src = f"{LOG_PATH}.{i}"
+            if os.path.exists(src):
+                os.replace(src, f"{LOG_PATH}.{i + 1}")
+        os.replace(LOG_PATH, f"{LOG_PATH}.1")
+
+
 def live():
+    import fcntl
+    os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+    # one resident only: a second instance is a toddler with a twin
+    lockf = open(os.path.join(os.path.dirname(LOG_PATH),
+                              "dweller.lock"), "w")
+    try:
+        fcntl.flock(lockf, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        print("dweller already running — refusing a second resident")
+        return
     cube = Cube(model_id="dweller")
     if os.path.exists(CUBE_PATH):
         cube.load(CUBE_PATH)
-    os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+    _rotate_log()
     logf = open(LOG_PATH, "a")
 
     def log(rec):
@@ -181,11 +269,28 @@ def live():
     d = Dweller(cube, log, meter_fn=_meter_factory())
     print("dweller live: resident wrapper up "
           f"(cube {len(cube.entries)} entries, log {LOG_PATH})")
+    errors = 0
     while True:
-        d.tick()
-        if d.ticks % 10 == 0:
-            cube.save(CUBE_PATH)
-        time.sleep(TICK_S)
+        try:
+            d.tick()
+            errors = 0
+            if d.ticks % 10 == 0:
+                _rotate_log()
+                if _rss_kb() > RSS_CAP_KB:
+                    log({"mode": "EXIT", "note": "rss cap — leak guard"})
+                    return
+                tel = telemetry_snapshot()
+                if tel["disk_free_frac"] >= DISK_FLOOR_FRAC:
+                    cube.save(CUBE_PATH)
+            time.sleep(TICK_S)
+        except Exception as e:  # a bad tick must never kill the body
+            errors += 1
+            try:
+                log({"mode": "ERROR", "error": str(e)[:200],
+                     "streak": errors})
+            except Exception:
+                pass
+            time.sleep(min(1800.0, 30.0 * (2 ** errors)))
 
 
 if __name__ == "__main__":
