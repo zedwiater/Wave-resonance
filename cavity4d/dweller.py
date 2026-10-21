@@ -62,7 +62,8 @@ UNPARSED_BYTES = 1_400_000_000   # Zak<->Gemini Takeout backlog (known)
 # nothing else.
 TEMP_HOLD_C = 85.0           # at/above: no work at all (THERMAL_HOLD)
 TEMP_MAINT_ONLY_C = 78.0     # at/above: maintenance only, no THINK
-DISK_FLOOR_FRAC = 0.05       # below: no cube saves (DISK_HOLD)
+DISK_FLOOR_FRAC = 0.15       # below: no cube saves (DISK_HOLD)
+DISK_WARN_FRAC = 0.20        # below: disk_warn flag on tick records
 WORK_PER_HOUR = 6            # max maintenance executions per hour
 LOG_MAX_BYTES = 10_000_000   # dweller log rotation ceiling
 RSS_CAP_KB = 1_000_000       # self memory ceiling (~1 GB): exit if hit
@@ -78,11 +79,44 @@ def read_temp_c():
     return max(vals) if vals else 50.0
 
 
+def read_vram_used_frac():
+    """GPU VRAM occupancy (RX 6600 XT = card2) — the resident feeling
+    whether its organs are loaded. None when the sysfs files are
+    absent (dry-run VM, different card index)."""
+    try:
+        used = int(open("/sys/class/drm/card2/device/"
+                        "mem_info_vram_used").read().strip())
+        total = int(open("/sys/class/drm/card2/device/"
+                         "mem_info_vram_total").read().strip())
+        return used / total if total else None
+    except (OSError, ValueError):
+        return None
+
+
+def _health_ok(port):
+    import urllib.request
+    try:
+        with urllib.request.urlopen(
+                f"http://127.0.0.1:{port}/health", timeout=1) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+def read_organs():
+    """Which model organs are awake: Gemma on :8080, the second
+    (bilateral partner) on :8081."""
+    return {"gemma_8080": _health_ok(8080),
+            "second_8081": _health_ok(8081)}
+
+
 def telemetry_snapshot():
     free = shutil.disk_usage("/").free
     total = shutil.disk_usage("/").total
     return {"disk_free_frac": free / total, "temp_c": read_temp_c(),
-            "ledger_trend_j_per_h": 0.0}
+            "ledger_trend_j_per_h": 0.0,
+            "vram_used_frac": read_vram_used_frac(),
+            "organs": read_organs()}
 
 
 def community_snapshot(path=STATE_PATH, now=None):
@@ -141,6 +175,7 @@ class Dweller:
         snap = {"telemetry": tel,
                 "joules_today": self.joules_today,
                 "community": community_snapshot(now=ts),
+                "organs": tel.get("organs"),
                 **drive_x.cube_snapshot(self.cube,
                                         unparsed_bytes=UNPARSED_BYTES)}
         decision = circadian.circadian_decision(
@@ -178,6 +213,13 @@ class Dweller:
                     {"ts": ts, "joules_actual": actual,
                      "joules_self": decision.get("est_joules", 0.0)})
         rec = {"ts": ts, **decision}
+        # body sense passthrough: the tick log shows the resident its
+        # own VRAM and which organs are awake (deficits don't use
+        # these yet — feeling precedes acting)
+        rec["organs"] = tel.get("organs")
+        rec["vram_used_frac"] = tel.get("vram_used_frac")
+        if tel.get("disk_free_frac", 1.0) < DISK_WARN_FRAC:
+            rec["disk_warn"] = True
         self.log_fn(rec)
         return rec
 
