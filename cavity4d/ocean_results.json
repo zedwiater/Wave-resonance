@@ -1,0 +1,5022 @@
+{
+ "v1": {
+  "gates": {
+   "G1_settled_classification": {
+    "accuracy": 0.5,
+    "threshold": 0.875,
+    "pass": false,
+    "whole_cavity_control_accuracy": 0.9375
+   },
+   "G2_dual_clock_transient": {
+    "detector": "spike-band phase coherence of the complex delta, threshold calibrated on 30 disjoint non-transient calibration trials (max + 0.02), same threshold both taps",
+    "threshold_calibrated": 0.7956404501113816,
+    "calibration_coherence_max": 0.7756404501113816,
+    "drive_end_detected": 2,
+    "settled_detected": 0,
+    "n_transient": 2,
+    "false_positives_drive_end": 1,
+    "false_positives_settled": 0,
+    "coherence_by_scenario": {
+     "OC01": {
+      "DRIVE_END": 0.644,
+      "SETTLED": 0.669
+     },
+     "OC02": {
+      "DRIVE_END": 0.684,
+      "SETTLED": 0.719
+     },
+     "OC03": {
+      "DRIVE_END": 0.536,
+      "SETTLED": 0.639
+     },
+     "OC04": {
+      "DRIVE_END": 0.814,
+      "SETTLED": 0.705
+     },
+     "OC05": {
+      "DRIVE_END": 0.718,
+      "SETTLED": 0.75
+     },
+     "OC06": {
+      "DRIVE_END": 0.732,
+      "SETTLED": 0.772
+     },
+     "OC07": {
+      "DRIVE_END": 0.473,
+      "SETTLED": 0.661
+     },
+     "OC08": {
+      "DRIVE_END": 0.546,
+      "SETTLED": 0.608
+     },
+     "OC09": {
+      "DRIVE_END": 0.525,
+      "SETTLED": 0.638
+     },
+     "OC10": {
+      "DRIVE_END": 0.557,
+      "SETTLED": 0.669
+     },
+     "OC11": {
+      "DRIVE_END": 0.579,
+      "SETTLED": 0.671
+     },
+     "OC12": {
+      "DRIVE_END": 0.622,
+      "SETTLED": 0.602
+     },
+     "OC13": {
+      "DRIVE_END": 0.179,
+      "SETTLED": 0.332
+     },
+     "OC14": {
+      "DRIVE_END": 0.202,
+      "SETTLED": 0.292
+     },
+     "OC15": {
+      "DRIVE_END": 0.859,
+      "SETTLED": 0.789
+     },
+     "OC16": {
+      "DRIVE_END": 0.884,
+      "SETTLED": 0.781
+     }
+    },
+    "diagnostic_residual_detector": {
+     "threshold": 0.2,
+     "drive_end_detected": 2,
+     "settled_detected": 2,
+     "false_positives_drive_end": 12,
+     "false_positives_settled": 14,
+     "note": "rejected: residual shares generically > 1 \u2014 single clean references do not span the realization cloud"
+    },
+    "pass": true
+   },
+   "G3_ledger_closure": {
+    "max_closure_error_frac": 1.576209999305594e-16,
+    "tolerance": 1e-09,
+    "mean_bleed_ratio": 0.0,
+    "pass": true
+   },
+   "G4_radiative_exit_decode": {
+    "usable_power_mean_rel_err": 0.0019891748068857334,
+    "remaining_power_mean_rel_err": 0.33381041639363285,
+    "threshold": 0.005,
+    "pass": false,
+    "armB_extended_features": {
+     "usable_power_mean_rel_err": 0.0018106175688004948,
+     "remaining_power_mean_rel_err": 0.2586445151812291
+    },
+    "remaining_abs_err_frac_of_p_in_armA": 0.00011882291642151202,
+    "label": "CONSTRUCTED-CHANNEL BOOKKEEPING CHECK (adjustment 3): the exit spectrum is computed from the same state variables as the ledger ground truth; this verifies decode consistency, not a physical channel."
+   },
+   "G5_edge_formatter": {
+    "status": "RUN",
+    "models": {
+     "gemma": {
+      "syslog": {
+       "n": 16,
+       "copy_fidelity": 1.0,
+       "end_to_end_accuracy": 0.5,
+       "mean_tokens_total": 66.5,
+       "max_tokens_total": 68,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "CALM_SWELL",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_syslog",
+         "handed": "STORM_FORCE",
+         "true_state": "BUILDING_SEA",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      },
+      "register": {
+       "n": 16,
+       "copy_fidelity": 1.0,
+       "end_to_end_accuracy": 0.5,
+       "mean_tokens_total": 39.875,
+       "max_tokens_total": 42,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "CALM_SWELL",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_register",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_register",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_register",
+         "handed": "STORM_FORCE",
+         "true_state": "BUILDING_SEA",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_register",
+         "handed": "CROSS_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 37,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 38,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 37,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_register",
+         "handed": "CROSS_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 37,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      }
+     },
+     "qwen3b": {
+      "syslog": {
+       "n": 16,
+       "copy_fidelity": 1.0,
+       "end_to_end_accuracy": 0.5,
+       "mean_tokens_total": 66.25,
+       "max_tokens_total": 68,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "CALM_SWELL",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_syslog",
+         "handed": "STORM_FORCE",
+         "true_state": "BUILDING_SEA",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      },
+      "register": {
+       "n": 16,
+       "copy_fidelity": 0.3125,
+       "end_to_end_accuracy": 0.25,
+       "mean_tokens_total": 49.4375,
+       "max_tokens_total": 74,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "SWELL s1 state=CALM_SWELL match=0.69 sev=none",
+         "field": "SWELL s1 state=CALM_SWELL match=0.69 sev=none",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 55,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "CALM_SWELL",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_register",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL sev=none",
+         "field": "CALM_SWELL sev=none",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_register",
+         "handed": "CALM_SWELL",
+         "true_state": "MODERATE_CHOP",
+         "answer": "CALM_SWELL sev=none To reproduce the state field exactly as given in your example, you would write:",
+         "field": "CALM_SWELL sev=none To reproduce the state field exactly as given in your example, you would write:",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 57,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA s1 match=0.60 sev=mid",
+         "field": "BUILDING_SEA s1 match=0.60 sev=mid",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 50,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_register",
+         "handed": "STORM_FORCE",
+         "true_state": "BUILDING_SEA",
+         "answer": "STORM_FORCE wave=sea s1 match=0.55 sev=high",
+         "field": "STORM_FORCE wave=sea s1 match=0.55 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 51,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_register",
+         "handed": "CROSS_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "HIGH_SEA_CROSS_SEA match=0.63 sev=high",
+         "field": "HIGH_SEA_CROSS_SEA match=0.63 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 50,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "BUILDING_SEA match=0.42 sev=mid buoys[wave] SWELL s1 state=BUILDING_SEA match=0.42 sev=mid",
+         "field": "BUILDING_SEA match=0.42 sev=mid buoys[wave] SWELL s1 state=BUILDING_SEA match=0.42 sev=mid",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 74,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "SWELL s1 wave=wave state=CROSS_SEA match=0.51 sev=high",
+         "field": "SWELL s1 wave=wave state=CROSS_SEA match=0.51 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 56,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 36,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_register",
+         "handed": "CROSS_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "SWELL_SEA s1 state=CROSS_SEA match=0.50 sev=high",
+         "field": "SWELL_SEA s1 state=CROSS_SEA match=0.50 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 54,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "STORM_FORCE",
+         "answer": "BUILDING_SEA sev=mid match=0.45 SE s1",
+         "field": "BUILDING_SEA sev=mid match=0.45 SE s1",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 51,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "SWELL s1 state=CALM_SWELL match=0.62 sev=none",
+         "field": "SWELL s1 state=CALM_SWELL match=0.62 sev=none",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 55,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      }
+     }
+    },
+    "gate": "syslog arm: copy fidelity 1.00 AND mean tokens_total <= 40 AND zero staging, both models",
+    "pass": false
+   }
+  },
+  "classification": {
+   "per_state": {
+    "CALM_SWELL": {
+     "n": 4,
+     "acc": 0.75
+    },
+    "MODERATE_CHOP": {
+     "n": 4,
+     "acc": 0.5
+    },
+    "BUILDING_SEA": {
+     "n": 3,
+     "acc": 0.3333333333333333
+    },
+    "CROSS_SEA": {
+     "n": 3,
+     "acc": 0.6666666666666666
+    },
+    "STORM_FORCE": {
+     "n": 2,
+     "acc": 0.0
+    }
+   },
+   "confusions": [
+    {
+     "scenario": "OC02",
+     "true": "CALM_SWELL",
+     "pred_settled": "MODERATE_CHOP",
+     "pred_drive_end": "CALM_SWELL",
+     "transient": false
+    },
+    {
+     "scenario": "OC04",
+     "true": "MODERATE_CHOP",
+     "pred_settled": "CALM_SWELL",
+     "pred_drive_end": "MODERATE_CHOP",
+     "transient": false
+    },
+    {
+     "scenario": "OC06",
+     "true": "MODERATE_CHOP",
+     "pred_settled": "CALM_SWELL",
+     "pred_drive_end": "MODERATE_CHOP",
+     "transient": false
+    },
+    {
+     "scenario": "OC08",
+     "true": "BUILDING_SEA",
+     "pred_settled": "STORM_FORCE",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    },
+    {
+     "scenario": "OC09",
+     "true": "BUILDING_SEA",
+     "pred_settled": "CROSS_SEA",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    },
+    {
+     "scenario": "OC10",
+     "true": "CROSS_SEA",
+     "pred_settled": "BUILDING_SEA",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    },
+    {
+     "scenario": "OC13",
+     "true": "STORM_FORCE",
+     "pred_settled": "CROSS_SEA",
+     "pred_drive_end": "MODERATE_CHOP",
+     "transient": false
+    },
+    {
+     "scenario": "OC14",
+     "true": "STORM_FORCE",
+     "pred_settled": "BUILDING_SEA",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    }
+   ],
+   "node_drive_end_accuracy": 0.6875,
+   "amplitude_arm_accuracy": {
+    "DRIVE_END": 0.75,
+    "SETTLED": 0.25
+   },
+   "whole_cavity_control_accuracy": 0.9375
+  },
+  "radiative_exit_rows": [
+   {
+    "scenario": "OC01",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.6080012348419765,
+    "usable_est": 0.6077736422767662,
+    "usable_rel_err": 0.00037432911673193305,
+    "remaining_gt": 0.002466727701672316,
+    "remaining_est": 0.0025194536843843006,
+    "remaining_rel_err": 0.021374869498663823,
+    "usable_est_armB": 0.6076863081360329,
+    "remaining_est_armB": 0.0025930650759409517,
+    "usable_rel_err_armB": 0.0005179705038354684,
+    "remaining_rel_err_armB": 0.051216587134034104
+   },
+   {
+    "scenario": "OC02",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.6128000809712846,
+    "usable_est": 0.6137371129959961,
+    "usable_rel_err": 0.001529099054990862,
+    "remaining_gt": 0.0025942732288103147,
+    "remaining_est": 0.0020660334863475804,
+    "remaining_rel_err": 0.20361762076424586,
+    "usable_est_armB": 0.6135346681206256,
+    "remaining_est_armB": 0.002258334791794341,
+    "usable_rel_err_armB": 0.0011987386623329617,
+    "remaining_rel_err_armB": 0.1294923114825607
+   },
+   {
+    "scenario": "OC03",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.6150319776022137,
+    "usable_est": 0.6151405554809561,
+    "usable_rel_err": 0.000176540216926145,
+    "remaining_gt": 0.0015838487092386857,
+    "remaining_est": 0.0017153204975053522,
+    "remaining_rel_err": 0.08300779455751274,
+    "usable_est_armB": 0.614755635565131,
+    "remaining_est_armB": 0.0020913092880788884,
+    "usable_rel_err_armB": 0.00044931328312402223,
+    "remaining_rel_err_armB": 0.3203971287662479
+   },
+   {
+    "scenario": "OC04",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.5222749425210795,
+    "usable_est": 0.5221646440349009,
+    "usable_rel_err": 0.00021118854687185052,
+    "remaining_gt": 0.008050313574309157,
+    "remaining_est": 0.007895429786088622,
+    "remaining_rel_err": 0.019239472697661585,
+    "usable_est_armB": 0.5220956520259231,
+    "remaining_est_armB": 0.007976790954117904,
+    "usable_rel_err_armB": 0.0003432875685954973,
+    "remaining_rel_err_armB": 0.009132888987813512
+   },
+   {
+    "scenario": "OC05",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.5101969756241879,
+    "usable_est": 0.5112975645049436,
+    "usable_rel_err": 0.002157184251061496,
+    "remaining_gt": 0.00817603283821841,
+    "remaining_est": 0.00841283337573601,
+    "remaining_rel_err": 0.028962767420733625,
+    "usable_est_armB": 0.5112253698633273,
+    "remaining_est_armB": 0.008454961149375925,
+    "usable_rel_err_armB": 0.0020156807826649903,
+    "remaining_rel_err_armB": 0.034115360918522866
+   },
+   {
+    "scenario": "OC06",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.5323799935730205,
+    "usable_est": 0.5330844005391406,
+    "usable_rel_err": 0.0013231281690219247,
+    "remaining_gt": 0.006268603272863956,
+    "remaining_est": 0.0067472272906954735,
+    "remaining_rel_err": 0.07635257759945104,
+    "usable_est_armB": 0.5333460138209623,
+    "remaining_est_armB": 0.006321468595444465,
+    "usable_rel_err_armB": 0.001814531461744894,
+    "remaining_rel_err_armB": 0.008433349548432417
+   },
+   {
+    "scenario": "OC07",
+    "true_state": "BUILDING_SEA",
+    "usable_gt": 0.6059169733498656,
+    "usable_est": 0.6052639458908772,
+    "usable_rel_err": 0.0010777507277574864,
+    "remaining_gt": 0.001282784218893928,
+    "remaining_est": 0.001977506262367444,
+    "remaining_rel_err": 0.5415735813093612,
+    "usable_est_armB": 0.6054023868186369,
+    "remaining_est_armB": 0.0017727408067164004,
+    "usable_rel_err_armB": 0.0008492690481730097,
+    "remaining_rel_err_armB": 0.3819477824921591
+   },
+   {
+    "scenario": "OC08",
+    "true_state": "BUILDING_SEA",
+    "usable_gt": 0.6212605624409809,
+    "usable_est": 0.6224695809236086,
+    "usable_rel_err": 0.0019460731224871877,
+    "remaining_gt": 0.0007482402516003937,
+    "remaining_est": 0.0003224881453817638,
+    "remaining_rel_err": 0.5690045480819811,
+    "usable_est_armB": 0.6223584179438799,
+    "remaining_est_armB": 0.00045398680136693285,
+    "usable_rel_err_armB": 0.001767141790854101,
+    "remaining_rel_err_armB": 0.393260653385178
+   },
+   {
+    "scenario": "OC09",
+    "true_state": "BUILDING_SEA",
+    "usable_gt": 0.6013183910432356,
+    "usable_est": 0.6002827096850604,
+    "usable_rel_err": 0.0017223510433106899,
+    "remaining_gt": 0.0014003377485388457,
+    "remaining_est": 0.0022141309896799633,
+    "remaining_rel_err": 0.5811406869451701,
+    "usable_est_armB": 0.6002981465580443,
+    "remaining_est_armB": 0.002080914415156473,
+    "usable_rel_err_armB": 0.00169667933059772,
+    "remaining_rel_err_armB": 0.48600894129131456
+   },
+   {
+    "scenario": "OC10",
+    "true_state": "CROSS_SEA",
+    "usable_gt": 0.6295771503079892,
+    "usable_est": 0.6302963888251578,
+    "usable_rel_err": 0.0011424152176055709,
+    "remaining_gt": 0.0006308519496611616,
+    "remaining_est": 0.0003628745789695637,
+    "remaining_rel_err": 0.42478646667499703,
+    "usable_est_armB": 0.630153287804466,
+    "remaining_est_armB": 0.0004259490336920744,
+    "usable_rel_err_armB": 0.0009151181808217375,
+    "remaining_rel_err_armB": 0.3248034916578178
+   },
+   {
+    "scenario": "OC11",
+    "true_state": "CROSS_SEA",
+    "usable_gt": 0.6224435440674595,
+    "usable_est": 0.6214623902081781,
+    "usable_rel_err": 0.0015762937356052008,
+    "remaining_gt": 0.0008033322832058112,
+    "remaining_est": 0.0014372269460272142,
+    "remaining_rel_err": 0.7890815246360532,
+    "usable_est_armB": 0.6215312824657077,
+    "remaining_est_armB": 0.0013195779762431234,
+    "usable_rel_err_armB": 0.0014656134045354814,
+    "remaining_rel_err_armB": 0.6426303334619652
+   },
+   {
+    "scenario": "OC12",
+    "true_state": "CROSS_SEA",
+    "usable_gt": 0.630353992661174,
+    "usable_est": 0.629580448842596,
+    "usable_rel_err": 0.0012271577995600384,
+    "remaining_gt": 0.0007159135171555947,
+    "remaining_est": 0.0005871103697833636,
+    "remaining_rel_err": 0.17991439508501048,
+    "usable_est_armB": 0.6295430461586482,
+    "remaining_est_armB": 0.0006023209670811781,
+    "usable_rel_err_armB": 0.0012864937986704803,
+    "remaining_rel_err_armB": 0.15866797783862588
+   },
+   {
+    "scenario": "OC13",
+    "true_state": "STORM_FORCE",
+    "usable_gt": 0.6263438761739641,
+    "usable_est": 0.6262140418499766,
+    "usable_rel_err": 0.00020728920474260044,
+    "remaining_gt": 0.0006160294044162172,
+    "remaining_est": 0.00041890380722471165,
+    "remaining_rel_err": 0.3199938116238339,
+    "usable_est_armB": 0.6261951725815238,
+    "remaining_est_armB": 0.0005239567056825973,
+    "usable_rel_err_armB": 0.0002374152571726351,
+    "remaining_rel_err_armB": 0.14946153231252488
+   },
+   {
+    "scenario": "OC14",
+    "true_state": "STORM_FORCE",
+    "usable_gt": 0.6321415420191793,
+    "usable_est": 0.6328951360220529,
+    "usable_rel_err": 0.0011921285863709392,
+    "remaining_gt": 0.0006895777582013909,
+    "remaining_est": 0.0001141300481815327,
+    "remaining_rel_err": 0.8344928518587732,
+    "usable_est_armB": 0.6326780161018047,
+    "remaining_est_armB": 0.00043523633645732324,
+    "usable_rel_err_armB": 0.0008486613313086048,
+    "remaining_rel_err_armB": 0.3688364636461888
+   },
+   {
+    "scenario": "OC15",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.5589022003410422,
+    "usable_est": 0.5562659887190992,
+    "usable_rel_err": 0.004716767299063119,
+    "remaining_gt": 0.004587702712114311,
+    "remaining_est": 0.006578471950663011,
+    "remaining_rel_err": 0.43393597263655825,
+    "usable_est_armB": 0.5589159299868007,
+    "remaining_est_armB": 0.004069319416151181,
+    "usable_rel_err_armB": 2.456538147486673e-05,
+    "remaining_rel_err_armB": 0.11299409061408539
+   },
+   {
+    "scenario": "OC16",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.36108206661292186,
+    "usable_est": 0.3570209402061312,
+    "usable_rel_err": 0.011247100818064692,
+    "remaining_gt": 0.016184808861773953,
+    "remaining_est": 0.019979947805104856,
+    "remaining_rel_err": 0.23448772090811906,
+    "usable_est_armB": 0.35619323160543553,
+    "remaining_est_armB": 0.025360193062389163,
+    "usable_rel_err_armB": 0.013539401314901445,
+    "remaining_rel_err_armB": 0.5669133493621953
+   }
+  ],
+  "scenarios": [
+   {
+    "scenario_id": "OC01",
+    "true_state": "CALM_SWELL",
+    "transient": false,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.6548924812861803,
+       "Tp": 11.89016829283855,
+       "gamma": 3.1052673961480664,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.8243728460153068,
+      "MODERATE_CHOP": 0.5810978800713494,
+      "BUILDING_SEA": 0.5502626118629701,
+      "CROSS_SEA": 0.7385552518268164,
+      "STORM_FORCE": 0.39282643898908404
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6894869024281944,
+      "MODERATE_CHOP": 0.5856410779543175,
+      "BUILDING_SEA": 0.5289342321187486,
+      "CROSS_SEA": 0.6427374195508607,
+      "STORM_FORCE": 0.5837803511926284
+     }
+    },
+    "whole_cavity_pred": "CALM_SWELL",
+    "ledger": {
+     "power_in_through_flow": 6.104679625436488,
+     "power_tapped_by_nodes": 0.6080012348419765,
+     "power_transmitted_S21": 4.110371893230249,
+     "power_reflected_S11": 1.3838397696625906,
+     "power_residual_second_cavity": 0.002466727701672316,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09959592839378595,
+     "residual_ratio": 0.00040407160621405144,
+     "transmitted_ratio": 0.6733149232112823,
+     "reflected_ratio": 0.22668507678871766,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.21540530138089187,
+      "phase_coherence": 0.6438547139804724,
+      "band_energy_share": 0.972913561621982
+     },
+     "SETTLED": {
+      "residual_share": 0.4615350095239882,
+      "phase_coherence": 0.6690230275775751,
+      "band_energy_share": 0.9939550846329691
+     }
+    },
+    "diss_proxy": 20.734919575043804
+   },
+   {
+    "scenario_id": "OC02",
+    "true_state": "CALM_SWELL",
+    "transient": false,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.6161975852227496,
+       "Tp": 12.21900485585343,
+       "gamma": 3.062673283884199,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "MODERATE_CHOP"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.7442189829660961,
+      "MODERATE_CHOP": 0.5346837262281952,
+      "BUILDING_SEA": 0.43488342606389957,
+      "CROSS_SEA": 0.6145595032316039,
+      "STORM_FORCE": 0.4752990088973744
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5361693256669212,
+      "MODERATE_CHOP": 0.5741801734066188,
+      "BUILDING_SEA": 0.4151482176477347,
+      "CROSS_SEA": 0.5257969111056517,
+      "STORM_FORCE": 0.45390175138340777
+     }
+    },
+    "whole_cavity_pred": "CALM_SWELL",
+    "ledger": {
+     "power_in_through_flow": 6.153943542000947,
+     "power_tapped_by_nodes": 0.6128000809712846,
+     "power_transmitted_S21": 4.0591044701673455,
+     "power_reflected_S11": 1.4794447176335073,
+     "power_residual_second_cavity": 0.0025942732288103147,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09957843727179098,
+     "residual_ratio": 0.00042156272820903875,
+     "transmitted_ratio": 0.6595940379471751,
+     "reflected_ratio": 0.24040596205282502,
+     "closure_error_frac": 1.44326709148088e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.3462989874665796,
+      "phase_coherence": 0.6840281393368529,
+      "band_energy_share": 0.9571269269366403
+     },
+     "SETTLED": {
+      "residual_share": 2.572194807564883,
+      "phase_coherence": 0.7188937020017863,
+      "band_energy_share": 0.986308325281635
+     }
+    },
+    "diss_proxy": 21.155043212524976
+   },
+   {
+    "scenario_id": "OC03",
+    "true_state": "CALM_SWELL",
+    "transient": false,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.6186518082849267,
+       "Tp": 11.058860881903989,
+       "gamma": 3.6306620681381254,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.7564636858854196,
+      "MODERATE_CHOP": 0.4092177020203985,
+      "BUILDING_SEA": 0.4623953860189544,
+      "CROSS_SEA": 0.7236870717712194,
+      "STORM_FORCE": 0.3351737630480012
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5725350996111357,
+      "MODERATE_CHOP": 0.39350085691454356,
+      "BUILDING_SEA": 0.5218983651346029,
+      "CROSS_SEA": 0.5226703166235377,
+      "STORM_FORCE": 0.4856750580657219
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.166158263114525,
+     "power_tapped_by_nodes": 0.6150319776022137,
+     "power_transmitted_S21": 4.536009168714621,
+     "power_reflected_S11": 1.0135332680884517,
+     "power_residual_second_cavity": 0.0015838487092386857,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09974313849212836,
+     "residual_ratio": 0.00025686150787162637,
+     "transmitted_ratio": 0.7356297025083952,
+     "reflected_ratio": 0.1643702974916048,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.3447091505024605,
+      "phase_coherence": 0.5356693070023999,
+      "band_energy_share": 0.978996628726748
+     },
+     "SETTLED": {
+      "residual_share": 0.6514354881791257,
+      "phase_coherence": 0.6386755214468032,
+      "band_energy_share": 0.9921459146526165
+     }
+    },
+    "diss_proxy": 21.617224688424074
+   },
+   {
+    "scenario_id": "OC04",
+    "true_state": "MODERATE_CHOP",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.3286826322252998,
+       "Tp": 4.864082451294676,
+       "gamma": 1.3095594807168833,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.7207154969703825,
+      "MODERATE_CHOP": 0.8761927970971951,
+      "BUILDING_SEA": 0.7567395854339004,
+      "CROSS_SEA": 0.7767582650319966,
+      "STORM_FORCE": 0.6386680707416843
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.776200344472145,
+      "MODERATE_CHOP": 0.7572344935721085,
+      "BUILDING_SEA": 0.7194958202350631,
+      "CROSS_SEA": 0.7627862923848708,
+      "STORM_FORCE": 0.6389508078258873
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "ledger": {
+     "power_in_through_flow": 5.3032525609538865,
+     "power_tapped_by_nodes": 0.5222749425210795,
+     "power_transmitted_S21": 1.8503134398149559,
+     "power_reflected_S11": 2.922613865043542,
+     "power_residual_second_cavity": 0.008050313574309157,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.0984820044903045,
+     "residual_ratio": 0.0015179955096954994,
+     "transmitted_ratio": 0.34890162566237337,
+     "reflected_ratio": 0.5510983743376265,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.17041074598115843,
+      "phase_coherence": 0.8137278528889228,
+      "band_energy_share": 0.9936399726215768
+     },
+     "SETTLED": {
+      "residual_share": 1.6240263566754052,
+      "phase_coherence": 0.7050881951734521,
+      "band_energy_share": 0.9969332910580695
+     }
+    },
+    "diss_proxy": 14.967706991731797
+   },
+   {
+    "scenario_id": "OC05",
+    "true_state": "MODERATE_CHOP",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.3358128424011735,
+       "Tp": 4.777749856129871,
+       "gamma": 1.6781700770004604,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "MODERATE_CHOP"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5463672819242062,
+      "MODERATE_CHOP": 0.8706581444820053,
+      "BUILDING_SEA": 0.7067102683821616,
+      "CROSS_SEA": 0.6180910113216217,
+      "STORM_FORCE": 0.6037284968458458
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5116138521597982,
+      "MODERATE_CHOP": 0.6698666787986098,
+      "BUILDING_SEA": 0.503313424602085,
+      "CROSS_SEA": 0.5170665533514983,
+      "STORM_FORCE": 0.4220171914268607
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "ledger": {
+     "power_in_through_flow": 5.183730084624063,
+     "power_tapped_by_nodes": 0.5101969756241879,
+     "power_transmitted_S21": 1.6664143919239092,
+     "power_reflected_S11": 2.998942684237748,
+     "power_residual_second_cavity": 0.00817603283821841,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09842275104900425,
+     "residual_ratio": 0.0015772489509957492,
+     "transmitted_ratio": 0.3214701314921496,
+     "reflected_ratio": 0.5785298685078505,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.19469435909760607,
+      "phase_coherence": 0.7183058220562175,
+      "band_energy_share": 0.9884401933849448
+     },
+     "SETTLED": {
+      "residual_share": 0.42683921227574784,
+      "phase_coherence": 0.7495239460063995,
+      "band_energy_share": 0.990301400812199
+     }
+    },
+    "diss_proxy": 14.202926383971898
+   },
+   {
+    "scenario_id": "OC06",
+    "true_state": "MODERATE_CHOP",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.4142788660702148,
+       "Tp": 5.066606319628869,
+       "gamma": 1.5121058684540993,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6375639196879732,
+      "MODERATE_CHOP": 0.8358311607548208,
+      "BUILDING_SEA": 0.6954218771498912,
+      "CROSS_SEA": 0.6431642452376598,
+      "STORM_FORCE": 0.6393920099511704
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6671344278563446,
+      "MODERATE_CHOP": 0.6619838425680286,
+      "BUILDING_SEA": 0.6253370336154134,
+      "CROSS_SEA": 0.6242965269386599,
+      "STORM_FORCE": 0.5747259511278235
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "ledger": {
+     "power_in_through_flow": 5.386485968458843,
+     "power_tapped_by_nodes": 0.5323799935730205,
+     "power_transmitted_S21": 1.9769505212187253,
+     "power_reflected_S11": 2.8708868503942337,
+     "power_residual_second_cavity": 0.006268603272863956,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09883623510586116,
+     "residual_ratio": 0.0011637648941388592,
+     "transmitted_ratio": 0.3670204531850588,
+     "reflected_ratio": 0.5329795468149412,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.2611739549958727,
+      "phase_coherence": 0.732093351678854,
+      "band_energy_share": 0.993562212914213
+     },
+     "SETTLED": {
+      "residual_share": 1.7319174991278352,
+      "phase_coherence": 0.7718402750556573,
+      "band_energy_share": 0.9950840910419513
+     }
+    },
+    "diss_proxy": 15.270180634553759
+   },
+   {
+    "scenario_id": "OC07",
+    "true_state": "BUILDING_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 2.2,
+     "components": [
+      {
+       "Hs": 2.0276787934518157,
+       "Tp": 7.081238391378642,
+       "gamma": 2.191923795521163,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6532270069759706,
+      "MODERATE_CHOP": 0.5225062095663477,
+      "BUILDING_SEA": 0.7247554733377752,
+      "CROSS_SEA": 0.7648016775181268,
+      "STORM_FORCE": 0.45160455541856526
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5173495245955807,
+      "MODERATE_CHOP": 0.3799931342271854,
+      "BUILDING_SEA": 0.5997259307460253,
+      "CROSS_SEA": 0.5130806752772595,
+      "STORM_FORCE": 0.5055185925072809
+     }
+    },
+    "whole_cavity_pred": "BUILDING_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.071997575687595,
+     "power_tapped_by_nodes": 0.6059169733498656,
+     "power_transmitted_S21": 3.3010894225399277,
+     "power_reflected_S11": 2.163708395578908,
+     "power_residual_second_cavity": 0.001282784218893928,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09978873769251322,
+     "residual_ratio": 0.00021126230748678537,
+     "transmitted_ratio": 0.5436578953452746,
+     "reflected_ratio": 0.35634210465472543,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.7119349013953966,
+      "phase_coherence": 0.4734001203521188,
+      "band_energy_share": 0.9703501088754564
+     },
+     "SETTLED": {
+      "residual_share": 0.7883298221698819,
+      "phase_coherence": 0.6614329945830664,
+      "band_energy_share": 0.9894610383831797
+     }
+    },
+    "diss_proxy": 20.323643003196963
+   },
+   {
+    "scenario_id": "OC08",
+    "true_state": "BUILDING_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 2.2,
+     "components": [
+      {
+       "Hs": 2.100741603963209,
+       "Tp": 7.656705617442912,
+       "gamma": 2.0535285349579606,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6173181484154073,
+      "MODERATE_CHOP": 0.5985197454898213,
+      "BUILDING_SEA": 0.5580079290038511,
+      "CROSS_SEA": 0.6524708083260318,
+      "STORM_FORCE": 0.5662297264158705
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5421061227317084,
+      "MODERATE_CHOP": 0.4409480833483397,
+      "BUILDING_SEA": 0.41904484047829377,
+      "CROSS_SEA": 0.4793292731957076,
+      "STORM_FORCE": 0.5456075574651736
+     }
+    },
+    "whole_cavity_pred": "BUILDING_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.220088026925813,
+     "power_tapped_by_nodes": 0.6212605624409809,
+     "power_transmitted_S21": 4.0693039929130395,
+     "power_reflected_S11": 1.5287752313201928,
+     "power_residual_second_cavity": 0.0007482402516003937,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09987970584204575,
+     "residual_ratio": 0.00012029415795425654,
+     "transmitted_ratio": 0.6542196790941933,
+     "reflected_ratio": 0.24578032090580676,
+     "closure_error_frac": 1.4279193732553885e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.7276755102050447,
+      "phase_coherence": 0.5463175374441113,
+      "band_energy_share": 0.9816392119568369
+     },
+     "SETTLED": {
+      "residual_share": 0.8110329365738679,
+      "phase_coherence": 0.6081813027142164,
+      "band_energy_share": 0.9950785197512704
+     }
+    },
+    "diss_proxy": 21.443355513148973
+   },
+   {
+    "scenario_id": "OC09",
+    "true_state": "BUILDING_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 2.2,
+     "components": [
+      {
+       "Hs": 2.0830518444983874,
+       "Tp": 7.118188829270371,
+       "gamma": 2.068934068664346,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6838334056654455,
+      "MODERATE_CHOP": 0.6136734073586103,
+      "BUILDING_SEA": 0.7174686573497371,
+      "CROSS_SEA": 0.7267542035116008,
+      "STORM_FORCE": 0.49864811256238817
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6199786489039005,
+      "MODERATE_CHOP": 0.5127018299762406,
+      "BUILDING_SEA": 0.5531641157910927,
+      "CROSS_SEA": 0.6347761862848751,
+      "STORM_FORCE": 0.5911357626560086
+     }
+    },
+    "whole_cavity_pred": "BUILDING_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.027187287917743,
+     "power_tapped_by_nodes": 0.6013183910432356,
+     "power_transmitted_S21": 3.312507508016676,
+     "power_reflected_S11": 2.1119610511092928,
+     "power_residual_second_cavity": 0.0014003377485388457,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09976766314341255,
+     "residual_ratio": 0.00023233685658748308,
+     "transmitted_ratio": 0.5495942551274315,
+     "reflected_ratio": 0.35040574487256854,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.8095596860564118,
+      "phase_coherence": 0.5249521007164526,
+      "band_energy_share": 0.9577066123342807
+     },
+     "SETTLED": {
+      "residual_share": 1.3933423534288862,
+      "phase_coherence": 0.6384667306631278,
+      "band_energy_share": 0.9852941929331394
+     }
+    },
+    "diss_proxy": 19.90716008008029
+   },
+   {
+    "scenario_id": "OC10",
+    "true_state": "CROSS_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.7804493814764855,
+     "components": [
+      {
+       "Hs": 1.42487443041403,
+       "Tp": 10.67132329900177,
+       "gamma": 3.4469626355876315,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.1394697867804873,
+       "Tp": 4.039702004228688,
+       "gamma": 1.1306618284788608,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5287421969789524,
+      "MODERATE_CHOP": 0.4618803047816651,
+      "BUILDING_SEA": 0.48288766080586676,
+      "CROSS_SEA": 0.5588695910164079,
+      "STORM_FORCE": 0.31731671195939165
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.40517300295399294,
+      "MODERATE_CHOP": 0.38058993702021926,
+      "BUILDING_SEA": 0.4249511858318972,
+      "CROSS_SEA": 0.40008808400363544,
+      "STORM_FORCE": 0.37079557530447765
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.3020800225765035,
+     "power_tapped_by_nodes": 0.6295771503079892,
+     "power_transmitted_S21": 4.866993824674838,
+     "power_reflected_S11": 0.8048781956440152,
+     "power_residual_second_cavity": 0.0006308519496611616,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09989989781986246,
+     "residual_ratio": 0.00010010218013754259,
+     "transmitted_ratio": 0.772283723348382,
+     "reflected_ratio": 0.12771627665161792,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.6825958649644641,
+      "phase_coherence": 0.5573569262046545,
+      "band_energy_share": 0.9439168461649265
+     },
+     "SETTLED": {
+      "residual_share": 1.3524348364345504,
+      "phase_coherence": 0.6690906637398126,
+      "band_energy_share": 0.9833447180528027
+     }
+    },
+    "diss_proxy": 23.152685017260406
+   },
+   {
+    "scenario_id": "OC11",
+    "true_state": "CROSS_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.7804493814764855,
+     "components": [
+      {
+       "Hs": 1.3831217712887773,
+       "Tp": 11.13247387040638,
+       "gamma": 3.134371952763029,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.0409056161540229,
+       "Tp": 4.196881638789557,
+       "gamma": 1.3270602856708464,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5897963711946556,
+      "MODERATE_CHOP": 0.4757887957664518,
+      "BUILDING_SEA": 0.5261108838155679,
+      "CROSS_SEA": 0.6678221920932093,
+      "STORM_FORCE": 0.2612484103885697
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.4474200033181226,
+      "MODERATE_CHOP": 0.5015975193983269,
+      "BUILDING_SEA": 0.3624337216991571,
+      "CROSS_SEA": 0.5101004457417865,
+      "STORM_FORCE": 0.28539243879679504
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.2324687635066525,
+     "power_tapped_by_nodes": 0.6224435440674595,
+     "power_transmitted_S21": 4.561426432806903,
+     "power_reflected_S11": 1.0477954543490844,
+     "power_residual_second_cavity": 0.0008033322832058112,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09987110528529088,
+     "residual_ratio": 0.00012889471470913915,
+     "transmitted_ratio": 0.7318811543052886,
+     "reflected_ratio": 0.16811884569471153,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.38112189670942653,
+      "phase_coherence": 0.5787068482329724,
+      "band_energy_share": 0.9386823321040352
+     },
+     "SETTLED": {
+      "residual_share": 0.8018656015238876,
+      "phase_coherence": 0.6714633872070211,
+      "band_energy_share": 0.985770697406354
+     }
+    },
+    "diss_proxy": 22.38667358512878
+   },
+   {
+    "scenario_id": "OC12",
+    "true_state": "CROSS_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.7804493814764855,
+     "components": [
+      {
+       "Hs": 1.3385324397461387,
+       "Tp": 10.20310348760607,
+       "gamma": 3.3422245716846977,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.1015376127244783,
+       "Tp": 4.177306010361378,
+       "gamma": 1.100534256317067,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.604258946230391,
+      "MODERATE_CHOP": 0.4740341081100737,
+      "BUILDING_SEA": 0.5344584260651861,
+      "CROSS_SEA": 0.7641094664779634,
+      "STORM_FORCE": 0.3205299805359768
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6346294305394725,
+      "MODERATE_CHOP": 0.4929872848953298,
+      "BUILDING_SEA": 0.6040758787408265,
+      "CROSS_SEA": 0.6930400344339889,
+      "STORM_FORCE": 0.587944380788913
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "ledger": {
+     "power_in_through_flow": 6.310699061783296,
+     "power_tapped_by_nodes": 0.630353992661174,
+     "power_transmitted_S21": 4.767530565465967,
+     "power_reflected_S11": 0.9120985901389993,
+     "power_residual_second_cavity": 0.0007159135171555947,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09988655559231288,
+     "residual_ratio": 0.00011344440768710808,
+     "transmitted_ratio": 0.7554678996400668,
+     "reflected_ratio": 0.14453210035993314,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.6151211078420556,
+      "phase_coherence": 0.6218351515995135,
+      "band_energy_share": 0.9438296443519161
+     },
+     "SETTLED": {
+      "residual_share": 0.8193142713351246,
+      "phase_coherence": 0.601947217794731,
+      "band_energy_share": 0.994066203215176
+     }
+    },
+    "diss_proxy": 22.99993866094007
+   },
+   {
+    "scenario_id": "OC13",
+    "true_state": "STORM_FORCE",
+    "transient": false,
+    "params": {
+     "Hs_total": 4.8,
+     "components": [
+      {
+       "Hs": 4.75944693146566,
+       "Tp": 8.607631798056245,
+       "gamma": 1.0460553945446658,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5722149156368611,
+      "MODERATE_CHOP": 0.6051661840272347,
+      "BUILDING_SEA": 0.561026345348816,
+      "CROSS_SEA": 0.5470497911721529,
+      "STORM_FORCE": 0.49440401317917393
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.43721871382055855,
+      "MODERATE_CHOP": 0.40120361547419287,
+      "BUILDING_SEA": 0.41395996096972154,
+      "CROSS_SEA": 0.4951384111307857,
+      "STORM_FORCE": 0.3666034663602221
+     }
+    },
+    "whole_cavity_pred": "STORM_FORCE",
+    "ledger": {
+     "power_in_through_flow": 6.269599055783803,
+     "power_tapped_by_nodes": 0.6263438761739641,
+     "power_transmitted_S21": 4.821760735775148,
+     "power_reflected_S11": 0.8208784144302745,
+     "power_residual_second_cavity": 0.0006160294044162172,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09990174341310584,
+     "residual_ratio": 9.825658689416837e-05,
+     "transmitted_ratio": 0.7690700302959562,
+     "reflected_ratio": 0.13092996970404375,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 5.140316090150967,
+      "phase_coherence": 0.1794269763163555,
+      "band_energy_share": 0.9470184146341963
+     },
+     "SETTLED": {
+      "residual_share": 1.2046802092724838,
+      "phase_coherence": 0.3322578474593025,
+      "band_energy_share": 0.9937174899197974
+     }
+    },
+    "diss_proxy": 23.07176294058165
+   },
+   {
+    "scenario_id": "OC14",
+    "true_state": "STORM_FORCE",
+    "transient": false,
+    "params": {
+     "Hs_total": 4.8,
+     "components": [
+      {
+       "Hs": 5.168090748577042,
+       "Tp": 9.122779970341728,
+       "gamma": 1.1154224395616685,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.4199076681141388,
+      "MODERATE_CHOP": 0.36346841695521814,
+      "BUILDING_SEA": 0.3914906720025663,
+      "CROSS_SEA": 0.4603416053956615,
+      "STORM_FORCE": 0.3931741468247406
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.3948766014390588,
+      "MODERATE_CHOP": 0.3330188678741228,
+      "BUILDING_SEA": 0.4523717889556954,
+      "CROSS_SEA": 0.44506348764735393,
+      "STORM_FORCE": 0.37624294375093237
+     }
+    },
+    "whole_cavity_pred": "STORM_FORCE",
+    "ledger": {
+     "power_in_through_flow": 6.328311197773807,
+     "power_tapped_by_nodes": 0.6321415420191793,
+     "power_transmitted_S21": 4.907791927770019,
+     "power_reflected_S11": 0.7876881502264084,
+     "power_residual_second_cavity": 0.0006895777582013909,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09989103289382417,
+     "residual_ratio": 0.00010896710617581081,
+     "transmitted_ratio": 0.7755294855753138,
+     "reflected_ratio": 0.12447051442468628,
+     "closure_error_frac": 1.4034999100748575e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.4547304910057965,
+      "phase_coherence": 0.202473374636641,
+      "band_energy_share": 0.865704469625526
+     },
+     "SETTLED": {
+      "residual_share": 1.4518839818475553,
+      "phase_coherence": 0.2922500073651226,
+      "band_energy_share": 0.9661291247267159
+     }
+    },
+    "diss_proxy": 22.688140996724197
+   },
+   {
+    "scenario_id": "OC15",
+    "true_state": "CALM_SWELL",
+    "transient": true,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.5901863206863601,
+       "Tp": 12.218442671004198,
+       "gamma": 3.572880689496993,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.8359591181439484,
+      "MODERATE_CHOP": 0.4893984228038825,
+      "BUILDING_SEA": 0.5132456440483658,
+      "CROSS_SEA": 0.7175343360925247,
+      "STORM_FORCE": 0.3270146193867263
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6153061028698009,
+      "MODERATE_CHOP": 0.4811803336907325,
+      "BUILDING_SEA": 0.4976492992805143,
+      "CROSS_SEA": 0.6094194125166182,
+      "STORM_FORCE": 0.37374108271270884
+     }
+    },
+    "whole_cavity_pred": "CALM_SWELL",
+    "ledger": {
+     "power_in_through_flow": 5.634899030531566,
+     "power_tapped_by_nodes": 0.5589022003410422,
+     "power_transmitted_S21": 3.592204590207365,
+     "power_reflected_S11": 1.4792045372710443,
+     "power_residual_second_cavity": 0.004587702712114311,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09918584118592777,
+     "residual_ratio": 0.0008141588140722253,
+     "transmitted_ratio": 0.6374922728417541,
+     "reflected_ratio": 0.26250772715824583,
+     "closure_error_frac": 1.576209999305594e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.4383307106333621,
+      "phase_coherence": 0.8585383336401677,
+      "band_energy_share": 0.9708759654770001
+     },
+     "SETTLED": {
+      "residual_share": 0.6342297024341487,
+      "phase_coherence": 0.78881220733977,
+      "band_energy_share": 0.9815427269833814
+     }
+    },
+    "diss_proxy": 17.856958869167272
+   },
+   {
+    "scenario_id": "OC16",
+    "true_state": "MODERATE_CHOP",
+    "transient": true,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.4151974103775324,
+       "Tp": 4.663920197539092,
+       "gamma": 1.4400786157783574,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "MODERATE_CHOP"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.709880327430168,
+      "MODERATE_CHOP": 0.889251076545531,
+      "BUILDING_SEA": 0.7952639193256279,
+      "CROSS_SEA": 0.7601848281810469,
+      "STORM_FORCE": 0.6069987681032367
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.8285133012346195,
+      "MODERATE_CHOP": 0.8737657155435521,
+      "BUILDING_SEA": 0.7696676804822349,
+      "CROSS_SEA": 0.7980587387045265,
+      "STORM_FORCE": 0.636108805853788
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "ledger": {
+     "power_in_through_flow": 3.7726687547469577,
+     "power_tapped_by_nodes": 0.36108206661292186,
+     "power_transmitted_S21": 1.4038962880663979,
+     "power_reflected_S11": 1.9915055912058643,
+     "power_residual_second_cavity": 0.016184808861773953,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09570998412160904,
+     "residual_ratio": 0.004290015878390974,
+     "transmitted_ratio": 0.3721228603226685,
+     "reflected_ratio": 0.5278771396773315,
+     "closure_error_frac": 1.1771221878180735e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.2847586150405787,
+      "phase_coherence": 0.8841053058301752,
+      "band_energy_share": 0.9968226849596173
+     },
+     "SETTLED": {
+      "residual_share": 0.4348076125797316,
+      "phase_coherence": 0.7807129926444213,
+      "band_energy_share": 0.9977101483297984
+     }
+    },
+    "diss_proxy": 10.391085152220722
+   }
+  ]
+ },
+ "v2": {
+  "header": {
+   "experiment": "wave-ocean-v1/v2 \u2014 ocean hydrodynamic cavity sim (transducer v2 architecture, ocean forcing)",
+   "directive": "v1: Zak 2026-10-21 16:52 EDT (Gemini-drafted spec, 'adjust where needed'). v2 re-run: Zak 2026-10-21 17:15 EDT \u2014 whole-pattern readout promoted to primary classifier",
+   "run_version": "v2 (whole-pattern primary)",
+   "scaling_disclosure": "Ocean band 0.04\u20132.0 Hz mapped LOGARITHMICALLY onto the 32-mode ladder (mode n <-> MODE_FREQS[n]); cavity dynamics are the audio sim's constants. A literal buoy cavity cannot resonate at ocean frequencies (kilometre wavelengths) \u2014 this is a scaled model of the architecture, not a physical buoy design.",
+   "energy_label": "All power figures are arbitrary simulated units (proxies), never joules.",
+   "parameters": {
+    "seed": 21021,
+    "rho_tap": 0.1,
+    "mu": 0.5,
+    "node_noise_power_per_mode": 0.001,
+    "modal_noise_db": 12.0,
+    "windows_s": {
+     "DRIVE_END": 0.3,
+     "SETTLED": 0.5
+    },
+    "mode_freqs_hz": [
+     0.04,
+     0.0454,
+     0.0515,
+     0.0584,
+     0.0663,
+     0.0752,
+     0.0853,
+     0.0968,
+     0.1098,
+     0.1245,
+     0.1413,
+     0.1603,
+     0.1819,
+     0.2063,
+     0.2341,
+     0.2655,
+     0.3013,
+     0.3418,
+     0.3878,
+     0.4399,
+     0.4991,
+     0.5662,
+     0.6424,
+     0.7288,
+     0.8268,
+     0.938,
+     1.0641,
+     1.2073,
+     1.3697,
+     1.5539,
+     1.7629,
+     2.0
+    ],
+    "sections": {
+     "SWELL": [
+      1,
+      8
+     ],
+     "SEA": [
+      9,
+      16
+     ],
+     "CHOP": [
+      17,
+      24
+     ],
+     "SPRAY": [
+      25,
+      32
+     ]
+    },
+    "state_defs": {
+     "CALM_SWELL": [
+      {
+       "Hs": 0.6,
+       "Tp": 12.0,
+       "gamma": 3.3,
+       "kind": "swell"
+      }
+     ],
+     "MODERATE_CHOP": [
+      {
+       "Hs": 1.3,
+       "Tp": 5.0,
+       "gamma": 1.5,
+       "kind": "sea"
+      }
+     ],
+     "BUILDING_SEA": [
+      {
+       "Hs": 2.2,
+       "Tp": 7.5,
+       "gamma": 2.0,
+       "kind": "sea"
+      }
+     ],
+     "CROSS_SEA": [
+      {
+       "Hs": 1.4,
+       "Tp": 11.0,
+       "gamma": 3.0,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.1,
+       "Tp": 4.2,
+       "gamma": 1.2,
+       "kind": "sea"
+      }
+     ],
+     "STORM_FORCE": [
+      {
+       "Hs": 4.8,
+       "Tp": 9.0,
+       "gamma": 1.0,
+       "kind": "sea"
+      }
+     ]
+    }
+   }
+  },
+  "gates": {
+   "G1prime_primary_classification": {
+    "readout": "whole-pattern power-spectrum NN at SETTLED \u2014 PRIMARY (promoted in v2)",
+    "accuracy": 0.9375,
+    "threshold": 0.875,
+    "pass": true,
+    "per_state": {
+     "CALM_SWELL": {
+      "n": 4,
+      "acc": 0.75
+     },
+     "MODERATE_CHOP": {
+      "n": 4,
+      "acc": 1.0
+     },
+     "BUILDING_SEA": {
+      "n": 3,
+      "acc": 1.0
+     },
+     "CROSS_SEA": {
+      "n": 3,
+      "acc": 1.0
+     },
+     "STORM_FORCE": {
+      "n": 2,
+      "acc": 1.0
+     }
+    },
+    "confusions": [
+     {
+      "scenario": "OC03",
+      "true": "CALM_SWELL",
+      "pred_primary": "CROSS_SEA",
+      "transient": false
+     }
+    ],
+    "v1_primary_readout_for_comparison": {
+     "readout": "per-section node composition at SETTLED (v1 primary)",
+     "accuracy_this_run": 0.5,
+     "accuracy_v1_run": 0.5
+    }
+   },
+   "G2_dual_clock_transient": {
+    "detector": "spike-band phase coherence of the complex delta, threshold calibrated on 30 disjoint non-transient calibration trials (max + 0.02), same threshold both taps",
+    "threshold_calibrated": 0.7956404501113816,
+    "calibration_coherence_max": 0.7756404501113816,
+    "drive_end_detected": 2,
+    "settled_detected": 0,
+    "n_transient": 2,
+    "false_positives_drive_end": 1,
+    "false_positives_settled": 0,
+    "coherence_by_scenario": {
+     "OC01": {
+      "DRIVE_END": 0.644,
+      "SETTLED": 0.669
+     },
+     "OC02": {
+      "DRIVE_END": 0.684,
+      "SETTLED": 0.719
+     },
+     "OC03": {
+      "DRIVE_END": 0.536,
+      "SETTLED": 0.639
+     },
+     "OC04": {
+      "DRIVE_END": 0.814,
+      "SETTLED": 0.705
+     },
+     "OC05": {
+      "DRIVE_END": 0.718,
+      "SETTLED": 0.75
+     },
+     "OC06": {
+      "DRIVE_END": 0.732,
+      "SETTLED": 0.772
+     },
+     "OC07": {
+      "DRIVE_END": 0.473,
+      "SETTLED": 0.661
+     },
+     "OC08": {
+      "DRIVE_END": 0.546,
+      "SETTLED": 0.608
+     },
+     "OC09": {
+      "DRIVE_END": 0.525,
+      "SETTLED": 0.638
+     },
+     "OC10": {
+      "DRIVE_END": 0.557,
+      "SETTLED": 0.669
+     },
+     "OC11": {
+      "DRIVE_END": 0.579,
+      "SETTLED": 0.671
+     },
+     "OC12": {
+      "DRIVE_END": 0.622,
+      "SETTLED": 0.602
+     },
+     "OC13": {
+      "DRIVE_END": 0.179,
+      "SETTLED": 0.332
+     },
+     "OC14": {
+      "DRIVE_END": 0.202,
+      "SETTLED": 0.292
+     },
+     "OC15": {
+      "DRIVE_END": 0.859,
+      "SETTLED": 0.789
+     },
+     "OC16": {
+      "DRIVE_END": 0.884,
+      "SETTLED": 0.781
+     }
+    },
+    "diagnostic_residual_detector": {
+     "threshold": 0.2,
+     "drive_end_detected": 2,
+     "settled_detected": 2,
+     "false_positives_drive_end": 12,
+     "false_positives_settled": 14,
+     "note": "rejected: residual shares generically > 1 \u2014 single clean references do not span the realization cloud"
+    },
+    "pass": true
+   },
+   "G3_ledger_closure": {
+    "max_closure_error_frac": 1.576209999305594e-16,
+    "tolerance": 1e-09,
+    "mean_bleed_ratio": 0.0,
+    "pass": true
+   },
+   "G4_radiative_exit_decode": {
+    "usable_power_mean_rel_err": 0.0019891748068857334,
+    "remaining_power_mean_rel_err": 0.33381041639363285,
+    "threshold": 0.005,
+    "pass": false,
+    "armB_extended_features": {
+     "usable_power_mean_rel_err": 0.0018106175688004948,
+     "remaining_power_mean_rel_err": 0.2586445151812291
+    },
+    "remaining_abs_err_frac_of_p_in_armA": 0.00011882291642151202,
+    "label": "CONSTRUCTED-CHANNEL BOOKKEEPING CHECK (adjustment 3): the exit spectrum is computed from the same state variables as the ledger ground truth; this verifies decode consistency, not a physical channel."
+   },
+   "G5_edge_formatter": {
+    "status": "RUN",
+    "models": {
+     "gemma": {
+      "syslog": {
+       "n": 16,
+       "copy_fidelity": 1.0,
+       "end_to_end_accuracy": 0.9375,
+       "mean_tokens_total": 66.375,
+       "max_tokens_total": 68,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CALM_SWELL",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_syslog",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_syslog",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      },
+      "register": {
+       "n": 16,
+       "copy_fidelity": 1.0,
+       "end_to_end_accuracy": 0.9375,
+       "mean_tokens_total": 39.75,
+       "max_tokens_total": 42,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CALM_SWELL",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 38,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 38,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 38,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 37,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_register",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_register",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 39,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 42,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 41,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      }
+     },
+     "qwen3b": {
+      "syslog": {
+       "n": 16,
+       "copy_fidelity": 1.0,
+       "end_to_end_accuracy": 0.9375,
+       "mean_tokens_total": 66.25,
+       "max_tokens_total": 68,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CALM_SWELL",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": false,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_syslog",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA",
+         "field": "BUILDING_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_syslog",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "CROSS_SEA",
+         "field": "CROSS_SEA",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_syslog",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_syslog",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE",
+         "field": "STORM_FORCE",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 64,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_syslog",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "CALM_SWELL",
+         "field": "CALM_SWELL",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 66,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_syslog",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 68,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      },
+      "register": {
+       "n": 16,
+       "copy_fidelity": 0.25,
+       "end_to_end_accuracy": 0.25,
+       "mean_tokens_total": 48.875,
+       "max_tokens_total": 62,
+       "staged_count": 0,
+       "rows": [
+        {
+         "job": "OC01_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "SWELL s1 state=CALM_SWELL match=1.00 sev=none",
+         "field": "SWELL s1 state=CALM_SWELL match=1.00 sev=none",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 55,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC02_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "SWELL s1 state=CALM_SWELL match=1.00 sev=none",
+         "field": "SWELL s1 state=CALM_SWELL match=1.00 sev=none",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 55,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC03_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CALM_SWELL",
+         "answer": "SWELL s1 state=CROSS_SEA match=1.00 sev=high",
+         "field": "SWELL s1 state=CROSS_SEA match=1.00 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 53,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC04_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC05_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC06_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC07_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA s1 match=1.00 sev=mid",
+         "field": "BUILDING_SEA s1 match=1.00 sev=mid",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 50,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC08_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA s1 match=1.00 sev=mid",
+         "field": "BUILDING_SEA s1 match=1.00 sev=mid",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 50,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC09_register",
+         "handed": "BUILDING_SEA",
+         "true_state": "BUILDING_SEA",
+         "answer": "BUILDING_SEA s1 match=1.00 sev=mid",
+         "field": "BUILDING_SEA s1 match=1.00 sev=mid",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 50,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC10_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "SWELL s1 state=CROSS_SEA match=1.00 sev=high",
+         "field": "SWELL s1 state=CROSS_SEA match=1.00 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 53,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC11_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "SWELL s1 state=CROSS_SEA match=1.00 sev=high",
+         "field": "SWELL s1 state=CROSS_SEA match=1.00 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 53,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC12_register",
+         "handed": "CROSS_SEA",
+         "true_state": "CROSS_SEA",
+         "answer": "HIGH_SEA_CROSS_SEA",
+         "field": "HIGH_SEA_CROSS_SEA",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC13_register",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE wave=1.00 sea_state=high s1=STORM_FORCE sev=high match=1.00",
+         "field": "STORM_FORCE wave=1.00 sea_state=high s1=STORM_FORCE sev=high match=1.00",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 62,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC14_register",
+         "handed": "STORM_FORCE",
+         "true_state": "STORM_FORCE",
+         "answer": "STORM_FORCE wave=1.00 sev=high",
+         "field": "STORM_FORCE wave=1.00 sev=high",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 46,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC15_register",
+         "handed": "CALM_SWELL",
+         "true_state": "CALM_SWELL",
+         "answer": "SWELL s1 state=CALM_SWELL match=1.00 sev=none",
+         "field": "SWELL s1 state=CALM_SWELL match=1.00 sev=none",
+         "exact_copy": false,
+         "end_to_end": false,
+         "tokens_total": 55,
+         "staged_words": [],
+         "error": false
+        },
+        {
+         "job": "OC16_register",
+         "handed": "MODERATE_CHOP",
+         "true_state": "MODERATE_CHOP",
+         "answer": "MODERATE_CHOP",
+         "field": "MODERATE_CHOP",
+         "exact_copy": true,
+         "end_to_end": true,
+         "tokens_total": 40,
+         "staged_words": [],
+         "error": false
+        }
+       ]
+      }
+     }
+    },
+    "gate": "syslog arm: copy fidelity 1.00 AND mean tokens_total <= 40 AND zero staging, both models",
+    "pass": false
+   }
+  },
+  "classification": {
+   "primary_readout": "whole-pattern power-spectrum NN at SETTLED",
+   "primary_per_state": {
+    "CALM_SWELL": {
+     "n": 4,
+     "acc": 0.75
+    },
+    "MODERATE_CHOP": {
+     "n": 4,
+     "acc": 1.0
+    },
+    "BUILDING_SEA": {
+     "n": 3,
+     "acc": 1.0
+    },
+    "CROSS_SEA": {
+     "n": 3,
+     "acc": 1.0
+    },
+    "STORM_FORCE": {
+     "n": 2,
+     "acc": 1.0
+    }
+   },
+   "primary_confusions": [
+    {
+     "scenario": "OC03",
+     "true": "CALM_SWELL",
+     "pred_primary": "CROSS_SEA",
+     "transient": false
+    }
+   ],
+   "node_per_state": {
+    "CALM_SWELL": {
+     "n": 4,
+     "acc": 0.75
+    },
+    "MODERATE_CHOP": {
+     "n": 4,
+     "acc": 0.5
+    },
+    "BUILDING_SEA": {
+     "n": 3,
+     "acc": 0.3333333333333333
+    },
+    "CROSS_SEA": {
+     "n": 3,
+     "acc": 0.6666666666666666
+    },
+    "STORM_FORCE": {
+     "n": 2,
+     "acc": 0.0
+    }
+   },
+   "node_confusions": [
+    {
+     "scenario": "OC02",
+     "true": "CALM_SWELL",
+     "pred_settled": "MODERATE_CHOP",
+     "pred_drive_end": "CALM_SWELL",
+     "transient": false
+    },
+    {
+     "scenario": "OC04",
+     "true": "MODERATE_CHOP",
+     "pred_settled": "CALM_SWELL",
+     "pred_drive_end": "MODERATE_CHOP",
+     "transient": false
+    },
+    {
+     "scenario": "OC06",
+     "true": "MODERATE_CHOP",
+     "pred_settled": "CALM_SWELL",
+     "pred_drive_end": "MODERATE_CHOP",
+     "transient": false
+    },
+    {
+     "scenario": "OC08",
+     "true": "BUILDING_SEA",
+     "pred_settled": "STORM_FORCE",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    },
+    {
+     "scenario": "OC09",
+     "true": "BUILDING_SEA",
+     "pred_settled": "CROSS_SEA",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    },
+    {
+     "scenario": "OC10",
+     "true": "CROSS_SEA",
+     "pred_settled": "BUILDING_SEA",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    },
+    {
+     "scenario": "OC13",
+     "true": "STORM_FORCE",
+     "pred_settled": "CROSS_SEA",
+     "pred_drive_end": "MODERATE_CHOP",
+     "transient": false
+    },
+    {
+     "scenario": "OC14",
+     "true": "STORM_FORCE",
+     "pred_settled": "BUILDING_SEA",
+     "pred_drive_end": "CROSS_SEA",
+     "transient": false
+    }
+   ],
+   "node_drive_end_accuracy": 0.6875,
+   "amplitude_arm_accuracy": {
+    "DRIVE_END": 0.75,
+    "SETTLED": 0.25
+   },
+   "whole_cavity_control_accuracy": 0.9375
+  },
+  "radiative_exit_rows": [
+   {
+    "scenario": "OC01",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.6080012348419765,
+    "usable_est": 0.6077736422767662,
+    "usable_rel_err": 0.00037432911673193305,
+    "remaining_gt": 0.002466727701672316,
+    "remaining_est": 0.0025194536843843006,
+    "remaining_rel_err": 0.021374869498663823,
+    "usable_est_armB": 0.6076863081360329,
+    "remaining_est_armB": 0.0025930650759409517,
+    "usable_rel_err_armB": 0.0005179705038354684,
+    "remaining_rel_err_armB": 0.051216587134034104
+   },
+   {
+    "scenario": "OC02",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.6128000809712846,
+    "usable_est": 0.6137371129959961,
+    "usable_rel_err": 0.001529099054990862,
+    "remaining_gt": 0.0025942732288103147,
+    "remaining_est": 0.0020660334863475804,
+    "remaining_rel_err": 0.20361762076424586,
+    "usable_est_armB": 0.6135346681206256,
+    "remaining_est_armB": 0.002258334791794341,
+    "usable_rel_err_armB": 0.0011987386623329617,
+    "remaining_rel_err_armB": 0.1294923114825607
+   },
+   {
+    "scenario": "OC03",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.6150319776022137,
+    "usable_est": 0.6151405554809561,
+    "usable_rel_err": 0.000176540216926145,
+    "remaining_gt": 0.0015838487092386857,
+    "remaining_est": 0.0017153204975053522,
+    "remaining_rel_err": 0.08300779455751274,
+    "usable_est_armB": 0.614755635565131,
+    "remaining_est_armB": 0.0020913092880788884,
+    "usable_rel_err_armB": 0.00044931328312402223,
+    "remaining_rel_err_armB": 0.3203971287662479
+   },
+   {
+    "scenario": "OC04",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.5222749425210795,
+    "usable_est": 0.5221646440349009,
+    "usable_rel_err": 0.00021118854687185052,
+    "remaining_gt": 0.008050313574309157,
+    "remaining_est": 0.007895429786088622,
+    "remaining_rel_err": 0.019239472697661585,
+    "usable_est_armB": 0.5220956520259231,
+    "remaining_est_armB": 0.007976790954117904,
+    "usable_rel_err_armB": 0.0003432875685954973,
+    "remaining_rel_err_armB": 0.009132888987813512
+   },
+   {
+    "scenario": "OC05",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.5101969756241879,
+    "usable_est": 0.5112975645049436,
+    "usable_rel_err": 0.002157184251061496,
+    "remaining_gt": 0.00817603283821841,
+    "remaining_est": 0.00841283337573601,
+    "remaining_rel_err": 0.028962767420733625,
+    "usable_est_armB": 0.5112253698633273,
+    "remaining_est_armB": 0.008454961149375925,
+    "usable_rel_err_armB": 0.0020156807826649903,
+    "remaining_rel_err_armB": 0.034115360918522866
+   },
+   {
+    "scenario": "OC06",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.5323799935730205,
+    "usable_est": 0.5330844005391406,
+    "usable_rel_err": 0.0013231281690219247,
+    "remaining_gt": 0.006268603272863956,
+    "remaining_est": 0.0067472272906954735,
+    "remaining_rel_err": 0.07635257759945104,
+    "usable_est_armB": 0.5333460138209623,
+    "remaining_est_armB": 0.006321468595444465,
+    "usable_rel_err_armB": 0.001814531461744894,
+    "remaining_rel_err_armB": 0.008433349548432417
+   },
+   {
+    "scenario": "OC07",
+    "true_state": "BUILDING_SEA",
+    "usable_gt": 0.6059169733498656,
+    "usable_est": 0.6052639458908772,
+    "usable_rel_err": 0.0010777507277574864,
+    "remaining_gt": 0.001282784218893928,
+    "remaining_est": 0.001977506262367444,
+    "remaining_rel_err": 0.5415735813093612,
+    "usable_est_armB": 0.6054023868186369,
+    "remaining_est_armB": 0.0017727408067164004,
+    "usable_rel_err_armB": 0.0008492690481730097,
+    "remaining_rel_err_armB": 0.3819477824921591
+   },
+   {
+    "scenario": "OC08",
+    "true_state": "BUILDING_SEA",
+    "usable_gt": 0.6212605624409809,
+    "usable_est": 0.6224695809236086,
+    "usable_rel_err": 0.0019460731224871877,
+    "remaining_gt": 0.0007482402516003937,
+    "remaining_est": 0.0003224881453817638,
+    "remaining_rel_err": 0.5690045480819811,
+    "usable_est_armB": 0.6223584179438799,
+    "remaining_est_armB": 0.00045398680136693285,
+    "usable_rel_err_armB": 0.001767141790854101,
+    "remaining_rel_err_armB": 0.393260653385178
+   },
+   {
+    "scenario": "OC09",
+    "true_state": "BUILDING_SEA",
+    "usable_gt": 0.6013183910432356,
+    "usable_est": 0.6002827096850604,
+    "usable_rel_err": 0.0017223510433106899,
+    "remaining_gt": 0.0014003377485388457,
+    "remaining_est": 0.0022141309896799633,
+    "remaining_rel_err": 0.5811406869451701,
+    "usable_est_armB": 0.6002981465580443,
+    "remaining_est_armB": 0.002080914415156473,
+    "usable_rel_err_armB": 0.00169667933059772,
+    "remaining_rel_err_armB": 0.48600894129131456
+   },
+   {
+    "scenario": "OC10",
+    "true_state": "CROSS_SEA",
+    "usable_gt": 0.6295771503079892,
+    "usable_est": 0.6302963888251578,
+    "usable_rel_err": 0.0011424152176055709,
+    "remaining_gt": 0.0006308519496611616,
+    "remaining_est": 0.0003628745789695637,
+    "remaining_rel_err": 0.42478646667499703,
+    "usable_est_armB": 0.630153287804466,
+    "remaining_est_armB": 0.0004259490336920744,
+    "usable_rel_err_armB": 0.0009151181808217375,
+    "remaining_rel_err_armB": 0.3248034916578178
+   },
+   {
+    "scenario": "OC11",
+    "true_state": "CROSS_SEA",
+    "usable_gt": 0.6224435440674595,
+    "usable_est": 0.6214623902081781,
+    "usable_rel_err": 0.0015762937356052008,
+    "remaining_gt": 0.0008033322832058112,
+    "remaining_est": 0.0014372269460272142,
+    "remaining_rel_err": 0.7890815246360532,
+    "usable_est_armB": 0.6215312824657077,
+    "remaining_est_armB": 0.0013195779762431234,
+    "usable_rel_err_armB": 0.0014656134045354814,
+    "remaining_rel_err_armB": 0.6426303334619652
+   },
+   {
+    "scenario": "OC12",
+    "true_state": "CROSS_SEA",
+    "usable_gt": 0.630353992661174,
+    "usable_est": 0.629580448842596,
+    "usable_rel_err": 0.0012271577995600384,
+    "remaining_gt": 0.0007159135171555947,
+    "remaining_est": 0.0005871103697833636,
+    "remaining_rel_err": 0.17991439508501048,
+    "usable_est_armB": 0.6295430461586482,
+    "remaining_est_armB": 0.0006023209670811781,
+    "usable_rel_err_armB": 0.0012864937986704803,
+    "remaining_rel_err_armB": 0.15866797783862588
+   },
+   {
+    "scenario": "OC13",
+    "true_state": "STORM_FORCE",
+    "usable_gt": 0.6263438761739641,
+    "usable_est": 0.6262140418499766,
+    "usable_rel_err": 0.00020728920474260044,
+    "remaining_gt": 0.0006160294044162172,
+    "remaining_est": 0.00041890380722471165,
+    "remaining_rel_err": 0.3199938116238339,
+    "usable_est_armB": 0.6261951725815238,
+    "remaining_est_armB": 0.0005239567056825973,
+    "usable_rel_err_armB": 0.0002374152571726351,
+    "remaining_rel_err_armB": 0.14946153231252488
+   },
+   {
+    "scenario": "OC14",
+    "true_state": "STORM_FORCE",
+    "usable_gt": 0.6321415420191793,
+    "usable_est": 0.6328951360220529,
+    "usable_rel_err": 0.0011921285863709392,
+    "remaining_gt": 0.0006895777582013909,
+    "remaining_est": 0.0001141300481815327,
+    "remaining_rel_err": 0.8344928518587732,
+    "usable_est_armB": 0.6326780161018047,
+    "remaining_est_armB": 0.00043523633645732324,
+    "usable_rel_err_armB": 0.0008486613313086048,
+    "remaining_rel_err_armB": 0.3688364636461888
+   },
+   {
+    "scenario": "OC15",
+    "true_state": "CALM_SWELL",
+    "usable_gt": 0.5589022003410422,
+    "usable_est": 0.5562659887190992,
+    "usable_rel_err": 0.004716767299063119,
+    "remaining_gt": 0.004587702712114311,
+    "remaining_est": 0.006578471950663011,
+    "remaining_rel_err": 0.43393597263655825,
+    "usable_est_armB": 0.5589159299868007,
+    "remaining_est_armB": 0.004069319416151181,
+    "usable_rel_err_armB": 2.456538147486673e-05,
+    "remaining_rel_err_armB": 0.11299409061408539
+   },
+   {
+    "scenario": "OC16",
+    "true_state": "MODERATE_CHOP",
+    "usable_gt": 0.36108206661292186,
+    "usable_est": 0.3570209402061312,
+    "usable_rel_err": 0.011247100818064692,
+    "remaining_gt": 0.016184808861773953,
+    "remaining_est": 0.019979947805104856,
+    "remaining_rel_err": 0.23448772090811906,
+    "usable_est_armB": 0.35619323160543553,
+    "remaining_est_armB": 0.025360193062389163,
+    "usable_rel_err_armB": 0.013539401314901445,
+    "remaining_rel_err_armB": 0.5669133493621953
+   }
+  ],
+  "scenarios": [
+   {
+    "scenario_id": "OC01",
+    "true_state": "CALM_SWELL",
+    "transient": false,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.6548924812861803,
+       "Tp": 11.89016829283855,
+       "gamma": 3.1052673961480664,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.8243728460153068,
+      "MODERATE_CHOP": 0.5810978800713494,
+      "BUILDING_SEA": 0.5502626118629701,
+      "CROSS_SEA": 0.7385552518268164,
+      "STORM_FORCE": 0.39282643898908404
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6894869024281944,
+      "MODERATE_CHOP": 0.5856410779543175,
+      "BUILDING_SEA": 0.5289342321187486,
+      "CROSS_SEA": 0.6427374195508607,
+      "STORM_FORCE": 0.5837803511926284
+     }
+    },
+    "whole_cavity_pred": "CALM_SWELL",
+    "primary_pred": "CALM_SWELL",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.999698887769263,
+     "MODERATE_CHOP": 0.8926084013742613,
+     "BUILDING_SEA": 0.9421716831404965,
+     "CROSS_SEA": 0.9968655749052922,
+     "STORM_FORCE": 0.9786639147476954
+    },
+    "ledger": {
+     "power_in_through_flow": 6.104679625436488,
+     "power_tapped_by_nodes": 0.6080012348419765,
+     "power_transmitted_S21": 4.110371893230249,
+     "power_reflected_S11": 1.3838397696625906,
+     "power_residual_second_cavity": 0.002466727701672316,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09959592839378595,
+     "residual_ratio": 0.00040407160621405144,
+     "transmitted_ratio": 0.6733149232112823,
+     "reflected_ratio": 0.22668507678871766,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.21540530138089187,
+      "phase_coherence": 0.6438547139804724,
+      "band_energy_share": 0.972913561621982
+     },
+     "SETTLED": {
+      "residual_share": 0.4615350095239882,
+      "phase_coherence": 0.6690230275775751,
+      "band_energy_share": 0.9939550846329691
+     }
+    },
+    "diss_proxy": 20.734919575043804
+   },
+   {
+    "scenario_id": "OC02",
+    "true_state": "CALM_SWELL",
+    "transient": false,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.6161975852227496,
+       "Tp": 12.21900485585343,
+       "gamma": 3.062673283884199,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "MODERATE_CHOP"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.7442189829660961,
+      "MODERATE_CHOP": 0.5346837262281952,
+      "BUILDING_SEA": 0.43488342606389957,
+      "CROSS_SEA": 0.6145595032316039,
+      "STORM_FORCE": 0.4752990088973744
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5361693256669212,
+      "MODERATE_CHOP": 0.5741801734066188,
+      "BUILDING_SEA": 0.4151482176477347,
+      "CROSS_SEA": 0.5257969111056517,
+      "STORM_FORCE": 0.45390175138340777
+     }
+    },
+    "whole_cavity_pred": "CALM_SWELL",
+    "primary_pred": "CALM_SWELL",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9996291840537452,
+     "MODERATE_CHOP": 0.8957153406780787,
+     "BUILDING_SEA": 0.9445704917789782,
+     "CROSS_SEA": 0.996903085415199,
+     "STORM_FORCE": 0.9796711636316134
+    },
+    "ledger": {
+     "power_in_through_flow": 6.153943542000947,
+     "power_tapped_by_nodes": 0.6128000809712846,
+     "power_transmitted_S21": 4.0591044701673455,
+     "power_reflected_S11": 1.4794447176335073,
+     "power_residual_second_cavity": 0.0025942732288103147,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09957843727179098,
+     "residual_ratio": 0.00042156272820903875,
+     "transmitted_ratio": 0.6595940379471751,
+     "reflected_ratio": 0.24040596205282502,
+     "closure_error_frac": 1.44326709148088e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.3462989874665796,
+      "phase_coherence": 0.6840281393368529,
+      "band_energy_share": 0.9571269269366403
+     },
+     "SETTLED": {
+      "residual_share": 2.572194807564883,
+      "phase_coherence": 0.7188937020017863,
+      "band_energy_share": 0.986308325281635
+     }
+    },
+    "diss_proxy": 21.155043212524976
+   },
+   {
+    "scenario_id": "OC03",
+    "true_state": "CALM_SWELL",
+    "transient": false,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.6186518082849267,
+       "Tp": 11.058860881903989,
+       "gamma": 3.6306620681381254,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.7564636858854196,
+      "MODERATE_CHOP": 0.4092177020203985,
+      "BUILDING_SEA": 0.4623953860189544,
+      "CROSS_SEA": 0.7236870717712194,
+      "STORM_FORCE": 0.3351737630480012
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5725350996111357,
+      "MODERATE_CHOP": 0.39350085691454356,
+      "BUILDING_SEA": 0.5218983651346029,
+      "CROSS_SEA": 0.5226703166235377,
+      "STORM_FORCE": 0.4856750580657219
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "primary_pred": "CROSS_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9978751689432748,
+     "MODERATE_CHOP": 0.9020712451998898,
+     "BUILDING_SEA": 0.9517597941486058,
+     "CROSS_SEA": 0.9988880165816839,
+     "STORM_FORCE": 0.984902356344442
+    },
+    "ledger": {
+     "power_in_through_flow": 6.166158263114525,
+     "power_tapped_by_nodes": 0.6150319776022137,
+     "power_transmitted_S21": 4.536009168714621,
+     "power_reflected_S11": 1.0135332680884517,
+     "power_residual_second_cavity": 0.0015838487092386857,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09974313849212836,
+     "residual_ratio": 0.00025686150787162637,
+     "transmitted_ratio": 0.7356297025083952,
+     "reflected_ratio": 0.1643702974916048,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.3447091505024605,
+      "phase_coherence": 0.5356693070023999,
+      "band_energy_share": 0.978996628726748
+     },
+     "SETTLED": {
+      "residual_share": 0.6514354881791257,
+      "phase_coherence": 0.6386755214468032,
+      "band_energy_share": 0.9921459146526165
+     }
+    },
+    "diss_proxy": 21.617224688424074
+   },
+   {
+    "scenario_id": "OC04",
+    "true_state": "MODERATE_CHOP",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.3286826322252998,
+       "Tp": 4.864082451294676,
+       "gamma": 1.3095594807168833,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.7207154969703825,
+      "MODERATE_CHOP": 0.8761927970971951,
+      "BUILDING_SEA": 0.7567395854339004,
+      "CROSS_SEA": 0.7767582650319966,
+      "STORM_FORCE": 0.6386680707416843
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.776200344472145,
+      "MODERATE_CHOP": 0.7572344935721085,
+      "BUILDING_SEA": 0.7194958202350631,
+      "CROSS_SEA": 0.7627862923848708,
+      "STORM_FORCE": 0.6389508078258873
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "primary_pred": "MODERATE_CHOP",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.8907535848506332,
+     "MODERATE_CHOP": 0.9998908424796297,
+     "BUILDING_SEA": 0.9753187075611155,
+     "CROSS_SEA": 0.9249093492124724,
+     "STORM_FORCE": 0.9535000588873106
+    },
+    "ledger": {
+     "power_in_through_flow": 5.3032525609538865,
+     "power_tapped_by_nodes": 0.5222749425210795,
+     "power_transmitted_S21": 1.8503134398149559,
+     "power_reflected_S11": 2.922613865043542,
+     "power_residual_second_cavity": 0.008050313574309157,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.0984820044903045,
+     "residual_ratio": 0.0015179955096954994,
+     "transmitted_ratio": 0.34890162566237337,
+     "reflected_ratio": 0.5510983743376265,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.17041074598115843,
+      "phase_coherence": 0.8137278528889228,
+      "band_energy_share": 0.9936399726215768
+     },
+     "SETTLED": {
+      "residual_share": 1.6240263566754052,
+      "phase_coherence": 0.7050881951734521,
+      "band_energy_share": 0.9969332910580695
+     }
+    },
+    "diss_proxy": 14.967706991731797
+   },
+   {
+    "scenario_id": "OC05",
+    "true_state": "MODERATE_CHOP",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.3358128424011735,
+       "Tp": 4.777749856129871,
+       "gamma": 1.6781700770004604,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "MODERATE_CHOP"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5463672819242062,
+      "MODERATE_CHOP": 0.8706581444820053,
+      "BUILDING_SEA": 0.7067102683821616,
+      "CROSS_SEA": 0.6180910113216217,
+      "STORM_FORCE": 0.6037284968458458
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5116138521597982,
+      "MODERATE_CHOP": 0.6698666787986098,
+      "BUILDING_SEA": 0.503313424602085,
+      "CROSS_SEA": 0.5170665533514983,
+      "STORM_FORCE": 0.4220171914268607
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "primary_pred": "MODERATE_CHOP",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.8867436739572321,
+     "MODERATE_CHOP": 0.9999232484128211,
+     "BUILDING_SEA": 0.9742610317794037,
+     "CROSS_SEA": 0.9216192232097041,
+     "STORM_FORCE": 0.9512545981611508
+    },
+    "ledger": {
+     "power_in_through_flow": 5.183730084624063,
+     "power_tapped_by_nodes": 0.5101969756241879,
+     "power_transmitted_S21": 1.6664143919239092,
+     "power_reflected_S11": 2.998942684237748,
+     "power_residual_second_cavity": 0.00817603283821841,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09842275104900425,
+     "residual_ratio": 0.0015772489509957492,
+     "transmitted_ratio": 0.3214701314921496,
+     "reflected_ratio": 0.5785298685078505,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.19469435909760607,
+      "phase_coherence": 0.7183058220562175,
+      "band_energy_share": 0.9884401933849448
+     },
+     "SETTLED": {
+      "residual_share": 0.42683921227574784,
+      "phase_coherence": 0.7495239460063995,
+      "band_energy_share": 0.990301400812199
+     }
+    },
+    "diss_proxy": 14.202926383971898
+   },
+   {
+    "scenario_id": "OC06",
+    "true_state": "MODERATE_CHOP",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.4142788660702148,
+       "Tp": 5.066606319628869,
+       "gamma": 1.5121058684540993,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6375639196879732,
+      "MODERATE_CHOP": 0.8358311607548208,
+      "BUILDING_SEA": 0.6954218771498912,
+      "CROSS_SEA": 0.6431642452376598,
+      "STORM_FORCE": 0.6393920099511704
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6671344278563446,
+      "MODERATE_CHOP": 0.6619838425680286,
+      "BUILDING_SEA": 0.6253370336154134,
+      "CROSS_SEA": 0.6242965269386599,
+      "STORM_FORCE": 0.5747259511278235
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "primary_pred": "MODERATE_CHOP",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.899237597477417,
+     "MODERATE_CHOP": 0.9989494860649699,
+     "BUILDING_SEA": 0.9820007146553128,
+     "CROSS_SEA": 0.9322128930037694,
+     "STORM_FORCE": 0.9613647906568261
+    },
+    "ledger": {
+     "power_in_through_flow": 5.386485968458843,
+     "power_tapped_by_nodes": 0.5323799935730205,
+     "power_transmitted_S21": 1.9769505212187253,
+     "power_reflected_S11": 2.8708868503942337,
+     "power_residual_second_cavity": 0.006268603272863956,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09883623510586116,
+     "residual_ratio": 0.0011637648941388592,
+     "transmitted_ratio": 0.3670204531850588,
+     "reflected_ratio": 0.5329795468149412,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.2611739549958727,
+      "phase_coherence": 0.732093351678854,
+      "band_energy_share": 0.993562212914213
+     },
+     "SETTLED": {
+      "residual_share": 1.7319174991278352,
+      "phase_coherence": 0.7718402750556573,
+      "band_energy_share": 0.9950840910419513
+     }
+    },
+    "diss_proxy": 15.270180634553759
+   },
+   {
+    "scenario_id": "OC07",
+    "true_state": "BUILDING_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 2.2,
+     "components": [
+      {
+       "Hs": 2.0276787934518157,
+       "Tp": 7.081238391378642,
+       "gamma": 2.191923795521163,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6532270069759706,
+      "MODERATE_CHOP": 0.5225062095663477,
+      "BUILDING_SEA": 0.7247554733377752,
+      "CROSS_SEA": 0.7648016775181268,
+      "STORM_FORCE": 0.45160455541856526
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5173495245955807,
+      "MODERATE_CHOP": 0.3799931342271854,
+      "BUILDING_SEA": 0.5997259307460253,
+      "CROSS_SEA": 0.5130806752772595,
+      "STORM_FORCE": 0.5055185925072809
+     }
+    },
+    "whole_cavity_pred": "BUILDING_SEA",
+    "primary_pred": "BUILDING_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9341020510254626,
+     "MODERATE_CHOP": 0.9765133118278967,
+     "BUILDING_SEA": 0.9997052001379495,
+     "CROSS_SEA": 0.9602968149309478,
+     "STORM_FORCE": 0.9882632685967623
+    },
+    "ledger": {
+     "power_in_through_flow": 6.071997575687595,
+     "power_tapped_by_nodes": 0.6059169733498656,
+     "power_transmitted_S21": 3.3010894225399277,
+     "power_reflected_S11": 2.163708395578908,
+     "power_residual_second_cavity": 0.001282784218893928,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09978873769251322,
+     "residual_ratio": 0.00021126230748678537,
+     "transmitted_ratio": 0.5436578953452746,
+     "reflected_ratio": 0.35634210465472543,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.7119349013953966,
+      "phase_coherence": 0.4734001203521188,
+      "band_energy_share": 0.9703501088754564
+     },
+     "SETTLED": {
+      "residual_share": 0.7883298221698819,
+      "phase_coherence": 0.6614329945830664,
+      "band_energy_share": 0.9894610383831797
+     }
+    },
+    "diss_proxy": 20.323643003196963
+   },
+   {
+    "scenario_id": "OC08",
+    "true_state": "BUILDING_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 2.2,
+     "components": [
+      {
+       "Hs": 2.100741603963209,
+       "Tp": 7.656705617442912,
+       "gamma": 2.0535285349579606,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6173181484154073,
+      "MODERATE_CHOP": 0.5985197454898213,
+      "BUILDING_SEA": 0.5580079290038511,
+      "CROSS_SEA": 0.6524708083260318,
+      "STORM_FORCE": 0.5662297264158705
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.5421061227317084,
+      "MODERATE_CHOP": 0.4409480833483397,
+      "BUILDING_SEA": 0.41904484047829377,
+      "CROSS_SEA": 0.4793292731957076,
+      "STORM_FORCE": 0.5456075574651736
+     }
+    },
+    "whole_cavity_pred": "BUILDING_SEA",
+    "primary_pred": "BUILDING_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9553265099664808,
+     "MODERATE_CHOP": 0.9653007572253519,
+     "BUILDING_SEA": 0.9980060489453227,
+     "CROSS_SEA": 0.9765478856419559,
+     "STORM_FORCE": 0.9966408674506668
+    },
+    "ledger": {
+     "power_in_through_flow": 6.220088026925813,
+     "power_tapped_by_nodes": 0.6212605624409809,
+     "power_transmitted_S21": 4.0693039929130395,
+     "power_reflected_S11": 1.5287752313201928,
+     "power_residual_second_cavity": 0.0007482402516003937,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09987970584204575,
+     "residual_ratio": 0.00012029415795425654,
+     "transmitted_ratio": 0.6542196790941933,
+     "reflected_ratio": 0.24578032090580676,
+     "closure_error_frac": 1.4279193732553885e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.7276755102050447,
+      "phase_coherence": 0.5463175374441113,
+      "band_energy_share": 0.9816392119568369
+     },
+     "SETTLED": {
+      "residual_share": 0.8110329365738679,
+      "phase_coherence": 0.6081813027142164,
+      "band_energy_share": 0.9950785197512704
+     }
+    },
+    "diss_proxy": 21.443355513148973
+   },
+   {
+    "scenario_id": "OC09",
+    "true_state": "BUILDING_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 2.2,
+     "components": [
+      {
+       "Hs": 2.0830518444983874,
+       "Tp": 7.118188829270371,
+       "gamma": 2.068934068664346,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.6838334056654455,
+      "MODERATE_CHOP": 0.6136734073586103,
+      "BUILDING_SEA": 0.7174686573497371,
+      "CROSS_SEA": 0.7267542035116008,
+      "STORM_FORCE": 0.49864811256238817
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6199786489039005,
+      "MODERATE_CHOP": 0.5127018299762406,
+      "BUILDING_SEA": 0.5531641157910927,
+      "CROSS_SEA": 0.6347761862848751,
+      "STORM_FORCE": 0.5911357626560086
+     }
+    },
+    "whole_cavity_pred": "BUILDING_SEA",
+    "primary_pred": "BUILDING_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9288335077488047,
+     "MODERATE_CHOP": 0.9783405265927354,
+     "BUILDING_SEA": 0.9990518691971492,
+     "CROSS_SEA": 0.955835975272703,
+     "STORM_FORCE": 0.985242350006958
+    },
+    "ledger": {
+     "power_in_through_flow": 6.027187287917743,
+     "power_tapped_by_nodes": 0.6013183910432356,
+     "power_transmitted_S21": 3.312507508016676,
+     "power_reflected_S11": 2.1119610511092928,
+     "power_residual_second_cavity": 0.0014003377485388457,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09976766314341255,
+     "residual_ratio": 0.00023233685658748308,
+     "transmitted_ratio": 0.5495942551274315,
+     "reflected_ratio": 0.35040574487256854,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.8095596860564118,
+      "phase_coherence": 0.5249521007164526,
+      "band_energy_share": 0.9577066123342807
+     },
+     "SETTLED": {
+      "residual_share": 1.3933423534288862,
+      "phase_coherence": 0.6384667306631278,
+      "band_energy_share": 0.9852941929331394
+     }
+    },
+    "diss_proxy": 19.90716008008029
+   },
+   {
+    "scenario_id": "OC10",
+    "true_state": "CROSS_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.7804493814764855,
+     "components": [
+      {
+       "Hs": 1.42487443041403,
+       "Tp": 10.67132329900177,
+       "gamma": 3.4469626355876315,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.1394697867804873,
+       "Tp": 4.039702004228688,
+       "gamma": 1.1306618284788608,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5287421969789524,
+      "MODERATE_CHOP": 0.4618803047816651,
+      "BUILDING_SEA": 0.48288766080586676,
+      "CROSS_SEA": 0.5588695910164079,
+      "STORM_FORCE": 0.31731671195939165
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.40517300295399294,
+      "MODERATE_CHOP": 0.38058993702021926,
+      "BUILDING_SEA": 0.4249511858318972,
+      "CROSS_SEA": 0.40008808400363544,
+      "STORM_FORCE": 0.37079557530447765
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "primary_pred": "CROSS_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9912587513764097,
+     "MODERATE_CHOP": 0.9282936799693189,
+     "BUILDING_SEA": 0.9697943716868446,
+     "CROSS_SEA": 0.9992719100695655,
+     "STORM_FORCE": 0.9938134142318726
+    },
+    "ledger": {
+     "power_in_through_flow": 6.3020800225765035,
+     "power_tapped_by_nodes": 0.6295771503079892,
+     "power_transmitted_S21": 4.866993824674838,
+     "power_reflected_S11": 0.8048781956440152,
+     "power_residual_second_cavity": 0.0006308519496611616,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09989989781986246,
+     "residual_ratio": 0.00010010218013754259,
+     "transmitted_ratio": 0.772283723348382,
+     "reflected_ratio": 0.12771627665161792,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.6825958649644641,
+      "phase_coherence": 0.5573569262046545,
+      "band_energy_share": 0.9439168461649265
+     },
+     "SETTLED": {
+      "residual_share": 1.3524348364345504,
+      "phase_coherence": 0.6690906637398126,
+      "band_energy_share": 0.9833447180528027
+     }
+    },
+    "diss_proxy": 23.152685017260406
+   },
+   {
+    "scenario_id": "OC11",
+    "true_state": "CROSS_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.7804493814764855,
+     "components": [
+      {
+       "Hs": 1.3831217712887773,
+       "Tp": 11.13247387040638,
+       "gamma": 3.134371952763029,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.0409056161540229,
+       "Tp": 4.196881638789557,
+       "gamma": 1.3270602856708464,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "BUILDING_SEA",
+     "SETTLED": "STORM_FORCE"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5897963711946556,
+      "MODERATE_CHOP": 0.4757887957664518,
+      "BUILDING_SEA": 0.5261108838155679,
+      "CROSS_SEA": 0.6678221920932093,
+      "STORM_FORCE": 0.2612484103885697
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.4474200033181226,
+      "MODERATE_CHOP": 0.5015975193983269,
+      "BUILDING_SEA": 0.3624337216991571,
+      "CROSS_SEA": 0.5101004457417865,
+      "STORM_FORCE": 0.28539243879679504
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "primary_pred": "CROSS_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9951144115514057,
+     "MODERATE_CHOP": 0.919119927775825,
+     "BUILDING_SEA": 0.9601702178601039,
+     "CROSS_SEA": 0.9998644562118091,
+     "STORM_FORCE": 0.988967230407318
+    },
+    "ledger": {
+     "power_in_through_flow": 6.2324687635066525,
+     "power_tapped_by_nodes": 0.6224435440674595,
+     "power_transmitted_S21": 4.561426432806903,
+     "power_reflected_S11": 1.0477954543490844,
+     "power_residual_second_cavity": 0.0008033322832058112,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09987110528529088,
+     "residual_ratio": 0.00012889471470913915,
+     "transmitted_ratio": 0.7318811543052886,
+     "reflected_ratio": 0.16811884569471153,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.38112189670942653,
+      "phase_coherence": 0.5787068482329724,
+      "band_energy_share": 0.9386823321040352
+     },
+     "SETTLED": {
+      "residual_share": 0.8018656015238876,
+      "phase_coherence": 0.6714633872070211,
+      "band_energy_share": 0.985770697406354
+     }
+    },
+    "diss_proxy": 22.38667358512878
+   },
+   {
+    "scenario_id": "OC12",
+    "true_state": "CROSS_SEA",
+    "transient": false,
+    "params": {
+     "Hs_total": 1.7804493814764855,
+     "components": [
+      {
+       "Hs": 1.3385324397461387,
+       "Tp": 10.20310348760607,
+       "gamma": 3.3422245716846977,
+       "kind": "swell"
+      },
+      {
+       "Hs": 1.1015376127244783,
+       "Tp": 4.177306010361378,
+       "gamma": 1.100534256317067,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.604258946230391,
+      "MODERATE_CHOP": 0.4740341081100737,
+      "BUILDING_SEA": 0.5344584260651861,
+      "CROSS_SEA": 0.7641094664779634,
+      "STORM_FORCE": 0.3205299805359768
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6346294305394725,
+      "MODERATE_CHOP": 0.4929872848953298,
+      "BUILDING_SEA": 0.6040758787408265,
+      "CROSS_SEA": 0.6930400344339889,
+      "STORM_FORCE": 0.587944380788913
+     }
+    },
+    "whole_cavity_pred": "CROSS_SEA",
+    "primary_pred": "CROSS_SEA",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9890106775940374,
+     "MODERATE_CHOP": 0.93189866310325,
+     "BUILDING_SEA": 0.9733419835616115,
+     "CROSS_SEA": 0.9984783813886712,
+     "STORM_FORCE": 0.9955611509320086
+    },
+    "ledger": {
+     "power_in_through_flow": 6.310699061783296,
+     "power_tapped_by_nodes": 0.630353992661174,
+     "power_transmitted_S21": 4.767530565465967,
+     "power_reflected_S11": 0.9120985901389993,
+     "power_residual_second_cavity": 0.0007159135171555947,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09988655559231288,
+     "residual_ratio": 0.00011344440768710808,
+     "transmitted_ratio": 0.7554678996400668,
+     "reflected_ratio": 0.14453210035993314,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.6151211078420556,
+      "phase_coherence": 0.6218351515995135,
+      "band_energy_share": 0.9438296443519161
+     },
+     "SETTLED": {
+      "residual_share": 0.8193142713351246,
+      "phase_coherence": 0.601947217794731,
+      "band_energy_share": 0.994066203215176
+     }
+    },
+    "diss_proxy": 22.99993866094007
+   },
+   {
+    "scenario_id": "OC13",
+    "true_state": "STORM_FORCE",
+    "transient": false,
+    "params": {
+     "Hs_total": 4.8,
+     "components": [
+      {
+       "Hs": 4.75944693146566,
+       "Tp": 8.607631798056245,
+       "gamma": 1.0460553945446658,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CROSS_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.5722149156368611,
+      "MODERATE_CHOP": 0.6051661840272347,
+      "BUILDING_SEA": 0.561026345348816,
+      "CROSS_SEA": 0.5470497911721529,
+      "STORM_FORCE": 0.49440401317917393
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.43721871382055855,
+      "MODERATE_CHOP": 0.40120361547419287,
+      "BUILDING_SEA": 0.41395996096972154,
+      "CROSS_SEA": 0.4951384111307857,
+      "STORM_FORCE": 0.3666034663602221
+     }
+    },
+    "whole_cavity_pred": "STORM_FORCE",
+    "primary_pred": "STORM_FORCE",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9620404698102618,
+     "MODERATE_CHOP": 0.9609267793557518,
+     "BUILDING_SEA": 0.9958315341120623,
+     "CROSS_SEA": 0.98190399511347,
+     "STORM_FORCE": 0.9985773457950331
+    },
+    "ledger": {
+     "power_in_through_flow": 6.269599055783803,
+     "power_tapped_by_nodes": 0.6263438761739641,
+     "power_transmitted_S21": 4.821760735775148,
+     "power_reflected_S11": 0.8208784144302745,
+     "power_residual_second_cavity": 0.0006160294044162172,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09990174341310584,
+     "residual_ratio": 9.825658689416837e-05,
+     "transmitted_ratio": 0.7690700302959562,
+     "reflected_ratio": 0.13092996970404375,
+     "closure_error_frac": 0.0
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 5.140316090150967,
+      "phase_coherence": 0.1794269763163555,
+      "band_energy_share": 0.9470184146341963
+     },
+     "SETTLED": {
+      "residual_share": 1.2046802092724838,
+      "phase_coherence": 0.3322578474593025,
+      "band_energy_share": 0.9937174899197974
+     }
+    },
+    "diss_proxy": 23.07176294058165
+   },
+   {
+    "scenario_id": "OC14",
+    "true_state": "STORM_FORCE",
+    "transient": false,
+    "params": {
+     "Hs_total": 4.8,
+     "components": [
+      {
+       "Hs": 5.168090748577042,
+       "Tp": 9.122779970341728,
+       "gamma": 1.1154224395616685,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CROSS_SEA",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "BUILDING_SEA"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.4199076681141388,
+      "MODERATE_CHOP": 0.36346841695521814,
+      "BUILDING_SEA": 0.3914906720025663,
+      "CROSS_SEA": 0.4603416053956615,
+      "STORM_FORCE": 0.3931741468247406
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.3948766014390588,
+      "MODERATE_CHOP": 0.3330188678741228,
+      "BUILDING_SEA": 0.4523717889556954,
+      "CROSS_SEA": 0.44506348764735393,
+      "STORM_FORCE": 0.37624294375093237
+     }
+    },
+    "whole_cavity_pred": "STORM_FORCE",
+    "primary_pred": "STORM_FORCE",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9793200606775888,
+     "MODERATE_CHOP": 0.9459719057343055,
+     "BUILDING_SEA": 0.9863919037547539,
+     "CROSS_SEA": 0.992804845896229,
+     "STORM_FORCE": 0.9996537631293095
+    },
+    "ledger": {
+     "power_in_through_flow": 6.328311197773807,
+     "power_tapped_by_nodes": 0.6321415420191793,
+     "power_transmitted_S21": 4.907791927770019,
+     "power_reflected_S11": 0.7876881502264084,
+     "power_residual_second_cavity": 0.0006895777582013909,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09989103289382417,
+     "residual_ratio": 0.00010896710617581081,
+     "transmitted_ratio": 0.7755294855753138,
+     "reflected_ratio": 0.12447051442468628,
+     "closure_error_frac": 1.4034999100748575e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 1.4547304910057965,
+      "phase_coherence": 0.202473374636641,
+      "band_energy_share": 0.865704469625526
+     },
+     "SETTLED": {
+      "residual_share": 1.4518839818475553,
+      "phase_coherence": 0.2922500073651226,
+      "band_energy_share": 0.9661291247267159
+     }
+    },
+    "diss_proxy": 22.688140996724197
+   },
+   {
+    "scenario_id": "OC15",
+    "true_state": "CALM_SWELL",
+    "transient": true,
+    "params": {
+     "Hs_total": 0.6,
+     "components": [
+      {
+       "Hs": 0.5901863206863601,
+       "Tp": 12.218442671004198,
+       "gamma": 3.572880689496993,
+       "kind": "swell"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "CALM_SWELL",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.8359591181439484,
+      "MODERATE_CHOP": 0.4893984228038825,
+      "BUILDING_SEA": 0.5132456440483658,
+      "CROSS_SEA": 0.7175343360925247,
+      "STORM_FORCE": 0.3270146193867263
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.6153061028698009,
+      "MODERATE_CHOP": 0.4811803336907325,
+      "BUILDING_SEA": 0.4976492992805143,
+      "CROSS_SEA": 0.6094194125166182,
+      "STORM_FORCE": 0.37374108271270884
+     }
+    },
+    "whole_cavity_pred": "CALM_SWELL",
+    "primary_pred": "CALM_SWELL",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.9978633878917216,
+     "MODERATE_CHOP": 0.8679358202820997,
+     "BUILDING_SEA": 0.9150680318916141,
+     "CROSS_SEA": 0.9890588767741305,
+     "STORM_FORCE": 0.9599414497812314
+    },
+    "ledger": {
+     "power_in_through_flow": 5.634899030531566,
+     "power_tapped_by_nodes": 0.5589022003410422,
+     "power_transmitted_S21": 3.592204590207365,
+     "power_reflected_S11": 1.4792045372710443,
+     "power_residual_second_cavity": 0.004587702712114311,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09918584118592777,
+     "residual_ratio": 0.0008141588140722253,
+     "transmitted_ratio": 0.6374922728417541,
+     "reflected_ratio": 0.26250772715824583,
+     "closure_error_frac": 1.576209999305594e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.4383307106333621,
+      "phase_coherence": 0.8585383336401677,
+      "band_energy_share": 0.9708759654770001
+     },
+     "SETTLED": {
+      "residual_share": 0.6342297024341487,
+      "phase_coherence": 0.78881220733977,
+      "band_energy_share": 0.9815427269833814
+     }
+    },
+    "diss_proxy": 17.856958869167272
+   },
+   {
+    "scenario_id": "OC16",
+    "true_state": "MODERATE_CHOP",
+    "transient": true,
+    "params": {
+     "Hs_total": 1.3,
+     "components": [
+      {
+       "Hs": 1.4151974103775324,
+       "Tp": 4.663920197539092,
+       "gamma": 1.4400786157783574,
+       "kind": "sea"
+      }
+     ]
+    },
+    "node_pred": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "MODERATE_CHOP"
+    },
+    "node_pred_amp": {
+     "DRIVE_END": "MODERATE_CHOP",
+     "SETTLED": "CALM_SWELL"
+    },
+    "node_scores": {
+     "DRIVE_END": {
+      "CALM_SWELL": 0.709880327430168,
+      "MODERATE_CHOP": 0.889251076545531,
+      "BUILDING_SEA": 0.7952639193256279,
+      "CROSS_SEA": 0.7601848281810469,
+      "STORM_FORCE": 0.6069987681032367
+     },
+     "SETTLED": {
+      "CALM_SWELL": 0.8285133012346195,
+      "MODERATE_CHOP": 0.8737657155435521,
+      "BUILDING_SEA": 0.7696676804822349,
+      "CROSS_SEA": 0.7980587387045265,
+      "STORM_FORCE": 0.636108805853788
+     }
+    },
+    "whole_cavity_pred": "MODERATE_CHOP",
+    "primary_pred": "MODERATE_CHOP",
+    "whole_pattern_scores": {
+     "CALM_SWELL": 0.813873504205727,
+     "MODERATE_CHOP": 0.9820909451536683,
+     "BUILDING_SEA": 0.9149495028639058,
+     "CROSS_SEA": 0.8543479992049098,
+     "STORM_FORCE": 0.8832723292570795
+    },
+    "ledger": {
+     "power_in_through_flow": 3.7726687547469577,
+     "power_tapped_by_nodes": 0.36108206661292186,
+     "power_transmitted_S21": 1.4038962880663979,
+     "power_reflected_S11": 1.9915055912058643,
+     "power_residual_second_cavity": 0.016184808861773953,
+     "power_bleed": 0.0,
+     "bleed_ratio": 0.0,
+     "tapped_ratio": 0.09570998412160904,
+     "residual_ratio": 0.004290015878390974,
+     "transmitted_ratio": 0.3721228603226685,
+     "reflected_ratio": 0.5278771396773315,
+     "closure_error_frac": 1.1771221878180735e-16
+    },
+    "detector": {
+     "DRIVE_END": {
+      "residual_share": 0.2847586150405787,
+      "phase_coherence": 0.8841053058301752,
+      "band_energy_share": 0.9968226849596173
+     },
+     "SETTLED": {
+      "residual_share": 0.4348076125797316,
+      "phase_coherence": 0.7807129926444213,
+      "band_energy_share": 0.9977101483297984
+     }
+    },
+    "diss_proxy": 10.391085152220722
+   }
+  ]
+ }
+}
