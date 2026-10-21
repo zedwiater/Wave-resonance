@@ -182,7 +182,7 @@ def wake_checklist(ts, joule_log, user_present, health, drive_log,
 # -- drive_x integration ----------------------------------------------------
 
 def circadian_decision(ts, snap, budget_j, base_weights=None,
-                       env_events=(), joule_cycles=()):
+                       env_events=(), joule_cycles=(), state=None):
     """Full stack for one dwell tick: circadian posture -> drive_x.
     Returns drive_x's decision stamped with phase, tired, curious,
     and any health anomalies. Rules:
@@ -209,7 +209,8 @@ def circadian_decision(ts, snap, budget_j, base_weights=None,
     tired = tiredness(ts, health_deficit=health["deficit"],
                       joules_today=snap.get("joules_today", 0.0))
     curious = curiosity(list(env_events))
-    decision = drive_x.arbitrate(snap, budget_j, weights=weights)
+    decision = drive_x.arbitrate(snap, budget_j, weights=weights,
+                                 state=state)
     if curious >= 0.6 and decision["mode"] in ("SLEEP", "REST"):
         decision = {**decision, "mode": "SCAN", "drive": "survival",
                     "task": "ambient_watch", "est_joules": 0.5}
