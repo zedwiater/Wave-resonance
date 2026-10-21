@@ -54,6 +54,10 @@ CUBE_PATH = os.path.expanduser("~/wave-sunday/harness/kv_cube.jsonl")
 LOG_PATH = os.path.expanduser("~/wave-sunday/harness/dweller_log.jsonl")
 STATE_PATH = os.path.expanduser(
     "~/wave-sunday/harness/community_state.json")
+CROSSTALK_PATH = os.path.expanduser(
+    "~/wave-sunday/harness/crosstalk.jsonl")
+CORPUS_PATH = os.path.expanduser(
+    "~/wave-sunday/harness/campaign_corpus.jsonl")
 UNPARSED_BYTES = 1_400_000_000   # Zak<->Gemini Takeout backlog (known)
 
 # -- toddler-proofing: deterministic guards, checked before any work --
@@ -139,7 +143,8 @@ def community_snapshot(path=STATE_PATH, now=None):
 
 class Dweller:
     def __init__(self, cube, log_fn, meter_fn=None, yield_fn=None,
-                 telemetry_fn=telemetry_snapshot, idle_w=45.0):
+                 telemetry_fn=telemetry_snapshot, idle_w=45.0,
+                 talk_path=None):
         self.cube = cube
         self.log_fn = log_fn            # callable(dict) — one record
         self.meter_fn = meter_fn        # callable(seconds)->joules|None
@@ -151,6 +156,19 @@ class Dweller:
         self.joules_today = 0.0
         self.ticks = 0
         self.work_times = []            # maintenance execution times
+        # the callosum: two hemispheres, one voice (callosum.py).
+        # Lazy import — a broken callosum disables the exchanges,
+        # never the tick. talk_path None (dry-run) = no hemispheres.
+        self.talk = None
+        self.cycle_count = 0
+        if talk_path:
+            try:
+                import callosum
+                self._callosum = callosum
+                self.talk = callosum.CrossTalk(talk_path)
+            except Exception:
+                self._callosum = None
+                self.talk = None
 
     def tick(self, ts=None, env_events=()):
         ts = ts if ts is not None else time.time()
@@ -221,7 +239,66 @@ class Dweller:
         if tel.get("disk_free_frac", 1.0) < DISK_WARN_FRAC:
             rec["disk_warn"] = True
         self.log_fn(rec)
+        self._maybe_callosum(ts, snap, decision, tel)
         return rec
+
+    # -- the callosum: right proposes, left disposes ------------------
+    def _orientation(self):
+        """First line of the campaign corpus, trimmed — the mind's
+        standing orientation, read by both hemispheres each cycle."""
+        try:
+            first = open(CORPUS_PATH).readline()
+            d = json.loads(first)
+            text = (f"Campaign: {d.get('campaign', '')} "
+                    f"Rule: {d.get('rule', '')}")
+            return text[:400]
+        except (OSError, ValueError):
+            return ""
+
+    def _maybe_callosum(self, ts, snap, decision, tel):
+        """Run one bilateral exchange on a slow cadence (tick 2 after
+        boot, then every 30 ticks), never in DEEP_NIGHT, never while
+        Zak is at work. Wrapped end-to-end: the callosum failing can
+        never break a tick. The exchange TEXT lives in
+        crosstalk.jsonl; the dweller log gets a CALLOSUM marker plus
+        any right-side proposal (Zak's visibility window — a log,
+        not an output channel)."""
+        if self.talk is None:
+            return
+        if os.environ.get("HARNESS_CALLOSUM", "1") == "0":
+            return
+        if not (self.ticks == 2 or self.ticks % 30 == 0):
+            return
+        if decision.get("phase") == "DEEP_NIGHT":
+            return
+        if decision.get("phase_label") == "AT_WORK":
+            return
+        try:
+            summary = (
+                f"Phase {decision.get('phase')} "
+                f"({decision.get('phase_label')}), "
+                f"tired {decision.get('tired')}, "
+                f"deficits {decision.get('deficits')}, "
+                f"organs {tel.get('organs')}, "
+                f"VRAM used frac {tel.get('vram_used_frac')}, "
+                f"cube entries {len(self.cube.entries)}, "
+                f"last decision {decision.get('mode')}/"
+                f"{decision.get('drive')}/{decision.get('task')}.")
+            orient = self._orientation()
+            if orient:
+                summary = orient + "\n" + summary
+            entries = self._callosum.run_exchange(summary, self.talk)
+            self.cycle_count += 1
+            rec = {"ts": ts, "mode": "CALLOSUM",
+                   "entries": len(entries),
+                   "cycle": self.cycle_count}
+            for e in entries:
+                if e.get("side") == "right" \
+                        and e.get("kind") == "proposal":
+                    rec["right_proposal"] = e["text"]
+            self.log_fn(rec)
+        except Exception:
+            pass
 
 
 def _meter_factory():
@@ -308,7 +385,8 @@ def live():
     def log(rec):
         logf.write(json.dumps(rec) + "\n")
         logf.flush()
-    d = Dweller(cube, log, meter_fn=_meter_factory())
+    d = Dweller(cube, log, meter_fn=_meter_factory(),
+                talk_path=CROSSTALK_PATH)
     print("dweller live: resident wrapper up "
           f"(cube {len(cube.entries)} entries, log {LOG_PATH})")
     errors = 0
