@@ -466,3 +466,265 @@ if __name__ == "__main__":
     print("SELF-TESTS")
     for line in run_self_tests():
         print("  PASS:", line)
+
+
+# ============================================================ v2: laws ====
+# Zak's directive (2026-10-20 23:09 EDT): caring is never neglected,
+# but the SCALE of caring follows two laws — protect life, protect
+# self. MHD says some things cannot be fixed or prevented; the hard
+# calls live there ("get to work on time or help the homeless person"
+# vs "...or call an ambulance for the accident you witnessed"). Those
+# deltas GROW over time: a discretionary call deferred does not fade
+# like a crooked painting — it accrues obligation.
+#
+# v2 adds a caring class per channel:
+#   LIFE           importance floor 1.0. Always ESCALATE. Never
+#                  habituates, never dismissed. (Witnessed accident:
+#                  you call the ambulance the 20th time too.)
+#   SELF           importance floor 0.8. Always at least ESCALATE-
+#                  with-assessment. No habituation. (Protect the body:
+#                  thermal runaway is not a painting.)
+#   DISCRETIONARY  v1 rules, split by stakes:
+#                  - obligation-bearing (stakes >= DEBT_MIN_STAKES):
+#                    novelty does NOT decay (duties don't habituate);
+#                    each DISMISS/MONITOR deferral adds obligation
+#                    debt, and effective importance grows by
+#                    DEBT_STEP per deferral (capped) until the call
+#                    crosses MONITOR, then ESCALATE. Debt resets when
+#                    the item is finally escalated/acted on.
+#                  - cosmetic (stakes < DEBT_MIN_STAKES): pure v1
+#                    habituation, no debt — a crooked painting creates
+#                    no obligation, so there is nothing to defer.
+# This split is the only reading under which both of Zak's named
+# cases hold at once: the painting fades to ~0 AND the deferred
+# human call grows until it is answered.
+
+LIFE_FLOOR = 1.0
+SELF_FLOOR = 0.8
+DEBT_STEP = 0.05
+DEBT_CAP = 0.5
+DEBT_MIN_STAKES = 0.15
+
+
+@dataclass
+class AckRecordV2(AckRecord):
+    care_class: str = "DISCRETIONARY"     # LIFE | SELF | DISCRETIONARY
+    importance_base: float = 0.0
+    importance_effective: float = 0.0
+    debt_count: int = 0
+    debt_bonus: float = 0.0
+    obligation_bearing: bool = False
+
+    def to_dict(self) -> dict:
+        d = super().to_dict()
+        d.update({
+            "care_class": self.care_class,
+            "importance_base": round(self.importance_base, 6),
+            "importance_effective": round(self.importance_effective, 6),
+            "debt_count": self.debt_count,
+            "debt_bonus": round(self.debt_bonus, 6),
+            "obligation_bearing": self.obligation_bearing,
+        })
+        return d
+
+
+class OracleAckV2(OracleAck):
+    """v1 layer + two-laws caring classes + obligation debt.
+    v1 behaviour is unchanged for channels registered without a
+    care_class (they are DISCRETIONARY with v1 habituation)."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._care: dict[str, str] = {}
+        self._debt: dict[str, int] = {}        # signature -> deferrals
+
+    def register(self, *args, care_class: str = "DISCRETIONARY",
+                 **kwargs) -> None:
+        super().register(*args, **kwargs)
+        name = args[0] if args else kwargs["name"]
+        if care_class not in ("LIFE", "SELF", "DISCRETIONARY"):
+            raise ValueError(f"unknown care_class {care_class!r}")
+        self._care[name] = care_class
+
+    def process(self, channel: str, value: float, ts: float = 0.0,
+                ctx: dict | None = None) -> AckRecordV2 | None:
+        ctx = ctx or {}
+        cfg = self.watcher.config(channel)
+        care = ctx.get("care_class", self._care.get(channel,
+                                                   "DISCRETIONARY"))
+        anomaly = self.watcher.observe(channel, value)
+
+        if anomaly is None:
+            if (self.mode == "ACTIVE" and channel == self.active_channel
+                    and self.watcher.is_calm(channel, value)):
+                self._calm_streak += 1
+                if self._calm_streak >= self.stand_down_dwell:
+                    self._set_mode("WATCH", ts, channel,
+                                   "channel stable — standing down (v2)")
+            return None
+        if channel == self.active_channel:
+            self._calm_streak = 0
+
+        goal_relevance = float(ctx.get("goal_relevance",
+                                       cfg["goal_relevance"]))
+        stakes = max(cfg["asset_risk"], goal_relevance)
+        sig = anomaly.signature
+        obligation = (care == "DISCRETIONARY"
+                      and stakes >= DEBT_MIN_STAKES)
+        prior_dismissals = self._dismissals.get(sig, 0)
+        debt = self._debt.get(sig, 0)
+
+        if care == "LIFE":
+            novelty, base = 1.0, max(stakes, LIFE_FLOOR)
+            eff, bonus = LIFE_FLOOR, 0.0
+        elif care == "SELF":
+            novelty, base = 1.0, stakes
+            eff, bonus = max(stakes, SELF_FLOOR), 0.0
+        elif obligation:
+            novelty, base = 1.0, stakes          # duties don't fade
+            bonus = min(DEBT_CAP, DEBT_STEP * debt)
+            eff = base + bonus
+        else:
+            novelty = 0.5 ** prior_dismissals   # v1 habituation
+            base = stakes
+            eff, bonus = stakes * novelty, 0.0
+
+        components = {
+            "asset_risk": cfg["asset_risk"],
+            "goal_relevance": goal_relevance,
+            "novelty_factor": novelty,
+            "prior_dismissals": prior_dismissals,
+            "signature": sig,
+            "care_class": care,
+            "debt_count": debt,
+            "debt_bonus": bonus,
+            "obligation_bearing": obligation,
+        }
+        assessment, gated_action = self._assess(anomaly, cfg, ctx)
+
+        if care in ("LIFE", "SELF") or eff > MONITOR_UP_TO:
+            disposition = "ESCALATE"
+            action = gated_action
+        elif eff < DISMISS_BELOW:
+            disposition, action = "DISMISS", "none"
+        else:
+            disposition, action = "MONITOR", "none"
+
+        record = AckRecordV2(
+            ts=ts, channel=channel,
+            anomaly_summary=anomaly.summary,
+            assessment=assessment,
+            importance=eff,
+            importance_components=components,
+            disposition=disposition, action=action,
+            habituated=(novelty < 1.0),
+            mode_after=self.mode,
+            care_class=care, importance_base=base,
+            importance_effective=eff, debt_count=debt,
+            debt_bonus=bonus, obligation_bearing=obligation,
+        )
+
+        if disposition == "DISMISS":
+            self._dismissals[sig] = prior_dismissals + 1
+            self.counters["dismissed"] += 1
+            if obligation:
+                self._debt[sig] = debt + 1       # deferred: it grows
+        elif disposition == "MONITOR":
+            self.counters["monitored"] += 1
+            self.watch_level = "raised"
+            self.monitor_until = ts + self.monitor_recheck_s
+            if obligation:
+                self._debt[sig] = debt + 1       # a deferral too
+        else:
+            self.counters["escalated"] += 1
+            if obligation:
+                self._debt[sig] = 0              # finally answered
+            if cfg["body_asset"]:
+                self._set_mode("ACTIVE", ts, channel,
+                               f"ESCALATE ({care}) on body-asset "
+                               f"channel {channel} (v2)")
+        self.counters["acks"] += 1
+        record.mode_after = self.mode
+        self.records.append(record)
+        return record
+
+
+def run_self_tests_v2() -> tuple[list[str], dict]:
+    passed = []
+    info = {}
+
+    def layer_with(**reg):
+        layer = OracleAckV2()
+        layer.register(**reg)
+        return layer
+
+    # LIFE: witnessed accident — ESCALATE at first sight and at the
+    # 20th repeat; importance pinned at 1.0, no decay, ever.
+    layer = layer_with(name="accident", kind="event",
+                       asset_risk=0.3, edge_level=1.0,
+                       care_class="LIFE")
+    recs = []
+    for i in range(20):
+        layer.process("accident", 0.0, ts=i * 2.0)
+        recs.append(layer.process("accident", 2.0, ts=i * 2.0 + 1.0))
+    assert all(r.disposition == "ESCALATE" for r in recs), recs[-1]
+    assert all(abs(r.importance_effective - 1.0) < 1e-9 for r in recs)
+    assert all(not r.habituated for r in recs)
+    passed.append("LIFE (witnessed accident): ESCALATE on sighting 1 "
+                  "and sighting 20, importance 1.0 throughout, no "
+                  "habituation")
+
+    # SELF: thermal runaway — floor 0.8, always ESCALATE, no decay.
+    layer = layer_with(name="thermal", kind="event",
+                       asset_risk=0.5, body_asset=True, edge_level=1.0,
+                       care_class="SELF")
+    recs = []
+    for i in range(5):
+        layer.process("thermal", 0.0, ts=i * 2.0)
+        recs.append(layer.process("thermal", 2.0, ts=i * 2.0 + 1.0))
+    assert all(r.disposition == "ESCALATE" for r in recs)
+    assert all(r.importance_effective >= SELF_FLOOR for r in recs)
+    passed.append("SELF (thermal runaway): ESCALATE every sighting, "
+                  "importance floored at 0.8, no habituation")
+
+    # DISCRETIONARY obligation: homeless-help. Base stakes 0.2 ->
+    # DISMISS first, grows 0.05/deferral until it ESCALATEs.
+    layer = layer_with(name="person_in_need", kind="event",
+                       asset_risk=0.05, goal_relevance=0.2,
+                       edge_level=1.0, care_class="DISCRETIONARY")
+    seq = []
+    for i in range(30):
+        layer.process("person_in_need", 0.0, ts=i * 2.0)
+        r = layer.process("person_in_need", 2.0, ts=i * 2.0 + 1.0)
+        seq.append(r.disposition)
+        if r.disposition == "ESCALATE":
+            info["homeless_sightings_to_escalate"] = i + 1
+            info["homeless_sequence"] = seq
+            break
+    assert "homeless_sightings_to_escalate" in info, seq
+    assert seq[0] == "DISMISS" and "MONITOR" in seq, seq
+    assert layer._debt.get("person_in_need:+", 0) == 0  # reset on act
+    passed.append("DISCRETIONARY obligation (help a person, stakes "
+                  "0.2): DISMISS -> MONITOR -> ESCALATE after "
+                  f"{info['homeless_sightings_to_escalate']} sightings "
+                  "(+0.05 obligation per deferral); debt resets on "
+                  "escalation")
+
+    # DISCRETIONARY cosmetic: crooked painting still habituates ~0.
+    layer = layer_with(name="painting", kind="event",
+                       asset_risk=0.05, edge_level=130.0,
+                       care_class="DISCRETIONARY")
+    imps = []
+    for i in range(6):
+        layer.process("painting", 100.0, ts=i * 2.0)
+        r = layer.process("painting", 165.0, ts=i * 2.0 + 1.0)
+        imps.append(r.importance_effective)
+    assert all(d == "DISMISS" for d in
+               [r.disposition for r in layer.records]), imps
+    assert imps[-1] < 0.002, imps
+    assert layer._debt.get("painting:+", 0) == 0   # no obligation
+    passed.append(f"DISCRETIONARY cosmetic (crooked painting): pure "
+                  f"habituation {imps[0]} -> {imps[-1]:.5f}, no "
+                  "obligation debt accrues below the stakes floor")
+
+    return passed, info

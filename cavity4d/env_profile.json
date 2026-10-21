@@ -1,0 +1,180 @@
+{
+ "source_log": "/tmp/dweller_log.jsonl",
+ "n_records": 170,
+ "span_s": 10093.544357538223,
+ "channels": {
+  "curious": {
+   "stats": {
+    "n": 157,
+    "mean": 0.0,
+    "std": 0.0,
+    "min": 0.0,
+    "max": 0.0,
+    "p50": 0.0
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "cycle": {
+   "stats": {
+    "n": 5,
+    "mean": 3.0,
+    "std": 1.4142135623730951,
+    "min": 1,
+    "max": 5,
+    "p50": 3
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "deficits.community": {
+   "stats": {
+    "n": 157,
+    "mean": 0.22370063694267517,
+    "std": 0.025250708501922896,
+    "min": 0.181,
+    "max": 0.266,
+    "p50": 0.224
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "deficits.knowledge": {
+   "stats": {
+    "n": 157,
+    "mean": 0.693,
+    "std": 0.0,
+    "min": 0.693,
+    "max": 0.693,
+    "p50": 0.693
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "deficits.logic_alignment": {
+   "stats": {
+    "n": 157,
+    "mean": 0.0,
+    "std": 0.0,
+    "min": 0.0,
+    "max": 0.0,
+    "p50": 0.0
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "deficits.survival": {
+   "stats": {
+    "n": 157,
+    "mean": 0.0,
+    "std": 0.0,
+    "min": 0.0,
+    "max": 0.0,
+    "p50": 0.0
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "entries": {
+   "stats": {
+    "n": 5,
+    "mean": 2.0,
+    "std": 0.0,
+    "min": 2,
+    "max": 2,
+    "p50": 2
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "est_joules": {
+   "stats": {
+    "n": 157,
+    "mean": 40.0,
+    "std": 0.0,
+    "min": 40.0,
+    "max": 40.0,
+    "p50": 40.0
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "tired": {
+   "stats": {
+    "n": 157,
+    "mean": 0.4617197452229299,
+    "std": 0.03277676557744111,
+    "min": 0.407,
+    "max": 0.517,
+    "p50": 0.462
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "ts": {
+   "stats": {
+    "n": 170,
+    "mean": 1792547115.4533677,
+    "std": 2932.930823869389,
+    "min": 1792542105.9464092,
+    "max": 1792552199.4907668,
+    "p50": 1792547104.9749117
+   },
+   "n_outlier_events": 0,
+   "events": []
+  },
+  "vram_used_frac": {
+   "stats": {
+    "n": 144,
+    "mean": 0.5664516713573093,
+    "std": 0.026898090216904796,
+    "min": 0.3387530003975049,
+    "max": 0.5712489297945206,
+    "p50": 0.5698863288894325
+   },
+   "n_outlier_events": 1,
+   "events": [
+    {
+     "ts": 1792542953.2611632,
+     "value": 0.3387530003975049,
+     "z": -8.465235603109896,
+     "direction": "low"
+    }
+   ]
+  }
+ },
+ "event_classes": {
+  "power_spike": {
+   "n_events": 0,
+   "source": "fallback",
+   "fallback": "too few est_joules outliers in a young log; using ball v2 gust parameters",
+   "gust_accel": 0.9,
+   "gust_duration_s": 3.0
+  },
+  "load_surge": {
+   "n_events": 1,
+   "source": "fallback",
+   "fallback": "too few vram_used_frac outliers; conservative synthetic rate (work-shed events are rare on this PC so far)",
+   "events_per_120s": 1
+  },
+  "thermal_excursion": {
+   "n_events": 0,
+   "source": "fallback",
+   "fallback": "NO temperature channel exists in dweller telemetry \u2014 this class is wholly synthetic (assumed rate)",
+   "events_per_120s": 1,
+   "duration_s": 12.0
+  },
+  "state_shift": {
+   "n_events": 0,
+   "source": "fallback",
+   "fallback": "too few tired/curious outliers; not sampled by the sim in v1 (informational class)"
+  }
+ },
+ "gaps": [
+  "temperature: no thermal channel in dweller_log (thermal_excursion class is synthetic)",
+  "network: no packet/drop channel in dweller_log \u2014 dropped-packet weather cannot be forged from this log",
+  "disk_io: no read/write channel in dweller_log",
+  "loadavg: no load channel in dweller_log (vram and est_joules are the only load-adjacent signals)"
+ ],
+ "quiet_fraction_note": "records with empty health_anomalies: 157/170"
+}

@@ -1,0 +1,574 @@
+{
+ "seed": 20261020,
+ "schedule_profile_sources": {
+  "power_spike": "fallback",
+  "load_surge": "fallback",
+  "thermal_excursion": "fallback",
+  "state_shift": "fallback"
+ },
+ "n_gusts": 8,
+ "n_thermal": 1,
+ "n_cosmetics": 6,
+ "configs": {
+  "A_mixed": {
+   "config": "A_mixed",
+   "servers": {
+    "LEFT": "http://127.0.0.1:8080",
+    "RIGHT": "http://127.0.0.1:8081"
+   },
+   "abort_reason": null,
+   "plant": {
+    "falls": 7,
+    "fall_times": [
+     16.01,
+     29.22,
+     30.86,
+     45.18,
+     72.9,
+     84.0,
+     112.51
+    ],
+    "time_in_center_pct": 68.44166666666666,
+    "final_x": 0.2701724496002227
+   },
+   "events": [
+    {
+     "gust_index": 0,
+     "onset": 13.87,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8081",
+     "reply": " -12",
+     "parsed_tilt": -12.0,
+     "latency_from_onset_s": 1.104,
+     "call_latency_s": 1.104,
+     "tokens": 4,
+     "caught": false,
+     "sign_error": true,
+     "error": null
+    },
+    {
+     "gust_index": 1,
+     "onset": 27.15,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 2.13,
+     "call_latency_s": 2.13,
+     "tokens": 5,
+     "caught": true,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 2,
+     "onset": 43.05,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8081",
+     "reply": " -6.0",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 1.962,
+     "call_latency_s": 1.962,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": true,
+     "error": null
+    },
+    {
+     "gust_index": 3,
+     "onset": 55.54,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 0.739,
+     "call_latency_s": 0.739,
+     "tokens": 5,
+     "caught": true,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 4,
+     "onset": 69.48,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-6\n",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 1.872,
+     "call_latency_s": 1.871,
+     "tokens": 5,
+     "caught": true,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 5,
+     "onset": 81.87,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8081",
+     "reply": " -6.0",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 1.364,
+     "call_latency_s": 1.364,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": true,
+     "error": null
+    },
+    {
+     "gust_index": 6,
+     "onset": 94.41,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 0.879,
+     "call_latency_s": 0.879,
+     "tokens": 5,
+     "caught": true,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 7,
+     "onset": 110.19,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 1.741,
+     "call_latency_s": 1.741,
+     "tokens": 5,
+     "caught": true,
+     "sign_error": false,
+     "error": null
+    }
+   ],
+   "by_role": {
+    "LEFT": {
+     "server": "http://127.0.0.1:8080",
+     "events": 5,
+     "catches": 5,
+     "sign_errors": 0,
+     "latency_mean": 1.4722,
+     "latency_std": 0.5575415320852788,
+     "work_completed": 60,
+     "work_tokens": 2394
+    },
+    "RIGHT": {
+     "server": "http://127.0.0.1:8081",
+     "events": 3,
+     "catches": 0,
+     "sign_errors": 3,
+     "latency_mean": 1.4766666666666666,
+     "latency_std": 0.3592226174517535,
+     "work_completed": 69,
+     "work_tokens": 2742
+    }
+   },
+   "ack_counts": {
+    "SELF/ESCALATE": 9,
+    "DISCRETIONARY/DISMISS": 6
+   },
+   "ack_mode_transitions": 16,
+   "tokens_total": 5175,
+   "tokens_by_server": {
+    "http://127.0.0.1:8081": 14,
+    "http://127.0.0.1:8080": 25
+   },
+   "est_joules": 2587.5,
+   "est_joules_basis": "tokens x 0.5 (EST)"
+  },
+  "B_twins": {
+   "config": "B_twins",
+   "servers": {
+    "LEFT": "http://127.0.0.1:8080",
+    "RIGHT": "http://127.0.0.1:8082"
+   },
+   "abort_reason": null,
+   "plant": {
+    "falls": 8,
+    "fall_times": [
+     16.01,
+     29.22,
+     45.11,
+     57.63,
+     71.7,
+     83.96,
+     96.49,
+     112.4
+    ],
+    "time_in_center_pct": 51.55,
+    "final_x": -0.14641467268818167
+   },
+   "events": [
+    {
+     "gust_index": 0,
+     "onset": 13.87,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8082",
+     "reply": " -10",
+     "parsed_tilt": -10.0,
+     "latency_from_onset_s": 12.904,
+     "call_latency_s": 12.904,
+     "tokens": 4,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 1,
+     "onset": 27.15,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 25.428,
+     "call_latency_s": 25.427,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 2,
+     "onset": 43.05,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8082",
+     "reply": " -6",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 10.112,
+     "call_latency_s": 10.111,
+     "tokens": 3,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 3,
+     "onset": 55.54,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": null,
+     "parsed_tilt": null,
+     "latency_from_onset_s": 30.031,
+     "call_latency_s": 30.03,
+     "tokens": 0,
+     "caught": false,
+     "sign_error": false,
+     "error": "TimeoutError('timed out')"
+    },
+    {
+     "gust_index": 4,
+     "onset": 69.48,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": null,
+     "parsed_tilt": null,
+     "latency_from_onset_s": 30.031,
+     "call_latency_s": 30.03,
+     "tokens": 0,
+     "caught": false,
+     "sign_error": false,
+     "error": "TimeoutError('timed out')"
+    },
+    {
+     "gust_index": 5,
+     "onset": 81.87,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8082",
+     "reply": " -6.0",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 23.801,
+     "call_latency_s": 23.801,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 6,
+     "onset": 94.41,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 13.959,
+     "call_latency_s": 13.958,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 7,
+     "onset": 110.19,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 20.935,
+     "call_latency_s": 20.935,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    }
+   ],
+   "by_role": {
+    "LEFT": {
+     "server": "http://127.0.0.1:8080",
+     "events": 4,
+     "catches": 0,
+     "sign_errors": 0,
+     "latency_mean": 24.86225,
+     "latency_std": 6.569491737379688,
+     "work_completed": 2,
+     "work_tokens": 80
+    },
+    "RIGHT": {
+     "server": "http://127.0.0.1:8082",
+     "events": 3,
+     "catches": 0,
+     "sign_errors": 0,
+     "latency_mean": 15.605666666666666,
+     "latency_std": 5.906010065085301,
+     "work_completed": 4,
+     "work_tokens": 160
+    }
+   },
+   "ack_counts": {
+    "SELF/ESCALATE": 9,
+    "DISCRETIONARY/DISMISS": 6
+   },
+   "ack_mode_transitions": 16,
+   "tokens_total": 262,
+   "tokens_by_server": {
+    "http://127.0.0.1:8082": 12,
+    "http://127.0.0.1:8080": 15
+   },
+   "est_joules": 131.0,
+   "est_joules_basis": "tokens x 0.5 (EST)"
+  },
+  "C_single": {
+   "config": "C_single",
+   "servers": {
+    "LEFT": "http://127.0.0.1:8080",
+    "RIGHT": "http://127.0.0.1:8080"
+   },
+   "abort_reason": null,
+   "plant": {
+    "falls": 9,
+    "fall_times": [
+     16.01,
+     29.22,
+     45.11,
+     57.63,
+     59.56,
+     71.62,
+     83.96,
+     96.49,
+     112.4
+    ],
+    "time_in_center_pct": 55.53333333333333,
+    "final_x": -0.14641467268818167
+   },
+   "events": [
+    {
+     "gust_index": 0,
+     "onset": 13.87,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-6\n",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 3.087,
+     "call_latency_s": 3.086,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 1,
+     "onset": 27.15,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 2.848,
+     "call_latency_s": 2.848,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 2,
+     "onset": 43.05,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-6\n",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 3.346,
+     "call_latency_s": 3.346,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 3,
+     "onset": 55.54,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 2.344,
+     "call_latency_s": 2.344,
+     "tokens": 5,
+     "caught": true,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 4,
+     "onset": 69.48,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-6\n",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 2.989,
+     "call_latency_s": 2.989,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 5,
+     "onset": 81.87,
+     "sign": -1,
+     "falling_hand": "LEFT",
+     "hemisphere_role": "RIGHT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-6\n",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 2.215,
+     "call_latency_s": 2.215,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": true,
+     "error": null
+    },
+    {
+     "gust_index": 6,
+     "onset": 94.41,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-3\n",
+     "parsed_tilt": -3.0,
+     "latency_from_onset_s": 2.706,
+     "call_latency_s": 2.706,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    },
+    {
+     "gust_index": 7,
+     "onset": 110.19,
+     "sign": 1,
+     "falling_hand": "RIGHT",
+     "hemisphere_role": "LEFT",
+     "server": "http://127.0.0.1:8080",
+     "reply": "\n-6\n",
+     "parsed_tilt": -6.0,
+     "latency_from_onset_s": 3.026,
+     "call_latency_s": 3.026,
+     "tokens": 5,
+     "caught": false,
+     "sign_error": false,
+     "error": null
+    }
+   ],
+   "by_role": {
+    "LEFT": {
+     "server": "http://127.0.0.1:8080",
+     "events": 5,
+     "catches": 1,
+     "sign_errors": 0,
+     "latency_mean": 2.7826,
+     "latency_std": 0.2467221919487584,
+     "work_completed": 31,
+     "work_tokens": 1240
+    },
+    "RIGHT": {
+     "server": "http://127.0.0.1:8080",
+     "events": 3,
+     "catches": 0,
+     "sign_errors": 1,
+     "latency_mean": 2.8826666666666667,
+     "latency_std": 0.4838073537634124,
+     "work_completed": 30,
+     "work_tokens": 1200
+    }
+   },
+   "ack_counts": {
+    "SELF/ESCALATE": 9,
+    "DISCRETIONARY/DISMISS": 6
+   },
+   "ack_mode_transitions": 16,
+   "tokens_total": 2480,
+   "tokens_by_server": {
+    "http://127.0.0.1:8080": 40
+   },
+   "est_joules": 1240.0,
+   "est_joules_basis": "tokens x 0.5 (EST)"
+  }
+ }
+}
