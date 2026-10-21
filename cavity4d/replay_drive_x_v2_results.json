@@ -1,0 +1,146 @@
+{
+ "snapshots": 9,
+ "modes": {
+  "THINK": 9
+ },
+ "community_wins": 3,
+ "knowledge_deficit_first": 0.65,
+ "knowledge_deficit_last": 0.512,
+ "timeline": [
+  {
+   "ts": 1791873274.4242246,
+   "backlog_mb": 1400,
+   "unchecked_h": 0,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.65,
+    "logic_alignment": 0.0,
+    "community": 0.0
+   },
+   "drive": "knowledge",
+   "task": "corpus_parse_chunk",
+   "est_joules": 40.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1791959674.4242246,
+   "backlog_mb": 1250,
+   "unchecked_h": 24,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.614,
+    "logic_alignment": 0.0,
+    "community": 0.5
+   },
+   "drive": "knowledge",
+   "task": "corpus_parse_chunk",
+   "est_joules": 40.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792046074.4242246,
+   "backlog_mb": 1100,
+   "unchecked_h": 48,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.576,
+    "logic_alignment": 0.0,
+    "community": 1.0
+   },
+   "drive": "community",
+   "task": "campaign_signal_sweep",
+   "est_joules": 5.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792132474.4242246,
+   "backlog_mb": 1100,
+   "unchecked_h": 0,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.576,
+    "logic_alignment": 0.0,
+    "community": 0.0
+   },
+   "drive": "knowledge",
+   "task": "corpus_parse_chunk",
+   "est_joules": 40.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792218874.4242246,
+   "backlog_mb": 950,
+   "unchecked_h": 24,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.535,
+    "logic_alignment": 0.0,
+    "community": 0.5
+   },
+   "drive": "knowledge",
+   "task": "corpus_parse_chunk",
+   "est_joules": 40.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792305274.4242246,
+   "backlog_mb": 800,
+   "unchecked_h": 48,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.491,
+    "logic_alignment": 0.0,
+    "community": 1.0
+   },
+   "drive": "community",
+   "task": "campaign_signal_sweep",
+   "est_joules": 5.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792391674.4242246,
+   "backlog_mb": 800,
+   "unchecked_h": 0,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.491,
+    "logic_alignment": 0.0,
+    "community": 0.0
+   },
+   "drive": "knowledge",
+   "task": "corpus_parse_chunk",
+   "est_joules": 40.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792478074.4242246,
+   "backlog_mb": 650,
+   "unchecked_h": 24,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.443,
+    "logic_alignment": 0.0,
+    "community": 0.5
+   },
+   "drive": "community",
+   "task": "campaign_signal_sweep",
+   "est_joules": 5.0,
+   "mode": "THINK"
+  },
+  {
+   "ts": 1792491060.6016452,
+   "backlog_mb": 650,
+   "unchecked_h": 0,
+   "deficits": {
+    "survival": 0.0,
+    "knowledge": 0.512,
+    "logic_alignment": 0.0,
+    "community": 0.0
+   },
+   "drive": "knowledge",
+   "task": "corpus_parse_chunk",
+   "est_joules": 40.0,
+   "mode": "THINK"
+  }
+ ]
+}

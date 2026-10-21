@@ -55,7 +55,12 @@ TASKS = {
     "logic_alignment": ("consistency_audit", 25.0, 0.35),
     "community": ("campaign_signal_sweep", 5.0, 0.40),
 }
-PARSE_TASK = ("corpus_parse_chunk", 40.0, 0.50)   # knowledge, big ticket
+# min-deficit 0.20, not 0.50: the v2 replay projection showed a 0.50
+# gate strands the backlog tail (~500 MB) forever — below the gate the
+# drive falls to maintenance, which never parses, so the deficit can
+# never clear and SLEEP stays unreachable. The gate must sit below the
+# deficit a draining backlog passes through.
+PARSE_TASK = ("corpus_parse_chunk", 40.0, 0.20)   # knowledge, big ticket
 
 REST_BELOW = 0.15      # every deficit under this -> SLEEP
 THINK_AT = 0.35        # a deficit at/above this wants real work
@@ -79,16 +84,30 @@ def deficit_survival(snap):
     return max(parts) if parts else 0.0
 
 
+def _noisy_or(parts):
+    """Combine sub-signals without masking: each adds evidence, none
+    can silence the others. (v1 used max() — the replay showed a
+    saturated term hiding every other sub-signal behind it.)"""
+    p = 1.0
+    for x in parts:
+        p *= (1.0 - _clamp(x))
+    return 1.0 - p
+
+
 def deficit_knowledge(snap):
     c = snap.get("cube", {})
     parts = [0.7 * _clamp(c.get("daydream_ratio", 0.0)),
              0.5 * _clamp(c.get("stale_frac", 0.0))]
     if snap.get("unparsed_bytes"):
-        # 1.4 GB backlog saturates; log-ish growth, capped
-        parts.append(_clamp(snap["unparsed_bytes"] / 1.4e9))
+        # Graded and capped (v2 calibration): sqrt scale, ceiling
+        # 0.65 — a huge backlog alone raises knowledge high but can
+        # never pin it at 1.0, so SLEEP stays reachable in principle
+        # and staleness/daydreams remain visible on the needle.
+        frac = snap["unparsed_bytes"] / 1.4e9
+        parts.append(0.65 * (min(frac, 1.0) ** 0.5))
     if c.get("near_threshold"):
         parts.append(_clamp(c["near_threshold"] / 10.0))
-    return max(parts) if parts else 0.0
+    return _noisy_or(parts)
 
 
 def deficit_logic_alignment(snap):
@@ -99,7 +118,7 @@ def deficit_logic_alignment(snap):
         parts.append(_clamp(a.get("queue", 0) / faces))
     if a.get("disagree_rate") is not None:
         parts.append(_clamp(a["disagree_rate"]))
-    return max(parts) if parts else 0.0
+    return _noisy_or(parts) if parts else 0.0
 
 
 def deficit_community(snap):
@@ -109,7 +128,7 @@ def deficit_community(snap):
         parts.append(_clamp(c["oldest_unchecked_h"] / 48.0))
     if "family_signal_age_h" in c:
         parts.append(_clamp(c["family_signal_age_h"] / 72.0))
-    return max(parts) if parts else 0.0
+    return _noisy_or(parts) if parts else 0.0
 
 
 DEFICITS = {"survival": deficit_survival,
@@ -120,23 +139,41 @@ DEFICITS = {"survival": deficit_survival,
 
 # -- arbitration ----------------------------------------------------------
 
-def evaluate(snap, weights=None):
+def evaluate(snap):
     """Snapshot -> {drive: deficit}. Pure; replay-safe."""
     return {d: DEFICITS[d](snap) for d in DRIVES}
 
 
-def arbitrate(snap, budget_j, weights=None):
+def _aging_boost(drive, snap, state):
+    """Priority grows with time-since-served (v2 anti-starvation):
+    +50% per unserved day, capped at 3 days (2.5x). The v1 replay
+    starved community 0/9 behind a saturated knowledge drive; classic
+    schedulers fix exactly this with aging. Stateless calls (no state)
+    get no boost — replay v1 semantics preserved."""
+    if not state or "last_served" not in state:
+        return 1.0
+    now = snap.get("ts", 0.0)
+    boot = state.get("boot_ts", now)
+    last = state["last_served"].get(drive, boot)
+    age_days = max(0.0, (now - last) / 86400.0)
+    return 1.0 + 0.5 * min(age_days, 3.0)
+
+
+def arbitrate(snap, budget_j, weights=None, state=None):
     """Snapshot + joule budget -> one stamped decision dict.
 
     Decision: {"mode", "drive", "task", "est_joules", "deficits"}.
     SCAN outranks everything internal (the world knocked). Survival
-    outranks the weighted order when critical (>= 0.8): the body first.
-    A task runs only if its price fits the budget; otherwise the
-    Dweller RESTs on free maintenance instead of overspending —
-    deferral to a cheaper window is a decision, not a failure.
+    outranks the weighted order when critical (>= 0.8, raw deficit —
+    aging never promotes INTO a crisis): the body first. Ordering is
+    by deficit x weight x aging boost. A task runs only if its price
+    fits the budget; otherwise the Dweller RESTs on free maintenance
+    instead of overspending — deferral to a cheaper window is a
+    decision, not a failure. (Survival's deficit keeps max() over its
+    sub-signals by design: any single body crisis IS a crisis.)
     """
     weights = weights or DEFAULT_WEIGHTS
-    deficits = evaluate(snap, weights)
+    deficits = evaluate(snap)
     base = {"deficits": {k: round(v, 3) for k, v in deficits.items()},
             "drive": None, "task": None, "est_joules": 0.0}
     if snap.get("sensor_nudge"):
@@ -144,7 +181,8 @@ def arbitrate(snap, budget_j, weights=None):
                 "task": "sensor_nudge_review", "est_joules": 1.0}
     if max(deficits.values()) < REST_BELOW:
         return {**base, "mode": "SLEEP"}
-    order = sorted(DRIVES, key=lambda d: -deficits[d] * weights[d])
+    order = sorted(DRIVES, key=lambda d: -deficits[d] * weights[d]
+                   * _aging_boost(d, snap, state))
     if deficits["survival"] >= 0.8:
         order.remove("survival")
         order.insert(0, "survival")
@@ -155,7 +193,10 @@ def arbitrate(snap, budget_j, weights=None):
             task, price, min_def = PARSE_TASK
         if deficits[drive] >= max(min_def, THINK_AT - 0.2) \
                 and price <= budget_j:
-            return {**base, "mode": "THINK", "drive": drive,
+            # cube maintenance is REST-grade work even when a drive
+            # vote surfaces it — THINK is reserved for priced tasks
+            mode = "REST" if task == "cube_maintenance" else "THINK"
+            return {**base, "mode": mode, "drive": drive,
                     "task": task, "est_joules": price}
     return {**base, "mode": "REST", "drive": "knowledge",
             "task": "cube_maintenance", "est_joules": TASKS["knowledge"][1]}
@@ -206,6 +247,7 @@ def make_dwell_work(cube, snapshot_fn, budget_fn, handlers=None,
     handlers = handlers or {}
     log = log if log is not None else []
     acc = {"dt": 0.0}
+    state = {"boot_ts": time.time(), "last_served": {}}
 
     def dwell_work(dt):
         acc["dt"] += dt
@@ -213,7 +255,9 @@ def make_dwell_work(cube, snapshot_fn, budget_fn, handlers=None,
             return None
         acc["dt"] = 0.0
         snap = {"ts": time.time(), **snapshot_fn()}
-        decision = arbitrate(snap, budget_fn())
+        decision = arbitrate(snap, budget_fn(), state=state)
+        if decision["drive"]:
+            state["last_served"][decision["drive"]] = snap["ts"]
         if decision["mode"] in ("THINK", "REST") \
                 and decision["task"] == "cube_maintenance":
             result = cube.idle_cycle()
@@ -253,8 +297,9 @@ def _selftest():
                                "daydream_ratio": 0.9,
                                "near_threshold": 3}}
     d = arbitrate(dreamy, budget_j=100.0)
-    check("daydream backlog -> knowledge THINK",
-          d["mode"] == "THINK" and d["drive"] == "knowledge")
+    check("daydream backlog -> knowledge maintenance (REST-grade)",
+          d["mode"] == "REST" and d["drive"] == "knowledge"
+          and d["task"] == "cube_maintenance")
 
     broke = {**dreamy, "telemetry": {"disk_free_frac": 0.01,
                                      "temp_c": 88.0,
@@ -285,10 +330,10 @@ def _selftest():
     cube = Cube(model_id="selftest")
     for i in range(6):
         cube.add_interaction(f"prompt {i}", f"reply {i}",
-                             session="s1", ts=1000.0)
+                             session="s1", ts=time.time())
     snap = cube_snapshot(cube, unparsed_bytes=1_400_000_000)
-    check("cube_snapshot: 1.4GB backlog saturates knowledge",
-          deficit_knowledge({**calm, **snap}) >= 0.99)
+    check("cube_snapshot: 1.4GB backlog registers strong but capped",
+          0.60 < deficit_knowledge({**calm, **snap}) < 0.70)
     log = []
     work = make_dwell_work(cube, lambda: {**calm, **snap},
                            lambda: 100.0, cycle_s=60.0, log=log)
@@ -297,6 +342,31 @@ def _selftest():
     check("dwell_work fires and stamps the log",
           decision is not None and len(log) == 1
           and log[0]["drive"] is not None)
+
+    # -- v2 calibration checks -------------------------------------------
+    full_backlog = {**calm, "unparsed_bytes": 1_400_000_000}
+    k_full = deficit_knowledge(full_backlog)
+    check("v2: full backlog no longer pins knowledge at 1.0",
+          0.60 < k_full < 0.70)
+    stale_too = {**full_backlog,
+                 "cube": {"entries": 500, "stale_frac": 0.9,
+                          "daydream_ratio": 0.0, "near_threshold": 0}}
+    check("v2: staleness still moves the needle (no masking)",
+          deficit_knowledge(stale_too) > k_full + 0.1)
+    # aging: community at deficit 1.0, unserved 3+ days, must beat a
+    # saturated-but-served knowledge drive (the v1 starvation case)
+    starved = {**calm,
+               "cube": {"entries": 500, "stale_frac": 0.05,
+                        "daydream_ratio": 0.0, "near_threshold": 0},
+               "unparsed_bytes": 1_400_000_000,
+               "community": {"oldest_unchecked_h": 96.0,
+                             "family_signal_age_h": 96.0},
+               "ts": 1_000_000.0}
+    state = {"boot_ts": 1_000_000.0 - 4 * 86400.0,
+             "last_served": {"knowledge": 1_000_000.0 - 3600.0}}
+    d = arbitrate(starved, budget_j=100.0, state=state)
+    check("v2: aging rescues starved community drive",
+          d["drive"] == "community" and d["mode"] == "THINK")
     print("ALL PASS" if ok else "SOME FAILED")
     return ok
 
