@@ -1,0 +1,4711 @@
+{
+ "header": {
+  "experiment": "wave-ocean-mesh \u2014 distributed buoy array as one cavity",
+  "directive": "Zak 2026-10-21 17:54 EDT (explicit go for the mesh sim)",
+  "parent": "ocean_cavity_sim.py v2 (whole-pattern primary, drive-end transient tap)",
+  "declared_assumptions": {
+   "A1_induction_range_m_per_hop": 25.0,
+   "A2_eta_values": [
+    0.9,
+    0.7
+   ],
+   "A3_propagation": "deep-water dispersion k_n=(2 pi f_n)^2/g on the parent sim's mapped ocean band; phase shift exp(-i k_n s_b); spike envelope timing identical at all buoys (declared simplification)",
+   "A4_per_buoy_noise_db": 12.0,
+   "A5_energy_label": "all power figures arbitrary simulated units (proxies), never joules",
+   "A6_token_method": "whitespace-delimited field count of the actual line strings",
+   "frequency_scaling": "inherited from parent: ocean band 0.04-2.0 Hz mapped logarithmically onto the 32-mode ladder"
+  },
+  "geometry": {
+   "n_buoys": 12,
+   "lattice_spacing_m": 24.0,
+   "link_range_m": 25.0,
+   "positions_m": [
+    [
+     24.0,
+     0.0
+    ],
+    [
+     12.0,
+     20.78
+    ],
+    [
+     -12.0,
+     20.78
+    ],
+    [
+     -24.0,
+     0.0
+    ],
+    [
+     -12.0,
+     -20.78
+    ],
+    [
+     12.0,
+     -20.78
+    ],
+    [
+     48.0,
+     0.0
+    ],
+    [
+     24.0,
+     41.57
+    ],
+    [
+     -24.0,
+     41.57
+    ],
+    [
+     -48.0,
+     0.0
+    ],
+    [
+     -24.0,
+     -41.57
+    ],
+    [
+     24.0,
+     -41.57
+    ]
+   ],
+   "projected_s_m": [
+    24.0,
+    12.0,
+    -12.0,
+    -24.0,
+    -12.0,
+    12.0,
+    48.0,
+    24.0,
+    -24.0,
+    -48.0,
+    -24.0,
+    24.0
+   ],
+   "hops_to_hub": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "max_radius_m": 48.0,
+   "first_buoy_geometric": 9,
+   "first_buoy_set": [
+    9
+   ]
+  },
+  "design_history": {
+   "run_1_chain_layout": {
+    "layout": "growth algorithm (largest radius, angle tie-break) -> one-sided chain, hops 1..10, max radius 134 m",
+    "gates": {
+     "M1": "FAIL (vote 0.875, field 0.6875)",
+     "M2": "FAIL (0/2 detected; max coherences 0.462/0.612 vs thr 0.793)",
+     "M3": "192 vs 1920 tokens (90.0% saving)",
+     "M4": "PASS (closure 2.93e-16)"
+    },
+    "disposition": "layout contradicted the specified architecture (cluster around a central hub); replaced by ring layout, gates unchanged, re-run as run 2 (the results in this file)"
+   }
+  },
+  "parameters": {
+   "seed": 21021,
+   "detector_threshold": 0.7470711852682075,
+   "calibration_background_max": 0.7270711852682075
+  }
+ },
+ "baseline_single_buoy": {
+  "accuracy": 0.9375,
+  "calm_swell_accuracy": 0.75,
+  "preds": [
+   "CALM_SWELL",
+   "CALM_SWELL",
+   "CROSS_SEA",
+   "MODERATE_CHOP",
+   "MODERATE_CHOP",
+   "MODERATE_CHOP",
+   "BUILDING_SEA",
+   "BUILDING_SEA",
+   "BUILDING_SEA",
+   "CROSS_SEA",
+   "CROSS_SEA",
+   "CROSS_SEA",
+   "STORM_FORCE",
+   "STORM_FORCE",
+   "CALM_SWELL",
+   "MODERATE_CHOP"
+  ]
+ },
+ "diagnostics": {
+  "D1_noise_ablation": {
+   "per_buoy_accuracy_no_extra_noise": 0.8072916666666666,
+   "vote_accuracy_no_extra_noise": 0.9375,
+   "field_accuracy_no_extra_noise": 0.75,
+   "rows": [
+    {
+     "scenario": "OC01",
+     "true_state": "CALM_SWELL",
+     "per_buoy_correct": 12,
+     "vote_pred": "CALM_SWELL",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC02",
+     "true_state": "CALM_SWELL",
+     "per_buoy_correct": 12,
+     "vote_pred": "CALM_SWELL",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC03",
+     "true_state": "CALM_SWELL",
+     "per_buoy_correct": 0,
+     "vote_pred": "CROSS_SEA",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC04",
+     "true_state": "MODERATE_CHOP",
+     "per_buoy_correct": 9,
+     "vote_pred": "MODERATE_CHOP",
+     "field_pred": "MODERATE_CHOP"
+    },
+    {
+     "scenario": "OC05",
+     "true_state": "MODERATE_CHOP",
+     "per_buoy_correct": 8,
+     "vote_pred": "MODERATE_CHOP",
+     "field_pred": "MODERATE_CHOP"
+    },
+    {
+     "scenario": "OC06",
+     "true_state": "MODERATE_CHOP",
+     "per_buoy_correct": 9,
+     "vote_pred": "MODERATE_CHOP",
+     "field_pred": "MODERATE_CHOP"
+    },
+    {
+     "scenario": "OC07",
+     "true_state": "BUILDING_SEA",
+     "per_buoy_correct": 12,
+     "vote_pred": "BUILDING_SEA",
+     "field_pred": "BUILDING_SEA"
+    },
+    {
+     "scenario": "OC08",
+     "true_state": "BUILDING_SEA",
+     "per_buoy_correct": 8,
+     "vote_pred": "BUILDING_SEA",
+     "field_pred": "BUILDING_SEA"
+    },
+    {
+     "scenario": "OC09",
+     "true_state": "BUILDING_SEA",
+     "per_buoy_correct": 12,
+     "vote_pred": "BUILDING_SEA",
+     "field_pred": "BUILDING_SEA"
+    },
+    {
+     "scenario": "OC10",
+     "true_state": "CROSS_SEA",
+     "per_buoy_correct": 12,
+     "vote_pred": "CROSS_SEA",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC11",
+     "true_state": "CROSS_SEA",
+     "per_buoy_correct": 12,
+     "vote_pred": "CROSS_SEA",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC12",
+     "true_state": "CROSS_SEA",
+     "per_buoy_correct": 11,
+     "vote_pred": "CROSS_SEA",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC13",
+     "true_state": "STORM_FORCE",
+     "per_buoy_correct": 8,
+     "vote_pred": "STORM_FORCE",
+     "field_pred": "STORM_FORCE"
+    },
+    {
+     "scenario": "OC14",
+     "true_state": "STORM_FORCE",
+     "per_buoy_correct": 11,
+     "vote_pred": "STORM_FORCE",
+     "field_pred": "STORM_FORCE"
+    },
+    {
+     "scenario": "OC15",
+     "true_state": "CALM_SWELL",
+     "per_buoy_correct": 12,
+     "vote_pred": "CALM_SWELL",
+     "field_pred": "CALM_SWELL"
+    },
+    {
+     "scenario": "OC16",
+     "true_state": "MODERATE_CHOP",
+     "per_buoy_correct": 7,
+     "vote_pred": "MODERATE_CHOP",
+     "field_pred": "STORM_FORCE"
+    }
+   ]
+  },
+  "D2_compensated_detector": {
+   "threshold_compensated": 0.9080199964615989,
+   "background_max_compensated": 0.8880199964615989,
+   "rows": [
+    {
+     "scenario": "OC15",
+     "detected_compensated": false,
+     "first_hat_compensated": 5,
+     "localization_correct_compensated": false,
+     "max_coherence_compensated": 0.8973266947843226
+    },
+    {
+     "scenario": "OC16",
+     "detected_compensated": true,
+     "first_hat_compensated": 6,
+     "localization_correct_compensated": false,
+     "max_coherence_compensated": 0.9255569129838779
+    }
+   ]
+  }
+ },
+ "gates": {
+  "M1_array_fusion": {
+   "best_fusion": "vote_weighted",
+   "best_accuracy": 0.9375,
+   "threshold": 0.938,
+   "baseline_accuracy": 0.9375,
+   "best_calm_swell_accuracy": 0.75,
+   "baseline_calm_swell_accuracy": 0.75,
+   "vote_weighted_accuracy": 0.9375,
+   "field_fusion_accuracy": 0.75,
+   "diagnostics": {
+    "majority_vote_accuracy": 0.9375,
+    "powermean_accuracy": 0.8125,
+    "mean_per_buoy_accuracy": 0.7864583333333334
+   },
+   "confusions_best": [
+    {
+     "scenario": "OC03",
+     "true": "CALM_SWELL",
+     "pred": "CROSS_SEA"
+    }
+   ],
+   "pass": false
+  },
+  "M2_transient_localization": {
+   "threshold": 0.7470711852682075,
+   "rows": [
+    {
+     "scenario": "OC15",
+     "true_state": "CALM_SWELL",
+     "detected": false,
+     "first_hat": 5,
+     "first_expected": 9,
+     "localization_correct": false,
+     "max_coherence": 0.6453405994235383
+    },
+    {
+     "scenario": "OC16",
+     "true_state": "MODERATE_CHOP",
+     "detected": false,
+     "first_hat": 3,
+     "first_expected": 9,
+     "localization_correct": false,
+     "max_coherence": 0.6001112541510094
+    }
+   ],
+   "pass": false,
+   "note": "single buoy baseline detects the event (parent G2) but has no localization to give"
+  },
+  "M3_uplink_aggregation": {
+   "counting_method": "whitespace-delimited fields of the actual line strings (A6)",
+   "tokens_aggregated_total_16_scenarios": 192,
+   "tokens_individual_total_16_scenarios": 1920,
+   "mean_tokens_aggregated_per_scenario": 12.0,
+   "mean_tokens_individual_per_scenario": 120.0,
+   "saving_frac": 0.9,
+   "rows": [
+    {
+     "scenario": "OC01",
+     "aggregated_line": "<134>1 2026-10-21T18:05Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CALM_SWELL\" confidence=\"0.927\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC02",
+     "aggregated_line": "<134>1 2026-10-21T18:06Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CALM_SWELL\" confidence=\"0.957\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC03",
+     "aggregated_line": "<134>1 2026-10-21T18:07Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CROSS_SEA\" confidence=\"1.000\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC04",
+     "aggregated_line": "<134>1 2026-10-21T18:08Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"MODERATE_CHOP\" confidence=\"0.953\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC05",
+     "aggregated_line": "<134>1 2026-10-21T18:09Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"MODERATE_CHOP\" confidence=\"0.977\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC06",
+     "aggregated_line": "<134>1 2026-10-21T18:10Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"MODERATE_CHOP\" confidence=\"0.960\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC07",
+     "aggregated_line": "<134>1 2026-10-21T18:11Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"BUILDING_SEA\" confidence=\"1.000\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC08",
+     "aggregated_line": "<134>1 2026-10-21T18:12Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"BUILDING_SEA\" confidence=\"0.757\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC09",
+     "aggregated_line": "<134>1 2026-10-21T18:13Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"BUILDING_SEA\" confidence=\"1.000\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC10",
+     "aggregated_line": "<134>1 2026-10-21T18:14Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CROSS_SEA\" confidence=\"1.000\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC11",
+     "aggregated_line": "<134>1 2026-10-21T18:15Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CROSS_SEA\" confidence=\"1.000\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC12",
+     "aggregated_line": "<134>1 2026-10-21T18:16Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CROSS_SEA\" confidence=\"0.820\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC13",
+     "aggregated_line": "<134>1 2026-10-21T18:17Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"STORM_FORCE\" confidence=\"0.926\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC14",
+     "aggregated_line": "<134>1 2026-10-21T18:18Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"STORM_FORCE\" confidence=\"0.996\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC15",
+     "aggregated_line": "<134>1 2026-10-21T18:19Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"CALM_SWELL\" confidence=\"1.000\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    },
+    {
+     "scenario": "OC16",
+     "aggregated_line": "<134>1 2026-10-21T18:20Z HUB ARRAY12 WAVE_CAVITY - - [array@41021 classification=\"MODERATE_CHOP\" confidence=\"0.947\" transient=\"none\" first=\"none\"]",
+     "tokens_aggregated": 12,
+     "tokens_individual_total": 120
+    }
+   ],
+   "pass": true
+  },
+  "M4_ledger_and_relay": {
+   "max_closure_error_frac": 2.1210291621299424e-16,
+   "tolerance": 1e-09,
+   "pass": true,
+   "relay_by_eta": {
+    "0.9": {
+     "mean_relay_loss_frac_of_tapped": 0.1379728207613531,
+     "mean_relay_loss_frac_of_p_in": 0.013639324784609112,
+     "rows": [
+      {
+       "scenario": "OC01",
+       "tapped_total_proxy": 6.896235907355584,
+       "hub_received_tapped_proxy": 5.9030796725755,
+       "relay_loss_proxy": 0.9931562347800842,
+       "relay_loss_frac_of_tapped": 0.14401424895003595,
+       "relay_loss_frac_of_p_in": 0.0143462047839203
+      },
+      {
+       "scenario": "OC02",
+       "tapped_total_proxy": 6.886314384058894,
+       "hub_received_tapped_proxy": 5.896061046104476,
+       "relay_loss_proxy": 0.9902533379544174,
+       "relay_loss_frac_of_tapped": 0.1438001930679714,
+       "relay_loss_frac_of_p_in": 0.014326887497491782
+      },
+      {
+       "scenario": "OC03",
+       "tapped_total_proxy": 6.996741325788537,
+       "hub_received_tapped_proxy": 5.98720292923623,
+       "relay_loss_proxy": 1.0095383965523066,
+       "relay_loss_frac_of_tapped": 0.14428694009757909,
+       "relay_loss_frac_of_p_in": 0.014393460706127145
+      },
+      {
+       "scenario": "OC04",
+       "tapped_total_proxy": 2.113847187027542,
+       "hub_received_tapped_proxy": 1.8724921417368878,
+       "relay_loss_proxy": 0.24135504529065432,
+       "relay_loss_frac_of_tapped": 0.11417809516781764,
+       "relay_loss_frac_of_p_in": 0.010980342417466102
+      },
+      {
+       "scenario": "OC05",
+       "tapped_total_proxy": 2.1184178140551544,
+       "hub_received_tapped_proxy": 1.8821978919465807,
+       "relay_loss_proxy": 0.23621992210857368,
+       "relay_loss_frac_of_tapped": 0.1115077113406598,
+       "relay_loss_frac_of_p_in": 0.010668238682370977
+      },
+      {
+       "scenario": "OC06",
+       "tapped_total_proxy": 2.9241779989900314,
+       "hub_received_tapped_proxy": 2.555760989944419,
+       "relay_loss_proxy": 0.36841700904561225,
+       "relay_loss_frac_of_tapped": 0.12598993945404766,
+       "relay_loss_frac_of_p_in": 0.012190050554746463
+      },
+      {
+       "scenario": "OC07",
+       "tapped_total_proxy": 5.9456083243062015,
+       "hub_received_tapped_proxy": 5.1174603297785985,
+       "relay_loss_proxy": 0.8281479945276029,
+       "relay_loss_frac_of_tapped": 0.1392873444323698,
+       "relay_loss_frac_of_p_in": 0.013832506908371222
+      },
+      {
+       "scenario": "OC08",
+       "tapped_total_proxy": 6.619938583168945,
+       "hub_received_tapped_proxy": 5.6791800736640266,
+       "relay_loss_proxy": 0.940758509504918,
+       "relay_loss_frac_of_tapped": 0.14210985459846665,
+       "relay_loss_frac_of_p_in": 0.014169487780356312
+      },
+      {
+       "scenario": "OC09",
+       "tapped_total_proxy": 6.188823678587957,
+       "hub_received_tapped_proxy": 5.314951769495944,
+       "relay_loss_proxy": 0.8738719090920126,
+       "relay_loss_frac_of_tapped": 0.1412016167329872,
+       "relay_loss_frac_of_p_in": 0.01403482221843565
+      },
+      {
+       "scenario": "OC10",
+       "tapped_total_proxy": 6.882489536733942,
+       "hub_received_tapped_proxy": 5.8917284216376125,
+       "relay_loss_proxy": 0.9907611150963298,
+       "relay_loss_frac_of_tapped": 0.14395388613500043,
+       "relay_loss_frac_of_p_in": 0.01437264689140892
+      },
+      {
+       "scenario": "OC11",
+       "tapped_total_proxy": 6.778709252344988,
+       "hub_received_tapped_proxy": 5.800664699125497,
+       "relay_loss_proxy": 0.9780445532194904,
+       "relay_loss_frac_of_tapped": 0.1442818266443794,
+       "relay_loss_frac_of_p_in": 0.01439814522602669
+      },
+      {
+       "scenario": "OC12",
+       "tapped_total_proxy": 6.965581035438988,
+       "hub_received_tapped_proxy": 5.960816458496725,
+       "relay_loss_proxy": 1.0047645769422626,
+       "relay_loss_frac_of_tapped": 0.14424705876369723,
+       "relay_loss_frac_of_p_in": 0.014399595068551556
+      },
+      {
+       "scenario": "OC13",
+       "tapped_total_proxy": 6.8006030786352065,
+       "hub_received_tapped_proxy": 5.825934798835716,
+       "relay_loss_proxy": 0.9746682797994906,
+       "relay_loss_frac_of_tapped": 0.14332085971338498,
+       "relay_loss_frac_of_p_in": 0.014303509184269281
+      },
+      {
+       "scenario": "OC14",
+       "tapped_total_proxy": 7.010026504999575,
+       "hub_received_tapped_proxy": 6.002943253719107,
+       "relay_loss_proxy": 1.0070832512804682,
+       "relay_loss_frac_of_tapped": 0.14366325869983698,
+       "relay_loss_frac_of_p_in": 0.01435053614947257
+      },
+      {
+       "scenario": "OC15",
+       "tapped_total_proxy": 6.395670036348997,
+       "hub_received_tapped_proxy": 5.472179200705135,
+       "relay_loss_proxy": 0.9234908356438618,
+       "relay_loss_frac_of_tapped": 0.14439313322846806,
+       "relay_loss_frac_of_p_in": 0.014313386385839242
+      },
+      {
+       "scenario": "OC16",
+       "tapped_total_proxy": 1.9230227876583514,
+       "hub_received_tapped_proxy": 1.658935673655291,
+       "relay_loss_proxy": 0.2640871140030605,
+       "relay_loss_frac_of_tapped": 0.13732916515494709,
+       "relay_loss_frac_of_p_in": 0.013149376098891566
+      }
+     ]
+    },
+    "0.7": {
+     "mean_relay_loss_frac_of_tapped": 0.3886032484431573,
+     "mean_relay_loss_frac_of_p_in": 0.03840859176951156,
+     "rows": [
+      {
+       "scenario": "OC01",
+       "tapped_total_proxy": 6.896235907355584,
+       "hub_received_tapped_proxy": 4.1191222990450145,
+       "relay_loss_proxy": 2.77711360831057,
+       "relay_loss_frac_of_tapped": 0.4026999142167507,
+       "relay_loss_frac_of_p_in": 0.04011558215899165
+      },
+      {
+       "scenario": "OC02",
+       "tapped_total_proxy": 6.886314384058894,
+       "hub_received_tapped_proxy": 4.116635636561324,
+       "relay_loss_proxy": 2.7696787474975695,
+       "relay_loss_frac_of_tapped": 0.40220045049193365,
+       "relay_loss_frac_of_p_in": 0.04007143858920089
+      },
+      {
+       "scenario": "OC03",
+       "tapped_total_proxy": 6.996741325788537,
+       "hub_received_tapped_proxy": 4.174702312113919,
+       "relay_loss_proxy": 2.822039013674618,
+       "relay_loss_frac_of_tapped": 0.40333619356101785,
+       "relay_loss_frac_of_p_in": 0.040235129038382104
+      },
+      {
+       "scenario": "OC04",
+       "tapped_total_proxy": 2.113847187027542,
+       "hub_received_tapped_proxy": 1.4097622688808458,
+       "relay_loss_proxy": 0.7040849181466964,
+       "relay_loss_frac_of_tapped": 0.33308222205824123,
+       "relay_loss_frac_of_p_in": 0.032032035969722816
+      },
+      {
+       "scenario": "OC05",
+       "tapped_total_proxy": 2.1184178140551544,
+       "hub_received_tapped_proxy": 1.426010141531473,
+       "relay_loss_proxy": 0.6924076725236814,
+       "relay_loss_frac_of_tapped": 0.32685132646153914,
+       "relay_loss_frac_of_p_in": 0.031270733857038595
+      },
+      {
+       "scenario": "OC06",
+       "tapped_total_proxy": 2.9241779989900314,
+       "hub_received_tapped_proxy": 1.8695931112842668,
+       "relay_loss_proxy": 1.0545848877057646,
+       "relay_loss_frac_of_tapped": 0.36064319205944473,
+       "relay_loss_frac_of_p_in": 0.034893728518960186
+      },
+      {
+       "scenario": "OC07",
+       "tapped_total_proxy": 5.9456083243062015,
+       "hub_received_tapped_proxy": 3.616889115454714,
+       "relay_loss_proxy": 2.3287192088514876,
+       "relay_loss_frac_of_tapped": 0.3916704703421963,
+       "relay_loss_frac_of_p_in": 0.038896459035041846
+      },
+      {
+       "scenario": "OC08",
+       "tapped_total_proxy": 6.619938583168945,
+       "hub_received_tapped_proxy": 3.9835061554462063,
+       "relay_loss_proxy": 2.6364324277227382,
+       "relay_loss_frac_of_tapped": 0.39825632739642214,
+       "relay_loss_frac_of_p_in": 0.039709337402658036
+      },
+      {
+       "scenario": "OC09",
+       "tapped_total_proxy": 6.188823678587957,
+       "hub_received_tapped_proxy": 3.737200978800729,
+       "relay_loss_proxy": 2.4516226997872277,
+       "relay_loss_frac_of_tapped": 0.39613710571030364,
+       "relay_loss_frac_of_p_in": 0.03937429316608465
+      },
+      {
+       "scenario": "OC10",
+       "tapped_total_proxy": 6.882489536733942,
+       "hub_received_tapped_proxy": 4.111880965726908,
+       "relay_loss_proxy": 2.770608571007034,
+       "relay_loss_frac_of_tapped": 0.40255906764833455,
+       "relay_loss_frac_of_p_in": 0.040192310798878535
+      },
+      {
+       "scenario": "OC11",
+       "tapped_total_proxy": 6.778709252344988,
+       "hub_received_tapped_proxy": 4.044691344676511,
+       "relay_loss_proxy": 2.734017907668477,
+       "relay_loss_frac_of_tapped": 0.4033242621702187,
+       "relay_loss_frac_of_p_in": 0.04024845980235648
+      },
+      {
+       "scenario": "OC12",
+       "tapped_total_proxy": 6.965581035438988,
+       "hub_received_tapped_proxy": 4.156758286877774,
+       "relay_loss_proxy": 2.808822748561214,
+       "relay_loss_frac_of_tapped": 0.4032431371152938,
+       "relay_loss_frac_of_p_in": 0.04025411636395861
+      },
+      {
+       "scenario": "OC13",
+       "tapped_total_proxy": 6.8006030786352065,
+       "hub_received_tapped_proxy": 4.0730035538607146,
+       "relay_loss_proxy": 2.727599524774492,
+       "relay_loss_frac_of_tapped": 0.40108200599789834,
+       "relay_loss_frac_of_p_in": 0.04002822874429289
+      },
+      {
+       "scenario": "OC14",
+       "tapped_total_proxy": 7.010026504999575,
+       "hub_received_tapped_proxy": 4.192830485011842,
+       "relay_loss_proxy": 2.8171960199877333,
+       "relay_loss_frac_of_tapped": 0.4018809369662867,
+       "relay_loss_frac_of_p_in": 0.04014392382514673
+      },
+      {
+       "scenario": "OC15",
+       "tapped_total_proxy": 6.395670036348997,
+       "hub_received_tapped_proxy": 3.814480084090053,
+       "relay_loss_proxy": 2.581189952258944,
+       "relay_loss_frac_of_tapped": 0.4035839775330921,
+       "relay_loss_frac_of_p_in": 0.0400064274554166
+      },
+      {
+       "scenario": "OC16",
+       "tapped_total_proxy": 1.9230227876583514,
+       "hub_received_tapped_proxy": 1.1786180024739867,
+       "relay_loss_proxy": 0.7444047851843647,
+       "relay_loss_frac_of_tapped": 0.38710138536154326,
+       "relay_loss_frac_of_p_in": 0.03706526358605425
+      }
+     ]
+    }
+   }
+  },
+  "falsifier": {
+   "statement": "array <= single buoy on identical scenarios -> distributed-cavity claim fails at this scale",
+   "array_best_accuracy": 0.9375,
+   "baseline_accuracy": 0.9375,
+   "claim_survives": false
+  }
+ },
+ "scenarios": [
+  {
+   "scenario_id": "OC01",
+   "true_state": "CALM_SWELL",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.99966221802345,
+      "MODERATE_CHOP": 0.5159109202442311,
+      "BUILDING_SEA": 0.9371653343923969,
+      "CROSS_SEA": 0.9986363481025676,
+      "STORM_FORCE": 0.9739179060632749
+     },
+     "margin": 0.001025869920882383,
+     "coherence_drive_end": 0.5787624067737805
+    },
+    {
+     "buoy": 1,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9984212363151779,
+      "MODERATE_CHOP": 0.8879106156602052,
+      "BUILDING_SEA": 0.9498855248599826,
+      "CROSS_SEA": 0.9994497515760032,
+      "STORM_FORCE": 0.9829199689429619
+     },
+     "margin": 0.001028515260825369,
+     "coherence_drive_end": 0.5284561962000851
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9987153288923424,
+      "MODERATE_CHOP": 0.9208838636033935,
+      "BUILDING_SEA": 0.9519583534071393,
+      "CROSS_SEA": 0.9991455379536854,
+      "STORM_FORCE": 0.9846002946842333
+     },
+     "margin": 0.0004302090613430565,
+     "coherence_drive_end": 0.3084234200431856
+    },
+    {
+     "buoy": 3,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9998372673978431,
+      "MODERATE_CHOP": 0.8799350128594262,
+      "BUILDING_SEA": 0.9301761549558665,
+      "CROSS_SEA": 0.9962839890819848,
+      "STORM_FORCE": 0.9755846226305837
+     },
+     "margin": 0.003553278315858277,
+     "coherence_drive_end": 0.17337025556594157
+    },
+    {
+     "buoy": 4,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9997808800108935,
+      "MODERATE_CHOP": 0.9073228701905999,
+      "BUILDING_SEA": 0.9396388619319357,
+      "CROSS_SEA": 0.9979750595554939,
+      "STORM_FORCE": 0.9774327943771046
+     },
+     "margin": 0.001805820455399565,
+     "coherence_drive_end": 0.3872390575686653
+    },
+    {
+     "buoy": 5,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9992091834991658,
+      "MODERATE_CHOP": 0.8807708583383796,
+      "BUILDING_SEA": 0.9442806531262984,
+      "CROSS_SEA": 0.9989971036933984,
+      "STORM_FORCE": 0.9795487170769183
+     },
+     "margin": 0.00021207980576731789,
+     "coherence_drive_end": 0.4995938199970768
+    },
+    {
+     "buoy": 6,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9996276794714162,
+      "MODERATE_CHOP": 0.23286683460169827,
+      "BUILDING_SEA": 0.9325057355124828,
+      "CROSS_SEA": 0.9969172409090964,
+      "STORM_FORCE": 0.9745273901568587
+     },
+     "margin": 0.0027104385623197835,
+     "coherence_drive_end": 0.46829924575733833
+    },
+    {
+     "buoy": 7,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9994054807610276,
+      "MODERATE_CHOP": 0.5296891175044536,
+      "BUILDING_SEA": 0.9435311900583981,
+      "CROSS_SEA": 0.9986502542949995,
+      "STORM_FORCE": 0.9776857106708027
+     },
+     "margin": 0.0007552264660281027,
+     "coherence_drive_end": 0.5355965696078174
+    },
+    {
+     "buoy": 8,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9998175468229283,
+      "MODERATE_CHOP": 0.882352131395242,
+      "BUILDING_SEA": 0.9307644224986324,
+      "CROSS_SEA": 0.9962442580753247,
+      "STORM_FORCE": 0.9755369583846372
+     },
+     "margin": 0.0035732887476036534,
+     "coherence_drive_end": 0.13831030317388754
+    },
+    {
+     "buoy": 9,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9991286020505612,
+      "MODERATE_CHOP": 0.31230972323015327,
+      "BUILDING_SEA": 0.9314257236027972,
+      "CROSS_SEA": 0.9990934859600102,
+      "STORM_FORCE": 0.9858869931634413
+     },
+     "margin": 3.5116090550957324e-05,
+     "coherence_drive_end": 0.35037068614442723
+    },
+    {
+     "buoy": 10,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9998527882094272,
+      "MODERATE_CHOP": 0.8849253466753525,
+      "BUILDING_SEA": 0.9323543960582663,
+      "CROSS_SEA": 0.99644132954941,
+      "STORM_FORCE": 0.976502924570829
+     },
+     "margin": 0.0034114586600172414,
+     "coherence_drive_end": 0.17224524261027888
+    },
+    {
+     "buoy": 11,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9996549464203573,
+      "MODERATE_CHOP": 0.5165950398721136,
+      "BUILDING_SEA": 0.9368624260918502,
+      "CROSS_SEA": 0.9982182956318367,
+      "STORM_FORCE": 0.9734223628763589
+     },
+     "margin": 0.0014366507885206214,
+     "coherence_drive_end": 0.5998949151956297
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.4950483110734533e-16,
+    1.488793648694023e-16,
+    0.0,
+    1.5295465258851983e-16,
+    0.0,
+    1.6289060668820507e-16,
+    1.5453096081587455e-16,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.5741794225282321,
+    0.6008487416113263,
+    0.6000269619518752,
+    0.5627857074130842,
+    0.5913978837386622,
+    0.5944122562843343,
+    0.5424763504030498,
+    0.5788271678823526,
+    0.5618888983238389,
+    0.5437184562654703,
+    0.571750819061825,
+    0.5739232418915341
+   ],
+   "per_buoy_p_in": [
+    5.7590720567121085,
+    6.0255034920267105,
+    6.0218034023054905,
+    5.655221885132526,
+    5.940800796346227,
+    5.965759059217103,
+    5.447682594518467,
+    5.806808780701244,
+    5.647755505532803,
+    5.452606738706673,
+    5.747575858008158,
+    5.757212565997174
+   ],
+   "pred_vote_weighted": "CALM_SWELL",
+   "pred_majority": "CALM_SWELL",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CALM_SWELL",
+   "conf_vote_weighted": 0.9269832907646051,
+   "conf_field_fusion": 0.9443217341997622,
+   "coherences": [
+    0.5787624067737805,
+    0.5284561962000851,
+    0.3084234200431856,
+    0.17337025556594157,
+    0.3872390575686653,
+    0.4995938199970768,
+    0.46829924575733833,
+    0.5355965696078174,
+    0.13831030317388754,
+    0.35037068614442723,
+    0.17224524261027888,
+    0.5998949151956297
+   ],
+   "array_detected": false,
+   "first_detector_hat": 11,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.7407380053037447,
+    0.8345380808440854,
+    0.45055886831949177,
+    0.38972728942878887,
+    0.5002958094122406,
+    0.8223931389247515,
+    0.6040235726713931,
+    0.7521027820392877,
+    0.3905379843260161,
+    0.44454636176836726,
+    0.42691439225716593,
+    0.7276728622895139
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC02",
+   "true_state": "CALM_SWELL",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9997834331329193,
+      "MODERATE_CHOP": 0.5109118229625849,
+      "BUILDING_SEA": 0.9373473327072923,
+      "CROSS_SEA": 0.9983137674064434,
+      "STORM_FORCE": 0.9737902395179481
+     },
+     "margin": 0.0014696657264758883,
+     "coherence_drive_end": 0.6240657696635322
+    },
+    {
+     "buoy": 1,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9991138572337394,
+      "MODERATE_CHOP": 0.8835898271808371,
+      "BUILDING_SEA": 0.9472221208969704,
+      "CROSS_SEA": 0.9986543310666586,
+      "STORM_FORCE": 0.9806459446913461
+     },
+     "margin": 0.00045952616708078153,
+     "coherence_drive_end": 0.5369012642401761
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9985304954365365,
+      "MODERATE_CHOP": 0.9236573542696831,
+      "BUILDING_SEA": 0.9541440544220289,
+      "CROSS_SEA": 0.99921597532126,
+      "STORM_FORCE": 0.985366075351241
+     },
+     "margin": 0.000685479884723561,
+     "coherence_drive_end": 0.35760936371750757
+    },
+    {
+     "buoy": 3,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9992416963274029,
+      "MODERATE_CHOP": 0.8984559212690933,
+      "BUILDING_SEA": 0.9464416486090392,
+      "CROSS_SEA": 0.9984649478558708,
+      "STORM_FORCE": 0.9840705820185063
+     },
+     "margin": 0.0007767484715320849,
+     "coherence_drive_end": 0.1237152310258493
+    },
+    {
+     "buoy": 4,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9992447145065615,
+      "MODERATE_CHOP": 0.9173248658742671,
+      "BUILDING_SEA": 0.9483532697070027,
+      "CROSS_SEA": 0.9985746937070187,
+      "STORM_FORCE": 0.9822796919368884
+     },
+     "margin": 0.0006700207995428142,
+     "coherence_drive_end": 0.26749660077920207
+    },
+    {
+     "buoy": 5,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9994327322687672,
+      "MODERATE_CHOP": 0.8789186089541765,
+      "BUILDING_SEA": 0.9437013524434618,
+      "CROSS_SEA": 0.9981019562372053,
+      "STORM_FORCE": 0.978481056770138
+     },
+     "margin": 0.0013307760315618422,
+     "coherence_drive_end": 0.5978016176403159
+    },
+    {
+     "buoy": 6,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9998419377776893,
+      "MODERATE_CHOP": 0.23450494672106403,
+      "BUILDING_SEA": 0.9316896359131558,
+      "CROSS_SEA": 0.9966513486422072,
+      "STORM_FORCE": 0.9735069019335307
+     },
+     "margin": 0.0031905891354820914,
+     "coherence_drive_end": 0.5089700822462473
+    },
+    {
+     "buoy": 7,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9997386335788545,
+      "MODERATE_CHOP": 0.5076550379232713,
+      "BUILDING_SEA": 0.9374160554564143,
+      "CROSS_SEA": 0.9986019045563284,
+      "STORM_FORCE": 0.9741709682720461
+     },
+     "margin": 0.0011367290225261506,
+     "coherence_drive_end": 0.647571052235177
+    },
+    {
+     "buoy": 8,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9997607581492715,
+      "MODERATE_CHOP": 0.8880575685752379,
+      "BUILDING_SEA": 0.9384225563973543,
+      "CROSS_SEA": 0.9975873596265036,
+      "STORM_FORCE": 0.9801685271585049
+     },
+     "margin": 0.0021733985227678776,
+     "coherence_drive_end": 0.13210528291601753
+    },
+    {
+     "buoy": 9,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9995574717895606,
+      "MODERATE_CHOP": 0.3192663059758684,
+      "BUILDING_SEA": 0.9300249044007608,
+      "CROSS_SEA": 0.9985534497220453,
+      "STORM_FORCE": 0.9843682712084065
+     },
+     "margin": 0.0010040220675152645,
+     "coherence_drive_end": 0.33178413196667844
+    },
+    {
+     "buoy": 10,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9990538363531529,
+      "MODERATE_CHOP": 0.9001589227371399,
+      "BUILDING_SEA": 0.9476963230731984,
+      "CROSS_SEA": 0.9983686631509704,
+      "STORM_FORCE": 0.9843049248355374
+     },
+     "margin": 0.0006851732021825319,
+     "coherence_drive_end": 0.1848312082047222
+    },
+    {
+     "buoy": 11,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9997518613658612,
+      "MODERATE_CHOP": 0.5041824039382555,
+      "BUILDING_SEA": 0.933489503510168,
+      "CROSS_SEA": 0.9974720743142591,
+      "STORM_FORCE": 0.9708999783365042
+     },
+     "margin": 0.0022797870516021446,
+     "coherence_drive_end": 0.6316058399040724
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    1.4987545755399387e-16,
+    1.463974713167988e-16,
+    0.0,
+    0.0,
+    1.495795869307666e-16,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.5183818744191903e-16,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.5679970019574508,
+    0.5903671621458149,
+    0.6049674687118907,
+    0.5740443573126464,
+    0.6062801005327547,
+    0.5913038539702344,
+    0.5530391531794151,
+    0.5623102845290481,
+    0.568832410355718,
+    0.5329983496759837,
+    0.5828646253196682,
+    0.5513096163682696
+   ],
+   "per_buoy_p_in": [
+    5.700332824321061,
+    5.926109812743368,
+    6.066897274326135,
+    5.760361060202061,
+    6.089095618188329,
+    5.937831745124564,
+    5.55288176034666,
+    5.643245249331627,
+    5.715010299700468,
+    5.342752350593761,
+    5.8495062056761595,
+    5.534501238260189
+   ],
+   "pred_vote_weighted": "CALM_SWELL",
+   "pred_majority": "CALM_SWELL",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CALM_SWELL",
+   "conf_vote_weighted": 0.9567845472679984,
+   "conf_field_fusion": 0.9497934847364452,
+   "coherences": [
+    0.6240657696635322,
+    0.5369012642401761,
+    0.35760936371750757,
+    0.1237152310258493,
+    0.26749660077920207,
+    0.5978016176403159,
+    0.5089700822462473,
+    0.647571052235177,
+    0.13210528291601753,
+    0.33178413196667844,
+    0.1848312082047222,
+    0.6316058399040724
+   ],
+   "array_detected": false,
+   "first_detector_hat": 7,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.7708445020339654,
+    0.8095339977905107,
+    0.47691728291988905,
+    0.5888027541568008,
+    0.3268660112236362,
+    0.8476547800152627,
+    0.641085004833111,
+    0.7959380298383643,
+    0.49119180913564947,
+    0.5643345745258913,
+    0.3822060407976243,
+    0.6973074881946633
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC03",
+   "true_state": "CALM_SWELL",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9963274731360071,
+      "MODERATE_CHOP": 0.5376538481099398,
+      "BUILDING_SEA": 0.9543701291674301,
+      "CROSS_SEA": 0.9994550098954794,
+      "STORM_FORCE": 0.9852786069448649
+     },
+     "margin": 0.0031275367594723047,
+     "coherence_drive_end": 0.4774646640688136
+    },
+    {
+     "buoy": 1,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9977768443396623,
+      "MODERATE_CHOP": 0.8833157342247898,
+      "BUILDING_SEA": 0.9484013015395426,
+      "CROSS_SEA": 0.9997308477237788,
+      "STORM_FORCE": 0.9825540905594943
+     },
+     "margin": 0.001954003384116554,
+     "coherence_drive_end": 0.5256453746608489
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9975821670761612,
+      "MODERATE_CHOP": 0.9210052747904011,
+      "BUILDING_SEA": 0.9539325134000367,
+      "CROSS_SEA": 0.9998052387883072,
+      "STORM_FORCE": 0.9864709670708166
+     },
+     "margin": 0.002223071712145974,
+     "coherence_drive_end": 0.2614990526253998
+    },
+    {
+     "buoy": 3,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9975375665156415,
+      "MODERATE_CHOP": 0.9022645785388606,
+      "BUILDING_SEA": 0.9497502981543801,
+      "CROSS_SEA": 0.9996997789222619,
+      "STORM_FORCE": 0.9871866896876601
+     },
+     "margin": 0.0021622124066204007,
+     "coherence_drive_end": 0.2733992923887359
+    },
+    {
+     "buoy": 4,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9984679875356408,
+      "MODERATE_CHOP": 0.9138114217987636,
+      "BUILDING_SEA": 0.9478188959415091,
+      "CROSS_SEA": 0.9994797869705935,
+      "STORM_FORCE": 0.983075877973365
+     },
+     "margin": 0.0010117994349526649,
+     "coherence_drive_end": 0.15395137512805285
+    },
+    {
+     "buoy": 5,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9982633624718731,
+      "MODERATE_CHOP": 0.876490146404033,
+      "BUILDING_SEA": 0.9438559375775262,
+      "CROSS_SEA": 0.9993185373689367,
+      "STORM_FORCE": 0.9795708552267622
+     },
+     "margin": 0.0010551748970636377,
+     "coherence_drive_end": 0.5471441314721074
+    },
+    {
+     "buoy": 6,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9982592963817405,
+      "MODERATE_CHOP": 0.22550035426149898,
+      "BUILDING_SEA": 0.9339536099923949,
+      "CROSS_SEA": 0.9985192756931038,
+      "STORM_FORCE": 0.9768195167365155
+     },
+     "margin": 0.0002599793113633453,
+     "coherence_drive_end": 0.5126221480175728
+    },
+    {
+     "buoy": 7,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9969030848956055,
+      "MODERATE_CHOP": 0.533321975876478,
+      "BUILDING_SEA": 0.95019679720075,
+      "CROSS_SEA": 0.999566095573853,
+      "STORM_FORCE": 0.9826083511891408
+     },
+     "margin": 0.0026630106782474794,
+     "coherence_drive_end": 0.4190342064218672
+    },
+    {
+     "buoy": 8,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9989033819077812,
+      "MODERATE_CHOP": 0.8956437387627861,
+      "BUILDING_SEA": 0.944048332737114,
+      "CROSS_SEA": 0.9990994472387843,
+      "STORM_FORCE": 0.9835899863894308
+     },
+     "margin": 0.00019606533100313683,
+     "coherence_drive_end": 0.1609004364945129
+    },
+    {
+     "buoy": 9,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.99575791965761,
+      "MODERATE_CHOP": 0.3398648825497527,
+      "BUILDING_SEA": 0.9468557408840402,
+      "CROSS_SEA": 0.9994820680006441,
+      "STORM_FORCE": 0.9924033625824092
+     },
+     "margin": 0.0037241483430341393,
+     "coherence_drive_end": 0.3867151791458473
+    },
+    {
+     "buoy": 10,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9988105531015845,
+      "MODERATE_CHOP": 0.8968968223591993,
+      "BUILDING_SEA": 0.9453026506418883,
+      "CROSS_SEA": 0.9991744052007927,
+      "STORM_FORCE": 0.9845898049326336
+     },
+     "margin": 0.00036385209920819506,
+     "coherence_drive_end": 0.2474152522450979
+    },
+    {
+     "buoy": 11,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9968872608735799,
+      "MODERATE_CHOP": 0.5352755848179892,
+      "BUILDING_SEA": 0.9539637902006592,
+      "CROSS_SEA": 0.9994711067066527,
+      "STORM_FORCE": 0.9845931274508666
+     },
+     "margin": 0.0025838458330728065,
+     "coherence_drive_end": 0.479275060614216
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    1.467677447323103e-16,
+    1.5005537327988817e-16,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.5225328487224554e-16
+   ],
+   "per_buoy_tapped": [
+    0.5784322302880066,
+    0.5898579699747579,
+    0.6036629990459611,
+    0.5903874915965499,
+    0.6004243521579047,
+    0.5910400163536594,
+    0.5452765973107728,
+    0.579694590467693,
+    0.5831215763962918,
+    0.5670343265796558,
+    0.5852669329167951,
+    0.5825422427004879
+   ],
+   "per_buoy_p_in": [
+    5.793923389932043,
+    5.9165724595961455,
+    6.051591385560048,
+    5.919004433406499,
+    6.020282182962368,
+    5.929193791607254,
+    5.467370117655934,
+    5.8075997618149975,
+    5.847492865978407,
+    5.680778190477967,
+    5.8713173883974275,
+    5.833558339614074
+   ],
+   "pred_vote_weighted": "CROSS_SEA",
+   "pred_majority": "CROSS_SEA",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CALM_SWELL",
+   "conf_vote_weighted": 1.0,
+   "conf_field_fusion": 0.9506312870858904,
+   "coherences": [
+    0.4774646640688136,
+    0.5256453746608489,
+    0.2614990526253998,
+    0.2733992923887359,
+    0.15395137512805285,
+    0.5471441314721074,
+    0.5126221480175728,
+    0.4190342064218672,
+    0.1609004364945129,
+    0.3867151791458473,
+    0.2474152522450979,
+    0.479275060614216
+   ],
+   "array_detected": false,
+   "first_detector_hat": 5,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6008755373700334,
+    0.7282818335482304,
+    0.24766074712649366,
+    0.3052400702724796,
+    0.1723520234316277,
+    0.7398604184171174,
+    0.5617270235365617,
+    0.6447104117803029,
+    0.4043448180673871,
+    0.3761230960079001,
+    0.2587384625544556,
+    0.6899561092794628
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC04",
+   "true_state": "MODERATE_CHOP",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8547579371044296,
+      "MODERATE_CHOP": 0.8256121478464553,
+      "BUILDING_SEA": 0.9618055746575929,
+      "CROSS_SEA": 0.867376861281868,
+      "STORM_FORCE": 0.933675971207489
+     },
+     "margin": 0.028129603450103846,
+     "coherence_drive_end": 0.4987329224074481
+    },
+    {
+     "buoy": 1,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8696441505879443,
+      "MODERATE_CHOP": 0.9996041869329797,
+      "BUILDING_SEA": 0.965994290711648,
+      "CROSS_SEA": 0.8920181895051634,
+      "STORM_FORCE": 0.9423985045054034
+     },
+     "margin": 0.0336098962213317,
+     "coherence_drive_end": 0.5468329295093242
+    },
+    {
+     "buoy": 2,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.9359754783815646,
+      "MODERATE_CHOP": 0.9960931378979722,
+      "BUILDING_SEA": 0.9805072096333257,
+      "CROSS_SEA": 0.950792662518162,
+      "STORM_FORCE": 0.9719956948287977
+     },
+     "margin": 0.015585928264646443,
+     "coherence_drive_end": 0.5380774365966273
+    },
+    {
+     "buoy": 3,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.6460559702705876,
+      "MODERATE_CHOP": 0.8904951932934332,
+      "BUILDING_SEA": 0.7546929850753584,
+      "CROSS_SEA": 0.6690751622158463,
+      "STORM_FORCE": 0.7017902177337492
+     },
+     "margin": 0.13580220821807476,
+     "coherence_drive_end": 0.5262009198475205
+    },
+    {
+     "buoy": 4,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8765845100458614,
+      "MODERATE_CHOP": 0.9973282518360973,
+      "BUILDING_SEA": 0.9639052749249176,
+      "CROSS_SEA": 0.8976114181271461,
+      "STORM_FORCE": 0.9360880602322745
+     },
+     "margin": 0.03342297691117968,
+     "coherence_drive_end": 0.49544184871444674
+    },
+    {
+     "buoy": 5,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.9008243173230125,
+      "MODERATE_CHOP": 0.9967358785123352,
+      "BUILDING_SEA": 0.9805564308539525,
+      "CROSS_SEA": 0.9213574145197048,
+      "STORM_FORCE": 0.9642230463373872
+     },
+     "margin": 0.01617944765838275,
+     "coherence_drive_end": 0.5263355368466672
+    },
+    {
+     "buoy": 6,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.21936332952565052,
+      "MODERATE_CHOP": 0.9902358836131132,
+      "BUILDING_SEA": 0.2857954356034577,
+      "CROSS_SEA": 0.2418152185449783,
+      "STORM_FORCE": 0.25644177635022375
+     },
+     "margin": 0.7044404480096556,
+     "coherence_drive_end": 0.36410403204657393
+    },
+    {
+     "buoy": 7,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8142108766365189,
+      "MODERATE_CHOP": 0.8598580296048576,
+      "BUILDING_SEA": 0.937261770309634,
+      "CROSS_SEA": 0.8280461217094156,
+      "STORM_FORCE": 0.9027280656221377
+     },
+     "margin": 0.03453370468749628,
+     "coherence_drive_end": 0.5259401445150589
+    },
+    {
+     "buoy": 8,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.24814955791769736,
+      "MODERATE_CHOP": 0.47878428955407076,
+      "BUILDING_SEA": 0.2800329103030235,
+      "CROSS_SEA": 0.2521369209360327,
+      "STORM_FORCE": 0.25566682370464
+     },
+     "margin": 0.19875137925104724,
+     "coherence_drive_end": 0.5381597167634607
+    },
+    {
+     "buoy": 9,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.19938465122310503,
+      "MODERATE_CHOP": 0.9330234294857498,
+      "BUILDING_SEA": 0.28395294372441393,
+      "CROSS_SEA": 0.20184608873161705,
+      "STORM_FORCE": 0.2290627983405407
+     },
+     "margin": 0.6490704857613359,
+     "coherence_drive_end": 0.5705210695234706
+    },
+    {
+     "buoy": 10,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8828298076465175,
+      "MODERATE_CHOP": 0.9879993551602109,
+      "BUILDING_SEA": 0.9402307878479454,
+      "CROSS_SEA": 0.8991453880840312,
+      "STORM_FORCE": 0.9198754993870382
+     },
+     "margin": 0.04776856731226542,
+     "coherence_drive_end": 0.5435682433561142
+    },
+    {
+     "buoy": 11,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8464380261067912,
+      "MODERATE_CHOP": 0.843362471967244,
+      "BUILDING_SEA": 0.9527749156516147,
+      "CROSS_SEA": 0.8596454422815218,
+      "STORM_FORCE": 0.9250335768110409
+     },
+     "margin": 0.027741338840573726,
+     "coherence_drive_end": 0.5040615312437978
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    1.1371677210173772e-16,
+    1.4465283828821882e-16,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.17006637272957903,
+    0.4615276358108355,
+    0.3827398474168505,
+    0.0063159698650474315,
+    0.27168539319856194,
+    0.4885083392522217,
+    0.00016853887934155907,
+    0.09185065611815062,
+    0.0012541547293673779,
+    0.00028113212554786135,
+    0.03951754410952433,
+    0.19993160279251415
+   ],
+   "per_buoy_p_in": [
+    1.7850254996980857,
+    4.764759424383579,
+    3.905221733279188,
+    0.09593857937417828,
+    2.8022879511312797,
+    4.993456977263813,
+    0.030426387753183234,
+    0.9856306812807192,
+    0.04876827356726052,
+    0.030637474082719517,
+    0.4327838577036885,
+    2.105711496798122
+   ],
+   "pred_vote_weighted": "MODERATE_CHOP",
+   "pred_majority": "MODERATE_CHOP",
+   "pred_field_fusion": "MODERATE_CHOP",
+   "pred_powermean_diag": "MODERATE_CHOP",
+   "conf_vote_weighted": 0.95303742490943,
+   "conf_field_fusion": 0.7231238890779192,
+   "coherences": [
+    0.4987329224074481,
+    0.5468329295093242,
+    0.5380774365966273,
+    0.5262009198475205,
+    0.49544184871444674,
+    0.5263355368466672,
+    0.36410403204657393,
+    0.5259401445150589,
+    0.5381597167634607,
+    0.5705210695234706,
+    0.5435682433561142,
+    0.5040615312437978
+   ],
+   "array_detected": false,
+   "first_detector_hat": 9,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": true,
+   "coherences_compensated_diag": [
+    0.8304576710889402,
+    0.8393060391753963,
+    0.6448588140409848,
+    0.5188376121319368,
+    0.6039341189108279,
+    0.8304813926474082,
+    0.7408854334756455,
+    0.8141357128930017,
+    0.5680722686477416,
+    0.6019320400148115,
+    0.5423820330810293,
+    0.7874699763692573
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC05",
+   "true_state": "MODERATE_CHOP",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8588238597958587,
+      "MODERATE_CHOP": 0.8389788644594599,
+      "BUILDING_SEA": 0.9544144075478328,
+      "CROSS_SEA": 0.8697721332516734,
+      "STORM_FORCE": 0.9306717740320721
+     },
+     "margin": 0.02374263351576067,
+     "coherence_drive_end": 0.5147182187802211
+    },
+    {
+     "buoy": 1,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8510591456882541,
+      "MODERATE_CHOP": 0.998100086272551,
+      "BUILDING_SEA": 0.9632514422555426,
+      "CROSS_SEA": 0.8753235334604078,
+      "STORM_FORCE": 0.9335306597144748
+     },
+     "margin": 0.03484864401700838,
+     "coherence_drive_end": 0.5904643179081419
+    },
+    {
+     "buoy": 2,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.9070144947191793,
+      "MODERATE_CHOP": 0.99910878020094,
+      "BUILDING_SEA": 0.9721382824033264,
+      "CROSS_SEA": 0.9249413474166095,
+      "STORM_FORCE": 0.9543801637693169
+     },
+     "margin": 0.026970497797613513,
+     "coherence_drive_end": 0.46249170911055076
+    },
+    {
+     "buoy": 3,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8726378555378406,
+      "MODERATE_CHOP": 0.9850726559812854,
+      "BUILDING_SEA": 0.9314139013252716,
+      "CROSS_SEA": 0.8900545529142048,
+      "STORM_FORCE": 0.9127952051805477
+     },
+     "margin": 0.053658754656013774,
+     "coherence_drive_end": 0.5036167747890335
+    },
+    {
+     "buoy": 4,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.9013961198695016,
+      "MODERATE_CHOP": 0.9988992035018842,
+      "BUILDING_SEA": 0.9701172569331299,
+      "CROSS_SEA": 0.9200426404186617,
+      "STORM_FORCE": 0.9508227560291115
+     },
+     "margin": 0.028781946568754324,
+     "coherence_drive_end": 0.4280326358966505
+    },
+    {
+     "buoy": 5,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8502475059766247,
+      "MODERATE_CHOP": 0.9970357673513025,
+      "BUILDING_SEA": 0.9671444618073788,
+      "CROSS_SEA": 0.8758567400319962,
+      "STORM_FORCE": 0.9362357688826097
+     },
+     "margin": 0.02989130554392372,
+     "coherence_drive_end": 0.5952937894108982
+    },
+    {
+     "buoy": 6,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9139686963784385,
+      "MODERATE_CHOP": 0.5151114470463601,
+      "BUILDING_SEA": 0.95603309837799,
+      "CROSS_SEA": 0.9338314757213192,
+      "STORM_FORCE": 0.9521378093268321
+     },
+     "margin": 0.0038952890511578797,
+     "coherence_drive_end": 0.29166492066023936
+    },
+    {
+     "buoy": 7,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.6083600199317161,
+      "MODERATE_CHOP": 0.9697666027419174,
+      "BUILDING_SEA": 0.7348174666427432,
+      "CROSS_SEA": 0.6155951971583044,
+      "STORM_FORCE": 0.6926082593354299
+     },
+     "margin": 0.23494913609917423,
+     "coherence_drive_end": 0.5260220211179684
+    },
+    {
+     "buoy": 8,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.6964335742504937,
+      "MODERATE_CHOP": 0.8541074546419067,
+      "BUILDING_SEA": 0.723108442958878,
+      "CROSS_SEA": 0.7056698291798625,
+      "STORM_FORCE": 0.712148254312129
+     },
+     "margin": 0.13099901168302874,
+     "coherence_drive_end": 0.5505827492512795
+    },
+    {
+     "buoy": 9,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.35111035291394954,
+      "MODERATE_CHOP": 0.7954489049071525,
+      "BUILDING_SEA": 0.4436674446378653,
+      "CROSS_SEA": 0.3585973010786044,
+      "STORM_FORCE": 0.382524823052432
+     },
+     "margin": 0.3517814602692872,
+     "coherence_drive_end": 0.5308819506719203
+    },
+    {
+     "buoy": 10,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.3966992054185064,
+      "MODERATE_CHOP": 0.6349360129696889,
+      "BUILDING_SEA": 0.45520830779060983,
+      "CROSS_SEA": 0.40800482872269395,
+      "STORM_FORCE": 0.4251847135743094
+     },
+     "margin": 0.1797277051790791,
+     "coherence_drive_end": 0.5219083712338349
+    },
+    {
+     "buoy": 11,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.6913596461297268,
+      "MODERATE_CHOP": 0.9392827097940868,
+      "BUILDING_SEA": 0.8343165741591324,
+      "CROSS_SEA": 0.7031063032940656,
+      "STORM_FORCE": 0.7892402363111597
+     },
+     "margin": 0.10496613563495438,
+     "coherence_drive_end": 0.5387627061369175
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    1.221577886845226e-16,
+    1.172782734888679e-16,
+    1.4030843792290034e-16,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.2459161030714077e-16,
+    1.408899426141288e-16,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.1744890921276908,
+    0.35321900553140295,
+    0.36896840189587554,
+    0.14732613953337684,
+    0.39460228695695987,
+    0.4089446579758719,
+    0.18559565013285845,
+    0.024254400788645686,
+    0.012663713548219359,
+    0.002236496092811589,
+    0.0054220769689086795,
+    0.040695892502532555
+   ],
+   "per_buoy_p_in": [
+    1.8337404650747269,
+    3.6353736804858254,
+    3.7866281335751055,
+    1.5825463401356168,
+    4.056447444295381,
+    4.2063858522560444,
+    1.9576765688821491,
+    0.2956641550896717,
+    0.16863395296516642,
+    0.05569310715867308,
+    0.09850091177780605,
+    0.465063823897945
+   ],
+   "pred_vote_weighted": "MODERATE_CHOP",
+   "pred_majority": "MODERATE_CHOP",
+   "pred_field_fusion": "MODERATE_CHOP",
+   "pred_powermean_diag": "MODERATE_CHOP",
+   "conf_vote_weighted": 0.9770489659362145,
+   "conf_field_fusion": 0.6392149189374959,
+   "coherences": [
+    0.5147182187802211,
+    0.5904643179081419,
+    0.46249170911055076,
+    0.5036167747890335,
+    0.4280326358966505,
+    0.5952937894108982,
+    0.29166492066023936,
+    0.5260220211179684,
+    0.5505827492512795,
+    0.5308819506719203,
+    0.5219083712338349,
+    0.5387627061369175
+   ],
+   "array_detected": false,
+   "first_detector_hat": 5,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.7457660135639643,
+    0.8447578206107602,
+    0.5222940112765128,
+    0.41623260243781357,
+    0.49142617516891784,
+    0.8489967498401993,
+    0.6047792072103202,
+    0.7600810808778924,
+    0.463126080172312,
+    0.4783183363409178,
+    0.4453324772273516,
+    0.7849018809840251
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC06",
+   "true_state": "MODERATE_CHOP",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8759849906334215,
+      "MODERATE_CHOP": 0.8062189303995787,
+      "BUILDING_SEA": 0.9703025921670098,
+      "CROSS_SEA": 0.8884255872293992,
+      "STORM_FORCE": 0.9475973221565851
+     },
+     "margin": 0.02270527001042466,
+     "coherence_drive_end": 0.5402539422750577
+    },
+    {
+     "buoy": 1,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8952354644488288,
+      "MODERATE_CHOP": 0.9945882647795512,
+      "BUILDING_SEA": 0.985035395351244,
+      "CROSS_SEA": 0.9178130802594794,
+      "STORM_FORCE": 0.9651748619887609
+     },
+     "margin": 0.009552869428307242,
+     "coherence_drive_end": 0.5596115713061363
+    },
+    {
+     "buoy": 2,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.9115106907832714,
+      "MODERATE_CHOP": 0.9993684097875627,
+      "BUILDING_SEA": 0.9780103319031545,
+      "CROSS_SEA": 0.9297439628380804,
+      "STORM_FORCE": 0.9605309431579362
+     },
+     "margin": 0.021358077884408244,
+     "coherence_drive_end": 0.4120050579845136
+    },
+    {
+     "buoy": 3,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.36229265290623036,
+      "MODERATE_CHOP": 0.5736486853352034,
+      "BUILDING_SEA": 0.39215082362876374,
+      "CROSS_SEA": 0.36743084559090466,
+      "STORM_FORCE": 0.37160739859384667
+     },
+     "margin": 0.18149786170643967,
+     "coherence_drive_end": 0.5753162319765878
+    },
+    {
+     "buoy": 4,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8618239523818823,
+      "MODERATE_CHOP": 0.9948956826715136,
+      "BUILDING_SEA": 0.9568931289591877,
+      "CROSS_SEA": 0.8837495591487997,
+      "STORM_FORCE": 0.9254240760254394
+     },
+     "margin": 0.03800255371232597,
+     "coherence_drive_end": 0.39108347014099276
+    },
+    {
+     "buoy": 5,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.9100509564395161,
+      "MODERATE_CHOP": 0.9938465064212905,
+      "BUILDING_SEA": 0.985500807338217,
+      "CROSS_SEA": 0.9299918467391436,
+      "STORM_FORCE": 0.9708029162843981
+     },
+     "margin": 0.008345699083073477,
+     "coherence_drive_end": 0.5461810435399034
+    },
+    {
+     "buoy": 6,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.3052003025129197,
+      "MODERATE_CHOP": 0.9849581967982037,
+      "BUILDING_SEA": 0.39773540206164937,
+      "CROSS_SEA": 0.33295274537327557,
+      "STORM_FORCE": 0.35910444350008636
+     },
+     "margin": 0.5872227947365544,
+     "coherence_drive_end": 0.32485310398837186
+    },
+    {
+     "buoy": 7,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8932979434051501,
+      "MODERATE_CHOP": 0.7884342926841046,
+      "BUILDING_SEA": 0.9772654266022641,
+      "CROSS_SEA": 0.9056178729875473,
+      "STORM_FORCE": 0.9592995792556654
+     },
+     "margin": 0.017965847346598673,
+     "coherence_drive_end": 0.5350692634539905
+    },
+    {
+     "buoy": 8,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.407669948142362,
+      "MODERATE_CHOP": 0.6403857004333542,
+      "BUILDING_SEA": 0.4563333002421514,
+      "CROSS_SEA": 0.41800183771455834,
+      "STORM_FORCE": 0.4282257247170324
+     },
+     "margin": 0.18405240019120278,
+     "coherence_drive_end": 0.560712566381512
+    },
+    {
+     "buoy": 9,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.5688783646696183,
+      "MODERATE_CHOP": 0.8970763605956557,
+      "BUILDING_SEA": 0.711393411364936,
+      "CROSS_SEA": 0.5837026264580693,
+      "STORM_FORCE": 0.6241693908324057
+     },
+     "margin": 0.1856829492307197,
+     "coherence_drive_end": 0.49256381818501066
+    },
+    {
+     "buoy": 10,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.6210073786434551,
+      "MODERATE_CHOP": 0.8471038784718835,
+      "BUILDING_SEA": 0.6950403216233064,
+      "CROSS_SEA": 0.6382005859858875,
+      "STORM_FORCE": 0.6578715824066149
+     },
+     "margin": 0.15206355684857709,
+     "coherence_drive_end": 0.5653142621363868
+    },
+    {
+     "buoy": 11,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8969217796432212,
+      "MODERATE_CHOP": 0.7843491626486444,
+      "BUILDING_SEA": 0.9774976249029819,
+      "CROSS_SEA": 0.9091950426661888,
+      "STORM_FORCE": 0.9606222758390823
+     },
+     "margin": 0.016875349063899536,
+     "coherence_drive_end": 0.5505322361891802
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    0.0,
+    1.6625167238768138e-16,
+    1.183531181273345e-16,
+    1.8635304730178305e-16,
+    0.0,
+    0.0,
+    0.0,
+    1.2772744248751758e-16,
+    2.1210291621299424e-16,
+    2.0675020546702397e-16
+   ],
+   "per_buoy_tapped": [
+    0.3197585495577355,
+    0.4751900684216204,
+    0.4492988553281146,
+    0.0036874048231256874,
+    0.3627907465893728,
+    0.4690167170855158,
+    0.0003860019656908069,
+    0.3943587090951775,
+    0.006474910774989641,
+    0.007340157705416792,
+    0.019701579617427176,
+    0.4161742980258449
+   ],
+   "per_buoy_p_in": [
+    3.3140216237471454,
+    4.831756902863164,
+    4.5909986159822065,
+    0.08347457567496175,
+    3.752239204819877,
+    4.766106229869132,
+    0.029496809265712815,
+    4.068169709901801,
+    0.12022874033094785,
+    0.10865157508474102,
+    0.26171800097040343,
+    4.295901025558047
+   ],
+   "pred_vote_weighted": "MODERATE_CHOP",
+   "pred_majority": "MODERATE_CHOP",
+   "pred_field_fusion": "MODERATE_CHOP",
+   "pred_powermean_diag": "MODERATE_CHOP",
+   "conf_vote_weighted": 0.9596257294543891,
+   "conf_field_fusion": 0.8030183200021291,
+   "coherences": [
+    0.5402539422750577,
+    0.5596115713061363,
+    0.4120050579845136,
+    0.5753162319765878,
+    0.39108347014099276,
+    0.5461810435399034,
+    0.32485310398837186,
+    0.5350692634539905,
+    0.560712566381512,
+    0.49256381818501066,
+    0.5653142621363868,
+    0.5505322361891802
+   ],
+   "array_detected": false,
+   "first_detector_hat": 3,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.7190914075925333,
+    0.8436916619956317,
+    0.46762190566145545,
+    0.436361630469914,
+    0.4912337690690333,
+    0.8304977317222058,
+    0.663813261104918,
+    0.7092978068155467,
+    0.4348312065024262,
+    0.45240850677854544,
+    0.42791918500880516,
+    0.6916444830680162
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC07",
+   "true_state": "BUILDING_SEA",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9314995921138944,
+      "MODERATE_CHOP": 0.6699239693624273,
+      "BUILDING_SEA": 0.9978411365313195,
+      "CROSS_SEA": 0.942574969407338,
+      "STORM_FORCE": 0.9863374775627661
+     },
+     "margin": 0.01150365896855332,
+     "coherence_drive_end": 0.5271027366199784
+    },
+    {
+     "buoy": 1,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.924656945756692,
+      "MODERATE_CHOP": 0.9733113121922362,
+      "BUILDING_SEA": 0.9984251505117786,
+      "CROSS_SEA": 0.9446106821740062,
+      "STORM_FORCE": 0.984625467606052
+     },
+     "margin": 0.01379968290572664,
+     "coherence_drive_end": 0.5709600308624668
+    },
+    {
+     "buoy": 2,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9402609844651152,
+      "MODERATE_CHOP": 0.9783746318890162,
+      "BUILDING_SEA": 0.999642020746424,
+      "CROSS_SEA": 0.9584538690339182,
+      "STORM_FORCE": 0.9897985781827451
+     },
+     "margin": 0.009843442563678972,
+     "coherence_drive_end": 0.2958831220367676
+    },
+    {
+     "buoy": 3,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9300389265268314,
+      "MODERATE_CHOP": 0.9704143449826398,
+      "BUILDING_SEA": 0.9994668109145589,
+      "CROSS_SEA": 0.9519520570528763,
+      "STORM_FORCE": 0.9832841109634418
+     },
+     "margin": 0.016182699951117097,
+     "coherence_drive_end": 0.2216009112243602
+    },
+    {
+     "buoy": 4,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9423567198424152,
+      "MODERATE_CHOP": 0.9771809301925614,
+      "BUILDING_SEA": 0.9996427351758803,
+      "CROSS_SEA": 0.9607480054163355,
+      "STORM_FORCE": 0.991308028772075
+     },
+     "margin": 0.008334706403805292,
+     "coherence_drive_end": 0.4354951203540638
+    },
+    {
+     "buoy": 5,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9182700982592304,
+      "MODERATE_CHOP": 0.9735644228360592,
+      "BUILDING_SEA": 0.9982123439871539,
+      "CROSS_SEA": 0.9394059888870915,
+      "STORM_FORCE": 0.9823029073793124
+     },
+     "margin": 0.0159094366078415,
+     "coherence_drive_end": 0.6173890785129519
+    },
+    {
+     "buoy": 6,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.4973523793157865,
+      "MODERATE_CHOP": 0.2536989801843175,
+      "BUILDING_SEA": 0.749726291485534,
+      "CROSS_SEA": 0.5330006789032633,
+      "STORM_FORCE": 0.6410064987661376
+     },
+     "margin": 0.10871979271939647,
+     "coherence_drive_end": 0.42400040392329447
+    },
+    {
+     "buoy": 7,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9138065713340394,
+      "MODERATE_CHOP": 0.6804158869188321,
+      "BUILDING_SEA": 0.9969322613630167,
+      "CROSS_SEA": 0.9272740746608193,
+      "STORM_FORCE": 0.9797331409243517
+     },
+     "margin": 0.017199120438665005,
+     "coherence_drive_end": 0.5669853530834258
+    },
+    {
+     "buoy": 8,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.92131251328587,
+      "MODERATE_CHOP": 0.9722690532727376,
+      "BUILDING_SEA": 0.9987686082609294,
+      "CROSS_SEA": 0.9442814955355605,
+      "STORM_FORCE": 0.9784652654610545
+     },
+     "margin": 0.02030334279987489,
+     "coherence_drive_end": 0.25055157006735
+    },
+    {
+     "buoy": 9,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9093348084621309,
+      "MODERATE_CHOP": 0.49005897645903135,
+      "BUILDING_SEA": 0.9969759250658354,
+      "CROSS_SEA": 0.930330157655384,
+      "STORM_FORCE": 0.9646070014262841
+     },
+     "margin": 0.03236892363955135,
+     "coherence_drive_end": 0.41566454258554725
+    },
+    {
+     "buoy": 10,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9275258699907437,
+      "MODERATE_CHOP": 0.9725060212744251,
+      "BUILDING_SEA": 0.9991024029667623,
+      "CROSS_SEA": 0.9495136478006394,
+      "STORM_FORCE": 0.9814865291473829
+     },
+     "margin": 0.017615873819379457,
+     "coherence_drive_end": 0.22290435640384848
+    },
+    {
+     "buoy": 11,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9111683051326065,
+      "MODERATE_CHOP": 0.6800121706734513,
+      "BUILDING_SEA": 0.9961714376630127,
+      "CROSS_SEA": 0.9244870469464265,
+      "STORM_FORCE": 0.9779547513681525
+     },
+     "margin": 0.018216686294860285,
+     "coherence_drive_end": 0.5682298682959872
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.5060933424879374e-16,
+    0.0,
+    0.0,
+    0.0,
+    1.6292734006523269e-16,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.4842656485675991,
+    0.5691961585975376,
+    0.5890460975112654,
+    0.5629633963269934,
+    0.5882355599620237,
+    0.5564885511520842,
+    0.002661191807723984,
+    0.4964224258879187,
+    0.5422494620597936,
+    0.5438014525910473,
+    0.5538482723623543,
+    0.4564301074798599
+   ],
+   "per_buoy_p_in": [
+    4.883327640161992,
+    5.713133639903686,
+    5.905154728215392,
+    5.656903074368857,
+    5.89723355547758,
+    5.5857059105725515,
+    0.057692628950919485,
+    5.008985063534928,
+    5.451377401389584,
+    5.534406330638946,
+    5.565968555405929,
+    4.609808267006773
+   ],
+   "pred_vote_weighted": "BUILDING_SEA",
+   "pred_majority": "BUILDING_SEA",
+   "pred_field_fusion": "BUILDING_SEA",
+   "pred_powermean_diag": "BUILDING_SEA",
+   "conf_vote_weighted": 1.0,
+   "conf_field_fusion": 0.8838073319696095,
+   "coherences": [
+    0.5271027366199784,
+    0.5709600308624668,
+    0.2958831220367676,
+    0.2216009112243602,
+    0.4354951203540638,
+    0.6173890785129519,
+    0.42400040392329447,
+    0.5669853530834258,
+    0.25055157006735,
+    0.41566454258554725,
+    0.22290435640384848,
+    0.5682298682959872
+   ],
+   "array_detected": false,
+   "first_detector_hat": 5,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6189334871069806,
+    0.721780957482832,
+    0.2641219993833092,
+    0.18898178305542868,
+    0.364585607246477,
+    0.696219198714677,
+    0.5342599571473244,
+    0.5627925852888421,
+    0.26285864309109414,
+    0.14949797619331118,
+    0.23754612427680183,
+    0.626293840466541
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC08",
+   "true_state": "BUILDING_SEA",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9641503265741174,
+      "MODERATE_CHOP": 0.6152464294617095,
+      "BUILDING_SEA": 0.9950698223616623,
+      "CROSS_SEA": 0.9738442700600268,
+      "STORM_FORCE": 0.9989890451233993
+     },
+     "margin": 0.003919222761736951,
+     "coherence_drive_end": 0.5102590377750603
+    },
+    {
+     "buoy": 1,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9574096254063621,
+      "MODERATE_CHOP": 0.9551804210220337,
+      "BUILDING_SEA": 0.9972231700681448,
+      "CROSS_SEA": 0.973062061348864,
+      "STORM_FORCE": 0.9977106418505832
+     },
+     "margin": 0.00048747178243846445,
+     "coherence_drive_end": 0.5939301478947144
+    },
+    {
+     "buoy": 2,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9541197644048999,
+      "MODERATE_CHOP": 0.9715748470777991,
+      "BUILDING_SEA": 0.9979104335051261,
+      "CROSS_SEA": 0.9708894252918734,
+      "STORM_FORCE": 0.9960375671065219
+     },
+     "margin": 0.0018728663986041783,
+     "coherence_drive_end": 0.5725611035896774
+    },
+    {
+     "buoy": 3,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9422085543751172,
+      "MODERATE_CHOP": 0.9640619467446012,
+      "BUILDING_SEA": 0.9995091989221123,
+      "CROSS_SEA": 0.9621121816253947,
+      "STORM_FORCE": 0.9897568972466112
+     },
+     "margin": 0.009752301675501118,
+     "coherence_drive_end": 0.23144303065689412
+    },
+    {
+     "buoy": 4,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9517384455974227,
+      "MODERATE_CHOP": 0.9734435536844924,
+      "BUILDING_SEA": 0.9986653917443448,
+      "CROSS_SEA": 0.9685295803363992,
+      "STORM_FORCE": 0.9949010679375537
+     },
+     "margin": 0.0037643238067910367,
+     "coherence_drive_end": 0.5262132527135118
+    },
+    {
+     "buoy": 5,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9584705118313059,
+      "MODERATE_CHOP": 0.9506980251047321,
+      "BUILDING_SEA": 0.9965107452374142,
+      "CROSS_SEA": 0.9741461000612195,
+      "STORM_FORCE": 0.9978230849040487
+     },
+     "margin": 0.0013123396666344656,
+     "coherence_drive_end": 0.5127183715532283
+    },
+    {
+     "buoy": 6,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9669774379299996,
+      "MODERATE_CHOP": 0.2593822366497648,
+      "BUILDING_SEA": 0.9884972532345583,
+      "CROSS_SEA": 0.9817890729022072,
+      "STORM_FORCE": 0.9988143629789136
+     },
+     "margin": 0.01031710974435529,
+     "coherence_drive_end": 0.3777755544523469
+    },
+    {
+     "buoy": 7,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9601852740351875,
+      "MODERATE_CHOP": 0.6099695885872317,
+      "BUILDING_SEA": 0.9952837838516576,
+      "CROSS_SEA": 0.9708848411116403,
+      "STORM_FORCE": 0.9980254175720185
+     },
+     "margin": 0.0027416337203608476,
+     "coherence_drive_end": 0.4443087492370782
+    },
+    {
+     "buoy": 8,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9476035179614981,
+      "MODERATE_CHOP": 0.963582011349149,
+      "BUILDING_SEA": 0.9987740849314202,
+      "CROSS_SEA": 0.9664507621871735,
+      "STORM_FORCE": 0.9920156148093302
+     },
+     "margin": 0.006758470122089966,
+     "coherence_drive_end": 0.27574947952628964
+    },
+    {
+     "buoy": 9,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8995060661959847,
+      "MODERATE_CHOP": 0.45473438521987924,
+      "BUILDING_SEA": 0.9985890732824162,
+      "CROSS_SEA": 0.9226471685146896,
+      "STORM_FORCE": 0.9626763484714279
+     },
+     "margin": 0.035912724810988284,
+     "coherence_drive_end": 0.3398736174042505
+    },
+    {
+     "buoy": 10,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9487557169494306,
+      "MODERATE_CHOP": 0.9645757071621146,
+      "BUILDING_SEA": 0.998599640689917,
+      "CROSS_SEA": 0.967428416526874,
+      "STORM_FORCE": 0.9922776553227622
+     },
+     "margin": 0.006321985367154781,
+     "coherence_drive_end": 0.265524481125455
+    },
+    {
+     "buoy": 11,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9592838887070122,
+      "MODERATE_CHOP": 0.6176316716786088,
+      "BUILDING_SEA": 0.9963192511075695,
+      "CROSS_SEA": 0.9701357781692118,
+      "STORM_FORCE": 0.998195974809846
+     },
+     "margin": 0.0018767237022765393,
+     "coherence_drive_end": 0.5289003084464068
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    1.4784830281992832e-16,
+    0.0,
+    0.0,
+    1.4796478618470526e-16,
+    1.331479234481361e-16,
+    0.0,
+    1.5641631868890468e-16,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.5695051515906364,
+    0.6032245410294276,
+    0.5996973400161537,
+    0.5577099406399468,
+    0.5929291238466484,
+    0.5994874728458742,
+    0.3321966563892672,
+    0.5561504403310046,
+    0.5667792052741027,
+    0.5057571968512667,
+    0.5678340891523629,
+    0.5686674252022523
+   ],
+   "per_buoy_p_in": [
+    5.707643423602589,
+    6.039444571831876,
+    6.007362971098026,
+    5.590648368650069,
+    5.938715510614152,
+    6.0026337522727005,
+    3.335307065626485,
+    5.576258961817263,
+    5.678297681117384,
+    5.125713019368024,
+    5.690849550802101,
+    5.7003867631244205
+   ],
+   "pred_vote_weighted": "BUILDING_SEA",
+   "pred_majority": "BUILDING_SEA",
+   "pred_field_fusion": "BUILDING_SEA",
+   "pred_powermean_diag": "STORM_FORCE",
+   "conf_vote_weighted": 0.7571120897675567,
+   "conf_field_fusion": 0.9335885214282318,
+   "coherences": [
+    0.5102590377750603,
+    0.5939301478947144,
+    0.5725611035896774,
+    0.23144303065689412,
+    0.5262132527135118,
+    0.5127183715532283,
+    0.3777755544523469,
+    0.4443087492370782,
+    0.27574947952628964,
+    0.3398736174042505,
+    0.265524481125455,
+    0.5289003084464068
+   ],
+   "array_detected": false,
+   "first_detector_hat": 1,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6846966134485664,
+    0.7800072716292417,
+    0.5089533784309314,
+    0.38724360941153646,
+    0.44509511556048736,
+    0.7185276775143937,
+    0.49859902695820363,
+    0.6487411763640785,
+    0.4583198135526879,
+    0.13548887902841553,
+    0.3680505007293847,
+    0.6239542112196238
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC09",
+   "true_state": "BUILDING_SEA",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9389959052879997,
+      "MODERATE_CHOP": 0.6487550017723225,
+      "BUILDING_SEA": 0.9984996639745607,
+      "CROSS_SEA": 0.9499900418373494,
+      "STORM_FORCE": 0.9901570790945258
+     },
+     "margin": 0.00834258488003492,
+     "coherence_drive_end": 0.5678761005658097
+    },
+    {
+     "buoy": 1,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9247050675961109,
+      "MODERATE_CHOP": 0.9677410038544999,
+      "BUILDING_SEA": 0.9984237181892355,
+      "CROSS_SEA": 0.9449840519581522,
+      "STORM_FORCE": 0.9848275670614361
+     },
+     "margin": 0.013596151127799327,
+     "coherence_drive_end": 0.6368583124580465
+    },
+    {
+     "buoy": 2,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9203259703242176,
+      "MODERATE_CHOP": 0.9823456354906398,
+      "BUILDING_SEA": 0.9984516327975902,
+      "CROSS_SEA": 0.9413578979752758,
+      "STORM_FORCE": 0.9802880941538425
+     },
+     "margin": 0.016105997306950393,
+     "coherence_drive_end": 0.28338513112441144
+    },
+    {
+     "buoy": 3,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9266113589327248,
+      "MODERATE_CHOP": 0.9691254688528064,
+      "BUILDING_SEA": 0.9995263024548942,
+      "CROSS_SEA": 0.9484045110388954,
+      "STORM_FORCE": 0.9811409848216419
+     },
+     "margin": 0.01838531763325224,
+     "coherence_drive_end": 0.27192297536351046
+    },
+    {
+     "buoy": 4,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9293922910553598,
+      "MODERATE_CHOP": 0.9825769274112421,
+      "BUILDING_SEA": 0.9992608881913436,
+      "CROSS_SEA": 0.9489826103433125,
+      "STORM_FORCE": 0.9843187084541829
+     },
+     "margin": 0.014942179737160721,
+     "coherence_drive_end": 0.20977926370180006
+    },
+    {
+     "buoy": 5,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9245921106081839,
+      "MODERATE_CHOP": 0.9716327512576128,
+      "BUILDING_SEA": 0.9983242262774638,
+      "CROSS_SEA": 0.9443180857563485,
+      "STORM_FORCE": 0.9845132547379634
+     },
+     "margin": 0.013810971539500394,
+     "coherence_drive_end": 0.5912752572703807
+    },
+    {
+     "buoy": 6,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9062387635764558,
+      "MODERATE_CHOP": 0.32168114105757983,
+      "BUILDING_SEA": 0.9958986750418469,
+      "CROSS_SEA": 0.9294013895474861,
+      "STORM_FORCE": 0.9725162169118122
+     },
+     "margin": 0.0233824581300347,
+     "coherence_drive_end": 0.5157975781618692
+    },
+    {
+     "buoy": 7,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9167719518560092,
+      "MODERATE_CHOP": 0.6771929940620225,
+      "BUILDING_SEA": 0.9963524873224507,
+      "CROSS_SEA": 0.9291028163885934,
+      "STORM_FORCE": 0.9799092232733354
+     },
+     "margin": 0.016443264049115336,
+     "coherence_drive_end": 0.5878275146703833
+    },
+    {
+     "buoy": 8,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9130777441518082,
+      "MODERATE_CHOP": 0.9717821592357381,
+      "BUILDING_SEA": 0.9980356908076442,
+      "CROSS_SEA": 0.9370670829731184,
+      "STORM_FORCE": 0.9741443984172018
+     },
+     "margin": 0.02389129239044241,
+     "coherence_drive_end": 0.3146015388384265
+    },
+    {
+     "buoy": 9,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8973226723411638,
+      "MODERATE_CHOP": 0.4713060891087689,
+      "BUILDING_SEA": 0.9972690991570512,
+      "CROSS_SEA": 0.9198265942434918,
+      "STORM_FORCE": 0.9581302451974361
+     },
+     "margin": 0.03913885395961514,
+     "coherence_drive_end": 0.44124108985554805
+    },
+    {
+     "buoy": 10,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9188451314503058,
+      "MODERATE_CHOP": 0.9702035758806777,
+      "BUILDING_SEA": 0.9985372605787687,
+      "CROSS_SEA": 0.9422821000086893,
+      "STORM_FORCE": 0.9772370525990395
+     },
+     "margin": 0.021300207979729202,
+     "coherence_drive_end": 0.37982348396522325
+    },
+    {
+     "buoy": 11,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9307427204054106,
+      "MODERATE_CHOP": 0.6638141774611588,
+      "BUILDING_SEA": 0.9983315989404717,
+      "CROSS_SEA": 0.9423091572079821,
+      "STORM_FORCE": 0.9868000886833334
+     },
+     "margin": 0.011531510257138389,
+     "coherence_drive_end": 0.5854611057007951
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    1.5482500746245649e-16,
+    0.0,
+    1.6440289088252738e-16,
+    0.0,
+    0.0,
+    0.0,
+    1.6808755677785733e-16,
+    0.0,
+    1.7846397168728214e-16,
+    0.0,
+    1.6667461076066523e-16
+   ],
+   "per_buoy_tapped": [
+    0.5241317150346719,
+    0.5715187307275869,
+    0.5740567658985521,
+    0.5380873758897698,
+    0.5788981031537191,
+    0.568913863070133,
+    0.24267814391282813,
+    0.523985513677519,
+    0.526029400618056,
+    0.4899345568740081,
+    0.5210607527714795,
+    0.5295287569596326
+   ],
+   "per_buoy_p_in": [
+    5.266470657464666,
+    5.736659950851283,
+    5.7612522116242815,
+    5.402450132916247,
+    5.807571991987414,
+    5.707986056011956,
+    2.463532498197348,
+    5.284022426918443,
+    5.291163454628784,
+    4.976793978655017,
+    5.237831495627953,
+    5.328816522484617
+   ],
+   "pred_vote_weighted": "BUILDING_SEA",
+   "pred_majority": "BUILDING_SEA",
+   "pred_field_fusion": "BUILDING_SEA",
+   "pred_powermean_diag": "BUILDING_SEA",
+   "conf_vote_weighted": 1.0,
+   "conf_field_fusion": 0.8711671042526109,
+   "coherences": [
+    0.5678761005658097,
+    0.6368583124580465,
+    0.28338513112441144,
+    0.27192297536351046,
+    0.20977926370180006,
+    0.5912752572703807,
+    0.5157975781618692,
+    0.5878275146703833,
+    0.3146015388384265,
+    0.44124108985554805,
+    0.37982348396522325,
+    0.5854611057007951
+   ],
+   "array_detected": false,
+   "first_detector_hat": 1,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6181443628819107,
+    0.7121805886288509,
+    0.33100598986277197,
+    0.22045856701303163,
+    0.22300297040230085,
+    0.6980937385614241,
+    0.482907117118308,
+    0.5713499363586138,
+    0.2729256181356022,
+    0.13380799413320427,
+    0.3165511972135674,
+    0.6421450979655206
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC10",
+   "true_state": "CROSS_SEA",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9944408042939907,
+      "MODERATE_CHOP": 0.5347244426605934,
+      "BUILDING_SEA": 0.9592197879232757,
+      "CROSS_SEA": 0.9988475107928149,
+      "STORM_FORCE": 0.9881142365811123
+     },
+     "margin": 0.004406706498824131,
+     "coherence_drive_end": 0.4290310322797206
+    },
+    {
+     "buoy": 1,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9961339015543474,
+      "MODERATE_CHOP": 0.8848812164707042,
+      "BUILDING_SEA": 0.9523491323259493,
+      "CROSS_SEA": 0.999711141994615,
+      "STORM_FORCE": 0.9848875072133967
+     },
+     "margin": 0.003577240440267526,
+     "coherence_drive_end": 0.5836152979905389
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.992251800841672,
+      "MODERATE_CHOP": 0.9346198547875763,
+      "BUILDING_SEA": 0.9667137622582079,
+      "CROSS_SEA": 0.9986105108576238,
+      "STORM_FORCE": 0.992901569218922
+     },
+     "margin": 0.0057089416387017256,
+     "coherence_drive_end": 0.2751429383673824
+    },
+    {
+     "buoy": 3,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.990372918288641,
+      "MODERATE_CHOP": 0.9265930819606334,
+      "BUILDING_SEA": 0.9704565027245544,
+      "CROSS_SEA": 0.9980269435806886,
+      "STORM_FORCE": 0.9958919576895265
+     },
+     "margin": 0.002134985891162011,
+     "coherence_drive_end": 0.3191265683807265
+    },
+    {
+     "buoy": 4,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9921018859914682,
+      "MODERATE_CHOP": 0.9391180303661325,
+      "BUILDING_SEA": 0.9695739293251512,
+      "CROSS_SEA": 0.9984568903458663,
+      "STORM_FORCE": 0.9942698314368614
+     },
+     "margin": 0.004187058909004837,
+     "coherence_drive_end": 0.17932444174795675
+    },
+    {
+     "buoy": 5,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9960519211664352,
+      "MODERATE_CHOP": 0.8874064737346676,
+      "BUILDING_SEA": 0.9546734000769325,
+      "CROSS_SEA": 0.9996825576381758,
+      "STORM_FORCE": 0.9862376282142935
+     },
+     "margin": 0.003630636471740667,
+     "coherence_drive_end": 0.664856554514739
+    },
+    {
+     "buoy": 6,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9928085437487528,
+      "MODERATE_CHOP": 0.2500041325326002,
+      "BUILDING_SEA": 0.9547965589177273,
+      "CROSS_SEA": 0.9992817961179472,
+      "STORM_FORCE": 0.989287693480502
+     },
+     "margin": 0.006473252369194382,
+     "coherence_drive_end": 0.49911653564045966
+    },
+    {
+     "buoy": 7,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9955973302280771,
+      "MODERATE_CHOP": 0.531369611096841,
+      "BUILDING_SEA": 0.9562784974617545,
+      "CROSS_SEA": 0.9993589875964723,
+      "STORM_FORCE": 0.9864426246587323
+     },
+     "margin": 0.003761657368395288,
+     "coherence_drive_end": 0.5192603310233288
+    },
+    {
+     "buoy": 8,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9951118730124455,
+      "MODERATE_CHOP": 0.9125432258914457,
+      "BUILDING_SEA": 0.9605652344972742,
+      "CROSS_SEA": 0.9996983575572027,
+      "STORM_FORCE": 0.9922824459335302
+     },
+     "margin": 0.004586484544757186,
+     "coherence_drive_end": 0.20785224347321452
+    },
+    {
+     "buoy": 9,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9923850707793286,
+      "MODERATE_CHOP": 0.34056037089956176,
+      "BUILDING_SEA": 0.9537019278901813,
+      "CROSS_SEA": 0.9986587690224223,
+      "STORM_FORCE": 0.9953028261502566
+     },
+     "margin": 0.0033559428721657847,
+     "coherence_drive_end": 0.4053530530063136
+    },
+    {
+     "buoy": 10,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9932527257543133,
+      "MODERATE_CHOP": 0.9162143994947402,
+      "BUILDING_SEA": 0.9641892773800813,
+      "CROSS_SEA": 0.9992172837384711,
+      "STORM_FORCE": 0.994183225281833
+     },
+     "margin": 0.005034058456638069,
+     "coherence_drive_end": 0.20692375975319255
+    },
+    {
+     "buoy": 11,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9945524255511572,
+      "MODERATE_CHOP": 0.5357632141979802,
+      "BUILDING_SEA": 0.9571358661551471,
+      "CROSS_SEA": 0.9988351866978981,
+      "STORM_FORCE": 0.986979353332393
+     },
+     "margin": 0.0042827611467408655,
+     "coherence_drive_end": 0.45176641415335206
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    1.5545425925186386e-16,
+    0.0,
+    0.0,
+    1.493753754539344e-16,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.5177373919167799e-16,
+    1.5665251599877512e-16
+   ],
+   "per_buoy_tapped": [
+    0.5706849629840368,
+    0.5798381248834653,
+    0.6000368311722284,
+    0.593908614800893,
+    0.6015355852787493,
+    0.5752391795819435,
+    0.533940365399981,
+    0.5673160829960111,
+    0.5789409242624337,
+    0.5305760594255704,
+    0.5844203996767479,
+    0.5660524062718824
+   ],
+   "per_buoy_p_in": [
+    5.713438949659889,
+    5.811011705644025,
+    6.009617054007611,
+    5.945949370845458,
+    6.023902926653985,
+    5.76724849077441,
+    5.349141314733429,
+    5.68137961176077,
+    5.798266600435766,
+    5.312114245286658,
+    5.851990103363188,
+    5.669736065439702
+   ],
+   "pred_vote_weighted": "CROSS_SEA",
+   "pred_majority": "CROSS_SEA",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CROSS_SEA",
+   "conf_vote_weighted": 1.0,
+   "conf_field_fusion": 0.9527928201801543,
+   "coherences": [
+    0.4290310322797206,
+    0.5836152979905389,
+    0.2751429383673824,
+    0.3191265683807265,
+    0.17932444174795675,
+    0.664856554514739,
+    0.49911653564045966,
+    0.5192603310233288,
+    0.20785224347321452,
+    0.4053530530063136,
+    0.20692375975319255,
+    0.45176641415335206
+   ],
+   "array_detected": false,
+   "first_detector_hat": 5,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6072680613758573,
+    0.7784916291649258,
+    0.33944321169248887,
+    0.2541990861599675,
+    0.20690867960390116,
+    0.7857285453721065,
+    0.5570431316099614,
+    0.6680972851089836,
+    0.16654064676672653,
+    0.13554254673843188,
+    0.23599334899803745,
+    0.5902807637620101
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC11",
+   "true_state": "CROSS_SEA",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9976991684201966,
+      "MODERATE_CHOP": 0.5065421489691625,
+      "BUILDING_SEA": 0.9394398065700759,
+      "CROSS_SEA": 0.9994707716478849,
+      "STORM_FORCE": 0.9761545022058243
+     },
+     "margin": 0.0017716032276883231,
+     "coherence_drive_end": 0.6698428960339193
+    },
+    {
+     "buoy": 1,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9968063365016923,
+      "MODERATE_CHOP": 0.892600741817804,
+      "BUILDING_SEA": 0.9543748344435352,
+      "CROSS_SEA": 0.9998667032612375,
+      "STORM_FORCE": 0.9857536949983022
+     },
+     "margin": 0.003060366759545241,
+     "coherence_drive_end": 0.5202674661093992
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9975697239386206,
+      "MODERATE_CHOP": 0.9199532906148595,
+      "BUILDING_SEA": 0.9531969045018714,
+      "CROSS_SEA": 0.9997685150050669,
+      "STORM_FORCE": 0.9859792258650194
+     },
+     "margin": 0.0021987910664462706,
+     "coherence_drive_end": 0.29481551480158136
+    },
+    {
+     "buoy": 3,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.998874014134096,
+      "MODERATE_CHOP": 0.8930611059176992,
+      "BUILDING_SEA": 0.9422427358220954,
+      "CROSS_SEA": 0.9989613484257744,
+      "STORM_FORCE": 0.982938552794026
+     },
+     "margin": 8.733429167839812e-05,
+     "coherence_drive_end": 0.3121230274957961
+    },
+    {
+     "buoy": 4,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9966048154723932,
+      "MODERATE_CHOP": 0.9213847222462539,
+      "BUILDING_SEA": 0.9554715083195227,
+      "CROSS_SEA": 0.9997981556115716,
+      "STORM_FORCE": 0.9875813084073857
+     },
+     "margin": 0.00319334013917838,
+     "coherence_drive_end": 0.3179512401164888
+    },
+    {
+     "buoy": 5,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9972019902723984,
+      "MODERATE_CHOP": 0.8896868357883432,
+      "BUILDING_SEA": 0.9517478472952549,
+      "CROSS_SEA": 0.9998232522830346,
+      "STORM_FORCE": 0.984270711281295
+     },
+     "margin": 0.0026212620106361717,
+     "coherence_drive_end": 0.5426181774771649
+    },
+    {
+     "buoy": 6,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9957749888519754,
+      "MODERATE_CHOP": 0.25148381592101426,
+      "BUILDING_SEA": 0.950982648833134,
+      "CROSS_SEA": 0.9998978452688959,
+      "STORM_FORCE": 0.9863220572182375
+     },
+     "margin": 0.004122856416920562,
+     "coherence_drive_end": 0.5373525772982627
+    },
+    {
+     "buoy": 7,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9976305157286383,
+      "MODERATE_CHOP": 0.519506666383825,
+      "BUILDING_SEA": 0.9421531124274662,
+      "CROSS_SEA": 0.9994475418184733,
+      "STORM_FORCE": 0.9776563963639908
+     },
+     "margin": 0.0018170260898350277,
+     "coherence_drive_end": 0.651316179598627
+    },
+    {
+     "buoy": 8,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9967127288088007,
+      "MODERATE_CHOP": 0.9096889453806907,
+      "BUILDING_SEA": 0.9558220687032769,
+      "CROSS_SEA": 0.9997944199465687,
+      "STORM_FORCE": 0.989737704137042
+     },
+     "margin": 0.0030816911377680167,
+     "coherence_drive_end": 0.45760836997556736
+    },
+    {
+     "buoy": 9,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9964480747052404,
+      "MODERATE_CHOP": 0.3233436502550528,
+      "BUILDING_SEA": 0.9432893676881036,
+      "CROSS_SEA": 0.9998375818923512,
+      "STORM_FORCE": 0.990852234363951
+     },
+     "margin": 0.0033895071871107296,
+     "coherence_drive_end": 0.5168382788162731
+    },
+    {
+     "buoy": 10,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9984583107517311,
+      "MODERATE_CHOP": 0.8981107437962123,
+      "BUILDING_SEA": 0.9463509747173185,
+      "CROSS_SEA": 0.9993512332466362,
+      "STORM_FORCE": 0.984952499278373
+     },
+     "margin": 0.0008929224949051351,
+     "coherence_drive_end": 0.3298909438108708
+    },
+    {
+     "buoy": 11,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9978645781624911,
+      "MODERATE_CHOP": 0.5180605830152878,
+      "BUILDING_SEA": 0.9464372863870713,
+      "CROSS_SEA": 0.9998374747590203,
+      "STORM_FORCE": 0.9804522311901303
+     },
+     "margin": 0.0019728965965292167,
+     "coherence_drive_end": 0.6523712258521467
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    1.6433483716051047e-16,
+    1.5443418624082058e-16,
+    1.499106829840193e-16,
+    0.0,
+    1.5301948057424599e-16,
+    1.515218539491572e-16,
+    0.0,
+    1.6231269971874567e-16,
+    1.500326385904154e-16,
+    0.0,
+    1.5248969423004858e-16,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.5396695554547237,
+    0.5740232969040617,
+    0.5912296504777962,
+    0.574219743325736,
+    0.5790826974770241,
+    0.5852217755390754,
+    0.5267190838295694,
+    0.5461984076047559,
+    0.5908050111302213,
+    0.5483908668654072,
+    0.5804591326575221,
+    0.5426900310790941
+   ],
+   "per_buoy_p_in": [
+    5.404687375158417,
+    5.751177516583818,
+    5.924717318476938,
+    5.756424624156744,
+    5.804348677482118,
+    5.86171827067369,
+    5.279493212788483,
+    5.472020496480896,
+    5.919901349764471,
+    5.492746610885091,
+    5.824514398725228,
+    5.436760235771706
+   ],
+   "pred_vote_weighted": "CROSS_SEA",
+   "pred_majority": "CROSS_SEA",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CALM_SWELL",
+   "conf_vote_weighted": 1.0,
+   "conf_field_fusion": 0.9489315933008595,
+   "coherences": [
+    0.6698428960339193,
+    0.5202674661093992,
+    0.29481551480158136,
+    0.3121230274957961,
+    0.3179512401164888,
+    0.5426181774771649,
+    0.5373525772982627,
+    0.651316179598627,
+    0.45760836997556736,
+    0.5168382788162731,
+    0.3298909438108708,
+    0.6523712258521467
+   ],
+   "array_detected": false,
+   "first_detector_hat": 0,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6795574941140139,
+    0.6704980188673517,
+    0.3595262129859991,
+    0.27280526666571087,
+    0.3109219609301901,
+    0.7881819650956522,
+    0.478378705294788,
+    0.7410321829940402,
+    0.1260469386280891,
+    0.36185452072947805,
+    0.1613243764367573,
+    0.6448020834107114
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC12",
+   "true_state": "CROSS_SEA",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9916336832176545,
+      "MODERATE_CHOP": 0.5409721535966722,
+      "BUILDING_SEA": 0.9668869309498753,
+      "CROSS_SEA": 0.997025990212542,
+      "STORM_FORCE": 0.9922320992434718
+     },
+     "margin": 0.004793890969070236,
+     "coherence_drive_end": 0.5107359789122845
+    },
+    {
+     "buoy": 1,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9933506678760267,
+      "MODERATE_CHOP": 0.8980293480832021,
+      "BUILDING_SEA": 0.9621003832490279,
+      "CROSS_SEA": 0.9991164745018143,
+      "STORM_FORCE": 0.9901560538925234
+     },
+     "margin": 0.005765806625787628,
+     "coherence_drive_end": 0.5387509358314404
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.991551122634852,
+      "MODERATE_CHOP": 0.9345613117874602,
+      "BUILDING_SEA": 0.9680970596451336,
+      "CROSS_SEA": 0.9981915341718106,
+      "STORM_FORCE": 0.9940688399254699
+     },
+     "margin": 0.004122694246340708,
+     "coherence_drive_end": 0.3657939690998032
+    },
+    {
+     "buoy": 3,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9902126379464807,
+      "MODERATE_CHOP": 0.9211556595885995,
+      "BUILDING_SEA": 0.9673285654350279,
+      "CROSS_SEA": 0.9980402731728305,
+      "STORM_FORCE": 0.9953283565475393
+     },
+     "margin": 0.002711916625291244,
+     "coherence_drive_end": 0.06242617232054199
+    },
+    {
+     "buoy": 4,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9922075722723928,
+      "MODERATE_CHOP": 0.9315898005752192,
+      "BUILDING_SEA": 0.9658878573243086,
+      "CROSS_SEA": 0.9985330329518783,
+      "STORM_FORCE": 0.9931304498442545
+     },
+     "margin": 0.005402583107623871,
+     "coherence_drive_end": 0.30147902419898415
+    },
+    {
+     "buoy": 5,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9924143136384008,
+      "MODERATE_CHOP": 0.9018470553581385,
+      "BUILDING_SEA": 0.9655093221115709,
+      "CROSS_SEA": 0.9987113447559073,
+      "STORM_FORCE": 0.9918885348448644
+     },
+     "margin": 0.0062970311175064575,
+     "coherence_drive_end": 0.5855212335567336
+    },
+    {
+     "buoy": 6,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9918087009942684,
+      "MODERATE_CHOP": 0.25258627770912184,
+      "BUILDING_SEA": 0.957449157132458,
+      "CROSS_SEA": 0.9989486219705742,
+      "STORM_FORCE": 0.9906932438166324
+     },
+     "margin": 0.00713992097630578,
+     "coherence_drive_end": 0.5028868185944069
+    },
+    {
+     "buoy": 7,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.994846957350723,
+      "MODERATE_CHOP": 0.535304808440902,
+      "BUILDING_SEA": 0.9586779601946637,
+      "CROSS_SEA": 0.9988329986220197,
+      "STORM_FORCE": 0.9879619477360896
+     },
+     "margin": 0.0039860412712966475,
+     "coherence_drive_end": 0.4947614984108598
+    },
+    {
+     "buoy": 8,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9885004102935587,
+      "MODERATE_CHOP": 0.924603253632407,
+      "BUILDING_SEA": 0.9717029669243259,
+      "CROSS_SEA": 0.9970538855188522,
+      "STORM_FORCE": 0.9972467630163436
+     },
+     "margin": 0.00019287749749141714,
+     "coherence_drive_end": 0.2732232172531361
+    },
+    {
+     "buoy": 9,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9765681986355551,
+      "MODERATE_CHOP": 0.3801541841741292,
+      "BUILDING_SEA": 0.9779287882001002,
+      "CROSS_SEA": 0.9888596505480038,
+      "STORM_FORCE": 0.9990257924300053
+     },
+     "margin": 0.01016614188200149,
+     "coherence_drive_end": 0.40720928852824845
+    },
+    {
+     "buoy": 10,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9911087296010851,
+      "MODERATE_CHOP": 0.9206176473510372,
+      "BUILDING_SEA": 0.9681600487319996,
+      "CROSS_SEA": 0.9984067729642705,
+      "STORM_FORCE": 0.9957898767006926
+     },
+     "margin": 0.0026168962635778614,
+     "coherence_drive_end": 0.2125352454651645
+    },
+    {
+     "buoy": 11,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9941482873446503,
+      "MODERATE_CHOP": 0.530257508775898,
+      "BUILDING_SEA": 0.9591279995136125,
+      "CROSS_SEA": 0.9986501730747168,
+      "STORM_FORCE": 0.9881835614325226
+     },
+     "margin": 0.0045018857300664905,
+     "coherence_drive_end": 0.4964644949087667
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    1.5364749133214335e-16,
+    0.0,
+    0.0,
+    1.5099930964937912e-16,
+    0.0,
+    0.0,
+    1.6174933467982003e-16,
+    1.5434118510446123e-16,
+    0.0,
+    1.599513153558649e-16,
+    0.0,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.5772765947663528,
+    0.5914661133995612,
+    0.600388445789713,
+    0.5870231907872144,
+    0.5927727115707743,
+    0.5921376080324325,
+    0.5483118689930848,
+    0.5745358321565155,
+    0.5876627051221295,
+    0.5538406853185579,
+    0.5930926760711519,
+    0.5670726034315009
+   ],
+   "per_buoy_p_in": [
+    5.780624284845167,
+    5.923404175441274,
+    6.015426881607036,
+    5.8820031810905515,
+    5.940411648667181,
+    5.930469921633188,
+    5.49107927682212,
+    5.754642994991831,
+    5.886015832671146,
+    5.552804725138252,
+    5.940099491697033,
+    5.680297582431349
+   ],
+   "pred_vote_weighted": "CROSS_SEA",
+   "pred_majority": "CROSS_SEA",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CROSS_SEA",
+   "conf_vote_weighted": 0.8204604024603006,
+   "conf_field_fusion": 0.9500820004754114,
+   "coherences": [
+    0.5107359789122845,
+    0.5387509358314404,
+    0.3657939690998032,
+    0.06242617232054199,
+    0.30147902419898415,
+    0.5855212335567336,
+    0.5028868185944069,
+    0.4947614984108598,
+    0.2732232172531361,
+    0.40720928852824845,
+    0.2125352454651645,
+    0.4964644949087667
+   ],
+   "array_detected": false,
+   "first_detector_hat": 5,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.6799780047690509,
+    0.7354112059021788,
+    0.6737435159330475,
+    0.3969170027682998,
+    0.4098949525920051,
+    0.7906107542770736,
+    0.5685684481701092,
+    0.6797473675536411,
+    0.1975940762054773,
+    0.29366008370112306,
+    0.18464601907365927,
+    0.7399579629675166
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC13",
+   "true_state": "STORM_FORCE",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9714887962179914,
+      "MODERATE_CHOP": 0.5715149932616129,
+      "BUILDING_SEA": 0.9887860638180771,
+      "CROSS_SEA": 0.9814566337702285,
+      "STORM_FORCE": 0.9991212579343534
+     },
+     "margin": 0.010335194116276258,
+     "coherence_drive_end": 0.12727697521288878
+    },
+    {
+     "buoy": 1,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9678406867672593,
+      "MODERATE_CHOP": 0.9392255123103685,
+      "BUILDING_SEA": 0.9923204764826622,
+      "CROSS_SEA": 0.9821836020754032,
+      "STORM_FORCE": 0.9996219967124952
+     },
+     "margin": 0.007301520229832992,
+     "coherence_drive_end": 0.16347871180156107
+    },
+    {
+     "buoy": 2,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9627428851764751,
+      "MODERATE_CHOP": 0.9697708933932928,
+      "BUILDING_SEA": 0.9957635698065319,
+      "CROSS_SEA": 0.9775342096543722,
+      "STORM_FORCE": 0.998097407485573
+     },
+     "margin": 0.002333837679041051,
+     "coherence_drive_end": 0.17541224929545116
+    },
+    {
+     "buoy": 3,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9609748018630629,
+      "MODERATE_CHOP": 0.9564861550326098,
+      "BUILDING_SEA": 0.9947503339463047,
+      "CROSS_SEA": 0.9774986785080896,
+      "STORM_FORCE": 0.996967442535465
+     },
+     "margin": 0.0022171085891602438,
+     "coherence_drive_end": 0.11697966837311984
+    },
+    {
+     "buoy": 4,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9602717878913773,
+      "MODERATE_CHOP": 0.9683246136963836,
+      "BUILDING_SEA": 0.9959048212592596,
+      "CROSS_SEA": 0.9759781482303385,
+      "STORM_FORCE": 0.9977636261837262
+     },
+     "margin": 0.0018588049244665505,
+     "coherence_drive_end": 0.1511746422611447
+    },
+    {
+     "buoy": 5,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9582787878478177,
+      "MODERATE_CHOP": 0.9459417270161598,
+      "BUILDING_SEA": 0.9953573727019639,
+      "CROSS_SEA": 0.9751415412881518,
+      "STORM_FORCE": 0.9982561706643163
+     },
+     "margin": 0.002898797962352373,
+     "coherence_drive_end": 0.11276103319188814
+    },
+    {
+     "buoy": 6,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9501377939627155,
+      "MODERATE_CHOP": 0.2823207432445323,
+      "BUILDING_SEA": 0.9941102956578606,
+      "CROSS_SEA": 0.9704765901074056,
+      "STORM_FORCE": 0.9965161986477842
+     },
+     "margin": 0.002405902989923603,
+     "coherence_drive_end": 0.3478901688539365
+    },
+    {
+     "buoy": 7,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.957200250261641,
+      "MODERATE_CHOP": 0.5964912707733803,
+      "BUILDING_SEA": 0.995085670784016,
+      "CROSS_SEA": 0.9693273634358558,
+      "STORM_FORCE": 0.9978548851703704
+     },
+     "margin": 0.0027692143863543572,
+     "coherence_drive_end": 0.35337039207902116
+    },
+    {
+     "buoy": 8,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.95519107816173,
+      "MODERATE_CHOP": 0.9595908627411802,
+      "BUILDING_SEA": 0.996642029118045,
+      "CROSS_SEA": 0.973163284007322,
+      "STORM_FORCE": 0.9952604652837155
+     },
+     "margin": 0.0013815638343295245,
+     "coherence_drive_end": 0.23827927691476017
+    },
+    {
+     "buoy": 9,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9554986421683763,
+      "MODERATE_CHOP": 0.4100892275007776,
+      "BUILDING_SEA": 0.9940048721643443,
+      "CROSS_SEA": 0.9706999142753028,
+      "STORM_FORCE": 0.9925774397334169
+     },
+     "margin": 0.0014274324309273556,
+     "coherence_drive_end": 0.44446939038235717
+    },
+    {
+     "buoy": 10,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.959358409072385,
+      "MODERATE_CHOP": 0.9602328621776616,
+      "BUILDING_SEA": 0.9962090755150415,
+      "CROSS_SEA": 0.9760624578282967,
+      "STORM_FORCE": 0.9958345922701008
+     },
+     "margin": 0.00037448324494060437,
+     "coherence_drive_end": 0.30718332476185134
+    },
+    {
+     "buoy": 11,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9675820993896549,
+      "MODERATE_CHOP": 0.5846943564088454,
+      "BUILDING_SEA": 0.9916176490793323,
+      "CROSS_SEA": 0.9779472893569372,
+      "STORM_FORCE": 0.9992374920217367
+     },
+     "margin": 0.007619842942404476,
+     "coherence_drive_end": 0.17209516550969167
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    1.4783841909566107e-16,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.6840345323834216e-16,
+    0.0,
+    1.5461416937360034e-16
+   ],
+   "per_buoy_tapped": [
+    0.5549152283315835,
+    0.6001284841067194,
+    0.6044800071025717,
+    0.5677259769755857,
+    0.6043843853081357,
+    0.5955470864109461,
+    0.46766381889643427,
+    0.5634078812550801,
+    0.5688085573776085,
+    0.5240250616024964,
+    0.5759047169195988,
+    0.5736118743484465
+   ],
+   "per_buoy_p_in": [
+    5.557791849566582,
+    6.0077645928114,
+    6.050765154690382,
+    5.686389405084444,
+    6.051128289694296,
+    5.9642680785135305,
+    4.688432530725718,
+    5.644397655464032,
+    5.700889334760317,
+    5.2741104925151525,
+    5.771479038716477,
+    5.744482690677493
+   ],
+   "pred_vote_weighted": "STORM_FORCE",
+   "pred_majority": "STORM_FORCE",
+   "pred_field_fusion": "STORM_FORCE",
+   "pred_powermean_diag": "STORM_FORCE",
+   "conf_vote_weighted": 0.9258339969941082,
+   "conf_field_fusion": 0.9386985945900014,
+   "coherences": [
+    0.12727697521288878,
+    0.16347871180156107,
+    0.17541224929545116,
+    0.11697966837311984,
+    0.1511746422611447,
+    0.11276103319188814,
+    0.3478901688539365,
+    0.35337039207902116,
+    0.23827927691476017,
+    0.44446939038235717,
+    0.30718332476185134,
+    0.17209516550969167
+   ],
+   "array_detected": false,
+   "first_detector_hat": 9,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": true,
+   "coherences_compensated_diag": [
+    0.37084966054188023,
+    0.4033103419402126,
+    0.10015374977142687,
+    0.08906226168491421,
+    0.13919354026035985,
+    0.346753240524324,
+    0.29178863815244027,
+    0.221527348912803,
+    0.13096769366403552,
+    0.0642311058925984,
+    0.016337360392378354,
+    0.2765901359908351
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC14",
+   "true_state": "STORM_FORCE",
+   "transient": false,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.98467873732014,
+      "MODERATE_CHOP": 0.567403516675424,
+      "BUILDING_SEA": 0.9797726618925272,
+      "CROSS_SEA": 0.991446520807469,
+      "STORM_FORCE": 0.9976607451196772
+     },
+     "margin": 0.006214224312208194,
+     "coherence_drive_end": 0.08919312579194676
+    },
+    {
+     "buoy": 1,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9794347090169617,
+      "MODERATE_CHOP": 0.9314140618138422,
+      "BUILDING_SEA": 0.9853891902386867,
+      "CROSS_SEA": 0.9901426032017573,
+      "STORM_FORCE": 0.9992985852741068
+     },
+     "margin": 0.009155982072349467,
+     "coherence_drive_end": 0.4226909897391137
+    },
+    {
+     "buoy": 2,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9783386732625176,
+      "MODERATE_CHOP": 0.956358331705623,
+      "BUILDING_SEA": 0.9867241050303691,
+      "CROSS_SEA": 0.9896116887640295,
+      "STORM_FORCE": 0.9997611024272457
+     },
+     "margin": 0.0101494136632162,
+     "coherence_drive_end": 0.5377773271532366
+    },
+    {
+     "buoy": 3,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9733367392466261,
+      "MODERATE_CHOP": 0.9461363145271846,
+      "BUILDING_SEA": 0.9886261806684284,
+      "CROSS_SEA": 0.9868113938632257,
+      "STORM_FORCE": 0.9995399352111702
+     },
+     "margin": 0.010913754542741794,
+     "coherence_drive_end": 0.2527441848113055
+    },
+    {
+     "buoy": 4,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9755201093319894,
+      "MODERATE_CHOP": 0.9620935628022518,
+      "BUILDING_SEA": 0.9884899925769167,
+      "CROSS_SEA": 0.9872093376144029,
+      "STORM_FORCE": 0.9992856420654769
+     },
+     "margin": 0.010795649488560155,
+     "coherence_drive_end": 0.49783683874255863
+    },
+    {
+     "buoy": 5,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.980594494295396,
+      "MODERATE_CHOP": 0.9320043224213816,
+      "BUILDING_SEA": 0.984688879713372,
+      "CROSS_SEA": 0.9908460398173915,
+      "STORM_FORCE": 0.9991511515741001
+     },
+     "margin": 0.00830511175670856,
+     "coherence_drive_end": 0.24482932831225968
+    },
+    {
+     "buoy": 6,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9869711293306354,
+      "MODERATE_CHOP": 0.2563577404944177,
+      "BUILDING_SEA": 0.9693374857119124,
+      "CROSS_SEA": 0.9963283763484567,
+      "STORM_FORCE": 0.9959417996374864
+     },
+     "margin": 0.00038657671097031,
+     "coherence_drive_end": 0.26629185525765453
+    },
+    {
+     "buoy": 7,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9868816364535731,
+      "MODERATE_CHOP": 0.5582735706915092,
+      "BUILDING_SEA": 0.9762847561745334,
+      "CROSS_SEA": 0.9933732389288156,
+      "STORM_FORCE": 0.9964303238959982
+     },
+     "margin": 0.0030570849671825995,
+     "coherence_drive_end": 0.1665372193604437
+    },
+    {
+     "buoy": 8,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9745376751643193,
+      "MODERATE_CHOP": 0.9479808027224805,
+      "BUILDING_SEA": 0.9883012284051218,
+      "CROSS_SEA": 0.9877856703239088,
+      "STORM_FORCE": 0.9993820987923829
+     },
+     "margin": 0.011080870387261132,
+     "coherence_drive_end": 0.3806425192951348
+    },
+    {
+     "buoy": 9,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9771100289103221,
+      "MODERATE_CHOP": 0.36941478209205614,
+      "BUILDING_SEA": 0.9783880198532238,
+      "CROSS_SEA": 0.9885711305397336,
+      "STORM_FORCE": 0.9997021396745347
+     },
+     "margin": 0.01113100913480114,
+     "coherence_drive_end": 0.37348503192914534
+    },
+    {
+     "buoy": 10,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.977529650756863,
+      "MODERATE_CHOP": 0.9433996941137519,
+      "BUILDING_SEA": 0.9859642334953663,
+      "CROSS_SEA": 0.9895045326388573,
+      "STORM_FORCE": 0.9995918984403643
+     },
+     "margin": 0.010087365801507042,
+     "coherence_drive_end": 0.37992995096519583
+    },
+    {
+     "buoy": 11,
+     "pred": "STORM_FORCE",
+     "scores": {
+      "CALM_SWELL": 0.9795980597643618,
+      "MODERATE_CHOP": 0.5728718113611718,
+      "BUILDING_SEA": 0.984335589792886,
+      "CROSS_SEA": 0.9877185937040142,
+      "STORM_FORCE": 0.9989683745260131
+     },
+     "margin": 0.0112497808219989,
+     "coherence_drive_end": 0.2154019125164158
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.4404342528420488e-16,
+    0.0,
+    1.6820273954972096e-16,
+    0.0,
+    1.4950772238617457e-16,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.5793350950516696,
+    0.6125230011755596,
+    0.6101987405315593,
+    0.5828275373124487,
+    0.6159986159857506,
+    0.6082479507146797,
+    0.5273798935875565,
+    0.5802513767742065,
+    0.5934495815386391,
+    0.5361757401978761,
+    0.5874819157761566,
+    0.5761570563534734
+   ],
+   "per_buoy_p_in": [
+    5.799661872915889,
+    6.132333676895169,
+    6.108695010173005,
+    5.8333898886466695,
+    6.166046231875594,
+    6.087630180578028,
+    5.280404005771728,
+    5.808873767213916,
+    5.940685909226705,
+    5.3712658242424105,
+    5.880282183547715,
+    5.768126968555949
+   ],
+   "pred_vote_weighted": "STORM_FORCE",
+   "pred_majority": "STORM_FORCE",
+   "pred_field_fusion": "STORM_FORCE",
+   "pred_powermean_diag": "STORM_FORCE",
+   "conf_vote_weighted": 0.9962295066093714,
+   "conf_field_fusion": 0.945781458410202,
+   "coherences": [
+    0.08919312579194676,
+    0.4226909897391137,
+    0.5377773271532366,
+    0.2527441848113055,
+    0.49783683874255863,
+    0.24482932831225968,
+    0.26629185525765453,
+    0.1665372193604437,
+    0.3806425192951348,
+    0.37348503192914534,
+    0.37992995096519583,
+    0.2154019125164158
+   ],
+   "array_detected": false,
+   "first_detector_hat": 2,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.27712739169181194,
+    0.46104554933556663,
+    0.33264126101302854,
+    0.12582237025394713,
+    0.08611844887000535,
+    0.2949611019543789,
+    0.36638035945035796,
+    0.43859438458077554,
+    0.16070068722410416,
+    0.19128806134861226,
+    0.31905416110819595,
+    0.23766419882521392
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 1,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC15",
+   "true_state": "CALM_SWELL",
+   "transient": true,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.998513518896428,
+      "MODERATE_CHOP": 0.5194340345814255,
+      "BUILDING_SEA": 0.9225713503676692,
+      "CROSS_SEA": 0.9942454229789822,
+      "STORM_FORCE": 0.9625413270457488
+     },
+     "margin": 0.004268095917445813,
+     "coherence_drive_end": 0.5403731521261174
+    },
+    {
+     "buoy": 1,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9944182926667235,
+      "MODERATE_CHOP": 0.8160784001690182,
+      "BUILDING_SEA": 0.8919899640698709,
+      "CROSS_SEA": 0.9845132590897968,
+      "STORM_FORCE": 0.9429176730515241
+     },
+     "margin": 0.009905033576926736,
+     "coherence_drive_end": 0.6191606652042043
+    },
+    {
+     "buoy": 2,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9989866246948788,
+      "MODERATE_CHOP": 0.8986069810332509,
+      "BUILDING_SEA": 0.9256447806810002,
+      "CROSS_SEA": 0.994346761577512,
+      "STORM_FORCE": 0.9672060601864236
+     },
+     "margin": 0.004639863117366749,
+     "coherence_drive_end": 0.38293501850724526
+    },
+    {
+     "buoy": 3,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9988292297225784,
+      "MODERATE_CHOP": 0.8857304387847551,
+      "BUILDING_SEA": 0.9279324289030131,
+      "CROSS_SEA": 0.9942354868127536,
+      "STORM_FORCE": 0.9715174996186844
+     },
+     "margin": 0.004593742909824727,
+     "coherence_drive_end": 0.2226176111148679
+    },
+    {
+     "buoy": 4,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9979691330228373,
+      "MODERATE_CHOP": 0.8966894999682801,
+      "BUILDING_SEA": 0.9214148893085395,
+      "CROSS_SEA": 0.9924160487898105,
+      "STORM_FORCE": 0.9636195428989811
+     },
+     "margin": 0.005553084233026806,
+     "coherence_drive_end": 0.44095371614123213
+    },
+    {
+     "buoy": 5,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9923073870507463,
+      "MODERATE_CHOP": 0.8061848866905874,
+      "BUILDING_SEA": 0.883065696071544,
+      "CROSS_SEA": 0.9814400041889891,
+      "STORM_FORCE": 0.9365445778456045
+     },
+     "margin": 0.010867382861757147,
+     "coherence_drive_end": 0.6453405994235383
+    },
+    {
+     "buoy": 6,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9982222965617509,
+      "MODERATE_CHOP": 0.215476509517676,
+      "BUILDING_SEA": 0.9117383317217479,
+      "CROSS_SEA": 0.9904043443676492,
+      "STORM_FORCE": 0.9588584746106655
+     },
+     "margin": 0.00781795219410164,
+     "coherence_drive_end": 0.51315423973518
+    },
+    {
+     "buoy": 7,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9988273123247038,
+      "MODERATE_CHOP": 0.5144337553190065,
+      "BUILDING_SEA": 0.9227567959834784,
+      "CROSS_SEA": 0.995279760889528,
+      "STORM_FORCE": 0.9632806552820132
+     },
+     "margin": 0.003547551435175822,
+     "coherence_drive_end": 0.5682297387724616
+    },
+    {
+     "buoy": 8,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9988997675480945,
+      "MODERATE_CHOP": 0.8955222713808236,
+      "BUILDING_SEA": 0.9358587439060504,
+      "CROSS_SEA": 0.9958653003356323,
+      "STORM_FORCE": 0.9762491632899972
+     },
+     "margin": 0.003034467212462255,
+     "coherence_drive_end": 0.24079120474668997
+    },
+    {
+     "buoy": 9,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9987283007337909,
+      "MODERATE_CHOP": 0.30553058640286584,
+      "BUILDING_SEA": 0.9207337288504592,
+      "CROSS_SEA": 0.9952617667335596,
+      "STORM_FORCE": 0.9760962728085776
+     },
+     "margin": 0.003466534000231336,
+     "coherence_drive_end": 0.06407870112451818
+    },
+    {
+     "buoy": 10,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.998746266774038,
+      "MODERATE_CHOP": 0.8838970147107532,
+      "BUILDING_SEA": 0.9263314274843525,
+      "CROSS_SEA": 0.9935086188304623,
+      "STORM_FORCE": 0.9704792999558575
+     },
+     "margin": 0.0052376479435757295,
+     "coherence_drive_end": 0.1705341639584167
+    },
+    {
+     "buoy": 11,
+     "pred": "CALM_SWELL",
+     "scores": {
+      "CALM_SWELL": 0.9991966156677525,
+      "MODERATE_CHOP": 0.5229174307056689,
+      "BUILDING_SEA": 0.9287596165948505,
+      "CROSS_SEA": 0.9965106327789535,
+      "STORM_FORCE": 0.9675977811265517
+     },
+     "margin": 0.0026859828887990655,
+     "coherence_drive_end": 0.5593716464568311
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    1.625160899504059e-16,
+    1.740210621131473e-16,
+    1.550786134304693e-16,
+    0.0,
+    1.5499787348312026e-16,
+    1.7276323928743898e-16,
+    0.0,
+    0.0,
+    0.0,
+    1.871707539053894e-16,
+    0.0,
+    1.6149871606660172e-16
+   ],
+   "per_buoy_tapped": [
+    0.5416678877676594,
+    0.50489090240608,
+    0.5682375041846166,
+    0.5503469175803335,
+    0.5677366785200015,
+    0.5080809013462794,
+    0.49927545095174614,
+    0.5389196162713088,
+    0.5550375871470553,
+    0.4713651242872743,
+    0.544417520534584,
+    0.5456939453520591
+   ],
+   "per_buoy_p_in": [
+    5.465172217539601,
+    5.103855871898068,
+    5.727278572156869,
+    5.543662466008277,
+    5.73026196902534,
+    5.141015087257059,
+    5.049378144553495,
+    5.434394422515542,
+    5.589623368162899,
+    4.745284191936735,
+    5.489854608791172,
+    5.499600500438916
+   ],
+   "pred_vote_weighted": "CALM_SWELL",
+   "pred_majority": "CALM_SWELL",
+   "pred_field_fusion": "CALM_SWELL",
+   "pred_powermean_diag": "CALM_SWELL",
+   "conf_vote_weighted": 1.0,
+   "conf_field_fusion": 0.9164548354770156,
+   "coherences": [
+    0.5403731521261174,
+    0.6191606652042043,
+    0.38293501850724526,
+    0.2226176111148679,
+    0.44095371614123213,
+    0.6453405994235383,
+    0.51315423973518,
+    0.5682297387724616,
+    0.24079120474668997,
+    0.06407870112451818,
+    0.1705341639584167,
+    0.5593716464568311
+   ],
+   "array_detected": false,
+   "first_detector_hat": 5,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.8734396020449475,
+    0.8913304250172648,
+    0.7035801152221081,
+    0.6688404735822979,
+    0.7514833626233719,
+    0.8973266947843226,
+    0.799869888393836,
+    0.855018118335943,
+    0.6159144185222667,
+    0.7408603240794343,
+    0.714002375507852,
+    0.8746484735685847
+   ],
+   "array_detected_compensated_diag": false,
+   "first_detector_hat_compensated_diag": 5,
+   "localization_correct_compensated_diag": false
+  },
+  {
+   "scenario_id": "OC16",
+   "true_state": "MODERATE_CHOP",
+   "transient": true,
+   "per_buoy": [
+    {
+     "buoy": 0,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9213392879668559,
+      "MODERATE_CHOP": 0.7400696384745875,
+      "BUILDING_SEA": 0.9883329500807694,
+      "CROSS_SEA": 0.9328494379244266,
+      "STORM_FORCE": 0.9777407232355418
+     },
+     "margin": 0.010592226845227537,
+     "coherence_drive_end": 0.4727614222419368
+    },
+    {
+     "buoy": 1,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9255991811925869,
+      "MODERATE_CHOP": 0.9856215273045238,
+      "BUILDING_SEA": 0.9904278087536984,
+      "CROSS_SEA": 0.9446360411809989,
+      "STORM_FORCE": 0.9809145745297969
+     },
+     "margin": 0.00480628144917461,
+     "coherence_drive_end": 0.47949577968075924
+    },
+    {
+     "buoy": 2,
+     "pred": "CROSS_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9476220337925197,
+      "MODERATE_CHOP": 0.9415898321950781,
+      "BUILDING_SEA": 0.9297348576464699,
+      "CROSS_SEA": 0.952045870059367,
+      "STORM_FORCE": 0.9484689825093424
+     },
+     "margin": 0.00357688755002461,
+     "coherence_drive_end": 0.5257118516826661
+    },
+    {
+     "buoy": 3,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.26537868002519477,
+      "MODERATE_CHOP": 0.4156474377528108,
+      "BUILDING_SEA": 0.3363373066480125,
+      "CROSS_SEA": 0.2821304286871484,
+      "STORM_FORCE": 0.302748080498028
+     },
+     "margin": 0.07931013110479834,
+     "coherence_drive_end": 0.6001112541510094
+    },
+    {
+     "buoy": 4,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8241417305687638,
+      "MODERATE_CHOP": 0.8720512108007237,
+      "BUILDING_SEA": 0.8083776578029156,
+      "CROSS_SEA": 0.8262488708351436,
+      "STORM_FORCE": 0.8201880450500045
+     },
+     "margin": 0.04580233996558003,
+     "coherence_drive_end": 0.5233740450974192
+    },
+    {
+     "buoy": 5,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.8967880062882008,
+      "MODERATE_CHOP": 0.9948078044886773,
+      "BUILDING_SEA": 0.9825156209343148,
+      "CROSS_SEA": 0.9186791715795214,
+      "STORM_FORCE": 0.9644436508962928
+     },
+     "margin": 0.012292183554362568,
+     "coherence_drive_end": 0.49613078781985
+    },
+    {
+     "buoy": 6,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.4009028972091712,
+      "MODERATE_CHOP": 0.8050468279974142,
+      "BUILDING_SEA": 0.4504994538922965,
+      "CROSS_SEA": 0.4233679019193582,
+      "STORM_FORCE": 0.43765159799273334
+     },
+     "margin": 0.3545473741051177,
+     "coherence_drive_end": 0.27251672782577696
+    },
+    {
+     "buoy": 7,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9315590154572578,
+      "MODERATE_CHOP": 0.7269854848885261,
+      "BUILDING_SEA": 0.9901322407370434,
+      "CROSS_SEA": 0.942725187782711,
+      "STORM_FORCE": 0.982713061374373
+     },
+     "margin": 0.007419179362670447,
+     "coherence_drive_end": 0.46531580189595984
+    },
+    {
+     "buoy": 8,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.2566658706818671,
+      "MODERATE_CHOP": 0.40466682095734474,
+      "BUILDING_SEA": 0.2984853115633584,
+      "CROSS_SEA": 0.27019192527713415,
+      "STORM_FORCE": 0.27887427688343003
+     },
+     "margin": 0.10618150939398635,
+     "coherence_drive_end": 0.5711884957461016
+    },
+    {
+     "buoy": 9,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.8918081054505897,
+      "MODERATE_CHOP": 0.6273034779154537,
+      "BUILDING_SEA": 0.923300217829132,
+      "CROSS_SEA": 0.9035248864257244,
+      "STORM_FORCE": 0.9209285731093584
+     },
+     "margin": 0.00237164471977358,
+     "coherence_drive_end": 0.41583514166979507
+    },
+    {
+     "buoy": 10,
+     "pred": "MODERATE_CHOP",
+     "scores": {
+      "CALM_SWELL": 0.7988803119666668,
+      "MODERATE_CHOP": 0.8179822566180078,
+      "BUILDING_SEA": 0.8045545411019112,
+      "CROSS_SEA": 0.8090374628828167,
+      "STORM_FORCE": 0.8175213252250113
+     },
+     "margin": 0.00046093139299652197,
+     "coherence_drive_end": 0.5994335079909773
+    },
+    {
+     "buoy": 11,
+     "pred": "BUILDING_SEA",
+     "scores": {
+      "CALM_SWELL": 0.9380252324422367,
+      "MODERATE_CHOP": 0.7219037568587772,
+      "BUILDING_SEA": 0.9894331367957563,
+      "CROSS_SEA": 0.9480611901351114,
+      "STORM_FORCE": 0.9845396093499548
+     },
+     "margin": 0.0048935274458015154,
+     "coherence_drive_end": 0.44142998083410306
+    }
+   ],
+   "per_buoy_ledger_closure": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.4505643385942747e-16,
+    0.0,
+    0.0,
+    1.1579202911928227e-16,
+    0.0,
+    1.7735494429058124e-16,
+    0.0,
+    0.0
+   ],
+   "per_buoy_tapped": [
+    0.2994230388097765,
+    0.3603483505691094,
+    0.08308641210709668,
+    0.0009818974862690025,
+    0.030719161017787613,
+    0.3508546472546964,
+    0.0013038000883265,
+    0.37347885701519556,
+    0.00053054645259519,
+    0.05720892666111304,
+    0.010168994934453474,
+    0.3549181552619322
+   ],
+   "per_buoy_p_in": [
+    3.093920828293406,
+    3.68784957945633,
+    0.9084603834474855,
+    0.052647469528358845,
+    0.38268658448513254,
+    3.605110520253691,
+    0.05077267711322156,
+    3.835231260975551,
+    0.0501413637002235,
+    0.6259893283866668,
+    0.1463830629908689,
+    3.6444300742811957
+   ],
+   "pred_vote_weighted": "MODERATE_CHOP",
+   "pred_majority": "MODERATE_CHOP",
+   "pred_field_fusion": "STORM_FORCE",
+   "pred_powermean_diag": "BUILDING_SEA",
+   "conf_vote_weighted": 0.9467623204819932,
+   "conf_field_fusion": 0.9772290670882736,
+   "coherences": [
+    0.4727614222419368,
+    0.47949577968075924,
+    0.5257118516826661,
+    0.6001112541510094,
+    0.5233740450974192,
+    0.49613078781985,
+    0.27251672782577696,
+    0.46531580189595984,
+    0.5711884957461016,
+    0.41583514166979507,
+    0.5994335079909773,
+    0.44142998083410306
+   ],
+   "array_detected": false,
+   "first_detector_hat": 3,
+   "first_detector_expected": 9,
+   "first_detector_expected_set": [
+    9
+   ],
+   "localization_correct": false,
+   "coherences_compensated_diag": [
+    0.87180304078348,
+    0.9223045591989387,
+    0.6726850337017158,
+    0.6862211567290767,
+    0.6949549157579528,
+    0.9237528867082246,
+    0.9255569129838779,
+    0.8717539683471535,
+    0.6903155080658827,
+    0.6953049466564796,
+    0.6693997430589259,
+    0.8655209402455388
+   ],
+   "array_detected_compensated_diag": true,
+   "first_detector_hat_compensated_diag": 6,
+   "localization_correct_compensated_diag": false
+  }
+ ]
+}
