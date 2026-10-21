@@ -1,0 +1,555 @@
+{
+ "method": {
+  "data_source": "ball_balance_v2_results.json",
+  "state_extraction": "onset x/v are NOT logged as fields; recovered by regex from the verbatim logged prompt strings (Arm R: catch prompt, issued at onset; Arm D: decider prompt \u2014 its catch prompts are post-decider states and were not used as onset states).",
+  "observation": "onset state propagated 0.25 s through the v2 plant (spine PID active, gust on) = the oracle's one-observation moment. Gust accel +/-0.9 taken from the logged design/schedule \u2014 in deployment it is estimated from delta-v over the window, per spec.",
+  "history_method": "per scored event: OrganHistory = all other-arm organ latencies for the assigned hemisphere + leave-one-out within the scored arm. Arm D organ latency = latency_from_onset_s - decider.latency_s (both logged). n=8 events/arm; indicative, not statistical.",
+  "scoring_scope": "the oracle predicts TIMING feasibility only (arrival vs the v2 deadline of 2.5 s). Wrong-sign replies are a sign-discipline failure it cannot foresee and are not scored against it; they are listed per event.",
+  "known_conservatism": "t_edge holds net accel constant at its observation value; the real spine's counter-tilt grows as the state develops (empirical time-to-fall was ~2.1 s/gust vs oracle t_edge ~1.6 s). History latencies are measured from gust onset while the oracle observes at +0.25 s \u2014 a further ~0.25 s of double-charged response time. Both biases push the oracle toward LET_FALL."
+ },
+ "arm_R_reflex_law": {
+  "events": [
+   {
+    "gust_index": 0,
+    "hemisphere": "RIGHT",
+    "gust_accel": -0.9,
+    "onset_state_from_prompt": {
+     "x": 0.0,
+     "v": -0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0276,
+     "v": -0.2119
+    },
+    "history_n": 5,
+    "organ_p50_s": 1.504,
+    "t_edge_s": 1.378,
+    "t_respond_s": 1.522,
+    "margin_s": -0.144,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 1.7743687049951404,
+     "in_time": true,
+     "caught": true,
+     "miss_reason": null,
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 1,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": 0.0,
+     "v": 0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0276,
+     "v": 0.2119
+    },
+    "history_n": 9,
+    "organ_p50_s": 3.042,
+    "t_edge_s": 1.378,
+    "t_respond_s": 3.06,
+    "margin_s": -1.682,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 2.3697101869620383,
+     "in_time": true,
+     "caught": false,
+     "miss_reason": "wrong_sign",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 2,
+    "hemisphere": "RIGHT",
+    "gust_accel": -0.9,
+    "onset_state_from_prompt": {
+     "x": -0.04,
+     "v": -0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0669,
+     "v": -0.206
+    },
+    "history_n": 5,
+    "organ_p50_s": 1.774,
+    "t_edge_s": 1.369,
+    "t_respond_s": 1.792,
+    "margin_s": -0.423,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 1.0389133900171146,
+     "in_time": true,
+     "caught": true,
+     "miss_reason": null,
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 3,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": 0.01,
+     "v": 0.0
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0352,
+     "v": 0.2024
+    },
+    "history_n": 9,
+    "organ_p50_s": 3.042,
+    "t_edge_s": 1.381,
+    "t_respond_s": 3.06,
+    "margin_s": -1.679,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 2.8057683650404215,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 4,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": -0.02,
+     "v": 0.0
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0058,
+     "v": 0.2069
+    },
+    "history_n": 9,
+    "organ_p50_s": 3.042,
+    "t_edge_s": 1.387,
+    "t_respond_s": 3.06,
+    "margin_s": -1.672,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 1.6359489320311695,
+     "in_time": true,
+     "caught": true,
+     "miss_reason": null,
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 5,
+    "hemisphere": "RIGHT",
+    "gust_accel": -0.9,
+    "onset_state_from_prompt": {
+     "x": -0.01,
+     "v": -0.0
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0352,
+     "v": -0.2024
+    },
+    "history_n": 5,
+    "organ_p50_s": 1.774,
+    "t_edge_s": 1.381,
+    "t_respond_s": 1.792,
+    "margin_s": -0.411,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 1.5040321300039068,
+     "in_time": true,
+     "caught": true,
+     "miss_reason": null,
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 6,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": -0.01,
+     "v": 0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0178,
+     "v": 0.2134
+    },
+    "history_n": 9,
+    "organ_p50_s": 3.042,
+    "t_edge_s": 1.38,
+    "t_respond_s": 3.06,
+    "margin_s": -1.679,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 1.6555089850444347,
+     "in_time": true,
+     "caught": false,
+     "miss_reason": "wrong_sign",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 7,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": -0.04,
+     "v": 0.0
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0139,
+     "v": 0.2099
+    },
+    "history_n": 9,
+    "organ_p50_s": 3.042,
+    "t_edge_s": 1.392,
+    "t_respond_s": 3.06,
+    "margin_s": -1.668,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 1.194101006956771,
+     "in_time": true,
+     "caught": false,
+     "miss_reason": "wrong_sign",
+     "fell": true
+    }
+   }
+  ],
+  "confusion": {
+   "catch_calls": 0,
+   "catch_calls_in_time": 0,
+   "marginal_calls": 0,
+   "marginal_in_time": 0,
+   "marginal_caught": 0,
+   "letfall_calls": 8,
+   "letfall_actually_late": 1,
+   "letfall_actually_in_time": 7
+  }
+ },
+ "arm_D_decider_sanity": {
+  "events": [
+   {
+    "gust_index": 0,
+    "hemisphere": "RIGHT",
+    "gust_accel": -0.9,
+    "onset_state_from_prompt": {
+     "x": 0.0,
+     "v": -0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0276,
+     "v": -0.2119
+    },
+    "history_n": 5,
+    "organ_p50_s": 1.504,
+    "t_edge_s": 1.378,
+    "t_respond_s": 2.909,
+    "margin_s": -1.531,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 3.6252731051063165,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 1,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": 0.02,
+     "v": 0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0473,
+     "v": 0.209
+    },
+    "history_n": 9,
+    "organ_p50_s": 2.806,
+    "t_edge_s": 1.373,
+    "t_respond_s": 5.406,
+    "margin_s": -4.032,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 5.624162563937716,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 2,
+    "hemisphere": "RIGHT",
+    "gust_accel": -0.9,
+    "onset_state_from_prompt": {
+     "x": -0.04,
+     "v": -0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0669,
+     "v": -0.206
+    },
+    "history_n": 5,
+    "organ_p50_s": 1.774,
+    "t_edge_s": 1.369,
+    "t_respond_s": 4.402,
+    "margin_s": -3.034,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 3.5365544740343466,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 3,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": 0.03,
+     "v": -0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0526,
+     "v": 0.1914
+    },
+    "history_n": 9,
+    "organ_p50_s": 2.806,
+    "t_edge_s": 1.381,
+    "t_respond_s": 5.743,
+    "margin_s": -4.362,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 5.969170244061388,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 4,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": -0.02,
+     "v": 0.0
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0058,
+     "v": 0.2069
+    },
+    "history_n": 9,
+    "organ_p50_s": 2.806,
+    "t_edge_s": 1.387,
+    "t_respond_s": 5.099,
+    "margin_s": -3.712,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 5.326868477044627,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 5,
+    "hemisphere": "RIGHT",
+    "gust_accel": -0.9,
+    "onset_state_from_prompt": {
+     "x": -0.03,
+     "v": 0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0526,
+     "v": -0.1914
+    },
+    "history_n": 5,
+    "organ_p50_s": 1.504,
+    "t_edge_s": 1.381,
+    "t_respond_s": 2.408,
+    "margin_s": -1.027,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 3.8053143919678405,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 6,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": 0.03,
+     "v": -0.01
+    },
+    "observation_state_t+0.25s": {
+     "x": 0.0526,
+     "v": 0.1914
+    },
+    "history_n": 9,
+    "organ_p50_s": 2.806,
+    "t_edge_s": 1.381,
+    "t_respond_s": 4.047,
+    "margin_s": -2.665,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 4.338422417989932,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   },
+   {
+    "gust_index": 7,
+    "hemisphere": "LEFT",
+    "gust_accel": 0.9,
+    "onset_state_from_prompt": {
+     "x": -0.04,
+     "v": 0.0
+    },
+    "observation_state_t+0.25s": {
+     "x": -0.0139,
+     "v": 0.2099
+    },
+    "history_n": 9,
+    "organ_p50_s": 2.806,
+    "t_edge_s": 1.392,
+    "t_respond_s": 4.072,
+    "margin_s": -2.68,
+    "oracle_verdict": "LET_FALL",
+    "actual": {
+     "latency_s": 4.460181367001496,
+     "in_time": false,
+     "caught": false,
+     "miss_reason": "late",
+     "fell": true
+    }
+   }
+  ],
+  "confusion": {
+   "catch_calls": 0,
+   "catch_calls_in_time": 0,
+   "marginal_calls": 0,
+   "marginal_in_time": 0,
+   "marginal_caught": 0,
+   "letfall_calls": 8,
+   "letfall_actually_late": 8,
+   "letfall_actually_in_time": 0
+  }
+ },
+ "sensitivity_diagnostic": {
+  "label": "POST-HOC diagnostic \u2014 not the pre-registered method. Isolates the two suspected pessimism sources.",
+  "arm_R_events": [
+   {
+    "gust_index": 0,
+    "hemisphere": "RIGHT",
+    "loo_only_p50_s": 1.271,
+    "t_edge_empirical_s": 1.89,
+    "margin_empirical_s": 0.601,
+    "verdict_empirical": "CATCH",
+    "actual_latency_s": 1.7743687049951404,
+    "actual_in_time": true,
+    "actual_caught": true,
+    "actual_miss_reason": null
+   },
+   {
+    "gust_index": 1,
+    "hemisphere": "LEFT",
+    "loo_only_p50_s": 1.646,
+    "t_edge_empirical_s": 1.82,
+    "margin_empirical_s": 0.157,
+    "verdict_empirical": "MARGINAL",
+    "actual_latency_s": 2.3697101869620383,
+    "actual_in_time": true,
+    "actual_caught": false,
+    "actual_miss_reason": "wrong_sign"
+   },
+   {
+    "gust_index": 2,
+    "hemisphere": "RIGHT",
+    "loo_only_p50_s": 1.639,
+    "t_edge_empirical_s": 1.81,
+    "margin_empirical_s": 0.153,
+    "verdict_empirical": "MARGINAL",
+    "actual_latency_s": 1.0389133900171146,
+    "actual_in_time": true,
+    "actual_caught": true,
+    "actual_miss_reason": null
+   },
+   {
+    "gust_index": 3,
+    "hemisphere": "LEFT",
+    "loo_only_p50_s": 1.646,
+    "t_edge_empirical_s": 1.84,
+    "margin_empirical_s": 0.177,
+    "verdict_empirical": "MARGINAL",
+    "actual_latency_s": 2.8057683650404215,
+    "actual_in_time": false,
+    "actual_caught": false,
+    "actual_miss_reason": "late"
+   },
+   {
+    "gust_index": 4,
+    "hemisphere": "LEFT",
+    "loo_only_p50_s": 2.013,
+    "t_edge_empirical_s": 1.97,
+    "margin_empirical_s": -0.06,
+    "verdict_empirical": "LET_FALL",
+    "actual_latency_s": 1.6359489320311695,
+    "actual_in_time": true,
+    "actual_caught": true,
+    "actual_miss_reason": null
+   },
+   {
+    "gust_index": 5,
+    "hemisphere": "RIGHT",
+    "loo_only_p50_s": 1.407,
+    "t_edge_empirical_s": 1.84,
+    "margin_empirical_s": 0.416,
+    "verdict_empirical": "CATCH",
+    "actual_latency_s": 1.5040321300039068,
+    "actual_in_time": true,
+    "actual_caught": true,
+    "actual_miss_reason": null
+   },
+   {
+    "gust_index": 6,
+    "hemisphere": "LEFT",
+    "loo_only_p50_s": 2.003,
+    "t_edge_empirical_s": 1.83,
+    "margin_empirical_s": -0.19,
+    "verdict_empirical": "LET_FALL",
+    "actual_latency_s": 1.6555089850444347,
+    "actual_in_time": true,
+    "actual_caught": false,
+    "actual_miss_reason": "wrong_sign"
+   },
+   {
+    "gust_index": 7,
+    "hemisphere": "LEFT",
+    "loo_only_p50_s": 2.013,
+    "t_edge_empirical_s": 1.96,
+    "margin_empirical_s": -0.07,
+    "verdict_empirical": "LET_FALL",
+    "actual_latency_s": 1.194101006956771,
+    "actual_in_time": true,
+    "actual_caught": false,
+    "actual_miss_reason": "wrong_sign"
+   }
+  ]
+ }
+}
