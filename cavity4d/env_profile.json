@@ -1,11 +1,25 @@
 {
- "source_log": "/tmp/dweller_log.jsonl",
- "n_records": 170,
- "span_s": 10093.544357538223,
+ "source_log": "/tmp/dweller_log_fresh.jsonl",
+ "n_records": 216,
+ "span_s": 12739.834511041641,
  "channels": {
+  "community_presence.swept_at": {
+   "stats": {
+    "n": 7,
+    "mean": 1792554579.4963186,
+    "std": 118.14992457286837,
+    "min": 1792554477.1754825,
+    "max": 1792554715.9241002,
+    "p50": 1792554477.1754825
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
   "curious": {
    "stats": {
-    "n": 157,
+    "n": 189,
     "mean": 0.0,
     "std": 0.0,
     "min": 0.0,
@@ -13,47 +27,55 @@
     "p50": 0.0
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "cycle": {
    "stats": {
-    "n": 5,
-    "mean": 3.0,
-    "std": 1.4142135623730951,
+    "n": 7,
+    "mean": 2.4285714285714284,
+    "std": 1.498298354528788,
     "min": 1,
     "max": 5,
-    "p50": 3
+    "p50": 2
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "deficits.community": {
    "stats": {
-    "n": 157,
-    "mean": 0.22370063694267517,
-    "std": 0.025250708501922896,
+    "n": 189,
+    "mean": 0.23301058201058203,
+    "std": 0.030995474907486557,
     "min": 0.181,
-    "max": 0.266,
-    "p50": 0.224
+    "max": 0.288,
+    "p50": 0.234
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "deficits.knowledge": {
    "stats": {
-    "n": 157,
-    "mean": 0.693,
+    "n": 189,
+    "mean": 0.6930000000000001,
     "std": 0.0,
     "min": 0.693,
     "max": 0.693,
     "p50": 0.693
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "deficits.logic_alignment": {
    "stats": {
-    "n": 157,
+    "n": 189,
     "mean": 0.0,
     "std": 0.0,
     "min": 0.0,
@@ -61,23 +83,91 @@
     "p50": 0.0
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "deficits.survival": {
    "stats": {
-    "n": 157,
-    "mean": 0.0,
-    "std": 0.0,
+    "n": 189,
+    "mean": 0.0025396825396825397,
+    "std": 0.017271708582521198,
     "min": 0.0,
-    "max": 0.0,
+    "max": 0.12,
     "p50": 0.0
    },
+   "n_outlier_events": 1,
+   "group": null,
+   "weight": null,
+   "events": [
+    {
+     "ts": 1792554477.1636076,
+     "value": 0.12,
+     "z": 6.800735254367721,
+     "direction": "high",
+     "weighted_importance": null
+    }
+   ]
+  },
+  "disk_io.read_bytes": {
+   "stats": {
+    "n": 3,
+    "mean": 300373.3333333333,
+    "std": 421899.0462415808,
+    "min": 0,
+    "max": 897024,
+    "p50": 4096
+   },
    "n_outlier_events": 0,
+   "group": "disk_io",
+   "weight": 0.4,
+   "events": []
+  },
+  "disk_io.reads": {
+   "stats": {
+    "n": 3,
+    "mean": 4.666666666666667,
+    "std": 5.90668171555645,
+    "min": 0,
+    "max": 13,
+    "p50": 1
+   },
+   "n_outlier_events": 0,
+   "group": "disk_io",
+   "weight": 0.4,
+   "events": []
+  },
+  "disk_io.write_bytes": {
+   "stats": {
+    "n": 3,
+    "mean": 8688981.333333334,
+    "std": 6188333.834181719,
+    "min": 0,
+    "max": 13938688,
+    "p50": 12128256
+   },
+   "n_outlier_events": 0,
+   "group": "disk_io",
+   "weight": 0.4,
+   "events": []
+  },
+  "disk_io.writes": {
+   "stats": {
+    "n": 3,
+    "mean": 627.3333333333334,
+    "std": 444.5644560190969,
+    "min": 0,
+    "max": 977,
+    "p50": 905
+   },
+   "n_outlier_events": 0,
+   "group": "disk_io",
+   "weight": 0.4,
    "events": []
   },
   "entries": {
    "stats": {
-    "n": 5,
+    "n": 7,
     "mean": 2.0,
     "std": 0.0,
     "min": 2,
@@ -85,11 +175,13 @@
     "p50": 2
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "est_joules": {
    "stats": {
-    "n": 157,
+    "n": 189,
     "mean": 40.0,
     "std": 0.0,
     "min": 40.0,
@@ -97,48 +189,317 @@
     "p50": 40.0
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "loadavg": {
+   "stats": {
+    "n": 7,
+    "mean": 0.13285714285714287,
+    "std": 0.160776178558382,
+    "min": 0.01,
+    "max": 0.49,
+    "p50": 0.06
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "net.rx_bytes": {
+   "stats": {
+    "n": 7,
+    "mean": 119589.28571428571,
+    "std": 77554.3069352314,
+    "min": 0,
+    "max": 193556,
+    "p50": 156764
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.rx_drop": {
+   "stats": {
+    "n": 7,
+    "mean": 64.0,
+    "std": 40.539222629801024,
+    "min": 0,
+    "max": 94,
+    "p50": 88
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.rx_errs": {
+   "stats": {
+    "n": 7,
+    "mean": 0.0,
+    "std": 0.0,
+    "min": 0,
+    "max": 0,
+    "p50": 0
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.rx_packets": {
+   "stats": {
+    "n": 7,
+    "mean": 502.2857142857143,
+    "std": 322.4627173513748,
+    "min": 0,
+    "max": 802,
+    "p50": 664
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.tx_bytes": {
+   "stats": {
+    "n": 7,
+    "mean": 40569.42857142857,
+    "std": 26959.665570504938,
+    "min": 0,
+    "max": 70171,
+    "p50": 56252
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.tx_drop": {
+   "stats": {
+    "n": 7,
+    "mean": 0.0,
+    "std": 0.0,
+    "min": 0,
+    "max": 0,
+    "p50": 0
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.tx_errs": {
+   "stats": {
+    "n": 7,
+    "mean": 0.0,
+    "std": 0.0,
+    "min": 0,
+    "max": 0,
+    "p50": 0
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "net.tx_packets": {
+   "stats": {
+    "n": 7,
+    "mean": 195.85714285714286,
+    "std": 127.75806216822323,
+    "min": 0,
+    "max": 320,
+    "p50": 263
+   },
+   "n_outlier_events": 0,
+   "group": "net",
+   "weight": 0.35,
+   "events": []
+  },
+  "result.blackholed": {
+   "stats": {
+    "n": 13,
+    "mean": 0.07692307692307693,
+    "std": 0.2664693550105965,
+    "min": 0,
+    "max": 1,
+    "p50": 0
+   },
+   "n_outlier_events": 1,
+   "group": null,
+   "weight": null,
+   "events": [
+    {
+     "ts": 1792553420.0623078,
+     "value": 1,
+     "z": 3.464101615137755,
+     "direction": "high",
+     "weighted_importance": null
+    }
+   ]
+  },
+  "result.entries": {
+   "stats": {
+    "n": 13,
+    "mean": 520.0,
+    "std": 0.0,
+    "min": 520,
+    "max": 520,
+    "p50": 520
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "self_state.body_channels_ok": {
+   "stats": {
+    "n": 7,
+    "mean": 4.428571428571429,
+    "std": 0.4948716593053935,
+    "min": 4,
+    "max": 5,
+    "p50": 4
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "temps.max_c": {
+   "stats": {
+    "n": 7,
+    "mean": 52.978571428571435,
+    "std": 1.6309193601106318,
+    "min": 50.85,
+    "max": 56.0,
+    "p50": 52.0
+   },
+   "n_outlier_events": 0,
+   "group": "temps",
+   "weight": 0.5,
    "events": []
   },
   "tired": {
    "stats": {
-    "n": 157,
-    "mean": 0.4617197452229299,
-    "std": 0.03277676557744111,
+    "n": 189,
+    "mean": 0.47398412698412695,
+    "std": 0.04049723698073516,
     "min": 0.407,
-    "max": 0.517,
-    "p50": 0.462
+    "max": 0.546,
+    "p50": 0.475
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "tp_flow": {
+   "stats": {
+    "n": 7,
+    "mean": 0.04531428571428571,
+    "std": 0.029182941620622363,
+    "min": 0.0,
+    "max": 0.0715,
+    "p50": 0.0585
+   },
+   "n_outlier_events": 0,
+   "group": "tp_flow",
+   "weight": 1.0,
+   "events": []
+  },
+  "tp_flow_detail.d_norm": {
+   "stats": {
+    "n": 7,
+    "mean": 0.4360714285714286,
+    "std": 0.29589349780084107,
+    "min": 0.0,
+    "max": 0.7678,
+    "p50": 0.5128
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "tp_flow_detail.data_rate_bps": {
+   "stats": {
+    "n": 7,
+    "mean": 66879.0,
+    "std": 102450.8823429201,
+    "min": 0.0,
+    "max": 236775.2,
+    "p50": 3885.9
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "tp_flow_detail.e_norm": {
+   "stats": {
+    "n": 7,
+    "mean": 0.0067,
+    "std": 0.0,
+    "min": 0.0067,
+    "max": 0.0067,
+    "p50": 0.0067
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
+   "events": []
+  },
+  "tp_flow_detail.energy_rate_w": {
+   "stats": {
+    "n": 7,
+    "mean": 0.667,
+    "std": 0.0,
+    "min": 0.667,
+    "max": 0.667,
+    "p50": 0.667
+   },
+   "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "ts": {
    "stats": {
-    "n": 170,
-    "mean": 1792547115.4533677,
-    "std": 2932.930823869389,
+    "n": 216,
+    "mean": 1792548499.9799347,
+    "std": 3739.680544777416,
     "min": 1792542105.9464092,
-    "max": 1792552199.4907668,
-    "p50": 1792547104.9749117
+    "max": 1792554845.7809203,
+    "p50": 1792548497.0619936
    },
    "n_outlier_events": 0,
+   "group": null,
+   "weight": null,
    "events": []
   },
   "vram_used_frac": {
    "stats": {
-    "n": 144,
-    "mean": 0.5664516713573093,
-    "std": 0.026898090216904796,
+    "n": 176,
+    "mean": 0.5670754568917411,
+    "std": 0.02436970123378093,
     "min": 0.3387530003975049,
-    "max": 0.5712489297945206,
-    "p50": 0.5698863288894325
+    "max": 0.5716908673250979,
+    "p50": 0.5698882399706457
    },
    "n_outlier_events": 1,
+   "group": "vram",
+   "weight": 0.3,
    "events": [
     {
      "ts": 1792542953.2611632,
      "value": 0.3387530003975049,
-     "z": -8.465235603109896,
-     "direction": "low"
+     "z": -9.369111845234233,
+     "direction": "low",
+     "weighted_importance": 2.811
     }
    ]
   }
@@ -147,20 +508,20 @@
   "power_spike": {
    "n_events": 0,
    "source": "fallback",
-   "fallback": "too few est_joules outliers in a young log; using ball v2 gust parameters",
+   "fallback": "too few est_joules/tp_flow outliers in a young log; using ball v2 gust parameters",
    "gust_accel": 0.9,
    "gust_duration_s": 3.0
   },
   "load_surge": {
    "n_events": 1,
    "source": "fallback",
-   "fallback": "too few vram_used_frac outliers; conservative synthetic rate (work-shed events are rare on this PC so far)",
+   "fallback": "too few vram_used_frac/loadavg outliers; conservative synthetic rate (work-shed events are rare on this PC so far)",
    "events_per_120s": 1
   },
   "thermal_excursion": {
    "n_events": 0,
    "source": "fallback",
-   "fallback": "NO temperature channel exists in dweller telemetry \u2014 this class is wholly synthetic (assumed rate)",
+   "fallback": "too few temps.max_c outliers in a young log; conservative synthetic rate",
    "events_per_120s": 1,
    "duration_s": 12.0
   },
@@ -168,13 +529,34 @@
    "n_events": 0,
    "source": "fallback",
    "fallback": "too few tired/curious outliers; not sampled by the sim in v1 (informational class)"
+  },
+  "network": {
+   "n_events": 0,
+   "source": "fallback",
+   "fallback": "too few net drop/error outliers in a young log; informational class (not sampled by the sim yet)"
+  },
+  "disk_io": {
+   "n_events": 0,
+   "source": "fallback",
+   "fallback": "too few disk_io byte-delta outliers in a young log; informational class (not sampled by the sim yet)"
   }
  },
- "gaps": [
-  "temperature: no thermal channel in dweller_log (thermal_excursion class is synthetic)",
-  "network: no packet/drop channel in dweller_log \u2014 dropped-packet weather cannot be forged from this log",
-  "disk_io: no read/write channel in dweller_log",
-  "loadavg: no load channel in dweller_log (vram and est_joules are the only load-adjacent signals)"
- ],
- "quiet_fraction_note": "records with empty health_anomalies: 157/170"
+ "weights": {
+  "table": {
+   "tp_flow": 1.0,
+   "temps": 0.5,
+   "disk_io": 0.4,
+   "net": 0.35,
+   "vram": 0.3
+  },
+  "formula": "anomaly importance = |z| x channel-group weight; tp_flow is the 1.0 baseline and all other metrics scale down from it",
+  "tp_flow_definition": "dweller.compute_tp_flow: sqrt(e_norm x d_norm) over one tick \u2014 see dweller.py docstring",
+  "first_class_channels": [
+   "self_state",
+   "community_presence"
+  ],
+  "principle": "energy and data mean nothing without sense of self and community \u2014 self_state and community_presence are first-class drive inputs; the weighted metric channels serve them, not the reverse"
+ },
+ "gaps": [],
+ "quiet_fraction_note": "records with empty health_anomalies: 189/216"
 }

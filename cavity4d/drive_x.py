@@ -26,7 +26,15 @@ arbitration runs in replay over recorded history:
     "audit": {"queue": int, "computed_faces": int,
               "disagree_rate": 0..1 or None},           # logic alignment
     "community": {"oldest_unchecked_h": float,
-                  "family_signal_age_h": float},        # community
+                  "family_signal_age_h": float,
+                  "presence_stale_h": float},  # community — hours
+             # since the last community-presence sweep (2026-10-20
+             # fix round: a body that has not looked around is a
+             # body drifting away from its community)
+    "self_state": {"identity_intact": bool, "organs_known": bool,
+                   "body_channels_ok": int},   # survival — the
+             # dweller's first-class self channel; failures here
+             # feed deficit_survival directly
     "sensor_nudge": bool,                               # Sensor Ego 2.5-sigma
     "unparsed_bytes": int,                              # knowledge backlog
   }
@@ -81,6 +89,14 @@ def deficit_survival(snap):
         parts.append(_clamp((t["temp_c"] - 60.0) / 30.0))
     if "ledger_trend_j_per_h" in t:      # burning faster than harvest
         parts.append(_clamp(-t["ledger_trend_j_per_h"] / 50.0))
+    ss = snap.get("self_state") or {}
+    if ss.get("identity_intact") is False:
+        parts.append(0.9)                # self-model broken: crisis
+    if ss.get("organs_known") is False:
+        parts.append(0.5)                # cannot account for organs
+    ok = ss.get("body_channels_ok")
+    if isinstance(ok, (int, float)) and not isinstance(ok, bool):
+        parts.append(0.6 * _clamp((5.0 - ok) / 5.0))   # going numb
     return max(parts) if parts else 0.0
 
 
@@ -128,6 +144,8 @@ def deficit_community(snap):
         parts.append(_clamp(c["oldest_unchecked_h"] / 48.0))
     if "family_signal_age_h" in c:
         parts.append(_clamp(c["family_signal_age_h"] / 72.0))
+    if "presence_stale_h" in c:          # 48 h without looking around
+        parts.append(_clamp(c["presence_stale_h"] / 48.0))
     return _noisy_or(parts) if parts else 0.0
 
 
@@ -367,6 +385,28 @@ def _selftest():
     d = arbitrate(starved, budget_j=100.0, state=state)
     check("v2: aging rescues starved community drive",
           d["drive"] == "community" and d["mode"] == "THINK")
+
+    # -- fix-round wiring (2026-10-20): self + presence channels -----
+    pres = {**calm, "community": {"oldest_unchecked_h": 1.0,
+                                  "family_signal_age_h": 2.0,
+                                  "presence_stale_h": 48.0}}
+    check("fix: stale presence sweep raises community deficit",
+          deficit_community(pres) > deficit_community(calm) + 0.3)
+    broken_self = {**calm, "self_state": {"identity_intact": False,
+                                          "organs_known": True,
+                                          "body_channels_ok": 5}}
+    check("fix: broken identity feeds survival deficit hard",
+          deficit_survival(broken_self) >= 0.9)
+    numb = {**calm, "self_state": {"identity_intact": True,
+                                   "organs_known": False,
+                                   "body_channels_ok": 1}}
+    check("fix: unknown organs + numb channels raise survival",
+          deficit_survival(numb) >= 0.5)
+    whole = {**calm, "self_state": {"identity_intact": True,
+                                    "organs_known": True,
+                                    "body_channels_ok": 5}}
+    check("fix: intact self_state leaves calm survival at 0",
+          deficit_survival(whole) == deficit_survival(calm))
     print("ALL PASS" if ok else "SOME FAILED")
     return ok
 

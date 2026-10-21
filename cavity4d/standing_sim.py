@@ -261,6 +261,34 @@ def monitor_state(plant):
             f"x=0.")
 
 
+def hand_local_state(plant, hand):
+    """Transform the shared centered monitor into the catching
+    hand's local coordinates.
+
+    `distance_to_hand` is measured from the ball to that hand's end
+    of the beam; `closing_speed` is the component of ball velocity
+    toward that hand. Local tilt has one invariant meaning on both
+    sides: positive pushes the ball away from the catching hand and
+    back toward center; negative pulls it toward the hand. The
+    wrapper converts local tilt back to the plant's global sign.
+    """
+    s = plant.snapshot()
+    if hand == "RIGHT":
+        distance = BEAM_HALF - s["x"]
+        closing = max(0.0, s["v"])
+        local_tilt = -s["theta"]
+    else:
+        distance = s["x"] + BEAM_HALF
+        closing = max(0.0, -s["v"])
+        local_tilt = s["theta"]
+    return {"distance_to_hand": distance, "closing_speed": closing,
+            "tilt_now": local_tilt, "snapshot": s}
+
+
+def local_to_global_tilt(hand, local_tilt):
+    return -float(local_tilt) if hand == "RIGHT" else float(local_tilt)
+
+
 # ----------------------------------------------------------------- side --
 class SideWorker:
     """Continuous short work tasks on one role's server. Pauses while
@@ -362,26 +390,32 @@ class StandingRunner:
         hand = "RIGHT" if gust["sign"] > 0 else "LEFT"
         hemi = HAND_TO_HEMISPHERE[hand]
         server = self.servers[hemi]
-        prompt = (monitor_state(self.plant)
-                  + f"\nA gust is pushing the ball toward the {hand} "
-                    f"side. You operate the {hand} hand. Reply with "
-                    f"ONE number only: the catch tilt in degrees "
-                    f"(between -12 and 12) that rolls the ball back "
-                    f"toward center.")
+        local = hand_local_state(self.plant, hand)
+        prompt = (
+            "Hand-local catch view: "
+            f"distance_to_hand={local['distance_to_hand']:.2f}, "
+            f"closing_speed={local['closing_speed']:.2f}, "
+            f"tilt_now={local['tilt_now']:+.1f} deg. "
+            "Use hand-local tilt: a positive number pushes the ball "
+            "away from your hand and back toward center; a negative "
+            "number pulls it toward your hand. Reply with ONE number "
+            "only: the tilt that pushes the ball back toward center "
+            "(between -12 and 12).")
         text, tokens, lat, err = llm_call(server, prompt, 16, 0.2,
                                           timeout=30)
         with self.elock:
             self.tokens_by_server[server] = \
                 self.tokens_by_server.get(server, 0) + tokens
         value = parse_first_float(text) if text else None
+        applied_tilt = (local_to_global_tilt(hand, value)
+                        if value is not None else None)
         onset_latency = time.perf_counter() - wall_t0
         caught = False
         sign_error = False
         if value is not None and err is None:
             if onset_latency <= CATCH_DEADLINE_S:
-                if (gust["sign"] > 0 and value < 0) or \
-                        (gust["sign"] < 0 and value > 0):
-                    self.plant.apply_catch(value)
+                if value > 0:
+                    self.plant.apply_catch(applied_tilt)
                     caught = True
                 else:
                     sign_error = True
@@ -392,6 +426,13 @@ class StandingRunner:
                 "sign": gust["sign"], "falling_hand": hand,
                 "hemisphere_role": hemi, "server": server,
                 "reply": text, "parsed_tilt": value,
+                "parsed_local_tilt": value,
+                "applied_global_tilt": applied_tilt,
+                "hand_local": {
+                    "distance_to_hand":
+                        round(local["distance_to_hand"], 3),
+                    "closing_speed": round(local["closing_speed"], 3),
+                    "tilt_now": round(local["tilt_now"], 3)},
                 "latency_from_onset_s": round(onset_latency, 3),
                 "call_latency_s": round(lat, 3), "tokens": tokens,
                 "caught": caught, "sign_error": sign_error,
@@ -444,6 +485,18 @@ class StandingRunner:
                 "work_completed": self.workers[role].completed,
                 "work_tokens": self.workers[role].tokens,
             }
+        by_hand: dict[str, dict] = {}
+        for hand in ("LEFT", "RIGHT"):
+            evs = [e for e in self.events
+                   if e["falling_hand"] == hand]
+            by_hand[hand] = {
+                "events": len(evs),
+                "catches": sum(1 for e in evs if e["caught"]),
+                "sign_errors": sum(1 for e in evs if e["sign_error"]),
+                "hemisphere_role": (evs[0]["hemisphere_role"]
+                                    if evs else None),
+                "server": (evs[0]["server"] if evs else None),
+            }
         ack_counts: dict[str, int] = {}
         for rec in self.ack.records:
             d = rec.to_dict()
@@ -458,6 +511,7 @@ class StandingRunner:
             "plant": pm,
             "events": self.events,
             "by_role": by_role,
+            "by_hand": by_hand,
             "ack_counts": ack_counts,
             "ack_mode_transitions": len(self.ack.mode_log),
             "tokens_total": total_tokens,

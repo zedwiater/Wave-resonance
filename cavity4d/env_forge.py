@@ -28,6 +28,32 @@ MIN_EVENTS_MEASURED = 4        # below this a class is a fallback
 V2_GUST_ACCEL = 0.9            # ball_balance_v2 GUST_ACCEL
 V2_GUST_DURATION = 3.0
 
+# TP-FLOW WEIGHTING (Zak, 2026-10-20 23:39): transduction throughput
+# is the BASELINE (weight 1.0); every other metric scales DOWN from
+# it. Anomaly importance in this profile = |z| x channel-group
+# weight. The weights rank how directly a channel speaks about flow
+# through the body — they do not rank importance to the dweller:
+# self_state and community_presence are FIRST-CLASS channels (a body
+# that cannot feel itself or its community has no use for its flow
+# numbers), and the weighted metric channels serve them.
+TP_WEIGHTS = {"tp_flow": 1.0, "temps": 0.5, "disk_io": 0.4,
+              "net": 0.35, "vram": 0.3}
+
+
+def channel_group(name):
+    """Map a flattened channel name to its TP-weight group."""
+    if name == "tp_flow" or name.startswith("tp_flow."):
+        return "tp_flow"
+    if name.startswith("temps") or "temp" in name:
+        return "temps"
+    if name.startswith("disk_io"):
+        return "disk_io"
+    if name.startswith("net"):
+        return "net"
+    if name == "vram_used_frac" or name.startswith("vram"):
+        return "vram"
+    return None
+
 
 def _num(v):
     return v if isinstance(v, (int, float)) and not isinstance(v, bool) else None
@@ -131,17 +157,33 @@ def forge(log_path: str) -> dict:
     channels = {}
     class_events: dict[str, list] = {"power_spike": [], "load_surge": [],
                                      "thermal_excursion": [],
-                                     "state_shift": []}
+                                     "state_shift": [], "network": [],
+                                     "disk_io": []}
     # channel -> event class mapping (only for channels that exist)
     class_of = {
         "est_joules": "power_spike",
+        "tp_flow": "power_spike",
         "vram_used_frac": "load_surge",
+        "loadavg": "load_surge",
+        "temps.max_c": "thermal_excursion",
+        "temp_c": "thermal_excursion",
         "tired": "state_shift",
         "curious": "state_shift",
+        "net.rx_drop": "network", "net.tx_drop": "network",
+        "net.rx_errs": "network", "net.tx_errs": "network",
+        "disk_io.read_bytes": "disk_io",
+        "disk_io.write_bytes": "disk_io",
     }
     for name, points in sorted(series.items()):
         st, events = detect_events(points)
+        group = channel_group(name)
+        weight = TP_WEIGHTS.get(group) if group else None
+        for e in events:
+            e["weighted_importance"] = (round(abs(e["z"]) * weight, 3)
+                                        if weight is not None
+                                        else None)
         channels[name] = {"stats": st, "n_outlier_events": len(events),
+                          "group": group, "weight": weight,
                           "events": events[:20]}
         cls = class_of.get(name)
         if cls:
@@ -158,38 +200,56 @@ def forge(log_path: str) -> dict:
                 "source": "fallback",
                 "fallback": fallback_note, **fallback_model}
 
+    has_temps = any(channel_group(c) == "temps" for c in channels)
+    thermal_note = ("too few temps.max_c outliers in a young log; "
+                    "conservative synthetic rate" if has_temps else
+                    "NO temperature channel exists in dweller "
+                    "telemetry — this class is wholly synthetic "
+                    "(assumed rate)")
     event_classes = {
         "power_spike": build_class(
             "power_spike",
-            "too few est_joules outliers in a young log; using ball "
-            "v2 gust parameters",
+            "too few est_joules/tp_flow outliers in a young log; "
+            "using ball v2 gust parameters",
             {"gust_accel": V2_GUST_ACCEL, "gust_duration_s": V2_GUST_DURATION}),
         "load_surge": build_class(
             "load_surge",
-            "too few vram_used_frac outliers; conservative synthetic "
-            "rate (work-shed events are rare on this PC so far)",
+            "too few vram_used_frac/loadavg outliers; conservative "
+            "synthetic rate (work-shed events are rare on this PC "
+            "so far)",
             {"events_per_120s": 1}),
         "thermal_excursion": build_class(
-            "thermal_excursion",
-            "NO temperature channel exists in dweller telemetry — "
-            "this class is wholly synthetic (assumed rate)",
+            "thermal_excursion", thermal_note,
             {"events_per_120s": 1, "duration_s": 12.0}),
         "state_shift": build_class(
             "state_shift",
             "too few tired/curious outliers; not sampled by the sim "
             "in v1 (informational class)",
             {}),
+        "network": build_class(
+            "network",
+            "too few net drop/error outliers in a young log; "
+            "informational class (not sampled by the sim yet)",
+            {}),
+        "disk_io": build_class(
+            "disk_io",
+            "too few disk_io byte-delta outliers in a young log; "
+            "informational class (not sampled by the sim yet)",
+            {}),
     }
 
     gaps = []
-    if not any("temp" in c for c in channels):
+    if not has_temps:
         gaps.append("temperature: no thermal channel in dweller_log "
                     "(thermal_excursion class is synthetic)")
-    gaps.append("network: no packet/drop channel in dweller_log — "
-                "dropped-packet weather cannot be forged from this log")
-    gaps.append("disk_io: no read/write channel in dweller_log")
-    gaps.append("loadavg: no load channel in dweller_log (vram and "
-                "est_joules are the only load-adjacent signals)")
+    if not any(c.startswith("net") for c in channels):
+        gaps.append("network: no packet/drop channel in dweller_log "
+                    "— dropped-packet weather cannot be forged from "
+                    "this log")
+    if not any(c.startswith("disk_io") for c in channels):
+        gaps.append("disk_io: no read/write channel in dweller_log")
+    if "loadavg" not in channels:
+        gaps.append("loadavg: no load channel in dweller_log")
 
     return {
         "source_log": str(log_path),
@@ -197,6 +257,22 @@ def forge(log_path: str) -> dict:
         "span_s": span_s,
         "channels": channels,
         "event_classes": event_classes,
+        "weights": {
+            "table": TP_WEIGHTS,
+            "formula": "anomaly importance = |z| x channel-group "
+                       "weight; tp_flow is the 1.0 baseline and all "
+                       "other metrics scale down from it",
+            "tp_flow_definition": "dweller.compute_tp_flow: "
+                                  "sqrt(e_norm x d_norm) over one "
+                                  "tick — see dweller.py docstring",
+            "first_class_channels": ["self_state",
+                                     "community_presence"],
+            "principle": "energy and data mean nothing without "
+                         "sense of self and community — self_state "
+                         "and community_presence are first-class "
+                         "drive inputs; the weighted metric "
+                         "channels serve them, not the reverse",
+        },
         "gaps": gaps,
         "quiet_fraction_note": (
             "records with empty health_anomalies: "

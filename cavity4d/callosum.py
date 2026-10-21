@@ -1,23 +1,17 @@
 """callosum.py — the corpus callosum of the Dweller's two-model mind.
 
-Zak's directive (2026-10-20 20:41): the two resident models do not
-understand they are hemispheres — the wrapper must code that logic.
-So the hierarchy lives HERE, in wrapper code, not in prompts alone:
+Zak's original directive (2026-10-20 20:41) coded a right-handed
+hierarchy: left as the only voice and right as internal-only. Zak's
+2026-10-20 23:39 correction supersedes that bias: the hemispheres
+are AMBIDEXTROUS. Both have the full role set, both may use either
+hand, and both may emit user-facing output.
 
-  LEFT  (Gemma 3 4B, :8080) — dominant hemisphere. Language,
-        sequential reasoning, final answers. Controls the RIGHT HAND:
-        external output. It is the ONLY voice of this mind.
-  RIGHT (Qwen2.5-3B, :8081) — non-dominant hemisphere. Context,
-        pattern, monitoring, proposals. Controls the LEFT HAND:
-        internal work only. It may NEVER emit user-facing output.
-
-CONTRALATERAL RULE, enforced structurally: the only sink this module
-exposes for a right-hemisphere completion is CrossTalk.append(). There
-is no return path, callback, or shared variable by which right-side
-text can reach a user-facing channel — run_exchange hands entries to
-the caller for LOGGING only, and the left hemisphere disposes of every
-right proposal (ack / veto / adopt-as-its-own-words). One mind, one
-voice, two sides — like a brain, not like two chatbots.
+One voice is now a concurrency rule rather than a caste rule. The
+wrapper's OutputChannel is a mutex: it grants the single output
+channel to exactly one hemisphere at a time and records the holder.
+The CrossTalk log remains the shared memory both sides can read and
+append to; run_exchange alternates which hemisphere speaks first by
+cycle parity, so initiative is symmetric over time.
 
 Failure discipline: a dead server, a timeout, or garbage output can
 never break the dweller tick. llm_call returns (None, 0) on any error;
@@ -31,15 +25,17 @@ import threading
 import time
 import urllib.request
 
+_FULL_ROLES = ["speak", "sequential_reasoning", "final_answer",
+               "context", "pattern", "monitor", "propose"]
 HEMISPHERES = {
     "left": {"server": "http://127.0.0.1:8080", "model": "gemma-3-4b",
-             "roles": ["speak", "sequential_reasoning", "final_answer"],
-             "controls": "right_hand",   # external output — ONLY voice
+             "roles": list(_FULL_ROLES),
+             "controls": "either_hand",
              "may_emit_user_output": True},
     "right": {"server": "http://127.0.0.1:8081", "model": "qwen2.5-3b",
-              "roles": ["context", "pattern", "monitor", "propose"],
-              "controls": "left_hand",    # internal work only
-              "may_emit_user_output": False},
+              "roles": list(_FULL_ROLES),
+              "controls": "either_hand",
+              "may_emit_user_output": True},
 }
 
 JOULES_PER_TOKEN_EST = 0.5     # labelled estimate, never a measurement
@@ -47,17 +43,56 @@ JOULES_BASIS = "est 0.5 J/tok"
 MAX_TEXT_CHARS = 500
 DEFAULT_CAP_BYTES = 5_000_000  # cross-talk log ceiling, rotate to .1/.2
 
-RIGHT_FRAME = (
-    "You are the RIGHT hemisphere of a two-model mind living in a "
-    "home-lab PC. You monitor state and propose internal work. You "
-    "never address the user and never draft user-facing text. Post "
-    "ONE short note or proposal (<=60 words) to the shared log about "
-    "the current state. To propose work, begin with 'Proposal:'.")
-LEFT_FRAME = (
-    "You are the LEFT hemisphere and the only voice of this mind. "
-    "The right hemisphere has posted to the shared log. Read it and "
-    "respond in <=60 words: ack it, veto it with a reason, or adopt "
-    "it as your own. Begin with 'Ack:', 'Veto:', or 'Adopt:'.")
+def _frame(side, first):
+    role = "open the exchange with" if first else "respond to"
+    return (
+        f"You are the {side.upper()} hemisphere of a two-model mind "
+        "living in a home-lab PC. Both hemispheres are ambidextrous: "
+        "either may monitor, reason, propose, speak, or act with "
+        "either hand. " + role + " ONE short note, answer, or "
+        "proposal (<=60 words) in the shared log about the current "
+        "state. To propose work, begin with 'Proposal:'; to dispose "
+        "of a proposal, begin with 'Ack:', 'Veto:', or 'Adopt:'.")
+
+
+class OutputChannel:
+    """Wrapper-level single-voice mutex.
+
+    Both hemispheres may emit, but only one may hold the channel at
+    a time. `emit` records the holder for the entire sink call, then
+    releases it; concurrent emit calls therefore serialize instead
+    of interleaving two voices.
+    """
+
+    def __init__(self):
+        self._lock = threading.Lock()
+        self.holder = None
+        self.history = []
+
+    def emit(self, side, text, sink=None):
+        if side not in HEMISPHERES:
+            raise ValueError(f"unknown hemisphere: {side}")
+        if not HEMISPHERES[side]["may_emit_user_output"]:
+            raise PermissionError(f"{side} may not emit user output")
+        record = {"ts": time.time(), "side": side,
+                  "text": str(text)[:MAX_TEXT_CHARS]}
+        with self._lock:
+            self.holder = side
+            try:
+                if sink is not None:
+                    sink(record["text"])
+                self.history.append(record)
+                return record
+            finally:
+                self.holder = None
+
+
+OUTPUT_CHANNEL = OutputChannel()
+
+
+def emit(side, text, sink=None):
+    """Emit through the process-wide output mutex."""
+    return OUTPUT_CHANNEL.emit(side, text, sink=sink)
 
 
 class CrossTalk:
@@ -160,19 +195,22 @@ def _render_recent(entries, n=5):
     return "\n".join(lines) if lines else "(log is empty)"
 
 
-def _classify_right(text):
+def _classify_exchange(text):
     low = text.lower()
     if "propos" in low:
         return "proposal"
+    if "veto" in low:
+        return "veto"
+    if low.lstrip().startswith(("ack:", "adopt:")):
+        return "ack"
     if text.rstrip().endswith("?"):
         return "question"
     return "note"
 
 
-def _classify_left(text):
-    if "veto" in text.lower():
-        return "veto"
-    return "ack"          # ack and adopt are both the left disposing
+# Backwards-compatible aliases for older harness imports/tests.
+_classify_right = _classify_exchange
+_classify_left = _classify_exchange
 
 
 def _one_exchange_entry(side, call, prompt, classify):
@@ -199,34 +237,50 @@ def _one_exchange_entry(side, call, prompt, classify):
             "joules_basis": JOULES_BASIS}
 
 
-def run_exchange(state_summary, talk, left_call=None, right_call=None):
-    """One bilateral cycle: RIGHT speaks into the log first (it is
-    the monitor — it sees state and proposes), then LEFT reads the
-    log and disposes. Both entries are appended to `talk` and
-    returned — FOR LOGGING. The caller must never route the right
-    entry's text to any user-facing output; the single-voice rule is
-    that only the left hemisphere's own words can ever leave, and
-    nothing in this module leaves at all."""
-    left_call = left_call or _default_call("left")
-    right_call = right_call or _default_call("right")
+def run_exchange(state_summary, talk, left_call=None, right_call=None,
+                 cycle=None):
+    """One symmetric bilateral cycle.
 
+    The first speaker alternates by cycle parity: odd cycles open
+    with RIGHT, even cycles open with LEFT. When `cycle` is omitted
+    it is inferred from the number of completed two-entry exchanges
+    already in the log. Both entries are appended to `talk` and
+    returned for logging/coordination. If the caller surfaces either
+    side's text, it must do so through `emit()` so the wrapper-level
+    output mutex grants the channel to one hemisphere at a time.
+    """
+    calls = {"left": left_call or _default_call("left"),
+             "right": right_call or _default_call("right")}
+    if cycle is None:
+        cycle = len(talk.read_recent(10000)) // 2 + 1
+    order = ("right", "left") if int(cycle) % 2 == 1 \
+        else ("left", "right")
     recent = _render_recent(talk.read_recent(5))
-    right_prompt = (RIGHT_FRAME + "\n\nCurrent state:\n"
-                    + state_summary + "\n\nShared log (recent):\n"
-                    + recent + "\n\nYour note:")
-    right_entry = _one_exchange_entry("right", right_call,
-                                      right_prompt, _classify_right)
-    talk.append(right_entry)
-
-    left_prompt = (LEFT_FRAME + "\n\nCurrent state:\n" + state_summary
-                   + "\n\nThe right hemisphere just posted:\n["
-                   + right_entry["kind"] + "] "
-                   + right_entry["text"][:300]
-                   + "\n\nYour response:")
-    left_entry = _one_exchange_entry("left", left_call, left_prompt,
-                                     _classify_left)
-    talk.append(left_entry)
-    return [right_entry, left_entry]
+    entries = []
+    first_entry = None
+    for idx, side in enumerate(order):
+        if idx == 0:
+            prompt = (_frame(side, first=True)
+                      + "\n\nCurrent state:\n" + state_summary
+                      + "\n\nShared log (recent):\n" + recent
+                      + "\n\nYour opening:")
+        else:
+            other = order[0]
+            prompt = (_frame(side, first=False)
+                      + "\n\nCurrent state:\n" + state_summary
+                      + f"\n\nThe {other} hemisphere just posted:\n["
+                      + first_entry["kind"] + "] "
+                      + first_entry["text"][:300]
+                      + "\n\nYour response:")
+        entry = _one_exchange_entry(side, calls[side], prompt,
+                                    _classify_exchange)
+        entry["cycle"] = int(cycle)
+        entry["speaking_order"] = idx + 1
+        talk.append(entry)
+        entries.append(entry)
+        if idx == 0:
+            first_entry = entry
+    return entries
 
 
 # ---------------------------------------------------------------------------
@@ -249,35 +303,71 @@ def _selftest():
                "DEEP_NIGHT dwell, it is the top deficit.", 18
 
     def fake_left(prompt):
-        assert "only voice" in prompt
-        assert "Proposal:" in prompt    # left saw the right's entry
+        assert "LEFT hemisphere" in prompt
+        assert "ambidextrous" in prompt
+        if "just posted" in prompt:
+            assert "Proposal:" in prompt  # left saw right's entry
         return "Ack: agreed, the parse is queued for the night " \
                "window at trickle clocks.", 14
 
     entries = run_exchange("phase RETURN, knowledge deficit 0.69",
                            talk, left_call=fake_left,
-                           right_call=fake_right)
+                           right_call=fake_right, cycle=1)
     check("exchange returns two entries", len(entries) == 2)
-    check("right proposed, kind classified",
+    check("odd cycle: right opens with a proposal",
           entries[0]["side"] == "right"
           and entries[0]["kind"] == "proposal")
-    check("left responded as the voice",
+    check("left responds and disposes",
           entries[1]["side"] == "left" and entries[1]["kind"] == "ack")
+    entries_even = run_exchange("phase RETURN, knowledge deficit 0.69",
+                                talk, left_call=fake_left,
+                                right_call=fake_right, cycle=2)
+    check("even cycle: speaking order alternates to left first",
+          entries_even[0]["side"] == "left"
+          and entries_even[1]["side"] == "right")
     check("joules labelled as estimate",
           entries[0]["joules_basis"] == "est 0.5 J/tok"
           and entries[0]["est_joules"] == 9.0)
     logged = talk.read_recent(10)
-    check("both entries persisted to the log",
-          len(logged) == 2 and logged[0]["side"] == "right")
+    check("exchange entries persisted to the log",
+          len(logged) == 4 and logged[0]["side"] == "right"
+          and logged[2]["side"] == "left")
 
-    # single-voice structure: the right hemisphere has no emit flag
-    # and its text exists only inside the log entries
-    check("right may not emit user output (hemisphere table)",
-          HEMISPHERES["right"]["may_emit_user_output"] is False
-          and HEMISPHERES["left"]["may_emit_user_output"] is True)
-    check("right controls the internal (left) hand only",
-          HEMISPHERES["right"]["controls"] == "left_hand"
-          and HEMISPHERES["left"]["controls"] == "right_hand")
+    check("hemispheres are symmetric in the table",
+          HEMISPHERES["right"]["may_emit_user_output"] is True
+          and HEMISPHERES["left"]["may_emit_user_output"] is True
+          and HEMISPHERES["right"]["controls"] == "either_hand"
+          and HEMISPHERES["left"]["controls"] == "either_hand"
+          and HEMISPHERES["right"]["roles"]
+          == HEMISPHERES["left"]["roles"])
+
+    # Output mutex: two slow emitters must serialize, and the holder
+    # must be visible/recorded while each sink call is in flight.
+    channel = OutputChannel()
+    active = []
+    holders = []
+    concurrency = {"now": 0, "max": 0}
+
+    def slow_sink(text):
+        concurrency["now"] += 1
+        concurrency["max"] = max(concurrency["max"], concurrency["now"])
+        active.append(text)
+        holders.append(channel.holder)
+        time.sleep(0.03)
+        active.remove(text)
+        concurrency["now"] -= 1
+
+    threads = [threading.Thread(target=channel.emit,
+                                args=(side, side, slow_sink))
+               for side in ("left", "right")]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    check("output mutex serializes concurrent emitters",
+          len(channel.history) == 2 and len(active) == 0
+          and concurrency["max"] == 1
+          and holders in (["left", "right"], ["right", "left"]))
 
     # failing server: error entries, no raise
     def dead(prompt):
