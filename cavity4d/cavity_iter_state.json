@@ -752,6 +752,45 @@
    "organ_restore": "qwen3b restarted, :8080/:8081 health ok, :8082 down; ~2 min extra downtime from a pkill self-match in the restore one-liner, caught on verification",
    "results_file": "bigger_organ_results.json",
    "follows": "transducer_v2 model gate FAIL"
+  },
+  {
+   "id": "vocab_fix_highflow_rename",
+   "ts": "2026-10-21T17:18+00:00",
+   "directive": "Zak 2026-10-21 13:14 EDT ('fix vocabulary')",
+   "rename": "HIGH FLOW -> TP SURGE (LUT state:HIGHFLOW)",
+   "results": {
+    "gemma": {
+     "control": {
+      "acc": 0.25,
+      "highflow": "1/4",
+      "medical": 2,
+      "tok": 50.4
+     },
+     "renamed": {
+      "acc": 0.375,
+      "highflow": "2/4",
+      "medical": 2,
+      "tok": 53.6
+     }
+    },
+    "qwen3b": {
+     "control": {
+      "acc": 0.688,
+      "highflow": "3/4",
+      "medical": 0,
+      "tok": 68.9
+     },
+     "renamed": {
+      "acc": 0.625,
+      "highflow": "1/4",
+      "medical": 0,
+      "tok": 73.1
+     }
+    }
+   },
+   "gate": "FAIL all three clauses (HF >= 3/4 both: 2/4, 1/4; renamed medical = 0: Gemma 2; overall >= control per model: Qwen3B drops)",
+   "verdict": "Rename hypothesis FAILS as the fix. Drift follows the body->person narrative FRAME, not the name (Gemma medical outputs landed on NETSTORM trials in both arms). Rename cleaned HIGHFLOW's local lexicon but cost Qwen3B conversion \u2014 prose names echo, code names get paraphrased around. LUT untouched.",
+   "results_file": "vocab_fix_results.json"
   }
  ],
  "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
@@ -783,5 +822,5 @@
   "config": "v1 identity encoding (no whitening, no phase spread)",
   "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
  },
- "last_updated": "2026-10-21T13:02-04:00"
+ "last_updated": "2026-10-21T17:18+00:00"
 }
