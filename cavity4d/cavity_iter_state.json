@@ -791,6 +791,81 @@
    "gate": "FAIL all three clauses (HF >= 3/4 both: 2/4, 1/4; renamed medical = 0: Gemma 2; overall >= control per model: Qwen3B drops)",
    "verdict": "Rename hypothesis FAILS as the fix. Drift follows the body->person narrative FRAME, not the name (Gemma medical outputs landed on NETSTORM trials in both arms). Rename cleaned HIGHFLOW's local lexicon but cost Qwen3B conversion \u2014 prose names echo, code names get paraphrased around. LUT untouched.",
    "results_file": "vocab_fix_results.json"
+  },
+  {
+   "id": "frame_refinement_r1",
+   "ts": "2026-10-21T13:31-04:00",
+   "directive": "Zak 2026-10-21 13:22 EDT \u2014 frame redesign (machine frames, no person/body stage)",
+   "models": "Gemma :8080 + Qwen2.5-3B :8081 (resident organs; preflight clean)",
+   "frames": {
+    "control_body_frame": {
+     "gemma": {
+      "acc": 0.25,
+      "staged": 5,
+      "medical": 4,
+      "tok": 51.2
+     },
+     "qwen3b": {
+      "acc": 0.75,
+      "staged": 0,
+      "medical": 0,
+      "tok": 68.9
+     }
+    },
+    "f1_instrument": {
+     "gemma": {
+      "acc": 0.312,
+      "staged": 0,
+      "tok": 36.8,
+      "repeat": 0.19,
+      "note": "9/16 Gemma completions EMPTY (immediate-stop artifact) \u2014 pass is fragile"
+     },
+     "qwen3b": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 69.4,
+      "repeat": 0.0
+     },
+     "gate": "PASS"
+    },
+    "f2_logline": {
+     "gemma": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 35.5,
+      "repeat": 1.0
+     },
+     "qwen3b": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 44.1,
+      "repeat": 1.0
+     },
+     "gate": "PASS \u2014 only misses on both models are the wrapper cap pair itself; NETSTORM + HIGHFLOW 4/4 clean both models"
+    },
+    "f3_table": {
+     "gemma": {
+      "acc": 0.188,
+      "staged": 0,
+      "tok": 39.6,
+      "note": "returns MATCH cell instead of pattern cell (column confusion at 4B)"
+     },
+     "qwen3b": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 42.7,
+      "repeat": 1.0
+     },
+     "gate": "FAIL (Gemma acc < control)"
+    }
+   },
+   "verdict": "Machine-frame hypothesis CONFIRMED for F2 (syslog log-line). Output contract: wrapper resolves -> one register line -> model reproduces the state field. Frame > name: removing the stage cured what the rename could not.",
+   "results_file": "frame_results.json",
+   "code": [
+    "frame_prep.py",
+    "frame_pc_runner.py",
+    "frame_score.py"
+   ]
   }
  ],
  "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
@@ -822,5 +897,91 @@
   "config": "v1 identity encoding (no whitening, no phase spread)",
   "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
  },
- "last_updated": "2026-10-21T17:18+00:00"
+ "last_updated": "2026-10-21T13:31-04:00",
+ "frame_refinement": {
+  "program": "frame refinement \u2014 hourly series (Zak directive 2026-10-21 13:22 EDT)",
+  "round1": {
+   "id": "frame_refinement_r1",
+   "ts": "2026-10-21T13:31-04:00",
+   "directive": "Zak 2026-10-21 13:22 EDT \u2014 frame redesign (machine frames, no person/body stage)",
+   "models": "Gemma :8080 + Qwen2.5-3B :8081 (resident organs; preflight clean)",
+   "frames": {
+    "control_body_frame": {
+     "gemma": {
+      "acc": 0.25,
+      "staged": 5,
+      "medical": 4,
+      "tok": 51.2
+     },
+     "qwen3b": {
+      "acc": 0.75,
+      "staged": 0,
+      "medical": 0,
+      "tok": 68.9
+     }
+    },
+    "f1_instrument": {
+     "gemma": {
+      "acc": 0.312,
+      "staged": 0,
+      "tok": 36.8,
+      "repeat": 0.19,
+      "note": "9/16 Gemma completions EMPTY (immediate-stop artifact) \u2014 pass is fragile"
+     },
+     "qwen3b": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 69.4,
+      "repeat": 0.0
+     },
+     "gate": "PASS"
+    },
+    "f2_logline": {
+     "gemma": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 35.5,
+      "repeat": 1.0
+     },
+     "qwen3b": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 44.1,
+      "repeat": 1.0
+     },
+     "gate": "PASS \u2014 only misses on both models are the wrapper cap pair itself; NETSTORM + HIGHFLOW 4/4 clean both models"
+    },
+    "f3_table": {
+     "gemma": {
+      "acc": 0.188,
+      "staged": 0,
+      "tok": 39.6,
+      "note": "returns MATCH cell instead of pattern cell (column confusion at 4B)"
+     },
+     "qwen3b": {
+      "acc": 0.875,
+      "staged": 0,
+      "tok": 42.7,
+      "repeat": 1.0
+     },
+     "gate": "FAIL (Gemma acc < control)"
+    }
+   },
+   "verdict": "Machine-frame hypothesis CONFIRMED for F2 (syslog log-line). Output contract: wrapper resolves -> one register line -> model reproduces the state field. Frame > name: removing the stage cured what the rename could not.",
+   "results_file": "frame_results.json",
+   "code": [
+    "frame_prep.py",
+    "frame_pc_runner.py",
+    "frame_score.py"
+   ]
+  },
+  "best_frame": "f2_logline",
+  "queue": [
+   "round 2: F2 x fill-in terminator hybrid \u2014 log-line + explicit completion slot with terminator (state=...<END> style): can the hybrid hold repeat=1.00 while cutting the token floor and hardening against the leading-newline empty artifact seen in F1?",
+   "round 3: F2 winner at Qwen 7B tier \u2014 temporary serve on :8082 with llama-qwen3b stop+restore discipline from the bigger-organ run (restore health-verified); does F2 stay at cap (0.875) with 7B economy (label was 1.000 @ 37 there)?",
+   "node-composition improvement: delta-energy weighting across sections; POWER section carries ~no state delta (DRIVE_END vote 0.1875) \u2014 reassign or down-weight it in the composition; target wrapper cap > 0.875 (the cap, not the model, is now the accuracy ceiling in F2)",
+   "phase-aware radiative exit readout: NETSTORM exit-only classification was 0.50 under phase-blind intensity \u2014 keep phase (complex exit spectrum / autocorrelation term) in the exit decode and retest the radiative hypothesis",
+   "GBNF/constrained decoding as a LATER arm only, on a throwaway :8082 server (never the resident units): grammar-clamped state-field output vs F2's free completion"
+  ]
+ }
 }

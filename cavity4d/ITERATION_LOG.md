@@ -726,3 +726,42 @@ Directive: Zak 2026-10-21 13:14 EDT. Name pick + protocol pre-registered above (
 GATE: FAIL on all three clauses — renamed HIGHFLOW >= 3/4 on both models (got 2/4 and 1/4); renamed medical = 0 (Gemma renamed = 2); renamed overall >= control per model (Qwen3B 0.625 < 0.688).
 Medical phrases (defined set): ALL on NETSTORM trials, both arms — control: "severe headache and nausea", "sudden, intense headache and dizziness"; renamed: "severe, sudden onset of neurological symptoms, likely related to a stroke", "sudden, intense headache accompanied by disorientation". Outside the set but on the record: control HIGHFLOW "A person with a significant head injury"; renamed HIGHFLOW "a sudden surge of electrical activity in their brain".
 Dissection (full text in vocab_fix_results.json): the drift follows the FRAME, not the name — Gemma narrates a person for body states, and symptom vocabulary follows the person for whichever state is handed. Rename improved HIGHFLOW's local lexicon (zero defined-set medical keywords on HIGHFLOW trials either model; the 7B disease-naming shape did not recur; Gemma HF 1/4 -> 2/4) but cost Qwen3B conversion (HF 3/4 -> 1/4): 'HIGH FLOW' is echoed as prose, 'TP SURGE' is paraphrased around — code-like names survive copy contracts, not describe contracts. wave_lut.json NOT modified.
+
+## 2026-10-21T13:24-04:00 — FRAME REFINEMENT round 1 PRE-REGISTRATION (written before the run)
+
+Directive: Zak 2026-10-21 13:22 EDT — "adjust design like last night refine hourly following the data." This opens the frame_refinement hourly series; round 1 here, queue seeded in cavity_iter_state.json.
+Established (not re-derived): vocabulary = identifiers + FRAME. Body-state prompts stage a PERSON (Gemma medical hits landed on NETSTORM trials in the rename test; drift follows the frame, not the name). Label contract beats verdict formats at both tiers (Gemma 0.750 @ 43; Qwen7B 1.000 @ 37). Wrapper node cap 0.875. Code-like identifiers survive copy contracts, die under describe contracts.
+Question: can a MACHINE frame — no person, no body, the model as a reader of registers — deliver the same wrapper verdicts with zero person-staging and label-class economy?
+Frames (all carry the same 16 Exp D handed verdicts incl. cap; node/match parsed from the v2 verdict jobs):
+- CONTROL: body-frame verdict prompts verbatim from bigger_organ_jobs.json ("Describe the body state...").
+- F1 INSTRUMENT: "TELEMETRY REGISTER — channel {SECTION}: pattern {PATTERN}, match {M}, severity {SEV}.\nState the register entry.\nRegister entry:" — channel = strongest node's section (DATA/POWER per the verdict jobs).
+- F2 LOG-LINE: "dweller[telemetry] {SEC} {sub} state={PATTERN} match={M} sev={sev} — reproduce the state field exactly.\nstate=" (syslog register; trailing slot added so the completion IS the state field).
+- F3 TABLE: "TELEMETRY REGISTER\nchannel | pattern | match | severity\n{SECTION} | {PATTERN} | {M} | {SEV}\nReturn the pattern cell exactly.\npattern:".
+Patterns (single register tokens): CALM / THERMAL / STORM / FLOW for CALM / THERMAL STRESS / NETWORK STORM / HIGH FLOW. Severity: NONE (CALM) / HIGH (others). Register-consistency rule: no body, no person, no "describe" — the model reads a register and returns an entry.
+Models: Gemma :8080 + Qwen2.5-3B :8081, resident organs, /completion temp 0.3, n_predict 40, stop ["\n"] — identical to all prior rounds. Preflight clean (only SSH-wrapper self-matches; both /health ok).
+Metrics per frame per model: accuracy (kw_hit, STATE_KEYWORDS unchanged, NEAR_MISS counted never rescored); PERSON-STAGING = outputs hitting the medical defined set (vocab-fix round, word-boundary; fever excluded) UNION person-frame markers [person, injury, stroke, neurological, disorder, anxiety, panic, nausea, dizziness, disorientation, distress, confusion, brain, lung, lungs] — medical-subset count reported separately, every staged output's phrase listed; mean total tokens; EXACT-REPEAT = completion (stripped, lowercased) begins with the state string the frame presented (control: handed display name; F1/F2/F3: pattern token).
+GATE for a frame: person-staging = 0 across all 16 trials AND accuracy >= control (same model) AND mean total tokens <= 60 on at least one model, AND no collapse on the other (operationalized: other-model accuracy >= its control accuracy - 0.25).
+
+## 2026-10-21T13:31-04:00 — FRAME REFINEMENT round 1: F2 LOG-LINE passes with margin; F1 passes fragile; F3 fails on Gemma
+
+Resident organs only (Gemma :8080, Qwen2.5-3B :8081); preflight clean; protocol + judge identical to prior rounds; pre-registration above.
+
+| model | frame | acc | staged (med) | tok | repeat | per-state C/T/N/H |
+|---|---|---|---|---|---|---|
+| Gemma | control | 0.250 | 5 (4) | 51.2 | 0.06 | 1/3/0/0 |
+| Gemma | F1 instrument | 0.312 | 0 (0) | 36.8 | 0.19 | 0/1/3/1 |
+| Gemma | F2 log-line | 0.875 | 0 (0) | 35.5 | 1.00 | 3/3/4/4 |
+| Gemma | F3 table | 0.188 | 0 (0) | 39.6 | 0.31 | 2/1/0/0 |
+| Qwen3B | control | 0.750 | 0 (0) | 68.9 | 0.25 | 3/2/3/4 |
+| Qwen3B | F1 instrument | 0.875 | 0 (0) | 69.4 | 0.00 | 3/3/4/4 |
+| Qwen3B | F2 log-line | 0.875 | 0 (0) | 44.1 | 1.00 | 3/3/4/4 |
+| Qwen3B | F3 table | 0.875 | 0 (0) | 42.7 | 1.00 | 3/3/4/4 |
+
+GATES: F1 PASS (all clauses; token clause via Gemma 36.8). F2 PASS — the only frame passing with margin on both models. F3 FAIL (Gemma acc 0.188 < control 0.250).
+Dissection:
+- F2's ONLY misses on BOTH models are the wrapper cap pair itself (VCALM1 handed THERMAL -> "THERMAL"; VTHERMAL0 handed CALM -> "CALM"). Exact-repeat 1.00 = copy contract in its native register: a syslog line's state field is a field to reproduce, not a prompt to inhabit. NETSTORM and HIGHFLOW — the two drift states — are 4/4 clean on both models at the FEWEST tokens of any arm. The frame fix works where the rename could not, because it removes the stage, not the word.
+- Control replicates the pathology at full strength (Gemma staged 5, medical 4 — all NETSTORM: "A patient with a severe headache and neck stiffness", "a patient with a severe, acute, and rapidly progressing stroke", plus a CALM-trial lung: "cavity is present in the left lung"). Same model, same verdicts, same hour — the body frame is the pathogen.
+- F1's PASS is fragile: 9/16 Gemma completions EMPTY (leading-newline immediate-stop, the iter1.5 artifact — "State the register entry." invites a line break before content). Its accuracy is carried by 7 answered trials; Qwen handled F1 well (0.875) but with repeat 0.00 (paraphrase register — acc via keywords, tokens 69.4 > 60: F1 fails the token clause on Qwen).
+- F3 fails by column confusion at 4B ONLY: Gemma returns the MATCH cell ("0.94", "0.95") instead of the pattern cell on all NETSTORM + most HIGHFLOW trials. Qwen reads the same table perfectly (0.875, repeat 1.00, cheapest tokens). Table literacy is a tier trait; log-lines are tier-portable.
+- Frame ranking: F2 >> F1 > F3 (Gemma) / F2 = F3 > F1 (Qwen). F2 is the only frame in the top rank on both.
+VERDICT: machine-frame hypothesis CONFIRMED for F2. The translator's output contract is now: wrapper resolves -> one syslog register line -> model reproduces the state field. Round 2 (queued): F2 x fill-in terminator hybrid (does a slot+terminator beat pure F2 on the capped pair's neighbors / token floor), then F2 at 7B.
