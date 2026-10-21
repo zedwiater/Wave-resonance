@@ -1,0 +1,88 @@
+{
+ "sanity_section_tagging": {
+  "NETWORK": {
+   "hits": 1,
+   "trials": 5,
+   "gate_ge_4_of_5": false,
+   "records": [
+    {
+     "top": "DATA.s1",
+     "top_section": "DATA",
+     "top_share": 0.353,
+     "second": "PWR.s2",
+     "correct": false
+    },
+    {
+     "top": "NET.s1",
+     "top_section": "NETWORK",
+     "top_share": 0.404,
+     "second": "NET.s2",
+     "correct": true
+    },
+    {
+     "top": "DATA.s1",
+     "top_section": "DATA",
+     "top_share": 0.346,
+     "second": "PWR.s2",
+     "correct": false
+    },
+    {
+     "top": "DATA.s1",
+     "top_section": "DATA",
+     "top_share": 0.37,
+     "second": "PWR.s2",
+     "correct": false
+    },
+    {
+     "top": "DATA.s1",
+     "top_section": "DATA",
+     "top_share": 0.341,
+     "second": "PWR.s2",
+     "correct": false
+    }
+   ]
+  },
+  "IO": {
+   "hits": 4,
+   "trials": 5,
+   "gate_ge_4_of_5": true,
+   "records": [
+    {
+     "top": "IO.s2",
+     "top_section": "IO",
+     "top_share": 0.294,
+     "second": "DATA.s1",
+     "correct": true
+    },
+    {
+     "top": "IO.s2",
+     "top_section": "IO",
+     "top_share": 0.3,
+     "second": "DATA.s1",
+     "correct": true
+    },
+    {
+     "top": "IO.s1",
+     "top_section": "IO",
+     "top_share": 0.63,
+     "second": "IO.s2",
+     "correct": true
+    },
+    {
+     "top": "IO.s1",
+     "top_section": "IO",
+     "top_share": 0.342,
+     "second": "IO.s2",
+     "correct": true
+    },
+    {
+     "top": "DATA.s1",
+     "top_section": "DATA",
+     "top_share": 0.319,
+     "second": "PWR.s2",
+     "correct": false
+    }
+   ]
+  }
+ }
+}

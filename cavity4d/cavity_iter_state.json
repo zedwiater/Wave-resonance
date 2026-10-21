@@ -76,10 +76,58 @@
    },
    "notes": "4 states x 5 jittered trials all classified correctly by cavity AND raw NN (states well separated in telemetry encoding \u2014 decisiveness not yet stressed). Verbalization: raw numbers beat cavity label this round; HIGHFLOW missed under both (Gemma read HIGH FLOW as 'heat'); CALM label summary said 'tranquility' \u2014 outside the keyword list, scored False (judge near-miss, flagged). n=4 summaries/condition: indicative only.",
    "results_file": "iter1_expBC_results.json"
+  },
+  {
+   "id": "iter1.5_topology_translator_packet",
+   "ts": "2026-10-21T01:10-04:00",
+   "built": [
+    "cavity_topology.py (5 sections, 11 subspectra bands, per-section delta rollout)",
+    "wave_lut.json (17 entries: probe delta_signature + meaning + gloss)",
+    "translator packet v2 (framing + full per-section deltas + LUT excerpt)"
+   ],
+   "baseline_source": "FRESH real dweller tick 2026-10-21 ~00:57 EDT (preflight clean; only pgrep hits were the SSH wrapper echoing its own command). CALM baseline: temp 60.0/60.0 C, rx_drop 86, tp_flow 0.0703, data 153251 bps, vram 0.5712, loadavg 0.02.",
+   "topology_sanity": {
+    "IO": "4/5 PASS",
+    "NETWORK": "1/5 FAIL \u2014 in-band disturbances at modes 21-26 read out as DATA.s1 under full template coupling (beta=9): the bank's dominant response direction re-expresses high-band energy into low modes. Section tags are meaningful mid-band, NOT high-band, at this coupling."
+   },
+   "lut_notes": "Probe-delta dominant sections measured: prompts split DATA / PWR.s2 (pump mode carries much of the byte-spectrum response); all 5 cues DATA.s1; telemetry states DATA.s1 under the iter1 channel codebook (bumps span all modes; a pattern's section identity is a property of encoding + coupling, not of the pattern alone).",
+   "expD": {
+    "n_per_condition": 16,
+    "cavity_per_trial_label_accuracy": 0.938,
+    "cavity_lut_top_match_accuracy": 0.75,
+    "accuracy": {
+     "label": 0.75,
+     "raw": 0.562,
+     "packet": 0.188
+    },
+    "near_miss_rate": {
+     "label": 0.062,
+     "raw": 0.0,
+     "packet": 0.0
+    },
+    "mean_tokens_total": {
+     "label": 44.75,
+     "raw": 109.375,
+     "packet": 920.94
+    },
+    "gate": "FAIL both halves (packet acc < raw; packet tokens 8.4x raw)",
+    "failure_dissection": [
+     "Token economics: framing + 32 complex deltas + 4 prose LUT meanings = ~917 prompt tokens vs 93 for raw prose. A translator 8.4x the cost of the thing it replaces is not a translator.",
+     "9/16 packet completions EMPTY with tokens_completion=1: immediate-stop artifact \u2014 under stop=[newline] the 4B model answers the long structured packet with a leading newline. All NETSTORM + all HIGHFLOW packets emptied, plus 1 CALM.",
+     "Even when it answered (7 trials), the model did not reliably follow the key: DCALM2 answered THERMAL with CALM top-match; DCALM0 answered CALM despite THERMAL top-match. At 4B, a 900-token numeric packet is a swamp, not a lookup.",
+     "The cavity-side key is mostly sound: LUT top-match by delta cosine correct on 12/16 (NETSTORM 4/4, HIGHFLOW 4/4, THERMAL 3/4, CALM 2/4; CALM/THERMAL boundary soft in delta space). The failure is model-side CONSUMPTION of the packet as formatted, not the cavity or the key.",
+     "Label channel (cavity word, per-trial) improved to 0.750 at n=16 and is by far the cheapest (45 tok). HIGHFLOW verbalization is Gemma's weak spot in EVERY condition (label 2/4, raw 0/4, iter1 same) \u2014 a model-side trait, now thrice-measured."
+    ],
+    "results_file": "iter15_expD_results.json"
+   },
+   "verdict": "Topology + answer key built and measured. Packet v2 AS SPECIFIED loses on both gate halves \u2014 reported, not rescued. The translator idea survives only in compact form: the winning channel this round is the cavity's own classification at 45 tokens. Packet v3 must be an order of magnitude smaller or the speed claim stays empty."
   }
  ],
  "program": "wave translator \u2014 hourly overnight iteration (Zak directive 2026-10-21 00:28 EDT)",
  "queue": [
+  "packet v3 \u2014 COMPACT translator: per-section delta ENERGIES + top-3 subspectra tags + ONE-line LUT meanings (codes, not paragraphs); target < raw-prose tokens (~90); retest Exp D gate unchanged",
+  "packet robustness: kill the immediate-stop artifact (no-newline stop set / answer priming) and re-measure packet accuracy with content actually emitted \u2014 separate format brittleness from lookup failure",
+  "section-tag readout tap BEFORE template coupling (linear tap on the driven state) vs after: does the NETWORK band tag survive when the attractor does not re-express it? (sanity NETWORK 1/5 under full coupling)",
   "completion-regime translator: cavity invoked ONLY on degraded inputs; beta {6,9,14,20} x settle {0.5,0.9,1.4s} sweep scored on PARTIAL-only margin (identity arm partial margin is already +16.7 pts \u2014 widen it)",
   "modal-native text door: token/n-gram-level spectral encoding with locality (byte spectrum is a hash); re-run Exp B with word-drop corruption (ASR-style) instead of char-drop",
   "readout-side whitening only: whiten the rectified SIGNATURES for classification, keep coupling inputs raw (decisiveness without pre-cavity noise amplification)",
@@ -103,5 +151,5 @@
   "config": "v1 identity encoding (no whitening, no phase spread)",
   "finding": "cavity margin over control lives in the completion regime only: partial inputs +16.7 pts (0.708 vs 0.542); noise-only parity (0.979 vs 0.979). A completion-only translator (invoked on degraded inputs) is the viable product shape; a blanket front-end is not supported."
  },
- "last_updated": "2026-10-21T00:52-04:00"
+ "last_updated": "2026-10-21T01:12-04:00"
 }
