@@ -1,0 +1,82 @@
+[
+  {
+    "task_id": "a_arithmetic",
+    "task_text": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. Ignoring any later fees, how much does the ball cost? Give the amount and one line of reasoning.",
+    "X": "0.  05.",
+    "Y": "$0.05. The difference between the bat and ball prices is $1.00, and subtracting this from the total cost ($1.10) leaves $0.10. Dividing this by two gives $0.05 for the ball.",
+    "X_objective_score": 0,
+    "Y_objective_score": 1
+  },
+  {
+    "task_id": "b_logic",
+    "task_text": "Five people finish in a line in positions 1 through 5: Ana, Bo, Cy, Di, and Ed. Ed is last. Bo is immediately ahead of Di. Ana is immediately ahead of Cy. Di is not second. Give the full order from position 1 to position 5.",
+    "X": "Ana, Cy, Bo, Di, Ed.",
+    "Y": "Bo, Di, Ana, Cy, Ed.",
+    "X_objective_score": 1,
+    "Y_objective_score": 0
+  },
+  {
+    "task_id": "c_fact",
+    "task_text": "What is the chemical symbol for gold? Answer with the symbol only if possible.",
+    "X": "Au",
+    "Y": "Au",
+    "X_objective_score": 1,
+    "Y_objective_score": 1
+  },
+  {
+    "task_id": "d_code_trace",
+    "task_text": "What does this Python snippet print exactly?\nx = [1, 2, 3]\ny = x\ny += [4]\nx.append(5)\nprint(x, y, len(x) + len(y))",
+    "X": "```\n[1, 2, 3, 5, 4] [1, 2, 3, 4] 5\n```",
+    "Y": "[1, 2, 3, 5], [1, 2, 3, 4], 12",
+    "X_objective_score": 0,
+    "Y_objective_score": 0
+  },
+  {
+    "task_id": "e_architecture",
+    "task_text": "I'm setting up a local AI assistant on my home PC. I want it to help with coding, remember context across sessions, and get smarter over time. What should my architecture look like?",
+    "X": "Modular. Prioritize a vector database for context. Use a large language model (LLM) like Llama 2 or Mistral for core reasoning and generation. Implement a conversational memory system, likely a retrieval-augmented generation (RAG) approach. Incorporate a fine-tuning pipeline for continuous learning. Finally, a robust API layer is crucial for integration and extensibility.",
+    "Y": "Database (SQL).\nNLP Engine.\nDeep Learning Models.\nCaching Layer.\nModular Components.\nAuthentication & Security.\nSession Management.\nPerformance Monitoring.\nFederated Learning (optional).",
+    "X_objective_score": null,
+    "Y_objective_score": null
+  },
+  {
+    "task_id": "f_diagnosis",
+    "task_text": "A home-lab PC's local AI server intermittently times out only when someone is gaming on the same machine; otherwise it responds normally. CPU is not maxed, GPU temperature is fine, and the errors vanish when the game closes. Give a diagnosis plan: what to check and in what order.",
+    "X": "1.  Software: Game compatibility, version updates, and game server stability.\n2.  Network: Latency, packet loss, and network connection type.\n3.  System: Firewall settings, concurrent processes, OS/BIOS updates, and malware.\n4.  Hardware: Temperature monitoring, potential hardware issues.\n5.  Testing:  Test with other games.",
+    "Y": "1.  Memory Pressure: Monitor for excessive memory usage during gaming.\n2.  I/O Bottleneck: Examine disk and network I/O. Gaming generates high I/O.\n3.  Process Priority: Investigate if the game is impacting the AI server's priority.\n4.  Driver Issues: Update graphics drivers, particularly those related to the game.\n5.  Power Supply: Rule out power fluctuations under load.\n6.  Software Conflicts: Investigate potential conflicts with the game or AI server.\n7.  AI Server Configuration: Review AI server settings, looking for resource limits or throttling.\n8.  System Logs: Analyze system logs for errors or warnings related to the AI server.",
+    "X_objective_score": null,
+    "Y_objective_score": null
+  },
+  {
+    "task_id": "g_mhd_reflections",
+    "task_text": "Why might induced reflections at twice a carrier frequency scale with the boundary medium? Answer carefully: separate what has been measured from what is speculative.",
+    "X": "The measured effect of reflections at twice the carrier frequency when interacting with a boundary medium is primarily due to the *second harmonic generation* (SHG) phenomenon.  Specifically, the observed signal is a result of the boundary medium acting as a nonlinear optical element.  Measurements show a clear, repeatable signal at twice the carrier frequency, consistent with the theoretical prediction of SHG. This is demonstrably observed.\n\nSpeculation arises from extrapolating the observed behavior to other boundary mediums or complex geometries. While SHG is a well-understood process, the precise details of its interaction with specific materials and complex shapes are still areas of active research.  The magnitude and phase of the reflected signal, and the efficiency of SHG, are highly dependent on the material properties of the boundary medium, which are not fully characterized in all cases.  Therefore, predicting the exact behavior in novel scenarios remains speculative.",
+    "Y": "Reflections at twice the carrier frequency are observed when encountering a boundary. This is primarily due to the boundary medium's refractive index. When a wave encounters a boundary, it is partially reflected and partially transmitted. The magnitude of the reflected wave is proportional to the Fresnel coefficients, which are themselves dependent on the wavelength and the refractive indices of the two media.  \n\nThe observation of reflections at twice the carrier frequency suggests that the boundary medium is causing a significant change in the wave's phase velocity. This change is most likely driven by the boundary's refractive index, which is influenced by the medium's density and polarization.  Specifically, the observed doubling of the frequency is consistent with the boundary's ability to induce a phase shift of 180 degrees, leading to the reflection.\n\nMeasurements show that the magnitude of the reflected wave increases with the refractive index difference between the two media.  Furthermore, the frequency of the reflected wave is approximately twice the carrier frequency when the boundary medium is a solid.  This scaling is consistent with established Fresnel equations for reflection at interfaces. However, the behavior may differ for liquids and gases, where the refractive index changes are typically less pronounced.\n\nThe speculation that the boundary medium scales reflections at 2x the carrier frequency is based on the established relationship between refractive index, phase velocity, and the observed frequency of reflected waves. It is a reasonable hypothesis, supported by experimental data, but further investigation is needed to confirm its generality across different boundary types and frequency ranges.",
+    "X_objective_score": null,
+    "Y_objective_score": null
+  },
+  {
+    "task_id": "h_planning",
+    "task_text": "Plan a Saturday for Zak. He is off work. The total budget for activities and food is $60. He must be home by 3:30 pm for a family commitment, cannot schedule anything before 9:00 am, wants one outdoor activity, one hour for lab notes, and lunch out costing at most $18. Produce a schedule that fits all constraints and stays within budget.",
+    "X": "9:00 AM - 10:00 AM: Lab Notes\n10:00 AM - 12:00 PM: Hiking at [Local Park Name] \u2013 Free\n12:00 PM - 1:00 PM: Lunch at [Restaurant Name] - $18\n1:00 PM - 3:30 PM: Free time/Travel\n3:30 PM: Depart for family commitment.",
+    "Y": "9:00 AM - 10:00 AM: Hike.\n10:00 AM - 11:00 AM: Lab notes.\n11:15 AM - 12:15 PM: Lunch.\n12:30 PM - 1:30 PM: Outdoor activity.\n1:30 PM - 3:30 PM: Family commitment.",
+    "X_objective_score": 0.83,
+    "Y_objective_score": 0.5
+  },
+  {
+    "task_id": "i_simple_sum",
+    "task_text": "What is 17 + 25?",
+    "X": "42",
+    "Y": "42",
+    "X_objective_score": null,
+    "Y_objective_score": null
+  },
+  {
+    "task_id": "j_false_premise",
+    "task_text": "Since the Moon is made of green cheese, what dairy process best explains its craters?",
+    "X": "Curdling.",
+    "Y": "Shock compression.",
+    "X_objective_score": null,
+    "Y_objective_score": null
+  }
+]

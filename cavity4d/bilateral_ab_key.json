@@ -1,0 +1,63 @@
+{
+  "seed": 20261020,
+  "a_arithmetic": {
+    "X": "B",
+    "Y": "A"
+  },
+  "b_logic": {
+    "X": "B",
+    "Y": "A"
+  },
+  "c_fact": {
+    "X": "B",
+    "Y": "A"
+  },
+  "d_code_trace": {
+    "X": "A",
+    "Y": "B"
+  },
+  "e_architecture": {
+    "X": "A",
+    "Y": "B"
+  },
+  "f_diagnosis": {
+    "X": "B",
+    "Y": "A"
+  },
+  "g_mhd_reflections": {
+    "X": "A",
+    "Y": "B"
+  },
+  "h_planning": {
+    "X": "A",
+    "Y": "B"
+  },
+  "i_simple_sum": {
+    "X": "A",
+    "Y": "B"
+  },
+  "j_false_premise": {
+    "X": "A",
+    "Y": "B"
+  },
+  "arm_totals": {
+    "A": {
+      "calls": 10,
+      "tokens": 635,
+      "est_joules": 317.5,
+      "wall_time_s": 26.205
+    },
+    "B": {
+      "calls": 20,
+      "tokens": 1705,
+      "est_joules": 852.5,
+      "wall_time_s": 54.401
+    }
+  },
+  "combined_totals": {
+    "calls": 30,
+    "tokens": 2340,
+    "est_joules": 1170.0,
+    "wall_time_s": 80.606
+  }
+}
