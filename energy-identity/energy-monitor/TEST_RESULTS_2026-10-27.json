@@ -1,0 +1,12 @@
+{
+  "test": "One energy profile driving synthetic voice + score (questions from Zak's Nottee transcript, treated as knowns)",
+  "zak_f0_median_hz": 102.1,
+  "stock_voice_f0_median_hz": 99.8,
+  "pitch_shift_semitones": 0.4,
+  "signature_match_before": -0.228,
+  "signature_match_after": 0.802,
+  "climax_frac": {"stock": 0.471, "shaped": 0.438, "signature": 0.507},
+  "purification": "drop frames below 12% of hot-mean (dead air/noise floor); exclude clipped frames (0 found in Zak's take); slot medians not means (transient-proof)",
+  "gain_caps": [0.55, 1.9],
+  "note": "Climax position moved toward signature but did not land on it - two mid slots hit the 1.9 gain cap. Timbre is NOT cloned; this is energy forming, not voice cloning."
+}
