@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Shadow Man: The Kitchen Flux — Pocket v2.0 (R1+R2)</title>
+<style>
+ html,body{margin:0;padding:0;background:#070b16;height:100%;overflow:hidden}
+ #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+ canvas{display:block;background:#0b1020;touch-action:none;width:min(100vw,56.25vh);height:auto}
+ #hud{position:fixed;left:0;right:0;top:0;pointer-events:none;font-family:ui-monospace,Menlo,monospace}
+ #bankline{text-align:center;color:#cfe8ff;font-size:13px;padding:6px 4px 0;text-shadow:0 1px 3px #000}
+ #bankline b{color:#e0a020} #bankline i{color:#60c060;font-style:normal}
+ #msg{position:fixed;left:0;right:0;bottom:96px;text-align:center;color:#ffe9b0;font-family:ui-monospace,Menlo,monospace;font-size:15px;pointer-events:none;text-shadow:0 1px 4px #000;padding:0 18px}
+ #controls{position:fixed;left:0;right:0;bottom:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 12px}
+ #controls button{pointer-events:auto;background:#14203c;color:#cfe8ff;border:1px solid #2c4a7c;border-radius:12px;padding:13px 4px;font-family:ui-monospace,Menlo,monospace;font-size:14px}
+ #controls button.on{background:#274b2d;border-color:#60c060;color:#eaffea}
+ #phraseRow{position:fixed;left:0;right:0;bottom:64px;text-align:center;display:none}
+ #phrase{background:#0d1526;color:#cfe8ff;border:1px solid #2c4a7c;border-radius:9px;padding:7px 10px;width:210px;font-family:ui-monospace,Menlo,monospace;font-size:13px;text-align:center}
+</style></head><body>
+<div id="wrap"><canvas id="cv" width="720" height="1280"></canvas></div>
+<div id="hud"><div id="bankline"></div></div>
+<div id="msg"></div>
+<div id="phraseRow"><input id="phrase" placeholder="type: consistency is key" autocomplete="off"></div>
+<div id="controls">
+ <button id="bStart">START</button><button id="bSample">SAMPLE ROOM</button><button id="bSub">SUB LOCK</button>
+</div>
+<script>
+'use strict';
+/* ============================================================
+   SHADOW MAN POCKET v2.0 — R1 (seed the calm) + R2 (wild eddies,
+   tool bank, drift & mergers) blended with the design-review fixes:
+   fail-forward crossings, min(P,D) balance score, collapse->debris,
+   tending pays, approach warnings, failure-mode ring signatures.
+   Zak's numbers stand: EMAX 230, evolution = 1,000,000 power AND
+   1,000,000 data SPENT, eon = one macro rotation paying out only
+   with 23 stable Eddies standing. The universe PERSISTS between
+   sessions (localStorage) — jump in, jump out, it keeps turning.
+   ============================================================ */
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const W=720,H=1280,CX=360,CY=560;
+const WORLD_W=2160,WORLD_H=1720;
+const PX=1080,PY=860;                 /* transducer pair centre (world) */
+const EMAX=230,JEANS=55;
+const EVO_COST=1000000;               /* per bank, Zak's number */
+const EON_STABLE=23;                  /* Zak's number */
+const COL={cyan:'#40c0e0',green:'#60c060',gold:'#e0a020',violet:'#a080e0',red:'#e05050',dim:'#5a7292',amber:'#ffb040'};
+const $=id=>document.getElementById(id);
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function dphi(a,b){return Math.abs(Math.atan2(Math.sin(a-b),Math.cos(a-b)));}
+function hash2(a,b){let n=(a*374761393+b*668265263)|0;n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967295;}
+/* Zak's measured voice signature (Energy Monitor, 2026-10-27) — the BASE SEED */
+const SIG_ARC=[0.418,0.487,0.236,0.392,0.626,0.863,1.0,0.539,0.150,0.391,0.213,0.155];
+/* ---------- persistent universe ---------- */
+let U=null;
+function newUniverse(){return{pow:0,dat:0,toolInd:1,toolCap:1,systems:[],debris:[],evolved:0,eons:0,evoProgress:0,
+  totalStabilized:0,records:[],seen:{},evoBankedP:0,evoBankedD:0};}
+function loadU(){try{const raw=localStorage.getItem('smu2');if(raw){U=Object.assign(newUniverse(),JSON.parse(raw));return;}}catch(e){} U=newUniverse();}
+let saveT=0;
+function saveU(){const now=performance.now();if(now-saveT<800)return;saveT=now;try{localStorage.setItem('smu2',JSON.stringify(U));}catch(e){}}
+function saveUnow(){try{localStorage.setItem('smu2',JSON.stringify(U));}catch(e){}}
+/* ---------- session state ---------- */
+let S=null;
+function newGame(){return{phase:'start',t:0,frame:0,rot:0,zoomT:0,revealT:0,sample:0,arc:SIG_ARC.slice(),level:0.30,
+ mode:'default',band:'base',over:false,won:false,qf:false,sub:false,hold:0,peak:0,peakV:0,beats:0,combo:0,
+ camX:0,camY:860,zoom:1,grid:null,player:{x:240,y:1500,vx:0,vy:0},waves:[],pickups:[],calms:[],wilds:[],
+ eddy:null,ind:null,cap:null,ind2:null,sats:[],ball:null,choice:null,msgT:0,pings:[],flows:[],
+ pairGap:1,pairMass:1,pairInst:0,pairPhase:0,reseeds:0,seedP:0,seedD:0,sessP:0,sessD:0,sessLeft:0,
+ cross:null,static0:0.55,regrow:0.0007,attune:0,recordsOpen:false,touch:null,btnFrame:-9,btnHold:0,pillLabel:'RESEED',
+ sysMsgCd:0,ctxLabel:'',calmHint:false,adoptHint:false};}
+/* static grid */
+const CS=60,GW=Math.ceil(WORLD_W/CS),GH=Math.ceil(WORLD_H/CS);
+function buildGrid(){S.grid=new Float32Array(GW*GH);const cov=S.static0;
+ for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){S.grid[r*GW+c]=hash2(c*7+3,r*13+5)<cov?0.06:0.55;}
+ /* start pocket pre-cleared */
+ for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){const x=c*CS+30,y=r*CS+30;
+  if(Math.hypot(x-S.player.x,y-S.player.y)<380)S.grid[r*GW+c]=Math.max(S.grid[r*GW+c],0.8);}}
+function cellAt(x,y){if(!S.grid)return 0;const c=clamp(Math.floor(x/CS),0,GW-1),r=clamp(Math.floor(y/CS),0,GH-1);return S.grid[r*GW+c];}
+function viewR(){const d=Math.abs(S.peak);let v=210+(1-clamp(d,0,1))*330+(S.hold>0?130:0)+(S.sub?40:0);
+ if(S.band==='major')v*=0.75; return v;}
+function tymF(){return S.hold>0?1:0.15+0.85*clamp(1-Math.abs(S.peak),0,1);}
+/* ---------- narrator / teaching ---------- */
+const TEACH={
+ cross:'Waves carry phase. Cross at the trough, never the crest.',
+ seed:'Frozen-in flux: the field moves with the flow. What you plant keeps its identity.',
+ adopt:'A wild eddy, adopted. It was already a standing pattern — you are joining it, not making it.',
+ orbit:'Two windings — toroidal around, poloidal through. Coupled right, an eddy holds itself.',
+ firstSys:'A stable system. Circulation that returns is what keeps anything alive.',
+ debris:'Nothing is lost. Destruction is a form change — debris can be stabilized and banked.',
+ tend:'Maintenance is a harvest run: a tended system pays its trickle out.',
+ merge:'Taylor relaxation: merged systems settle to the lowest energy that keeps their helicity.',
+ danger:'Dangerous class: it grows on its own and sheds instability. Greed has a limit.',
+ hole:'A black hole eddy: a sink. It does not circulate — it only takes.',
+ bank:'The tool bank: found, banked, deployed, spent tending. Tools are currency with three jobs.',
+ eon:'An eon ticked. The universe pays rent on stability kept.'};
+function msg(t){$('msg').textContent=t;S.msgT=S.frame;}
+function teach(key){if(U.seen[key])return;U.seen[key]=1;msg(TEACH[key]);saveU();}
+function ping(x,y,col,big){S.pings.push({x:x,y:y,r:big?26:13,col:col||COL.cyan,t:0,big:!!big});}
+/* ---------- bands & sample ---------- */
+function bandParams(){switch(S.band){
+ case 'major':return{static0:0.80,regrow:0.0012,amp:1.30,label:'MAJOR'};
+ case 'moderate':return{static0:0.62,regrow:0.0008,amp:1.00,label:'MODERATE'};
+ case 'light':return{static0:0.50,regrow:0.0006,amp:0.85,label:'LIGHT'};
+ default:return{static0:0.35,regrow:0.0004,amp:0.70,label:'BASE (your voice)'};}}
+let AC=null,AN=null,micStream=null;
+function startSample(){
+ if(S.phase!=='sample')return;
+ const done=(arc,level,real)=>{S.arc=arc;S.level=level;
+  if(S.mode==='comp'){S.band=level>=0.62?'major':level>=0.38?'moderate':'light';}
+  const bp=bandParams();S.static0=bp.static0;S.regrow=bp.regrow;
+  S.phase='settle';S.sample=0;msg(real?'Sampled. The room settles against its mirror.':'No mic — base seed stands in.');};
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){done(SIG_ARC.slice(),0.30,false);return;}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{micStream=st;
+  AC=new (window.AudioContext||window.webkitAudioContext)();AN=AC.createAnalyser();AN.fftSize=2048;
+  const src=AC.createMediaStreamSource(st);src.connect(AN);
+  const buf=new Float32Array(AN.fftSize),env=[];const t0=performance.now();
+  const tick=()=>{AN.getFloatTimeDomainData(buf);let s=0;for(let i=0;i<buf.length;i++)s+=buf[i]*buf[i];
+   env.push(Math.sqrt(s/buf.length));
+   if(performance.now()-t0<3000){requestAnimationFrame(tick);return;}
+   st.getTracks().forEach(t=>t.stop());if(AC)AC.close();
+   const slots=24,arc=[];for(let i=0;i<slots;i++){const a=env[Math.floor(i*env.length/slots)]||0;arc.push(a);}
+   const mx=Math.max(...arc,0.001);for(let i=0;i<slots;i++)arc[i]=clamp(arc[i]/mx,0,1);
+   const level=clamp((env.reduce((a,b)=>a+b,0)/env.length)*6,0.05,1);
+   done(arc,level,true);};
+  requestAnimationFrame(tick);
+ }).catch(()=>done(SIG_ARC.slice(),0.30,false));}
+/* ---------- world generation ---------- */
+function genWorld(){const bp=bandParams();buildGrid();
+ S.waves=[];const angs=[0.12,0.5,-0.3,0.9,0.25];
+ for(let i=0;i<5;i++){const a=angs[i]+(hash2(i,7)-0.5)*0.2;
+  S.waves.push({dx:Math.cos(a),dy:Math.sin(a),a:i*430+hash2(i,3)*200,lambda:520+hash2(i,11)*160,
+   speed:(26+hash2(i,5)*16)*bp.amp,enc:null,cool:0});}
+ S.calms=[];let tries=0;
+ while(S.calms.length<5&&tries++<300){const x=200+hash2(tries,21)*1760,y=200+hash2(tries,23)*1320;
+  if(Math.hypot(x-PX,y-PY)<420)continue;if(Math.hypot(x-S.player.x,y-S.player.y)<340)continue;
+  if(S.calms.some(c=>Math.hypot(c.x-x,c.y-y)<430))continue;
+  S.calms.push({x:x,y:y,r:130+hash2(tries,29)*60});}
+ S.pickups=[];const kinds=['ind','cap','ind','cap','ind','cap','ind','cap','ind','cap'];
+ for(let i=0;i<kinds.length;i++){const x=140+hash2(i,31)*1880,y=140+hash2(i,37)*1440;
+  S.pickups.push({type:kinds[i],x:x,y:y,taken:false,ph:hash2(i,41)*6.28});}
+ S.wilds=[];const wspec=[['standard',52],['standard',64],['standard',44],['dangerous',78],['dangerous',66],['hole',46]];
+ for(const sp of wspec){let placed=false;
+  for(let tr=0;tr<900&&!placed;tr++){const x=240+hash2(tr*3+sp[1],43)*1680,y=240+hash2(tr*5+sp[1],47)*1240;
+   const sep=tr<250?470:tr<550?390:310,far=tr<550?1:0.8;
+   if(Math.hypot(x-PX,y-PY)<450*far)continue;
+   if(Math.hypot(x-S.player.x,y-S.player.y)<410*far)continue;
+   if(S.wilds.some(w=>Math.hypot(w.x-x,w.y-y)<sep))continue;
+   if(S.calms.some(c=>Math.hypot(c.x-x,c.y-y)<370*far))continue;
+   S.wilds.push({cls:sp[0],x:x,y:y,r:sp[1],ph:hash2(tr,53)*6.28,condenses:0,grow:0});placed=true;}}
+ S.camX=clamp(S.player.x-CX*0.9,0,WORLD_W-W);S.camY=clamp(S.player.y-CY*0.9,0,WORLD_H-H);}
+function ampAt(x,y){let a=0;for(const f of S.waves){
+  const u=x*f.dx+y*f.dy;let d=((u-f.a)%f.lambda+f.lambda)%f.lambda;d=Math.min(d,f.lambda-d);
+  a+=Math.max(0,1-d/130);}
+ for(const c of S.calms){if(Math.hypot(x-c.x,y-c.y)<c.r)a*=0.22;}
+ return a;}
+/* ---------- seeding / adopting / salvage / tending ---------- */
+function makeKnobs(ex,ey,r){S.ind={x:ex-120,y:ey+140,r:30,fill:0,active:false,held:false,ph:Math.random()*6.28,orb:false,oa:0};
+ S.cap={x:ex+r+90,y:ey+30,r:26,fill:0,active:false,held:false,ph:Math.random()*6.28,charge:0,orb:false,oa:0};}
+function doSeed(cx,cy,adopted){
+ if(U.toolInd<1||U.toolCap<1){msg('The bank is short — seeding takes 1 inducer + 1 capacitor. Keep gathering.');return;}
+ U.toolInd--;U.toolCap--;
+ S.eddy={x:cx,y:cy,r:adopted?adopted.r:42,weight:0,spin:0.4,ph:0,wob:0,clarity:0,anchored:false,
+  storeP:0,storeD:0,accP:0,accD:0,stability:0,ready:false,adopted:adopted||null,tipWarned:0};
+ if(adopted){const i=S.wilds.indexOf(adopted);if(i>=0)S.wilds.splice(i,1);}
+ makeKnobs(cx,cy,S.eddy.r);S.phase='play';S.spawned=true;
+ ping(cx,cy,COL.gold,true);
+ if(adopted){teach('adopt');msg('Eddy adopted. Grow it gently — greed has a limit.');}
+ else{teach('seed');msg('Seeded. Fill the tools by position — inducer to the core, capacitor to the ring.');}
+ if(!U.seen.seedDrag){U.seen.seedDrag=1;saveU();
+  msg('Seeded! DRAG the cyan inducer into the gold core circle. DRAG the green capacitor onto the green ring.');}
+ saveU();}
+function doSalvage(d){
+ if(U.toolInd<1||U.toolCap<1){msg('Salvage takes 1 inducer + 1 capacitor from the bank.');return;}
+ U.toolInd--;U.toolCap--;U.pow+=d.p;U.dat+=d.d;
+ const i=U.debris.indexOf(d);if(i>=0)U.debris.splice(i,1);
+ ping(d.x,d.y,COL.green,true);teach('debris');msg('Debris stabilized and banked: ⚡'+Math.round(d.p)+' ◆'+Math.round(d.d)+'.');
+ S.sessP+=d.p;S.sessD+=d.d;saveU();}
+function doTend(sys){
+ if(U.toolCap<1&&U.toolInd<1){msg('Nothing in the bank to tend with. Gather tools first.');return;}
+ if(U.toolCap>=1)U.toolCap--;else U.toolInd--;
+ sys.stab=clamp(sys.stab+0.45,0,1);sys.dvx=0;sys.dvy=0;
+ const gp=Math.round(sys.accP),gd=Math.round(sys.accD);
+ U.pow+=sys.accP;U.dat+=sys.accD;S.sessP+=sys.accP;S.sessD+=sys.accD;sys.accP=0;sys.accD=0;
+ ping(sys.x,sys.y,COL.green,true);teach('tend');
+ msg('Tended. Trickle banked: ⚡'+gp+' ◆'+gd+'. Its placement holds again.');saveU();}
+/* ---------- context action (the pill) ---------- */
+function nearCtx(){
+ const p=S.player;
+ for(const d of U.debris)if(Math.hypot(p.x-d.x,p.y-d.y)<150)return{kind:'salvage',o:d,label:'SALVAGE'};
+ for(const s of U.systems)if(Math.hypot(p.x-s.x,p.y-s.y)<s.r+110)return{kind:'tend',o:s,label:'TEND'};
+ if(S.phase==='nav'){
+  for(const w of S.wilds)if(w.cls!=='hole'&&Math.hypot(p.x-w.x,p.y-w.y)<w.r)return{kind:'adopt',o:w,label:'ADOPT'};
+  for(const c of S.calms)if(Math.hypot(p.x-c.x,p.y-c.y)<c.r*0.8)return{kind:'seed',o:c,label:'SEED'};
+ }
+ return null;}
+function pillTap(){
+ if(S.phase==='nav'||(S.phase==='play'&&!S.eddy)){const c=nearCtx();if(!c)return;
+  if(c.kind==='seed')doSeed(c.o.x,c.o.y,null);
+  else if(c.kind==='adopt')doSeed(c.o.x,c.o.y,c.o);
+  else if(c.kind==='salvage')doSalvage(c.o);
+  else if(c.kind==='tend')doTend(c.o);return;}
+ if(S.phase==='play'){const c=nearCtx();
+  if(c&&(c.kind==='salvage'||c.kind==='tend')&&Math.hypot(S.player.x-S.eddy.x,S.player.y-S.eddy.y)>S.eddy.r+200){
+   if(c.kind==='salvage')doSalvage(c.o);else doTend(c.o);return;}
+  doReseed();}}
+function pillHold(){if(S.choice){anchorChoice();return;}if(S.phase==='play'||S.phase==='nav')toggleQF();}
+/* ---------- tympany ---------- */
+function tapTympany(){
+ if(S.qf||S.hold>0)return;
+ if(S.phase!=='play'&&S.phase!=='nav')return;
+ /* crossing beat? (beat-train: tap inside the window; dead-centre counts double) */
+ if(S.cross&&S.cross.windowOpen&&!S.cross.tapped){
+  S.cross.good+=S.cross.perfect?2:1;S.cross.tapped=true;
+  ping(S.player.x,S.player.y,COL.gold);S.peak*=0.4;return;}
+ const inBand=Math.abs(S.peak)<0.34;
+ if(inBand){S.beats++;S.peak*=0.35;
+  if(S.beats>=3){S.hold=30*60;S.beats=0;ping(S.player.x,S.player.y,COL.gold,true);msg('CENTRED HOLD — space stabilizes around you.');}
+ }else{S.beats=0;S.peak-=Math.sign(S.peak)*0.22;}
+}
+function tympanyStep(dt){
+ if(S.phase!=='play'&&S.phase!=='nav')return;
+ const fr=dt*60;
+ if(S.hold>0){S.hold-=fr;S.peak*=0.9;}
+ else{const push=0.0016+ampAt(S.player.x,S.player.y)*0.0011;
+  S.peakV+= (S.peak>0?push:-push)*fr*(0.4+Math.abs(S.peak));
+  S.peakV*=0.985;S.peak+=S.peakV*fr;
+  if(S.peak>1.15){S.peak=1.15;S.peakV*=-0.4;} if(S.peak<-1.15){S.peak=-1.15;S.peakV*=-0.4;}}
+ if(Math.abs(S.peak)>0.88){S.tym=clamp((S.tym||1)-0.0016*fr,0,1);}else{S.tym=clamp((S.tym||1)+0.001*fr,0,1);}
+ if((S.tym||1)<=0)lose('tympany collapse — the membrane lost the room.');}
+/* ---------- navigation (the wave world) ---------- */
+function ampInfo(x,y){let a=0,bx=0,by=0,bf=null;
+ for(const f of S.waves){const u=x*f.dx+y*f.dy;let d=((u-f.a)%f.lambda+f.lambda)%f.lambda;d=Math.min(d,f.lambda-d);
+  const c=Math.max(0,1-d/130);if(c>a){a=c;bx=f.dx;by=f.dy;bf=f;}}
+ for(const c of S.calms){if(Math.hypot(x-c.x,y-c.y)<c.r)a*=0.22;}
+ return{a:a,dx:bx,dy:by,front:bf};}
+function navStep(dt){
+ const p=S.player;
+ if(!S.qf)for(const f of S.waves)f.a+=f.speed*dt;
+ /* player movement: seek the finger; waves push (px/s physics) */
+ let dvx=0,dvy=0;
+ if(S.seek){const dx=S.seek.x-p.x,dy=S.seek.y-p.y,d=Math.hypot(dx,dy);
+  if(d>6){const sp=Math.min(330,d*4);dvx=dx/d*sp;dvy=dy/d*sp;}}
+ const k=Math.min(1,dt*7);p.vx+=(dvx-p.vx)*k;p.vy+=(dvy-p.vy)*k;
+ if(!S.qf){const ai=ampInfo(p.x,p.y);
+  if(ai.a>0.2&&ai.front){const push=S.cross?430:250;
+   p.vx+=ai.dx*ai.a*push*dt;p.vy+=ai.dy*ai.a*push*dt;}
+  /* --- crossings: entering a crest band commits you to its beat-train ---
+     3 beats at trough spacing; 2 good slips you; dead-centre counts double;
+     backing out beyond 200px before the verdict is always free. */
+  if(!S.cross){
+   for(const f of S.waves){if(f.restT&&S.frame<f.restT)continue;
+    const u=p.x*f.dx+p.y*f.dy;let d=((u-f.a)%f.lambda+f.lambda)%f.lambda;d=Math.min(d,f.lambda-d);
+    if(d<105){const sgn=Math.sign(p.vx*f.dx+p.vy*f.dy)||1;
+     const sc=S.band==='major'?0.8:S.band==='moderate'?0.9:1;
+     S.cross={front:f,t:0,fired:0,good:0,windowOpen:false,perfect:false,tapped:false,sgn:sgn,entryU:u,bt:[0.15*sc,0.70*sc,1.25*sc]};
+     break;}}
+  }else{const c=S.cross;c.t+=dt;
+   const u=p.x*c.front.dx+p.y*c.front.dy;
+   const travel=(u-c.entryU)*c.sgn;
+   if(travel>200&&c.fired<3){
+    /* out the far side: traversal — the clock no longer judges you */
+    if(c.good>=2){U.pow+=2;S.sessP+=2;c.front.restT=S.frame+180;
+     ping(p.x,p.y,COL.gold);teach('cross');msg('Through on the trough beats. +⚡2 — the wave paid you.');}
+    else msg('Muscled through untimed — no trough, no pay.');
+    S.cross=null;}
+   else if(travel<-200&&c.fired<3){S.cross=null;} /* backed out — always free */
+   else{
+    c.windowOpen=false;c.perfect=false;
+    if(c.fired<3){const bt=c.bt[c.fired];
+     if(Math.abs(c.t-bt)<0.16){c.windowOpen=true;c.perfect=Math.abs(c.t-bt)<0.06;}
+     if(c.t>bt+0.16){c.fired++;c.tapped=false;}}
+    if(c.fired>=3){
+     if(c.good>=2){U.pow+=2;S.sessP+=2;c.front.restT=S.frame+180;
+      ping(p.x,p.y,COL.gold);teach('cross');msg('Crossed at the trough. +⚡2 — the wave paid you.');}
+     else{/* FAIL FORWARD: back the way you came */
+      p.vx=-c.sgn*c.front.dx*300;p.vy=-c.sgn*c.front.dy*300;
+      S.peak+=(S.peak>=0?0.55:-0.55);S.pairInst=clamp(S.pairInst+0.04,0,1);S.unmanaged=(S.unmanaged||0)+1;
+      msg('Crest hit — shoved back. Two good taps in the trough windows slips you through.');}
+     S.cross=null;}}
+  }
+ }
+ p.x=clamp(p.x+p.vx*dt,20,WORLD_W-20);p.y=clamp(p.y+p.vy*dt,20,WORLD_H-20);
+ /* pickups */
+ for(const t of S.pickups){if(t.taken)continue;t.ph+=dt*2;
+  if(Math.hypot(p.x-t.x,p.y-t.y)<44){t.taken=true;
+   if(t.type==='ind')U.toolInd++;else U.toolCap++;
+   ping(t.x,t.y,t.type==='ind'?COL.cyan:COL.green);teach('bank');
+   msg((t.type==='ind'?'Inducer':'Capacitor')+' banked. Bank: I×'+U.toolInd+' C×'+U.toolCap+'.');saveU();}}
+ /* static: clear near view, regrow elsewhere */
+ if(S.grid&&!S.qf){const vr=viewR();
+  for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){const x=c*CS+30,y=r*CS+30;
+   const d=Math.hypot(x-p.x,y-p.y);const i=r*GW+c;
+   if(d<vr)S.grid[i]=Math.min(1,S.grid[i]+0.022*(1-d/vr)*dt*60);
+   else if(!S.qf)S.grid[i]=Math.max(0.05,S.grid[i]-S.regrow*dt*60*(0.6+hash2(c,r)));}
+  /* kept pockets: systems hold their ground clear */
+  for(const s of U.systems){const rad=s.r+90+130;
+   for(let r=0;r<GH;r++)for(let c=0;c<GW;c++){const x=c*CS+30,y=r*CS+30;
+    if(Math.hypot(x-s.x,y-s.y)<rad){const i=r*GW+c;if(S.grid[i]<0.85)S.grid[i]=0.85;}}}}
+ /* camera follows the player; universe zooms out as it fills */
+ const ns=U.systems.length;S.zoom=ns>=8?0.55:ns>=3?0.72:0.88;
+ S.camX=clamp(p.x-(W/2)/S.zoom,0,Math.max(0,WORLD_W-W/S.zoom));
+ S.camY=clamp(p.y-(H/2)/S.zoom,0,Math.max(0,WORLD_H-H/S.zoom));
+}
+/* ---------- attunement (ability tiers; NOT evolution) ---------- */
+function updateAttune(){const m=Math.min(S.sessP,S.sessD);
+ const t=m>=900?3:m>=400?2:m>=150?1:0;
+ if(t>S.attune){S.attune=t;ping(S.eddy?S.eddy.x:S.player.x,S.eddy?S.eddy.y:S.player.y,COL.gold,true);
+  msg('ATTUNEMENT '+t+(t===1?' — resonant reach.':t===2?' — orbit seeking. Release the inducer near the eddy.':' — orbital lock. The capacitor joins the orbit.'));}}
+/* ---------- eddy play ---------- */
+function toolCoupling(o,isCap){const e=S.eddy;if(!e)return 0;const d=Math.hypot(o.x-e.x,o.y-e.y);
+ if(isCap){const ring=Math.abs(d-e.r);return clamp(1-ring/120,0,1);}
+ return clamp(1-d/((S.attune>=1?340:260)+e.r),0,1);}
+function pullPhase(o,amt){const d=Math.atan2(Math.sin(S.eddy.ph-o.ph),Math.cos(S.eddy.ph-o.ph));o.ph+=d*amt;}
+function growEddy(amt){const e=S.eddy;if(!e)return;e.r=clamp(e.r+amt,34,EMAX);}
+function doReseed(){
+ if(S.phase!=='play'||!S.eddy||S.qf)return;
+ const e=S.eddy;
+ if(Math.hypot(S.player.x-e.x,S.player.y-e.y)>e.r+260){msg('Too far from your eddy to reseed.');return;}
+ S.reseeds++;
+ /* weigh-in choice first (Jeans), as built in v0.8 */
+ const W=e.accP+e.accD+e.weight*0.5;
+ if(W>=JEANS&&!e.anchored&&!S.choice){S.choice={t:12};
+  msg('WEIGH-IN — tap the eddy to SPLIT, long-press the pill to ANCHOR.');ping(e.x,e.y,COL.gold,true);return;}
+ /* capacitor offload: pull from the pair, half to weight */
+ if(S.cap&&S.cap.charge>2){const pull=18+S.cap.charge*0.15;
+  for(let i=0;i<10;i++)S.flows.push({x:PX+(i%2?150:-150)*(S.pairGap),y:PY,x2:S.cap.x,y2:S.cap.y,t:0,col:COL.gold});
+  const half=S.cap.charge/2;e.weight+=half;e.storeP+=half*0.4;e.storeD+=half*0.3;
+  S.cap.charge=0;S.pairGap=clamp(S.pairGap+0.008,0,1);msg('Offload — the pair paid the capacitor, half rides as weight.');}
+ /* unmanaged waves bill the banks */
+ const un=Math.floor((S.unmanagedT||0)/2);S.unmanagedT=0;
+ if(un>=3){const dp=un*0.35,dd=un*0.30;U.pow=Math.max(0,U.pow-dp);U.dat=Math.max(0,U.dat-dd);
+  for(let i=0;i<6;i++)S.flows.push({x:e.x,y:e.y,x2:PX+(i%2?150:-150)*(S.pairGap),y2:PY,t:0,col:COL.violet});
+  msg('Loose waves fed the pair. Banks billed ⚡'+dp.toFixed(1)+' ◆'+dd.toFixed(1)+'.');}
+ e.accP=0;e.accD=0;
+ if(e.weight>=40){resolveFork();}
+ saveU();}
+function resolveFork(){const e=S.eddy;
+ const capStab=(S.cap&&Math.abs(Math.hypot(S.cap.x-e.x,S.cap.y-e.y)-e.r)<30)?1:0;
+ const pEat=clamp(0.10+e.weight/300+S.pairInst*0.35-capStab*0.12-(S.hold>0?0.15:0)-(e.anchored?0.10:0),0.03,0.75);
+ const pStab=clamp(0.16+capStab*0.14+(S.hold>0?0.18:0)+tymF()*0.10+(e.anchored?0.12:0),0.05,0.80);
+ const roll=Math.random();
+ if(roll<pEat){const lost=e.weight*0.75;e.weight*=0.25;e.r*=0.88;S.pairInst=clamp(S.pairInst+0.12,0,1);S.pairMass+=0.15;
+  e.storeP=Math.max(0,e.storeP-12);e.storeD=Math.max(0,e.storeD-16);
+  ping(e.x,e.y,COL.violet,true);msg("The pair ate Eddie's contents. Weight was a wager.");}
+ else if(roll<pEat+pStab){e.storeP+=e.weight;e.storeD+=e.weight*0.8;e.weight*=0.2;
+  ping(e.x,e.y,COL.gold,true);msg('Eddie stabilized — full weight banked into its body.');}
+ else{e.weight*=0.6;msg('The weight rode the reseed, unresolved.');}}
+function checkCondense(){const e=S.eddy;if(!e||e.r<EMAX-0.5||S.ball)return;
+ const scale=1+(e.adopted?e.adopted.condenses*0.15:0);
+ S.ball={x:e.x,y:e.y,vx:60,vy:-40,valP:115*scale,valD:184*scale,t:50,ph:0};
+ e.r=42;ping(e.x,e.y,COL.gold,true);msg('CONDENSATE — loose ball. Bank it with the capacitor before it decays.');}
+function ballStep(dt){const b=S.ball;if(!b)return;const fr=dt*60;
+ b.t-=dt;b.ph+=dt*3;b.x+=b.vx*dt;b.y+=b.vy*dt;
+ if(b.x<30||b.x>WORLD_W-30)b.vx*=-1;if(b.y<30||b.y>WORLD_H-30)b.vy*=-1;
+ const c=S.cap;
+ if(c&&c.active&&Math.hypot(c.x-b.x,c.y-b.y)<(c.r+16)){
+  if(dphi(c.ph,b.ph)<0.6){const e=S.eddy;e.storeP+=b.valP;e.storeD+=b.valD;e.stability=clamp(e.stability+0.35,0,1);
+   ping(b.x,b.y,COL.gold,true);msg('Condensate banked into the eddy: ⚡'+Math.round(b.valP)+' ◆'+Math.round(b.valD)+'.');
+   if(e.adopted){e.adopted.condenses++;
+    if(e.adopted.condenses===2){e.tipWarned=1;teach('danger');msg('The adopted eddy tips DANGEROUS. One more condense breaks it.');}
+    else if(e.adopted.condenses>=3){adoptCollapse();}}
+   S.ball=null;return;}
+  else{b.valP/=2;b.valD/=2;const e=S.eddy;e.storeD=Math.max(0,e.storeD-10);
+   b.vx=130*(Math.random()<0.5?-1:1);b.vy=90*(Math.random()<0.5?-1:1);
+   ping(b.x,b.y,COL.red);msg('SHORT — misaligned. The ball scattered, value halved.');}}
+ if(S.ind&&Math.hypot(S.ind.x-b.x,S.ind.y-b.y)<(S.ind.r+16)){b.vx*=-0.8;b.vy+=(Math.random()-0.5)*60;}
+ if(b.t<=0){S.ball=null;msg('Condensate lost to the field.');}}
+function adoptCollapse(){const e=S.eddy;if(!e)return;
+ U.debris.push({x:e.x,y:e.y,p:e.storeP*0.4,d:e.storeD*0.4});
+ ping(e.x,e.y,COL.violet,true);msg('GREED LIMIT — the adopted eddy broke into a debris field. Salvage it and move on.');
+ S.eddy=null;S.ind=null;S.cap=null;S.ind2=null;S.ball=null;S.phase='nav';saveU();}
+/* ---------- eddy step ---------- */
+function siphon(amount,isP){const e=S.eddy;const half=amount/2;
+ if(isP){U.pow+=half;S.sessP+=half;e.storeP+=half;e.accP+=amount;}
+ else{U.dat+=half;S.sessD+=half;e.storeD+=half;e.accD+=amount;}}
+function orbitTool(o,rad,rate){const e=S.eddy;o.oa=(o.oa||0)+rate;
+ const tx=e.x+rad*Math.cos(o.oa),ty=e.y+rad*Math.sin(o.oa);
+ o.x+=(tx-o.x)*0.12;o.y+=(ty-o.y)*0.12;}
+function playStep(dt){
+ const e=S.eddy;if(!e)return;const fr=dt*60;
+ e.ph+=dt*(0.7+e.spin);e.wob=Math.sin(S.frame*0.05)*3;
+ /* drift the eddy centre gently toward pair centre when unmanaged */
+ const tools=[['ind',S.ind],['cap',S.cap],['ind2',S.ind2]];
+ let anyLock=false,orbiting=0;
+ for(const [nm,o] of tools){if(!o)continue;
+  o.ph+=dt*(nm==='cap'?0.9:1.1);
+  const d=Math.hypot(o.x-e.x,o.y-e.y);
+  /* fill by position */
+  const inZone=nm==='cap'?Math.abs(d-e.r)<32:d<e.r*0.62;
+  if(inZone&&!o.held)o.fill=clamp(o.fill+dt*0.30*(0.35+0.65*tymF()),0,1);
+  else o.fill=clamp(o.fill-dt*0.05,0,1);
+  if(o.fill>=0.98&&!o.active){o.active=true;ping(o.x,o.y,nm==='cap'?COL.green:COL.cyan);msg((nm==='cap'?'Capacitor':'Inducer')+' ACTIVE.');}
+  const q=o.active?clamp(1-dphi(o.ph,e.ph)/1.2,0,1):0;
+  if(o.active&&q>=0.7){anyLock=true;pullPhase(o,0.05);}
+  /* orbit (attunement tiers) */
+  const canOrbit=(nm==='ind'&&S.attune>=2)||(nm==='cap'&&S.attune>=3&&!S.ball)||(nm==='ind2'&&S.attune>=2);
+  if(canOrbit&&o.active&&!o.held&&d<e.r*1.65+40){o.orb=true;}
+  if(o.held)o.orb=false;
+  if(o.orb){orbitTool(o,nm==='cap'?e.r+18:e.r*0.58,(0.010+0.004*e.spin)*fr);orbiting++;
+   if(q>=0.5)pullPhase(o,0.055);}
+  /* siphon */
+  if(o.active&&q>0.35){const mult=(S.sub?0.5:1)*tymF()*q*(e.r/100);
+   if(nm==='cap'){siphon(2.2*mult*dt,true);siphon(1.6*mult*dt,false);o.charge=clamp(o.charge+dt*1.5*q,0,60);}
+   else{siphon(1.0*mult*dt,false);}}
+ }
+ if(S.ind&&S.ind.active&&S.cap&&S.cap.active&&!U.seen.placed){U.seen.placed=1;saveU();
+  msg('Both tools live and filling the eddy. Dragging a tool through its zone grows it. Reseed (pill) to weigh in.');}
+ e.spin+= ((anyLock?0.9:0.35)-e.spin)*0.01*fr;
+ if(!anyLock&&ampInfo(e.x,e.y).a>0.45)S.unmanagedT=(S.unmanagedT||0)+dt;
+ /* stability from orbit */
+ if(orbiting>0&&!S.qf){e.stability=clamp(e.stability+0.028*fr*0.016*(0.55+0.45*tymF())*(orbiting>1?1.6:1),0,1);}
+ else e.stability=clamp(e.stability-0.02*fr*0.016,0,1);
+ if(e.stability>=1&&!e.ready){e.ready=true;ping(e.x,e.y,COL.gold,true);msg('SYSTEM STABLE — tap the eddy to leave it holding and roam on.');}
+ /* satellites */
+ for(let i=S.sats.length-1;i>=0;i--){const s=S.sats[i];
+  const d=Math.hypot(s.x-e.x,s.y-e.y);
+  if(d<e.r+s.r){e.r=clamp(Math.sqrt(e.r*e.r+s.r*s.r),34,EMAX);S.sats.splice(i,1);ping(e.x,e.y,COL.cyan);msg('Eddies merged — radii add in quadrature.');continue;}
+  if(d<e.r+s.r+70){e.storeP+=0.2*dt;e.storeD+=0.2*dt;}
+  s.x+=(e.x-s.x)*0.002*fr;s.y+=(e.y-s.y)*0.002*fr;}
+ /* choice timer */
+ if(S.choice){S.choice.t-=dt;if(S.choice.t<=0)S.choice=null;}
+ checkCondense();ballStep(dt);
+}
+/* ---------- pair, systems, eon ---------- */
+function eonTick(){
+ const standing=U.systems.filter(s=>s.stab>=0.5).length;
+ if(U.evolved&&standing>=EON_STABLE){const bonus=Math.min(U.pow,U.dat)*0.02;
+  U.pow+=bonus;U.dat+=bonus;U.eons++;teach('eon');
+  msg('EON TICK — '+standing+' standing. Consistency dividend: ⚡◆ +'+Math.round(bonus)+' each.');}
+ else if(U.evolved)msg('An eon turned: '+standing+'/23 standing — no dividend. The loop still pays its normal harvest.');
+ saveU();}
+function systemsStep(dt){
+ const bp=bandParams();const driftF=bp.amp*(U.evolved?0.5:1);
+ /* pair */
+ const locked=S.eddy&&(S.ind&&S.ind.active||S.cap&&S.cap.active);
+ S.pairGap=clamp(S.pairGap+dt*((locked?0.004:0)-0.0022*(1+S.pairInst)),0.16,1);
+ S.pairInst=clamp(S.pairInst-dt*0.01,0,1);
+ S.pairPhase+=dt*(0.02+(locked?0.05:0));
+ if(S.pairPhase>=Math.PI*2){S.pairPhase-=Math.PI*2;eonTick();}
+ if(S.pairGap<=0.17&&S.pairInst>0.55&&S.eddy){const e=S.eddy;
+  U.debris.push({x:e.x,y:e.y,p:e.storeP*0.4,d:e.storeD*0.4});
+  S.eddy=null;S.ind=null;S.cap=null;S.ind2=null;S.ball=null;S.phase='nav';
+  msg('INGESTION — the pair took the eddy. It persists as debris.');saveU();}
+ /* left systems */
+ const decay=0.0022*driftF*(U.evolved?0.5:1);
+ for(let i=U.systems.length-1;i>=0;i--){const s=U.systems[i];
+  s.accP+=dt*0.11*(s.r/100);s.accD+=dt*0.09*(s.r/100);
+  s.stab=clamp(s.stab-decay*dt*60*0.016*60/60,0,1);
+  s.x+=s.dvx*dt*driftF;s.y+=s.dvy*dt*driftF;
+  s.x=clamp(s.x,60,WORLD_W-60);s.y=clamp(s.y,60,WORLD_H-60);
+  if(s.stab<=0){U.debris.push({x:s.x,y:s.y,p:(s.storeP+s.accP)*0.4,d:(s.storeD+s.accD)*0.4});
+   U.systems.splice(i,1);ping(s.x,s.y,COL.violet,true);
+   msg('A system collapsed into a debris field. Nothing is lost — stabilize it.');teach('debris');saveU();}}
+ /* approach + mergers */
+ for(let i=0;i<U.systems.length;i++)for(let j=i+1;j<U.systems.length;j++){
+  const a=U.systems[i],b=U.systems[j];const d=Math.hypot(a.x-b.x,a.y-b.y);
+  if(d<(a.r+b.r)*0.9){mergeSystems(i,j);return;}
+  if(d<a.r+b.r+130&&(S.sysMsgCd||0)<=0){S.sysMsgCd=20;
+   msg('Two systems are drifting together — tend one to re-anchor it, or let them meet.');}}
+ if(S.sysMsgCd>0)S.sysMsgCd-=dt;
+ /* black hole pull on the player */
+ for(const w of S.wilds){if(w.cls!=='hole')continue;
+  const d=Math.hypot(S.player.x-w.x,S.player.y-w.y);
+  if(d<330&&d>4){const pull=(1-d/330)*46*dt;S.player.x+=(w.x-S.player.x)/d*pull;S.player.y+=(w.y-S.player.y)/d*pull;}
+  if(S.eddy&&Math.hypot(S.eddy.x-w.x,S.eddy.y-w.y)<w.r+S.eddy.r*0.4){const e=S.eddy;
+   U.debris.push({x:e.x,y:e.y,p:e.storeP*0.4,d:e.storeD*0.4});
+   S.eddy=null;S.ind=null;S.cap=null;S.ind2=null;S.ball=null;S.phase='nav';
+   msg('The black hole took the eddy. What remains is debris — and debris can be banked.');teach('hole');saveU();}}
+ /* dangerous aura */
+ for(const w of S.wilds){if(w.cls!=='dangerous')continue;
+  if(Math.hypot(S.player.x-w.x,S.player.y-w.y)<300){S.peak+=dt*0.5*(S.peak>=0?1:-1)*0.4;
+   if((S.sysMsgCd||0)<=0){S.sysMsgCd=16;teach('danger');}}}}
+function mergeSystems(i,j){
+ const a=U.systems[i],b=U.systems[j];
+ if(a.stab>=0.5&&b.stab>=0.5){const pay=(a.storeP+a.accP+b.storeP+b.accP)*1.25,payd=(a.storeD+a.accD+b.storeD+b.accD)*1.25;
+  U.pow+=pay;U.dat+=payd;S.sessP+=pay;S.sessD+=payd;
+  a.r=clamp(Math.sqrt(a.r*a.r+b.r*b.r),34,260);a.storeP=0;a.storeD=0;a.accP=0;a.accD=0;
+  a.stab=clamp((a.stab+b.stab)/2+0.2,0,1);a.dvx=0;a.dvy=0;
+  U.systems.splice(j,1);ping(a.x,a.y,COL.gold,true);teach('merge');
+  msg('CLEAN MERGER — stabilized as one. Payout ⚡'+Math.round(pay)+' ◆'+Math.round(payd)+' (×1.25 synergy).');}
+ else{U.debris.push({x:a.x,y:a.y,p:(a.storeP+a.accP)*0.4,d:(a.storeD+a.accD)*0.4});
+  U.debris.push({x:b.x,y:b.y,p:(b.storeP+b.accP)*0.4,d:(b.storeD+b.accD)*0.4});
+  U.systems.splice(j,1);U.systems.splice(i,1);
+  msg('TRANSDUCER COLLISION — both systems are debris fields now. Reduced, not gone.');teach('debris');}
+ saveU();}
+/* ---------- records / win / lose / misc ---------- */
+function pushRecord(kind){U.records.push({d:Date.now(),mode:S.mode,band:S.band,kind:kind,
+ systems:U.systems.length,sessMin:Math.round(Math.min(S.sessP,S.sessD)),
+ score:Math.round(Math.min(S.sessP,S.sessD))+S.sessLeft*100});
+ if(U.records.length>60)U.records.splice(0,U.records.length-60);saveUnow();}
+function leaveSystem(){const e=S.eddy;if(!e||!e.ready)return;
+ const ox=((S.ind?S.ind.x: e.x)+(S.cap?S.cap.x:e.x))/2-e.x, oy=((S.ind?S.ind.y:e.y)+(S.cap?S.cap.y:e.y))/2-e.y;
+ const om=Math.hypot(ox,oy),df=(0.7+bandParams().amp*0.6);
+ U.systems.push({x:e.x,y:e.y,r:e.r,storeP:e.storeP,storeD:e.storeD,accP:0,accD:0,
+  stab:1,spin:e.spin,dvx:om>1?ox/om*clamp(om/40,0,1)*df:0,dvy:om>1?oy/om*clamp(om/40,0,1)*df:0});
+ U.totalStabilized++;S.sessLeft++;pushRecord('stabilized');
+ ping(e.x,e.y,COL.gold,true);teach('firstSys');
+ S.eddy=null;S.ind=null;S.cap=null;S.ind2=null;S.ball=null;S.sats=[];S.phase='nav';
+ if(S.sessLeft>=3&&!S.won){S.won=true;msg('Three systems stable — the network holds. TUTORIAL COMPLETE. The universe is yours to keep building.');}
+ else msg('System left holding. '+U.systems.length+' standing in your universe.');
+ saveU();}
+function win(text){if(S.won)return;S.won=true;msg(text);}
+function lose(why){if(S.over)return;S.over=true;
+ if(S.eddy&&(S.eddy.storeP+S.eddy.storeD)>10)U.debris.push({x:S.eddy.x,y:S.eddy.y,p:S.eddy.storeP*0.4,d:S.eddy.storeD*0.4});
+ pushRecord('collapse');S.phase='start';
+ msg(why+' The universe persists — banks, systems and debris are still out there.');saveUnow();}
+function toggleQF(){if(S.phase!=='play'&&S.phase!=='nav')return;S.qf=!S.qf;
+ msg(S.qf?'QUIET FIELD — the universe holds its breath. Arrange in the stillness.':'Quiet field off. The flow resumes.');}
+function setSub(on){S.sub=on;$('bSub').classList.toggle('on',on);
+ msg(on?'Subharmonic lock on — half-rate tracking, half yield, still water.':'Subharmonic lock off.');}
+function evolve(){if(U.evolved||U.pow<EVO_COST||U.dat<EVO_COST)return;
+ U.pow-=EVO_COST;U.dat-=EVO_COST;U.evolved=1;pushRecord('evolution');
+ msg('EVOLUTION 1 — MHD compliance throughout. Drift halves. The flow rules now hold everywhere.');saveUnow();}
+/* ---------- choice resolution ---------- */
+function splitChoice(){const e=S.eddy;if(!e||!S.choice)return;
+ const sr=clamp(e.r/Math.SQRT2*0.8,14,64);
+ e.r=clamp(Math.sqrt(e.r*e.r-sr*sr),34,EMAX);e.weight*=0.5;
+ S.sats.push({x:e.x+e.r+sr+14,y:e.y,r:sr,ph:Math.random()*6.28});
+ S.choice=null;ping(e.x,e.y,COL.cyan,true);msg('Eddie split — the satellite will drift home or merge.');}
+function anchorChoice(){const e=S.eddy;if(!e||!S.choice)return;
+ if(U.toolInd<1){msg('Anchoring a second inducer needs 1 inducer in the bank. Split, or let it lapse.');return;}
+ U.toolInd--;e.anchored=true;S.choice=null;
+ S.ind2={x:e.x-e.r-70,y:e.y-90,r:30,fill:0.6,active:false,held:false,ph:Math.random()*6.28,orb:false,oa:0};
+ ping(e.x,e.y,COL.gold,true);msg('ANCHORED — fixed centre, slow growth, no decay. Second inducer deployed from the bank.');saveU();}
+/* ---------- input (single finger) ---------- */
+function pos(e){const r=cv.getBoundingClientRect();const t=e.touches?e.touches[0]:e;
+ return{x:(t.clientX-r.left)*W/r.width,y:(t.clientY-r.top)*H/r.height};}
+function toWorld(p){return{x:S.camX+p.x/S.zoom,y:S.camY+p.y/S.zoom};}
+function inPill(p){return (S.phase==='play'||S.phase==='nav')&&p.x>CX-135&&p.x<CX+135&&p.y>H-222&&p.y<H-150;}
+function grab(e){const p0=pos(e);const pw=toWorld(p0);
+ S.touch={t:performance.now(),x:p0.x,y:p0.y,moved:0,pill:inPill(p0),last:pw};
+ if(S.touch.pill)return;
+ if(S.phase==='start'){ /* torus tap = evolve when ready */
+  if(!U.evolved&&U.pow>=EVO_COST&&U.dat>=EVO_COST)evolve();return;}
+ if(S.phase==='reveal'){S.revealT=Math.max(S.revealT,0.85);return;}
+ if(S.phase!=='play'&&S.phase!=='nav')return;
+ /* knob grab */
+ const knobs=[S.ind,S.cap,S.ind2];
+ for(const o of knobs){if(o&&Math.hypot(pw.x-o.x,pw.y-o.y)<52){
+  o.held=true;S.dragTool=o;
+  if(S.eddy){S.eddy.stability=Math.min(S.eddy.stability,0.82);S.eddy.ready=false;}
+  return;}}
+ S.seek=pw;}
+function move(e){if(!S.touch)return;const p0=pos(e);const pw=toWorld(p0);
+ S.touch.moved=Math.max(S.touch.moved,Math.hypot(p0.x-S.touch.x,p0.y-S.touch.y));
+ if(S.dragTool){const o=S.dragTool;const d=Math.hypot(pw.x-o.x,pw.y-o.y);
+  o.x=pw.x;o.y=pw.y;const ed=S.eddy;
+  if(ed&&o.active!==false){const coup=toolCoupling(o,o===S.cap);
+   if(o===S.ind||o===S.ind2){if(Math.hypot(o.x-ed.x,o.y-ed.y)<ed.r*0.85)growEddy(d*0.0035*coup*tymF());}
+   if(o===S.cap){if(Math.abs(Math.hypot(o.x-ed.x,o.y-ed.y)-ed.r)<44){o.charge=clamp(o.charge+d*0.05,0,60);growEddy(d*0.0015*tymF());}}}
+ }else if(S.phase==='play'||S.phase==='nav'){S.seek=pw;}
+ S.touch.last=pw;}
+function drop(e){if(!S.touch)return;const dt=performance.now()-S.touch.t;
+ const wasPill=S.touch.pill,moved=S.touch.moved;
+ if(S.dragTool){S.dragTool.held=false;S.dragTool=null;}
+ S.seek=null;
+ if(wasPill){if(dt>650)pillHold();else pillTap();S.touch=null;return;}
+ if(dt<260&&moved<14&&(S.phase==='play'||S.phase==='nav')){
+  const pw=S.touch.last;
+  if(S.choice&&S.eddy&&Math.hypot(pw.x-S.eddy.x,pw.y-S.eddy.y)<S.eddy.r){splitChoice();S.touch=null;return;}
+  if(S.eddy&&S.eddy.ready&&Math.hypot(pw.x-S.eddy.x,pw.y-S.eddy.y)<S.eddy.r){leaveSystem();S.touch=null;return;}
+  /* tap on the tympany strip = a beat; tap anywhere = tympany tap too */
+  tapTympany();}
+ S.touch=null;}
+cv.addEventListener('touchstart',grab,{passive:false});cv.addEventListener('touchmove',e=>{e.preventDefault();move(e);},{passive:false});
+cv.addEventListener('touchend',drop);cv.addEventListener('mousedown',grab);cv.addEventListener('mousemove',move);cv.addEventListener('mouseup',drop);
+$('bStart').onclick=()=>{if(S.phase!=='start')return;
+ S.mode='default';S.band='base';const bp=bandParams();S.static0=bp.static0;S.regrow=bp.regrow;
+ S.arc=SIG_ARC.slice();S.level=0.30;S.skipSample=true;S.phase='zoom';S.zoomT=0;
+ msg('Default mode — the base seed. Your universe, pre-tuned by your own voice.');};
+$('bSample').onclick=()=>{if(S.phase==='start'){S.mode='comp';S.skipSample=false;S.phase='zoom';S.zoomT=0;
+  msg('Competitive mode — the room you sample is the universe you get.');return;}
+ if(S.phase==='sample')startSample();};
+$('bSub').onclick=()=>{if(S.phase==='start'){S.recordsOpen=!S.recordsOpen;return;}setSub(!S.sub);};
+$('phrase').addEventListener('input',ev=>{if(ev.target.value.trim().toLowerCase()==='consistency is key'){setSub(true);ev.target.value='';}});
+/* ---------- main loop ---------- */
+let lastT=performance.now();
+function loop(){requestAnimationFrame(loop);
+ const now=performance.now();let dt=(now-lastT)/1000;lastT=now;
+ dt=clamp(dt,0.001,0.05);S.frame++;
+ if(S.phase==='zoom'){S.zoomT+=dt/4.5;if(S.zoomT>=1){S.phase=S.skipSample?'settle':'sample';
+  if(S.phase==='settle'){S.sample=0;}msg(S.skipSample?'Inside the static. The base seed settles.':'Inside the static. Release the seed sound — SAMPLE ROOM.');}}
+ if(S.phase==='settle'){S.sample+=dt/2.2;if(S.sample>=1){S.phase='reveal';S.revealT=0;genWorld();msg('The seed sound clears the static — look.');}}
+ if(S.phase==='reveal'){S.revealT+=dt/4.2;if(S.revealT>=1){S.phase='nav';S.tym=1;
+  msg('The static closed over it. Cross the waves, gather tools, seed a calm.');teach('bank');}}
+ if(S.phase==='nav'||S.phase==='play'){
+  {const nc=nearCtx();S.ctxLabel=nc?nc.label:'';
+   if(S.ctxLabel==='SEED'&&!S.calmHint){S.calmHint=true;
+    msg(U.toolInd>=1&&U.toolCap>=1?'A calm — open water. Tap SEED (the gold pill) to plant your eddy here.':'A calm — but seeding takes 1 inducer + 1 capacitor from the bank. Follow the gold line to a pickup.');}
+   if(S.ctxLabel==='ADOPT'&&!S.adoptHint){S.adoptHint=true;
+    msg('A wild eddy. Tap ADOPT (the gold pill) to join it — your tools deploy beside it.');}}
+  if(!S.qf){navStep(dt);if(S.phase==='play')playStep(dt);systemsStep(dt);}
+  else{navStep(dt);} /* navStep self-gates wave advance/decay on qf for sim parts */
+  if(!S.qf)tympanyStep(dt);updateAttune();
+  for(let i=S.pings.length-1;i>=0;i--){S.pings[i].t+=dt*1.3;if(S.pings[i].t>1)S.pings.splice(i,1);}
+  for(let i=S.flows.length-1;i>=0;i--){S.flows[i].t+=dt*1.6;if(S.flows[i].t>1)S.flows.splice(i,1);}
+ }
+ draw();saveU();}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveUnow();});
+/* ---------- drawing ---------- */
+function spiral(cx,cy,r,col,arms,lw,rot){ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();
+ for(let a=0;a<arms;a++){for(let i=0;i<=90;i++){const t=i/90,ang=a*2*Math.PI/arms+t*4.4+(rot||0),rr=5+(r-5)*t;
+  const x=cx+rr*Math.cos(ang),y=cy+rr*Math.sin(ang);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}}ctx.stroke();}
+function hex(x,y,r,col,core){ctx.strokeStyle=col;ctx.lineWidth=3;ctx.beginPath();
+ for(let i=0;i<6;i++){const a=Math.PI/6+i*Math.PI/3,px=x+r*Math.cos(a),py=y+r*Math.sin(a);i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+ ctx.closePath();ctx.stroke();ctx.fillStyle=core;ctx.beginPath();ctx.arc(x,y,r*0.26,0,7);ctx.fill();}
+function torusScene(cx,cy,R,flow){const g=ctx.createRadialGradient(cx,cy,R*0.1,cx,cy,R*1.5);
+ g.addColorStop(0,'#0d1730');g.addColorStop(1,'#070b16');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ spiral(cx,cy,R,COL.cyan,3,3,flow*0.2);spiral(cx,cy,R*0.72,COL.violet,2,2,-flow*0.13);
+ ctx.fillStyle='rgba(224,160,32,0.85)';ctx.beginPath();ctx.ellipse(cx,cy,R*0.10,R*0.42,0,0,7);ctx.fill();
+ for(let i=0;i<26;i++){const t=((flow*0.14+i/26)%1),ang=i*2.4;
+  const x=cx+Math.cos(ang)*R*(0.16+0.1*Math.sin(t*6.28)),y=cy+(t-0.5)*R*1.5;
+  ctx.fillStyle='rgba(255,220,130,'+(0.25+0.6*t)+')';ctx.beginPath();ctx.arc(x,y,2.4,0,7);ctx.fill();}}
+function pillLabel(){
+ if(S.choice)return 'TAP EDDY = SPLIT · HOLD = ANCHOR';
+ if(S.phase==='nav'){const c=nearCtx();return c?c.label:'ROAM';}
+ if(S.phase==='play'){const c=nearCtx();
+  if(c&&(c.kind==='salvage'||c.kind==='tend')&&S.eddy&&Math.hypot(S.player.x-S.eddy.x,S.player.y-S.eddy.y)>S.eddy.r+200)return c.label;
+  return S.eddy?'RESEED':'ROAM';}
+ return '';}
+function draw(){
+ /* bank line */
+ $('bankline').innerHTML='⚡<b>'+Math.floor(U.pow)+'</b> ◆<i>'+Math.floor(U.dat)+'</i> · bank I×'+U.toolInd+' C×'+U.toolCap+
+  ' · '+U.systems.length+' standing'+(U.evolved?' · EVO 1 · eons '+U.eons:'')+
+  (S&&(S.phase==='nav'||S.phase==='play')?' · run balance '+Math.floor(Math.min(S.sessP,S.sessD)):'');
+ const inGame=S&&(S.phase==='nav'||S.phase==='play');
+ $('controls').style.display=inGame?'none':'grid';
+ $('phraseRow').style.display=(S&&S.phase==='play')?'block':'none';
+ $('bSub').textContent=S&&S.phase==='start'?'RECORDS':'SUB LOCK';
+ ctx.setTransform(1,0,0,1,0,0);
+ if(!S||S.phase==='start'){torusScene(CX,470,215,S?S.frame*0.016:0);
+  ctx.fillStyle='#eaf4ff';ctx.textAlign='center';ctx.font='bold 44px ui-monospace,monospace';
+  ctx.fillText('SHADOW MAN',CX,830);
+  ctx.font='17px ui-monospace,monospace';ctx.fillStyle=COL.cyan;
+  ctx.fillText('THE KITCHEN FLUX · POCKET v2.0',CX,862);
+  ctx.fillStyle='#cfe8ff';ctx.font='16px ui-monospace,monospace';
+  ctx.fillText('Your universe: ⚡'+Math.floor(U.pow)+' ◆'+Math.floor(U.dat)+' · '+U.systems.length+' systems standing · '+U.totalStabilized+' stabilized all-time',CX,912);
+  ctx.fillStyle=COL.dim;
+  ctx.fillText('START · DEFAULT — base seed, your own voice, quiet water',CX,952);
+  ctx.fillText('COMPETITIVE — a live room sample builds the universe',CX,980);
+  ctx.fillText('Cross waves at the trough. Seed a calm. Grow what returns.',CX,1010);
+  if(!U.evolved&&U.pow>=EVO_COST&&U.dat>=EVO_COST){ctx.fillStyle=COL.gold;
+   ctx.fillText('★ THE UNIVERSE CAN EVOLVE — tap the torus (1M ⚡ + 1M ◆) ★',CX,1050);}
+  if(S&&S.recordsOpen){ctx.fillStyle='rgba(7,11,22,0.92)';ctx.fillRect(60,120,600,760);
+   ctx.strokeStyle=COL.cyan;ctx.strokeRect(60,120,600,760);
+   ctx.fillStyle='#eaf4ff';ctx.font='bold 20px ui-monospace,monospace';ctx.fillText('LOCAL RECORDS — climb your categories',CX,162);
+   ctx.font='14px ui-monospace,monospace';ctx.textAlign='left';
+   const recs=U.records.slice(-14).reverse();let y=200;
+   if(!recs.length){ctx.fillStyle=COL.dim;ctx.fillText('No runs yet. Stabilize a system to open the board.',90,y);}
+   for(const r of recs){ctx.fillStyle='#cfe8ff';
+    ctx.fillText(new Date(r.d).toLocaleDateString()+' · '+r.mode.toUpperCase()+'/'+r.band.toUpperCase()+' · '+r.kind,90,y);y+=24;
+    ctx.fillStyle=COL.gold;ctx.fillText('   score '+r.score+' · balance '+r.sessMin+' · systems '+r.systems,90,y);y+=34;if(y>850)break;}
+   ctx.textAlign='center';}
+  return;}
+ if(S.phase==='zoom'){const z=S.zoomT;ctx.save();ctx.translate(CX,470);ctx.scale(1+2.1*z,1+2.1*z);ctx.translate(-CX,-470);
+  torusScene(CX,470,215,S.frame*0.016);ctx.restore();
+  ctx.fillStyle='rgba(200,220,255,'+(z*z*0.8)+')';
+  for(let i=0;i<300;i++){const x=hash2(i,S.frame>>2)*W,y=hash2(i+9,S.frame>>2)*H;ctx.fillRect(x,y,2,2);}
+  ctx.fillStyle='#eaf4ff';ctx.textAlign='center';ctx.font='18px ui-monospace,monospace';
+  ctx.fillText('Descending through the bore…',CX,1080);return;}
+ if(S.phase==='sample'){torusScene(CX,470,150,S.frame*0.016);
+  ctx.fillStyle='#eaf4ff';ctx.textAlign='center';ctx.font='19px ui-monospace,monospace';
+  ctx.fillText('Speak, play, let the room be the room.',CX,760);
+  ctx.fillStyle=COL.dim;ctx.fillText('Tap SAMPLE ROOM below — 3 seconds of your world.',CX,792);return;}
+ if(S.phase==='settle'){ctx.fillStyle='#0b1020';ctx.fillRect(0,0,W,H);
+  const y0=560;ctx.strokeStyle=COL.dim;ctx.beginPath();ctx.moveTo(60,y0);ctx.lineTo(660,y0);ctx.stroke();
+  const drawArc=(arc,flip,col)=>{ctx.strokeStyle=col;ctx.lineWidth=3;ctx.beginPath();
+   for(let i=0;i<arc.length;i++){const x=60+i*(600/(arc.length-1)),y=y0+flip*arc[i]*190*(1-S.sample*0.55);
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();};
+  drawArc(S.arc,-1,COL.cyan);drawArc(S.arc,1,'rgba(160,128,224,0.6)');
+  ctx.fillStyle='#eaf4ff';ctx.textAlign='center';ctx.font='17px ui-monospace,monospace';
+  ctx.fillText('SETTLING — the sample finds its antiphase mirror · '+Math.floor(S.sample*100)+'%',CX,950);return;}
+ if(S.phase==='reveal'){ctx.fillStyle='#05070f';ctx.fillRect(0,0,W,H);
+  for(let i=0;i<500;i++){ctx.fillStyle='rgba(160,190,230,0.25)';ctx.fillRect(hash2(i,3)*W,hash2(i+7,3)*H,2,2);}
+  const rt=S.revealT,rad=Math.sin(Math.PI*Math.min(rt,1))*330;
+  if(rad>4){ctx.save();ctx.beginPath();ctx.arc(CX,560,rad,0,7);ctx.clip();
+   ctx.fillStyle='#0b1020';ctx.fillRect(CX-340,220,680,680);
+   spiral(CX,560,120,COL.cyan,2,3,S.frame*0.02);
+   const a1=S.frame*0.03;ctx.fillStyle=COL.cyan;ctx.beginPath();ctx.arc(CX+64*Math.cos(a1),560+64*Math.sin(a1),13,0,7);ctx.fill();
+   ctx.strokeStyle=COL.green;ctx.lineWidth=2;ctx.beginPath();ctx.arc(CX+128*Math.cos(-a1*0.8),560+128*Math.sin(-a1*0.8),11,0,7);ctx.stroke();
+   hex(CX-215,560,26,COL.violet,COL.violet);hex(CX+215,560,26,COL.violet,COL.violet);
+   ctx.strokeStyle='rgba(224,160,32,0.5)';for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(CX,560);
+    ctx.lineTo(CX+(i%2?215:-215),560+(i-2)*9);ctx.stroke();}
+   ctx.restore();ctx.strokeStyle=COL.gold;ctx.lineWidth=2;ctx.beginPath();ctx.arc(CX,560,rad,0,7);ctx.stroke();}
+  ctx.fillStyle='#eaf4ff';ctx.textAlign='center';ctx.font='17px ui-monospace,monospace';
+  ctx.fillText('Order, briefly visible: orbitals feeding the transducers.',CX,1010);return;}
+ /* ===== world ===== */
+ ctx.setTransform(S.zoom,0,0,S.zoom,-S.camX*S.zoom,-S.camY*S.zoom);
+ ctx.fillStyle='#0b1020';ctx.fillRect(0,0,WORLD_W,WORLD_H);
+ ctx.strokeStyle='#22365c';ctx.lineWidth=4;ctx.strokeRect(0,0,WORLD_W,WORLD_H);
+ /* static */
+ if(S.grid){const x0=Math.max(0,Math.floor(S.camX/CS)-1),x1=Math.min(GW-1,Math.ceil((S.camX+W/S.zoom)/CS)+1);
+  const y0=Math.max(0,Math.floor(S.camY/CS)-1),y1=Math.min(GH-1,Math.ceil((S.camY+H/S.zoom)/CS)+1);
+  for(let r=y0;r<=y1;r++)for(let c=x0;c<=x1;c++){const cl=S.grid[r*GW+c];
+   if(cl<0.97){ctx.fillStyle='rgba(4,6,13,'+((1-cl)*0.88)+')';ctx.fillRect(c*CS,r*CS,CS,CS);}}}
+ /* calms */
+ for(const c of S.calms){const pu=0.5+0.2*Math.sin(S.frame*0.03+c.x);
+  ctx.strokeStyle='rgba(96,192,96,0.28)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,7);ctx.stroke();
+  ctx.strokeStyle='rgba(120,255,150,'+(0.45+0.25*Math.sin(S.frame*0.09))+')';ctx.lineWidth=3;ctx.beginPath();ctx.arc(c.x,c.y,c.r*0.8,0,7);ctx.stroke();
+  ctx.fillStyle='rgba(160,255,180,0.9)';ctx.beginPath();ctx.arc(c.x,c.y,4,0,7);ctx.fill();
+  ctx.fillStyle='rgba(96,192,96,0.07)';ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,7);ctx.fill();
+  if(cellAt(c.x,c.y)>0.4){ctx.fillStyle='rgba(160,255,180,0.8)';ctx.font='15px ui-monospace,monospace';ctx.textAlign='center';ctx.fillText('CALM',c.x,c.y);}}
+ /* waves */
+ for(const f of S.waves){const px=-f.dy,py=f.dx;
+  for(let k=-3;k<8;k++){const off=f.a+k*f.lambda;
+   const cxm=PX+f.dx*off*0+ (f.dx*0), cxx=PX*0+0; /* line through point on ray from origin */
+   const bx=f.dx*off,by=f.dy*off;
+   const isCross=S.cross&&S.cross.front===f;
+   for(let j=-1;j<=1;j++){const o=j*15;
+    ctx.strokeStyle=isCross?(S.cross.windowOpen?'rgba(255,210,90,0.95)':'rgba(255,160,60,0.8)'):'rgba(64,160,224,'+(0.30-Math.abs(j)*0.08)+')';
+    ctx.lineWidth=j===0?3:2;ctx.beginPath();
+    ctx.moveTo(bx+f.dx*o+px*-1600,by+f.dy*o+py*-1600);ctx.lineTo(bx+f.dx*o+px*1600,by+f.dy*o+py*1600);ctx.stroke();}}}
+ /* pair */
+ const tx=190*S.pairGap;
+ hex(PX-tx,PY,30,S.pairInst>0.5?COL.red:COL.violet,'#1a1030');hex(PX+tx,PY,30,S.pairInst>0.5?COL.red:COL.violet,'#1a1030');
+ ctx.strokeStyle='rgba(224,160,32,0.7)';ctx.lineWidth=3;ctx.beginPath();
+ ctx.arc(PX,PY,58,-Math.PI/2,-Math.PI/2+S.pairPhase);ctx.stroke();
+ /* wilds */
+ for(const w of S.wilds){
+  if(w.cls==='standard'){spiral(w.x,w.y,w.r,COL.cyan,2,2,S.frame*0.01+w.ph);}
+  else if(w.cls==='dangerous'){spiral(w.x,w.y,w.r,COL.violet,2,3,-S.frame*0.016+w.ph);
+   ctx.strokeStyle='rgba(224,80,80,0.5)';ctx.setLineDash([8,8]);ctx.beginPath();ctx.arc(w.x,w.y,w.r+26,0,7);ctx.stroke();ctx.setLineDash([]);}
+  else{ctx.fillStyle='#000';ctx.beginPath();ctx.arc(w.x,w.y,w.r,0,7);ctx.fill();
+   ctx.strokeStyle=COL.gold;ctx.lineWidth=3;ctx.beginPath();ctx.arc(w.x,w.y,w.r+7,0,7);ctx.stroke();
+   spiral(w.x,w.y,w.r+22,'rgba(160,128,224,0.6)',1,2,S.frame*0.03);}}
+ /* systems */
+ for(const s of U.systems){
+  ctx.strokeStyle='rgba(224,160,32,'+(0.35+0.55*s.stab)+')';ctx.lineWidth=3;
+  ctx.beginPath();ctx.arc(s.x,s.y,s.r+12,0,7);ctx.stroke();
+  ctx.setLineDash([6,7]);ctx.beginPath();ctx.arc(s.x,s.y,s.r+19,0,7);ctx.stroke();ctx.setLineDash([]);
+  spiral(s.x,s.y,s.r,COL.cyan,2,2,S.frame*0.008+s.spin);
+  ctx.fillStyle=COL.gold;ctx.beginPath();ctx.arc(s.x,s.y,4+s.r*0.08,0,7);ctx.fill();
+  if(s.stab<0.35){ctx.strokeStyle=COL.red;ctx.lineWidth=2;ctx.beginPath();ctx.arc(s.x,s.y,Math.max(6,s.r*(s.stab/0.35)),0,7);ctx.stroke();}
+  if(Math.hypot(s.dvx,s.dvy)>0.2){ctx.strokeStyle='rgba(255,176,64,0.45)';ctx.setLineDash([3,6]);
+   ctx.beginPath();ctx.arc(s.x+s.dvx*10,s.y+s.dvy*10,s.r+26,0,7);ctx.stroke();ctx.setLineDash([]);}
+  for(const o of U.systems){if(o!==s&&Math.hypot(o.x-s.x,o.y-s.y)<s.r+o.r+130){
+   ctx.strokeStyle='rgba(255,176,64,'+(0.4+0.3*Math.sin(S.frame*0.2))+')';ctx.setLineDash([10,6]);
+   ctx.beginPath();ctx.arc(s.x,s.y,s.r+32,0,7);ctx.stroke();ctx.setLineDash([]);break;}}
+  if(s.accP+s.accD>20){ctx.fillStyle=COL.green;ctx.font='14px ui-monospace,monospace';ctx.textAlign='center';
+   ctx.fillText('⚡'+Math.floor(s.accP)+' ◆'+Math.floor(s.accD),s.x,s.y-s.r-26);}}
+ /* debris */
+ for(const d of U.debris){ctx.save();ctx.translate(d.x,d.y);ctx.rotate(0.6);
+  ctx.fillStyle='rgba(160,128,224,0.85)';ctx.fillRect(-13,-13,26,26);ctx.rotate(0.7);ctx.fillRect(-9,-9,18,18);ctx.restore();
+  if(Math.hypot(S.player.x-d.x,S.player.y-d.y)<260){ctx.fillStyle='#e6dcff';ctx.font='14px ui-monospace,monospace';ctx.textAlign='center';
+   ctx.fillText('DEBRIS ⚡'+Math.floor(d.p)+' ◆'+Math.floor(d.d),d.x,d.y-30);}}
+ /* pickups */
+ for(const t of S.pickups){if(t.taken)continue;const bob=Math.sin(t.ph)*4;
+  if(t.type==='ind'){ctx.fillStyle=COL.cyan;ctx.beginPath();
+   ctx.moveTo(t.x,t.y-15+bob);ctx.lineTo(t.x+13,t.y+11+bob);ctx.lineTo(t.x-13,t.y+11+bob);ctx.closePath();ctx.fill();}
+  else{ctx.strokeStyle=COL.green;ctx.lineWidth=4;ctx.beginPath();ctx.arc(t.x,t.y+bob,12,0,7);ctx.stroke();
+   ctx.fillStyle=COL.green;ctx.beginPath();ctx.arc(t.x,t.y+bob,3.5,0,7);ctx.fill();}}
+ /* objective marker — the beginning teaches itself */
+ if(S.phase==='nav'&&!S.eddy){
+  let tgt=null,verb='';
+  if(U.toolInd>=1&&U.toolCap>=1){
+   let bd=1e9;for(const c of S.calms){const d=Math.hypot(c.x-S.player.x,c.y-S.player.y);if(d<bd){bd=d;tgt=c;}}
+   for(const w of S.wilds){if(w.cls==='hole')continue;const d=Math.hypot(w.x-S.player.x,w.y-S.player.y);if(d<bd){bd=d;tgt=w;}}
+   verb='SEED / ADOPT';}
+  else{let bd=1e9;for(const t of S.pickups){if(t.taken)continue;const d=Math.hypot(t.x-S.player.x,t.y-S.player.y);if(d<bd){bd=d;tgt=t;}}
+   verb='GATHER';}
+  if(tgt){ctx.strokeStyle='rgba(224,160,32,0.5)';ctx.setLineDash([12,10]);ctx.lineWidth=2;
+   ctx.beginPath();ctx.moveTo(S.player.x,S.player.y);ctx.lineTo(tgt.x,tgt.y);ctx.stroke();ctx.setLineDash([]);
+   ctx.strokeStyle='rgba(255,215,100,'+(0.5+0.3*Math.sin(S.frame*0.12))+')';ctx.lineWidth=3;
+   ctx.beginPath();ctx.arc(tgt.x,tgt.y,(tgt.r||40)+16,0,7);ctx.stroke();
+   ctx.fillStyle='#ffe9b0';ctx.font='bold 16px ui-monospace,monospace';ctx.textAlign='center';
+   ctx.fillText(verb,tgt.x,tgt.y-(tgt.r||40)-28);}}
+ /* active eddy */
+ const e=S.eddy;
+ if(e){ if(e.r>150){ctx.strokeStyle='rgba(224,160,32,0.25)';ctx.setLineDash([10,10]);
+   ctx.beginPath();ctx.arc(e.x,e.y,EMAX,0,7);ctx.stroke();ctx.setLineDash([]);}
+  spiral(e.x,e.y,e.r,COL.cyan,2,3,S.frame*0.02);
+  if(e.weight>1){ctx.fillStyle='rgba(224,160,32,0.9)';ctx.beginPath();
+   ctx.arc(e.x,e.y,Math.min(e.r*0.5,4+e.weight*0.35),0,7);ctx.fill();}
+  ctx.strokeStyle=COL.gold;ctx.lineWidth=3;ctx.beginPath();
+  ctx.arc(e.x,e.y,e.r+30,-Math.PI/2,-Math.PI/2+e.stability*Math.PI*2);ctx.stroke();
+  if(e.ready){ctx.strokeStyle='rgba(255,215,100,'+(0.6+0.4*Math.sin(S.frame*0.25))+')';ctx.lineWidth=3;
+   ctx.beginPath();ctx.arc(e.x,e.y,e.r+40,0,7);ctx.stroke();
+   for(let i=0;i<4;i++){const a=i*Math.PI/2+S.frame*0.02;ctx.fillStyle=COL.gold;
+    ctx.beginPath();ctx.arc(e.x+(e.r+40)*Math.cos(a),e.y+(e.r+40)*Math.sin(a),5,0,7);ctx.fill();}}
+  if(e.anchored){ctx.strokeStyle='rgba(224,160,32,0.6)';ctx.strokeRect(e.x-e.r-8,e.y-e.r-8,(e.r+8)*2,(e.r+8)*2);}
+  for(const s of S.sats)spiral(s.x,s.y,s.r,COL.cyan,2,2,S.frame*0.015);
+  const drawKnob=(o,col)=>{if(!o)return;
+   ctx.fillStyle='#0d1730';ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,7);ctx.fill();
+   ctx.strokeStyle=col;ctx.lineWidth=3;ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,7);ctx.stroke();
+   ctx.strokeStyle=COL.gold;ctx.beginPath();ctx.arc(o.x,o.y,o.r,-Math.PI/2,-Math.PI/2+o.fill*Math.PI*2);ctx.stroke();
+   ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(o.x,o.y);
+   ctx.lineTo(o.x+Math.cos(o.ph)*(o.r-4),o.y+Math.sin(o.ph)*(o.r-4));ctx.stroke();
+   if(o.orb){ctx.strokeStyle='rgba(255,215,100,0.8)';ctx.beginPath();ctx.arc(o.x,o.y,o.r+5,0,7);ctx.stroke();}};
+  if(S.attune>=2){ctx.strokeStyle='rgba(64,192,224,0.3)';ctx.setLineDash([5,7]);
+   ctx.beginPath();ctx.arc(e.x,e.y,e.r*0.58,0,7);ctx.stroke();ctx.setLineDash([]);}
+  if(S.attune>=3){ctx.strokeStyle='rgba(96,192,96,0.3)';ctx.setLineDash([5,7]);
+   ctx.beginPath();ctx.arc(e.x,e.y,e.r+18,0,7);ctx.stroke();ctx.setLineDash([]);}
+  if(!U.seen.placed){
+   ctx.strokeStyle='rgba(224,160,32,0.75)';ctx.setLineDash([7,7]);ctx.lineWidth=2;
+   ctx.beginPath();ctx.arc(e.x,e.y,Math.max(14,e.r*0.62),0,7);ctx.stroke();ctx.setLineDash([]);
+   ctx.strokeStyle='rgba(96,220,120,0.75)';ctx.setLineDash([7,7]);
+   ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,7);ctx.stroke();ctx.setLineDash([]);
+   ctx.fillStyle='rgba(224,160,32,0.30)';ctx.beginPath();ctx.arc(e.x,e.y,30,0,7);ctx.fill();
+   ctx.fillStyle='#ffe9b0';ctx.font='bold 15px ui-monospace,monospace';ctx.textAlign='center';
+   ctx.fillText('INDUCER → CORE',e.x,e.y-e.r-44);
+   ctx.fillStyle='#baffc9';ctx.fillText('CAPACITOR → RING',e.x,e.y+e.r+34);
+   for(const [o,nm] of [[S.ind,'I'],[S.cap,'C']]){if(o&&!o.active){
+    ctx.fillStyle='#fff';ctx.font='bold 14px ui-monospace,monospace';
+    ctx.fillText(nm+' '+Math.round(o.fill*100)+'%',o.x,o.y-42);}}
+  }
+  if(S.dragTool&&e){const o=S.dragTool;
+   const isCap=o===S.cap;let txp=e.x,typ=e.y;
+   if(isCap){const a=Math.atan2(o.y-e.y,o.x-e.x);txp=e.x+Math.cos(a)*e.r;typ=e.y+Math.sin(a)*e.r;}
+   ctx.strokeStyle='rgba(255,215,100,0.8)';ctx.setLineDash([6,6]);ctx.lineWidth=2;
+   ctx.beginPath();ctx.moveTo(o.x,o.y);ctx.lineTo(txp,typ);ctx.stroke();ctx.setLineDash([]);}
+  drawKnob(S.ind,COL.cyan);drawKnob(S.cap,COL.green);drawKnob(S.ind2,'#2a7ea6');
+  if(S.ball){const b=S.ball;ctx.fillStyle=COL.gold;ctx.beginPath();ctx.arc(b.x,b.y,15,0,7);ctx.fill();
+   ctx.strokeStyle=b.t<10?COL.red:'#ffe9b0';ctx.lineWidth=3;ctx.beginPath();ctx.arc(b.x,b.y,21,-Math.PI/2,-Math.PI/2+(b.t/50)*Math.PI*2);ctx.stroke();}}
+ /* flows + pings */
+ for(const f of S.flows){ctx.strokeStyle=f.col;ctx.globalAlpha=1-f.t;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(f.x,f.y);ctx.lineTo(f.x+(f.x2-f.x)*f.t,f.y+(f.y2-f.y)*f.t);ctx.stroke();ctx.globalAlpha=1;}
+ for(const g of S.pings){ctx.strokeStyle=g.col;ctx.globalAlpha=1-g.t;ctx.lineWidth=3;
+  ctx.beginPath();ctx.arc(g.x,g.y,g.r*(0.4+g.t*2.2),0,7);ctx.stroke();ctx.globalAlpha=1;}
+ /* player */
+ const p=S.player,vr=viewR();
+ ctx.fillStyle='rgba(255,215,100,0.05)';ctx.beginPath();ctx.arc(p.x,p.y,vr,0,7);ctx.fill();
+ ctx.strokeStyle=COL.gold;ctx.lineWidth=3;ctx.beginPath();ctx.arc(p.x,p.y,13,0,7);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(p.x-20,p.y);ctx.lineTo(p.x-7,p.y);ctx.moveTo(p.x+7,p.y);ctx.lineTo(p.x+20,p.y);
+ ctx.moveTo(p.x,p.y-20);ctx.lineTo(p.x,p.y-7);ctx.moveTo(p.x,p.y+7);ctx.lineTo(p.x,p.y+20);ctx.stroke();
+ if(S.phase==='nav'&&S.ctxLabel){ctx.fillStyle='#ffd75e';ctx.font='bold 19px ui-monospace,monospace';ctx.textAlign='center';
+  ctx.fillText('▼ TAP PILL: '+S.ctxLabel,p.x,p.y-58);}
+ if(S.cross){ctx.fillStyle=S.cross.windowOpen?'#ffd75e':'#ffb040';ctx.font='bold 20px ui-monospace,monospace';ctx.textAlign='center';
+  ctx.fillText('♪ '+Math.min(3,S.cross.good)+'/'+(S.cross.fired+(S.cross.windowOpen?1:0))+' beats',p.x,p.y-34);}
+ ctx.setTransform(1,0,0,1,0,0);
+ /* tympany strip */
+ if(inGame){const y=64,bx=70,bw=W-140;
+  ctx.fillStyle='rgba(10,16,32,0.85)';ctx.fillRect(bx-8,y-22,bw+16,52);
+  ctx.strokeStyle=COL.dim;ctx.strokeRect(bx-8,y-22,bw+16,52);
+  ctx.fillStyle='rgba(255,140,40,0.35)';const rw=bw*0.34;
+  ctx.fillRect(CX-rw/2,y-8,rw,16);
+  ctx.strokeStyle='#8899bb';ctx.beginPath();ctx.moveTo(bx,y);ctx.lineTo(bx+bw,y);ctx.stroke();
+  const bxp=CX+clamp(S.peak,-1.15,1.15)*(bw/2-14);
+  ctx.fillStyle=S.hold>0?COL.gold:'#fff';ctx.beginPath();ctx.arc(bxp,y,9,0,7);ctx.fill();
+  if(S.hold>0){ctx.fillStyle=COL.gold;ctx.font='13px ui-monospace,monospace';ctx.textAlign='center';
+   ctx.fillText('HOLD '+Math.ceil(S.hold/60)+'s',CX,y-30);}
+  ctx.fillStyle=(S.tym||1)<0.3?COL.red:COL.green;ctx.fillRect(bx,y+18,bw*clamp(S.tym||1,0,1),4);
+  ctx.fillStyle=COL.dim;ctx.font='12px ui-monospace,monospace';ctx.textAlign='left';
+  ctx.fillText('TYMPANY',bx,y-30);ctx.textAlign='right';ctx.fillText(S.band.toUpperCase()+' · '+(S.qf?'QUIET FIELD':'FLOWING'),bx+bw,y-30);
+  /* pill */
+  const label=pillLabel();
+  const isVerb=['SEED','ADOPT','TEND','SALVAGE'].includes(label);
+  ctx.fillStyle=S.qf?'#274b2d':'#14203c';ctx.strokeStyle=COL.gold;
+  ctx.lineWidth=isVerb?3+2*Math.sin(S.frame*0.18):2;
+  ctx.beginPath();ctx.roundRect(CX-135,H-222,270,72,16);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#ffe9b0';ctx.font='bold 19px ui-monospace,monospace';ctx.textAlign='center';
+  ctx.fillText(S.qf?'QF · '+label:label,CX,H-178);
+  if(S.sub){ctx.fillStyle=COL.green;ctx.font='12px ui-monospace,monospace';ctx.fillText('SUBHARMONIC LOCK · half yield',CX,H-100);}}
+}
+/* ---------- boot ---------- */
+loadU();S=newGame();loop();
+</script></body></html>
