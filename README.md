@@ -111,6 +111,21 @@ Protocol-4 is grading the thermal layer as this is written. The holes board,
 the teammate dossiers, and the full search report travel with the working
 files; the papers they rest on are cited below.
 
+**Addendum (2026-11-08, latest) — Lean public, and the dictionary.**
+NSCompression.lean is now published here
+([docs/ns-compression-schema/](docs/ns-compression-schema/)) at its
+verified state: Lean 4.36.0-rc1, exits 0, exactly six named sorries —
+S1 superseded (vacuous determinant reading), S1R the live conjecture,
+S1-BD discharged on bounded domains, S2/S3/S4, and S5 (the sustain
+conjecture). The bilingual dictionary
+([docs/bilingual-dictionary.md](docs/bilingual-dictionary.md)) writes down
+the program's two translation layers — academia ↔ plain speech, and the
+AI-prompting dialect (falsifier demand, gloss hunt, steelman, translation
+check, provenance readback, null keeper, pins table, red pen) — beside the
+vernacular side dictionary
+([docs/side-dictionary.md](docs/side-dictionary.md)). A translation never
+upgrades a claim; the labels ride along.
+
 ## Citations — papers reviewed for the 2026-11-08 revision
 
 Programmes tagged **[co-revision]** are living research efforts whose stated
