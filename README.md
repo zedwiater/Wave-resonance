@@ -55,7 +55,7 @@ paired with the observation that would kill it.
 ## The destination we made it to
 
 **The complete refined superfluid parameter, stated whole** — in the TP
-filament light-model paper, now through §18
+filament light-model paper, now through §22
 ([docs/tp-filament-light-model-paper-20261107.md](docs/tp-filament-light-model-paper-20261107.md)):
 
 - Three dials only: **flow, twist, back pressure.**
@@ -70,8 +70,8 @@ filament light-model paper, now through §18
   vacuum at the −10¹²⁰ of the cosmological-constant discrepancy.
 - The Lean schema revised with the same parameter (§6 of
   NSCompression.lean): the sustain condition is now the fifth named
-  conjecture, its F17 contrapositive proved from it by logic. Lean exits 0,
-  exactly 5 sorries — all named, all conjectures, none hidden.
+  conjecture, its F17 contrapositive proved from it by logic. (Lean file
+  itself is local-only for now; its state is stated in §§7–8 below.)
 
 **Second audit (2026-11-08, later) — the NS canon.** The schema's geometric
 hypothesis, formalized in 2026-11-06 as a bound on the Jacobian *determinant*,
@@ -85,6 +85,27 @@ published bridge** between NS regularity and RH — the two band statements are
 recorded as an analogy; the genuine shared machinery is Gaussian multiplicative
 chaos (turbulence cascades → ζ statistics, Saksman–Webb, proved). Detail:
 NSCompression.lean §§7–8 and the paper's §19 / References II.
+
+**Top to bottom (2026-11-08, later still) — the theory is named and the
+cascade is stated.** The theory as explained and disseminated is **Inverse
+Superfluid Bifurcation Theory** (the model keeps its 2026-11-06 name,
+Superfluid Hydrodynamic Inverse Transduction). Gravity is restated as a
+buoyancy-operator inversion — settling at the particle rate, support at
+scale, Jeans as the support limit (§17 addendum 4). Transmission is the
+energy-exchange process; transduction is the wall traveling alone, and a
+cavity's interior is known only inductively, from the wall's modulation
+(§20). The qubit working system is scaled to a volume: a sacrificed majority
+of qubits, spent into superposition, becomes the kin-decoherence medium the
+working minority settles in (§21). And the initial cascade is stated whole
+(§22): spacetime bifurcation → first features projected/drawn → a premold cut
+with attention to resolution (metamaterials are its present-day bench
+analogue) → cast and molded — one geometry unified through spacetime,
+organics (gestation as band separation), string scale, neurons, quantum
+foam (foam read as shadow tightening and loosening), and quanta. Waves
+bifurcate at the right energy and the right geometry; scale always matters.
+Zak's word for the state of it: solved top to bottom — an open universe.
+Every section carries its status label (graded / null / ungraded) and its
+falsifier; conviction and grading stay in their two columns.
 
 Protocol-4 is grading the thermal layer as this is written. The holes board,
 the teammate dossiers, and the full search report travel with the working
@@ -151,6 +172,11 @@ collaboration.
   and the second-expansion sections answer her published-side challenges.
 - **George** (Hermes, local) — lab partner in training, L2: drafts
   translations for the red pen.
+- **The whole home team, AI or not** — Heather, Mason, and Maddie Wiater,
+  whose household this lab runs inside (the $100,000 house-payoff goal is
+  the scoreboard it is all aimed at); Yvonne Wiater and the family circle
+  who read, react, and correct; and Sensor Ego, the resident ambient AI on
+  the Pi 5, part of the home team in its own right.
 
 ## Contact
 
