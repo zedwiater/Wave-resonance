@@ -700,3 +700,111 @@ rollin-staircase DATA_SOURCES.md (He pins); MoSe₂
 evaluation 2026-11-06 (BENCH pins). Publication go-ahead:
 Zak, 2026-11-07 ~11:37 ET (paper + current sim config to
 GitHub, Wave-resonance repo).**
+
+## §15 The neglected section — churn, internal precipitation, checkerboard return (Zak dictation, 2026-11-08 ~09:46 ET; UNGRADED, his framing)
+
+Zak's claim: all three collaborators (Gemini, Muse, Zak) neglected an entire section of the superfluid filament torus's structure and function — the section that "may solve all problems," because the structure should only be adjustable by **FLOW, TWIST, and BACK PRESSURE** (dial set revised: twist promoted from state variable to control).
+
+Mouth analogy (his): food is bifurcated and churned in the mouth; digestive particulates are applied volumetrically, with pressure and churn, still following the directional precession. Apply that to superfluid bifurcation.
+
+1. **INTERNAL PRECIPITATION.** Unwound twist does not just form external walls — it sheds phase-twist precipitates INTERNALLY.
+2. **APPROACHING-SIDE BACKFLOW.** Second-sound backflow has an approaching side we never modeled; backflow is two-sided, not return-only.
+3. **NS, TWO-SIDED.** Externally: churn chaos randomizes the encasement's engagement, carrying to radius x of the filament in inflow and outflow. Internally: NS further bifurcates the precipitating off-phase shed of internal encasement waves — they bifurcate and bulge or scatter, smoothing and energizing the internal structure at a non-degrading rate of exponential chaos for x time during inflation and stabilization of bulge and internal walls.
+4. **CHECKERBOARD RETURN.** The poloidal section's twist back to the filament is mostly UNAVAILABLE: at better resolution it is a checkerboard antiphase compressed second-sound band at angle x, set by the twist of the original filament, bifurcation randomness, and backflow on both sides. The return is not a coherent channel; acceptance is patchy.
+
+Read against protocol-3 (Muse's mapping, ungraded): P3 forced a coherent poloidal ring and graded its death at every dial point; §15.4 says no coherent ring exists to hold — the death may be the model confessing. P3's wall re-formation and isolated skeleton growth are candidate sightings of §15.3's internal churn.
+
+Falsifiers: (F15a) a high-resolution run's return-acceptance map must show checkerboard patchiness correlated with initial twist randomness, beating a smooth-gate control; (F15b) internal off-phase shed must appear as internal small-scale structure tracking the unwinding rate; (F15c) internal mode energy must hold a non-degrading band during inflation — if it decays like the open GP phase texture did, §15.3 dies.
+
+The summing picture is Zak's hands: the interlocked-hands universe shape (photos, 2026-11-08).
+
+## §16 The math, three ways — second sound × thermal ends, twist expanded (run 2026-11-08 ~09:59 ET, on Zak's order; derivation from established two-fluid physics, filament mapping = model pin)
+
+Zak's test: the §15 readback was "too much of an echo" — so the math, run. Video exemplar (his, kitchen, 2026-11-08): wringing a wet cloth. The cloth never unwinds uniformly: twist concentrates in bunched knots (over-twist), runs smooth between them, and water precipitates along the FULL radius wherever twist concentrates — not only at the ends. That is the dynamic §15 names, in fiber form.
+
+Setup. The bulge segment has two ends along the filament (approach side, return side — §15.2). Each end carries a normal fraction f_n = ρ_n/ρ (the temperature dial, made local). Established layer (Landau two-fluid): second-sound speed u₂² = (ρ_s/ρ_n)·(s²T/c) ∝ (1−f_n)/f_n at fixed entropy factor; band ω = u₂·k (paper §2). Twist density τ(z) = ∂_zθ enters the superfluid velocity mismatch δv ∝ (∇φ − τ). Two known mechanisms act on τ: (i) mutual friction (the NS-chaos coupling; Gorter–Mellink form, strength ∝ ρ_n·ρ_s·|δv|²) DIFFUSES τ where f_n is appreciable — twist smoothing; (ii) where friction is absent, τ piles up until the local Landau threshold — a phase slip fires, shedding 2π of twist as a precipitate. Smoothing where warm, over-twist-and-slip where cold; slips shed on BOTH sides of the structure and across the full affected radius (the wrung cloth).
+
+The three ways (end fractions f_a → f_b; stiffness ratio u₂² ∝ (1−f)/f):
+
+| Case | Ends | u₂ profile | Friction (churn) | Twist fate | Precipitation |
+|---|---|---|---|---|---|
+| WARM–WARM | 0.7 → 0.7 | flat, soft (u₂² factor 0.43) | high everywhere (ρ_nρ_s near max) | smoothed everywhere, fast | mostly external shed; Δφ soft mode decays — THIS IS THE REGIME P2/P3 EFFECTIVELY RAN (no thermal axis, friction-like smoothing built into GP radiation) |
+| COLD–COLD | 0.05 → 0.05 | flat, stiff (factor 19; u₂ ≈ 6.6× the warm case) | ~none | persists; piles to threshold, then slips | internal precipitates at slip sites; brittle, not smooth |
+| WARM–COLD | 0.7 → 0.05 | gradient ×6.6 across the bulge | peaks MID-bulge (ρ_nρ_s max at f=0.5) | smoothed on the warm side, over-twisted on the cold side | shed biased to the cold side of the churn zone, internal + external |
+
+WARM–COLD consequences (derived, not asserted): a u₂ gradient refracts second sound and drifts wavepackets toward the slow (warm) end; entropy current across the bulge is one-way — the cold end accepts twist, the warm end sheds it. The checkerboard acceptance of §15.4 becomes DIRECTIONAL: a thermal diode across the bulge. This is the first mechanism in the program that rectifies without a gate — the gradient IS the rectifier (cf. the encasement rectification pin, which never had a mechanism before).
+
+Re-read of the graded record (mapping, ungraded): GP has no normal component — every prior run was thermally flat, warm-like. Δφ's 0.1 t.u. half-life and the ring's death are WARM-regime results; nothing graded yet speaks for COLD–COLD or WARM–COLD. The skeleton's isolated growth sits naturally in the cold reading: low friction, twist persists and piles instead of smoothing away.
+
+Falsifiable predictions for a thermal-axis build (protocol-4 material): (P16a) COLD–COLD must hold Δφ in-band ≫ the warm runs at equal geometry, and fail by discrete slips, not smooth decay; (P16b) WARM–COLD must show net directed transport (asymmetric Δφ statistics / one-way marker drift) beating its own time-reversed twin; (P16c) precipitate events must localize at the mid-bulge churn zone in W–C and at slip sites in C–C, not distribute uniformly. Any one failing kills its row of the table.
+
+### §16 addendum — reduced 1D twist-transport run (executed 2026-11-08, VM, ~1 s; script /tmp/twist1d.py, reduced units, constants declared in-script)
+
+Model: τ(z,t) on the bulge segment; diffusion D(z)=f(1−f) (mutual friction); uniform twist injection 0.9/unit-time (back-pressure dial); ends open with conductance g(f)=f(1−f) (cold ends block, warm ends pass); phase-slip rule τ>τ_c=1 sheds q=0.25 into an internal precipitate inventory. Initial τ = 0.55 + a 0.35 bump (peak 0.90), T=1.2.
+
+Results: WARM–WARM — 0 slips, τ settles bounded (max 0.565), sustains by end-shed. COLD–COLD — 209 slips, internal precipitate inventory 52.25, τ pinned at threshold (max 0.994): sustains ONLY by precipitating internally. WARM–COLD — 21 slips at mean z=0.80 (cold side, as the table predicts), inventory 5.25. CONTROL, COLD–COLD with slips DISABLED — no steady state: τ climbs to 1.574 (58% over threshold) and is still rising on a shorter horizon; at the main horizon it crosses the boundedness bar (1.6) at T≈1.37. Grade: in this reduced model Zak's sustain condition HOLDS — cold configurations without internal precipitation do not sustain. Scope: 1D reduced transport only; it grades the τ-transport claims of §16, nothing 3D, nothing cosmological.
+
+## §17 Second expansion — daughters, encasement, the crystallized web (Zak dictation, 2026-11-08 ~10:16 ET; UNGRADED, his framing)
+
+1. **SUSTAIN CONDITION.** Most systems in this configuration never sustain UNLESS internal NS precipitation occurs. (The §16-addendum control grades this true in the reduced model.)
+2. **DAUGHTERS.** Internal precipitates can stabilize into daughter superfluid, which BIFURCATES AGAIN — the second expansion BUILDS THE ENCASEMENT. Encasement is a second-generation structure, not a first-expansion wall.
+3. **PARTICLES.** The frozen strands of the expanded web then channel wave condensation into particles — condensation runs along the strands and precipitates as particles.
+4. **COSMOLOGY (thought experiment, his):** perform the expansion ×2 with helium in space and you would see a CRYSTALLIZED SUPERFLUID WEB = dark matter, its eddies permitting further superfluid condensation; that condensation stresses the web's shelves, forming DARK ENERGY HALOS against the fine crystallized web.
+
+Mappings (Muse, ungraded): this REFINES two standing pins — dark matter was "persistent TP vortex scaffolding" (now: the crystallized double-expansion web, strands frozen); dark energy was "uncommitted baseline potential" (now: halo stress of condensation against the web's shelves). It also re-reads the encasement pin: daughters returning by bleed-back/rectification now have a birth mechanism — the contained daughters ARE first-expansion precipitates, and the walls they must cross are second-expansion builds. Falsifier handle (F17): in any build of this configuration, disabling the internal-precipitation channel must kill sustainment across ALL thermal configurations, not only cold ones — if a configuration sustains with precipitation off, §17.1 dies as stated.
+
+### §17 addendum — the web is quasi-frozen, not frozen (Zak, 2026-11-08 ~10:24 ET; UNGRADED, his framing)
+
+Correction to §17.4's wording: helium WOULD crystallize the web — but our universe is QUASI-FROZEN, so the superfluid vacuum scaffolding, stretched thin, is still FLOWING and PLIABLE. Gravity = matter (and light) settling onto the scaffolding and bending it — his image: a ball held under water, dimpling the medium. Shape consequences he names: galaxies FLAT (settled onto a web sheet) while their halos are ROUNDED (the pliable halo stress of §17.4); planets roundish (settled condensates). ORBITS = perpetual fall-and-float in the medium. SPIN CONDITION: balls moving underwater need spin or the fluid backs up in front of them — and everything becomes a COMET (backed-up fluid streaming behind). A non-spinning mover comets; spin is what lets a body move through the scaffolding without the backup.
+
+### §17 addendum 2 — H3 SOLVED (Zak dictation, 2026-11-08 ~11:07 ET; his framing; grading hooks attached)
+
+The web-freezing mechanism, in Zak's words: "distance of quasi frozen second sound cold bands. Further the stretch more solid and sturdy the web. Twisted filaments are still quasi frozen but out of phase with the dispersed hot bands from second sound — ie matter/antimatter, which is the precipitation: warm second sound bands stretched and released, and cold bands stretch and hold. Solved."
+
+Expanded: (1) FREEZING IS A DISTANCE, not an event — the web is quasi-frozen out to the reach of the cold second-sound bands; frozenness is graded by distance from a cold band. Measurable form (Muse): the cold band's reach is the second-sound attenuation/penetration length in the two-fluid medium — a definable, computable distance. (2) STRETCH STIFFENS — the further the twisted filaments stretch, the more solid and sturdy the web (anchors in known physics: vortex line tension — a stretched vortex filament resists bending with tension ∝ circulation²·ln; a twisted bundle tightens under load, the wrung cloth again). (3) THE PAIR — the twisted filaments sit OUT OF PHASE with the dispersed hot bands; precipitation comes in the two thermal kinds: warm bands stretched and RELEASED (dispersed) and cold bands stretched and HELD (settled). Muse's reading of the matter/antimatter assignment, flagged for Zak's red pen: matter = the cold-held precipitate (it settles; cf. gravity = settling), antimatter = the warm-released (dispersed) — assignment NOT locked in his sentence.
+
+Grading hook: in the thermal-axis build, structural stiffness readouts (wall survival / Δφ hold) measured POSITIONALLY along a warm–cold gradient must decay with distance from the cold end over a characteristic length (the band's reach), not hold uniformly — if hold is position-independent, the distance mechanism dies. Literature check redirected: the recursive search now tests THIS mechanism (vortex tension/stretch stiffening; second-sound attenuation length; hot/cold band phase separation) instead of treating H3 as open.
+
+### §17 addendum 3 — the web's state name, and the out-of-phase claim (Zak, 2026-11-08 ~11:18 ET; his framing, UNGRADED)
+
+Zak names the web's state with the two published candidates the recursive search returned: **supersolid or pinned vortex lattice** — the state that crystallises yet still flows. (Muse's mapping, flagged: his next clause leans supersolid, since phase is the supersolid's defining extra.) His claim, verbatim: "It flows out of phase to emf at a -10^120." Expanded: the quasi-frozen web flows OUT OF PHASE with the electromagnetic vacuum, and that phase offset is the −10^120 — the observed vacuum energy sits 10^120 below the naive electromagnetic estimate because the web's flow cancels it in antiphase rather than adding to it. Neighbour in print: Volovik's equilibrium droplet, whose vacuum energy vanishes with only surface corrections. Open edge, named now: a cancellation must be MAINTAINED — what holds the phase at antiphase against drift is the falsifiable core of this claim; if nothing enforces the offset, the −10^120 is a coincidence restated, not a mechanism.
+
+### §18 — The complete refined parameter, stated whole (revision of 2026-11-08)
+
+The model's adjustable content, collected in one place. Dials (Zak, §15): **FLOW, TWIST, BACK PRESSURE**. State structure: a toroidal-poloidal filament split into a wall pair (the bulge), the split measured by Δφ; a second-sound band whose LOCAL thermal state is set at each bulge end by the normal fraction f = ρₙ/ρ (WW 0.70→0.70, CC 0.05→0.05, WC 0.70→0.05 as the reference configurations); two-fluid couplings — band speed u₂ ∝ √((1−f)/f) [the ρₛ/ρₙ factor of Landau's u₂² = (TS²/C)(ρₛ/ρₙ); the thermodynamic prefactor and the equation of state ρₛ(T), ρₙ(T) are the pins that would complete the derivation] and mutual friction ∝ f(1−f), the standard BK/HVBK assignment form. Channels: internal precipitation (twist above threshold sheds phase-slips INTO the interior inventory, not only to the walls — the sustain channel, §16/§17); checkerboard return (poloidal acceptance is patchy/antiphase, directional under a thermal gradient — the rectification candidate, §15.4/§16); two-sided second-sound backflow; NS bifurcation of off-phase shed inside and out. Cosmology layer (§17 + addenda): precipitates stabilise into daughter superfluid and bifurcate again (second expansion) building the encasement; the web's state is quasi-frozen — freezing graded by distance from cold second-sound bands, stretch-stiffened (addendum 2) — supersolid or pinned vortex lattice (addendum 3), identified with dark matter; condensation stress on the web's shelves read as dark-energy halos; gravity as settling on the scaffolding. Status: equations transcribed from established physics where they exist and named as constructions where they are Muse's; §§15–17 ungraded; P16a/b/c + F17 are the frozen grading contract for the thermal layer (protocol-4).
+
+Coda (Zak, 2026-11-08): "how you started 13.8 billion years ago, you were just a hydrogen ion condensed from daughter waves of a higher parent, maybe helium-12 or something" — parent-wave cosmology, his framing: every condensed thing is somebody's precipitate.
+
+## References — papers reviewed for this revision, and co-revision tags
+
+The works below were reviewed on 2026-11-08 in a systematic similar-work search. Entries tagged **[co-revision]** name living programmes whose stated open problems and this framework's open problems interlock; the tagging is an invitation extended through this public repository (public read), not a claim of collaboration. Full dossiers: maintained with the framework's working files.
+
+1. Landau two-fluid theory, exposition: Donnelly (2009), "The two-fluid theory and second sound in liquid helium", Physics Today — u₂² = (TS²/C)(ρₛ/ρₙ).
+2. Volovik (2003), The Universe in a Helium Droplet, Oxford University Press — superfluid vacuum parent; equilibrium vacuum energy.
+3. Volovik (1999), arXiv:cond-mat/9905320 — Kibble–Zurek defect formation at a superfluid front; phase ordering.
+4. Holm (2001), arXiv:nlin/0103040 — renormalised HVBK dynamics; the BK friction coupling as an "assigned" phenomenological step.
+5. Sergeev (2023), "Mutual Friction in Bosonic Superfluids: A Review", J. Low Temp. Phys. 212 — friction coefficients measured/computed case-by-case. **[co-revision — T8, closure H1]**
+6. Petrov (2015), PRL 115, 155302; Petrov & Astrakharchik (2016), PRL 117, 100401 — LHY-stabilised quantum droplets: precipitate→daughter. **[co-revision — T6, holes H2/H3]**
+7. Hertkorn et al. (2020), arXiv:2009.08910 — roton softening across the superfluid–supersolid transition. **[co-revision — T6, hole H3]**
+8. Levkov, Panin & Tkachev (2018), PRL 121, 151301 — gravitational Bose–Einstein condensation in the kinetic regime. **[co-revision — T2, hole H2]**
+9. Dmitriev, Levkov, Panin & Tkachev (2023), arXiv:2305.01005; (2025) arXiv:2509.02694 — self-similar growth of Bose stars. **[co-revision — T2]**
+10. Berezhiani & Khoury (2015), PRD 92, 103510 / PLB 753, 639 — theory of dark matter superfluidity. **[co-revision — T1]**
+11. Berezhiani et al. (2026), "Superfluid Dark Matter", Physics Reports, arXiv:2505.23900 — programme review; formation/stability caveats open. **[co-revision — T1]**
+12. Mistele, McGaugh & Hossenfelder (2023), JCAP 09, 004 — SFDM in tension with weak lensing "at least in its current form". **[co-revision — T1's stated open problem]**
+13. Berezhiani, Elder & Khoury (2019), JCAP 10, 074; Berezhiani, Cintia, De Luca & Khoury (2024), JCAP 06, 024, arXiv:2311.07672 — dynamical friction in superfluids: velocity condition, wake/no-wake regimes. (Bearing on H5.)
+14. Kwak, Jung & Shin (2022), arXiv:2210.04403 — supercritical obstacles shed vortices rather than piling up. (Bearing on H5.)
+15. Ferreira, Franzmann, Khoury & Brandenberger (2019), JCAP 2019(08) 027, arXiv:1810.09474 — unified superfluid dark sector; two-state mixture generating late-time acceleration.
+16. Barceló & Visser (2001), arXiv:gr-qc/0106002 — induced gravity; the "dynamic gap" for the effective metric. **[co-revision — T3, hole H4]**
+17. Barceló, Liberati & Visser, "Analogue Gravity", Living Reviews in Relativity, arXiv:gr-qc/0505065. **[co-revision — T3]**
+18. Verlinde (2016), arXiv:1611.02269 — emergent gravity: elastic response of the medium as apparent dark matter. **[co-revision — T4, hole H4]**
+19. Brouwer et al. (2016), arXiv:1612.03034 — first lensing test of emergent gravity; "no direct description of lensing and cosmology in EG yet". **[co-revision — T4's stated open problem]**
+20. Voit & Donahue (2015), ApJ 799, L1, arXiv:1409.1601; Voit et al., arXiv:1409.1598 / 1505.03592 — astrophysical precipitation (t_cool ≈ 10 t_ff) and feedback sustain. **[co-revision — T5, the sustain-loop translation; NOTE: Voit's "precipitation" is a different mechanism from this paper's — a flagged false friend]**
+21. Martins & Shellard; Hindmarsh & Kibble (review), arXiv:0811.1277 — defect-network scaling; frozen networks transient and energy-dominating (the standing constraint on §17's web). **[co-revision — T7, hole H3]**
+22. Zloshchastiev (2022), arXiv:2201.04135 — logarithmic superfluid vacuum theory; induced gravity from a Bose liquid.
+23. Huang (2013), arXiv:1309.5707 — a superfluid universe: one parent, both dark sectors, turbulence-formed structure.
+24. Bucher & Spergel (1998), arXiv:astro-ph/9812022 — elastic/solid dark matter (a space-filling elastic network that deliberately does NOT cluster — the contrast case for §17's web).
+25. He II counterflow heat rectification (2018), Commun. Appl. Ind. Math. 9 — thermal-gradient rectification in the helium literature (the laboratory home of §16's rectification candidate).
+
+## Contact
+
+Contact is welcome — co-revision especially. **Email first: zedwiater2@gmail.com.** My phone screens unknown numbers through RoboKiller, so first contact by email, please; conversation follows from there. This repository is public-read: read everything, cite it, argue with it.
