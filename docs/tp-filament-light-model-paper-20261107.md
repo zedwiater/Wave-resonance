@@ -808,3 +808,28 @@ The works below were reviewed on 2026-11-08 in a systematic similar-work search.
 ## Contact
 
 Contact is welcome — co-revision especially. **Email first: zedwiater2@gmail.com.** My phone screens unknown numbers through RoboKiller, so first contact by email, please; conversation follows from there. This repository is public-read: read everything, cite it, argue with it.
+
+## §19 — Second audit: the NS canon, a vacuity found and repaired, and the Riemann cross-reference (2026-11-08)
+
+At Zak's order the NS regularity canon was grabbed and cross-referenced the same way as §7's superfluid audit (16 full texts in the co-revision files). Its first finding concerns our own Lean schema (companion record: NSCompression.lean §8): the schema's geometric hypothesis was formalized in 2026-11-06 as a bound on the Jacobian DETERMINANT — and for incompressible flow det DΦ ≡ 1 identically, so that hypothesis is vacuous as stated (a compressible density-ratio notion imported into an incompressible claim). It is marked SUPERSEDED in the schema, repaired there as a full deformation-gradient band (the BKM / Neustupa–Penel neighbourhood), and its live form is the repaired conjecture S1R. One genuine discharge came out of the canon: on bounded domains the schema's SPEED band alone sits inside Prodi–Serrin (and at the Escauriaza–Seregin–Šverák endpoint), so that case follows from published theorems with the geometric half idle; on ℝ³ it does not.
+
+Riemann cross-reference, stated plainly: NO published work connects Navier–Stokes regularity to the Riemann hypothesis; the two band statements (compression/rate band; critical strip with its line) are a structural rhyme and are recorded here as an analogy, not a bridge. The genuine shared machinery one level down: Gaussian multiplicative chaos — created for the Kolmogorov–Obukhov turbulence cascade model — is PROVED (Saksman–Webb) to govern ζ's critical-line statistics, and the Fyodorov–Keating freezing predictions for log|ζ| maxima were largely proved after the fact (values on the line, not zero locations; RH-agnostic). Bender–Brody–Müller is flagged CONTESTED (Bellissard). A 2025–26 loop-space turbulence programme claiming turbulence exponents from the zeros of ζ (Migdal) is recorded as an UNVERIFIED preprint claim — never cited as a result.
+
+## References II — the NS canon and the Riemann cross-reference (reviewed 2026-11-08)
+
+26. Leray (1934), "Sur le mouvement d'un liquide visqueux emplissant l'espace", Acta Math. 63 — weak solutions; the existence framework.
+27. Prodi (1959); Serrin (1962); Ladyzhenskaya — the Prodi–Serrin criteria: u ∈ L^q_t L^p_x, 2/q + 3/p = 1, p > 3 ⇒ uniqueness and smoothness.
+28. Beale, Kato & Majda (1984), Comm. Math. Phys. 94 — blow-up iff ∫‖ω‖∞ dt = ∞ (NS form via Ponce 1985).
+29. Caffarelli, Kohn & Nirenberg (1982), Comm. Pure Appl. Math. 35 — partial regularity: the singular set has parabolic Hausdorff dimension ≤ 1 (measure zero in dimension 1).
+30. Constantin & Fefferman (1993), Indiana Univ. Math. J. 42 — vorticity-direction coherence depletes stretching ⇒ regularity.
+31. Escauriaza, Seregin & Šverák (2003), Russian Math. Surveys 58 — the L∞_t L³_x endpoint ⇒ smoothness.
+32. Neustupa & Penel (2005), Banach Center Publ. 70 — strain-eigenvalue criteria: only λ₂⁺ (the middle eigenvalue's positive part) needs control.
+33. Tao (2016), J. Amer. Math. Soc. 29, arXiv:1402.0290 — finite-time blow-up for an averaged NS model: energy-level arguments cannot settle regularity.
+34. Montgomery (1973), Proc. Sympos. Pure Math. 24 — pair correlation of the zeros (restricted-support theorem under RH; full GUE law conjectured).
+35. Odlyzko (1987), Math. Comp. 48 — numerical GUE evidence for zero spacings.
+36. Berry & Keating (1999), SIAM Review 41 — H = xp and the Riemann zeros (heuristic Hilbert–Pólya programme).
+37. Connes (1999), Selecta Math. 5, arXiv:math/9811068 — trace formula in noncommutative geometry; global form equivalent to RH.
+38. Bender, Brody & Müller (2017), Phys. Rev. Lett. 118, arXiv:1608.03679 — PT-symmetric Hamiltonian for the zeros. **CONTESTED:** Bellissard (2017), arXiv:1704.02644; authors' reply arXiv:1705.06767.
+39. Fyodorov, Hiary & Keating (2012), Phys. Rev. Lett. 108, arXiv:1202.4713; Fyodorov & Keating (2014), Phil. Trans. R. Soc. A 372, arXiv:1211.6063 — ζ as a log-correlated field; freezing transition.
+40. Saksman & Webb, arXiv:1609.00027 — the Riemann zeta function and Gaussian multiplicative chaos: critical-line statistics PROVED to be a GMC.
+41. Rhodes & Vargas (2014), arXiv:1305.6221 — Gaussian multiplicative chaos review; GMC's origin in the Kolmogorov–Obukhov turbulence cascade model.

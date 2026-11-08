@@ -73,6 +73,19 @@ filament light-model paper, now through §18
   conjecture, its F17 contrapositive proved from it by logic. Lean exits 0,
   exactly 5 sorries — all named, all conjectures, none hidden.
 
+**Second audit (2026-11-08, later) — the NS canon.** The schema's geometric
+hypothesis, formalized in 2026-11-06 as a bound on the Jacobian *determinant*,
+is **vacuous for incompressible flow** (det DΦ ≡ 1 identically): S1 is marked
+SUPERSEDED in the schema — not proved, not refuted, exposed as empty under its
+stated reading — and repaired as a full deformation-gradient band (S1R, the
+live conjecture, BKM/Neustupa–Penel neighbourhood). One genuine discharge: on
+bounded domains the *speed* band alone sits inside Prodi–Serrin, so that case
+follows from published theorems. The Riemann cross-reference found **no
+published bridge** between NS regularity and RH — the two band statements are
+recorded as an analogy; the genuine shared machinery is Gaussian multiplicative
+chaos (turbulence cascades → ζ statistics, Saksman–Webb, proved). Detail:
+NSCompression.lean §§7–8 and the paper's §19 / References II.
+
 Protocol-4 is grading the thermal layer as this is written. The holes board,
 the teammate dossiers, and the full search report travel with the working
 files; the papers they rest on are cited below.
@@ -109,6 +122,22 @@ collaboration.
 23. Huang (2013), arXiv:1309.5707 — a superfluid universe.
 24. Bucher & Spergel (1998), arXiv:astro-ph/9812022 — elastic/solid dark matter.
 25. He II counterflow heat rectification (2018), *Commun. Appl. Ind. Math.* 9.
+
+**References II — NS canon & Riemann cross-reference (reviewed 2026-11-08):**
+26. Leray (1934), *Acta Math.* 63 — weak solutions.
+27. Prodi (1959); Serrin (1962); Ladyzhenskaya — Prodi–Serrin criteria.
+28. Beale–Kato–Majda (1984), *Comm. Math. Phys.* 94 — the vorticity-integral criterion.
+29. Caffarelli–Kohn–Nirenberg (1982), *Comm. Pure Appl. Math.* 35 — partial regularity.
+30. Constantin–Fefferman (1993), *Indiana Univ. Math. J.* 42 — vorticity-direction criterion.
+31. Escauriaza–Seregin–Šverák (2003), *Russian Math. Surveys* 58 — the L∞_t L³_x endpoint.
+32. Neustupa–Penel (2005), *Banach Center Publ.* 70 — strain-eigenvalue (λ₂⁺) criteria.
+33. Tao (2016), arXiv:1402.0290 — blow-up for an averaged NS model (method boundary).
+34. Montgomery (1973) — pair correlation of zeros. 35. Odlyzko (1987) — GUE numerics.
+36. Berry–Keating (1999), *SIAM Review* 41 — H = xp. 37. Connes (1999), arXiv:math/9811068 — trace formula.
+38. Bender–Brody–Müller (2017), arXiv:1608.03679 — **CONTESTED** (Bellissard, arXiv:1704.02644).
+39. Fyodorov–Hiary–Keating (2012), arXiv:1202.4713 — freezing transition and ζ.
+40. Saksman–Webb, arXiv:1609.00027 — ζ statistics are a Gaussian multiplicative chaos (proved).
+41. Rhodes–Vargas (2014), arXiv:1305.6221 — GMC review; its turbulence-cascade origin.
 
 ## Credits
 
