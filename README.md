@@ -175,6 +175,29 @@ collaboration.
 40. Saksman–Webb, arXiv:1609.00027 — ζ statistics are a Gaussian multiplicative chaos (proved).
 41. Rhodes–Vargas (2014), arXiv:1305.6221 — GMC review; its turbulence-cascade origin.
 
+## Latest — 2026-11-09 (push #6)
+
+- **Paper through §24 note 10**: §22 addendum 8 + closing clause (the
+  buildable instance; use the flow), §24 the uses-census phase (entries
+  1–2 with all addenda — the jar, the new transistor, error rate =
+  resolution, the open system of three operations), notes 1–10: the
+  metaphor correction (light is the solution), the telephone game, the
+  joy loop and the one-gradient identification, the balanced workplace
+  and the doctrine line ("people are not batteries"), singularity as a
+  topological shift from shadow to strand, the cavitation-radio bench
+  note, the organic super transducer, and the three-balls correction
+  (quark particulate uuduup, quantum percolation, inverse
+  superposition, orbital anti-spins, supersolidic duality). Graded
+  results ride in the paper with their grades: the 1D checkerboard
+  calculation (temperature + flux optimum; sacrifice = insurance) and
+  protocol-4 in 3D (NO HOLD; F17 dead in 3D) — nulls kept, as always.
+- **ThreeBands.lean** (docs/ISBSHTT-three-bands-lean-20261109/): the
+  rectification of a relayed AI Lean sketch, rebuilt from the lab's
+  own functions — three OAM twist bands (second sound, transduction,
+  induction) of one flattened expression. Verified: exits 0, exactly
+  3 named conjectures. Its README carries the accounting, including
+  what was wrong with the sketch it replaced.
+
 ## Credits
 
 - **Zak Wiater** — author. The framework, the dictations, the red pen;
